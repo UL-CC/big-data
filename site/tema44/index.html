@@ -5,15 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Ejemplo XML - Métodos de Procesamiento y Análisis de Big Data</title>
+    <title>Uso de `BashOperator`, `PythonOperator` y `SparkSubmitOperator` - Métodos de Procesamiento y Análisis de Big Data</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Ejemplo XML";
-        var mkdocs_page_input_path = "ejemplo_xml.md";
+        var mkdocs_page_name = "Uso de `BashOperator`, `PythonOperator` y `SparkSubmitOperator`";
+        var mkdocs_page_input_path = "tema44.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -83,14 +83,18 @@
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Automatización y Orquestación con Apache Airflow</span></p>
-              <ul>
+              <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../tema41/">Arquitectura y componentes de Airflow</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tema42/">Instalación local usando Docker</a>
                   </li>
                   <li class="toctree-l1"><a class="" href="../tema43.md">DAGs, operadores y tareas</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema44/">Uso de `BashOperator`, `PythonOperator` y `SparkSubmitOperator`</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Uso de `BashOperator`, `PythonOperator` y `SparkSubmitOperator`</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#tema-21-operaciones-con-dataframes">Tema 2.1. Operaciones con DataFrames</a>
+    </li>
+    </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tema45/">Monitoreo y manejo de dependencias</a>
                   </li>
@@ -116,7 +120,8 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Ejemplo XML</li>
+          <li class="breadcrumb-item">Automatización y Orquestación con Apache Airflow</li>
+      <li class="breadcrumb-item active">Uso de `BashOperator`, `PythonOperator` y `SparkSubmitOperator`</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -125,121 +130,16 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="ejemplo-xml">Ejemplo XML</h1>
-<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;FacturaElectronica xmlns=&quot;http://www.facturacion.gov.co/schema&quot; version=&quot;2.1&quot;&gt;
-
-  &lt;!-- Información de la factura --&gt;
-  &lt;InformacionGeneral&gt;
-    &lt;NumeroFactura&gt;FE-2024-001234&lt;/NumeroFactura&gt;
-    &lt;FechaEmision&gt;2024-05-30&lt;/FechaEmision&gt;
-    &lt;HoraEmision&gt;14:30:00&lt;/HoraEmision&gt;
-    &lt;TipoDocumento&gt;01&lt;/TipoDocumento&gt; &lt;!-- 01 = Factura de Venta --&gt;
-    &lt;Moneda&gt;COP&lt;/Moneda&gt;
-    &lt;CUFE&gt;a1b2c3d4e5f6789012345678901234567890abcd&lt;/CUFE&gt;
-  &lt;/InformacionGeneral&gt;
-
-  &lt;!-- Datos del emisor --&gt;
-  &lt;Emisor&gt;
-    &lt;RazonSocial&gt;Tecnología y Soluciones SAS&lt;/RazonSocial&gt;
-    &lt;NIT&gt;900123456-1&lt;/NIT&gt;
-    &lt;RegimenFiscal&gt;49&lt;/RegimenFiscal&gt; &lt;!-- Responsable del IVA --&gt;
-    &lt;Direccion&gt;
-      &lt;Calle&gt;Carrera 15 # 93-45&lt;/Calle&gt;
-      &lt;Ciudad&gt;Bogotá&lt;/Ciudad&gt;
-      &lt;Departamento&gt;Cundinamarca&lt;/Departamento&gt;
-      &lt;CodigoPostal&gt;110221&lt;/CodigoPostal&gt;
-    &lt;/Direccion&gt;
-    &lt;Telefono&gt;+57-1-2345678&lt;/Telefono&gt;
-    &lt;Email&gt;facturacion@tecysol.com.co&lt;/Email&gt;
-  &lt;/Emisor&gt;
-
-  &lt;!-- Datos del receptor --&gt;
-  &lt;Receptor&gt;
-    &lt;RazonSocial&gt;Comercializadora del Valle LTDA&lt;/RazonSocial&gt;
-    &lt;NIT&gt;800987654-2&lt;/NIT&gt;
-    &lt;RegimenFiscal&gt;48&lt;/RegimenFiscal&gt;
-    &lt;Direccion&gt;
-      &lt;Calle&gt;Avenida 6N # 25-80&lt;/Calle&gt;
-      &lt;Ciudad&gt;Cali&lt;/Ciudad&gt;
-      &lt;Departamento&gt;Valle del Cauca&lt;/Departamento&gt;
-      &lt;CodigoPostal&gt;760001&lt;/CodigoPostal&gt;
-    &lt;/Direccion&gt;
-    &lt;Email&gt;compras@comervalle.com.co&lt;/Email&gt;
-  &lt;/Receptor&gt;
-
-  &lt;!-- Detalle de productos/servicios --&gt;
-  &lt;DetalleFactura&gt;
-    &lt;Item&gt;
-      &lt;NumeroLinea&gt;1&lt;/NumeroLinea&gt;
-      &lt;CodigoProducto&gt;SOFT-001&lt;/CodigoProducto&gt;
-      &lt;Descripcion&gt;Licencia de Software ERP - Módulo Contable&lt;/Descripcion&gt;
-      &lt;Cantidad&gt;2&lt;/Cantidad&gt;
-      &lt;UnidadMedida&gt;UND&lt;/UnidadMedida&gt;
-      &lt;ValorUnitario&gt;2500000.00&lt;/ValorUnitario&gt;
-      &lt;ValorTotal&gt;5000000.00&lt;/ValorTotal&gt;
-      &lt;Impuestos&gt;
-        &lt;IVA&gt;
-          &lt;Porcentaje&gt;19.00&lt;/Porcentaje&gt;
-          &lt;Valor&gt;950000.00&lt;/Valor&gt;
-        &lt;/IVA&gt;
-      &lt;/Impuestos&gt;
-    &lt;/Item&gt;
-
-    &lt;Item&gt;
-      &lt;NumeroLinea&gt;2&lt;/NumeroLinea&gt;
-      &lt;CodigoProducto&gt;SERV-001&lt;/CodigoProducto&gt;
-      &lt;Descripcion&gt;Servicio de Implementación y Capacitación&lt;/Descripcion&gt;
-      &lt;Cantidad&gt;20&lt;/Cantidad&gt;
-      &lt;UnidadMedida&gt;HOR&lt;/UnidadMedida&gt;
-      &lt;ValorUnitario&gt;150000.00&lt;/ValorUnitario&gt;
-      &lt;ValorTotal&gt;3000000.00&lt;/ValorTotal&gt;
-      &lt;Impuestos&gt;
-        &lt;IVA&gt;
-          &lt;Porcentaje&gt;19.00&lt;/Porcentaje&gt;
-          &lt;Valor&gt;570000.00&lt;/Valor&gt;
-        &lt;/IVA&gt;
-      &lt;/Impuestos&gt;
-    &lt;/Item&gt;
-  &lt;/DetalleFactura&gt;
-
-  &lt;!-- Totales de la factura --&gt;
-  &lt;Totales&gt;
-    &lt;SubTotal&gt;8000000.00&lt;/SubTotal&gt;
-    &lt;TotalImpuestos&gt;1520000.00&lt;/TotalImpuestos&gt;
-    &lt;TotalDescuentos&gt;0.00&lt;/TotalDescuentos&gt;
-    &lt;Total&gt;9520000.00&lt;/Total&gt;
-    &lt;TotalEnLetras&gt;NUEVE MILLONES QUINIENTOS VEINTE MIL PESOS M/CTE&lt;/TotalEnLetras&gt;
-  &lt;/Totales&gt;
-
-  &lt;!-- Medios de pago --&gt;
-  &lt;MediosPago&gt;
-    &lt;MedioPago&gt;
-      &lt;Codigo&gt;10&lt;/Codigo&gt; &lt;!-- Efectivo --&gt;
-      &lt;Descripcion&gt;Efectivo&lt;/Descripcion&gt;
-      &lt;FechaPago&gt;2024-06-15&lt;/FechaPago&gt;
-    &lt;/MedioPago&gt;
-  &lt;/MediosPago&gt;
-
-  &lt;!-- Información adicional --&gt;
-  &lt;InformacionAdicional&gt;
-    &lt;CampoAdicional nombre=&quot;Orden de Compra&quot;&gt;OC-2024-0567&lt;/CampoAdicional&gt;
-    &lt;CampoAdicional nombre=&quot;Vendedor&quot;&gt;Juan Pérez&lt;/CampoAdicional&gt;
-    &lt;CampoAdicional nombre=&quot;Observaciones&quot;&gt;Entrega en 15 días hábiles&lt;/CampoAdicional&gt;
-  &lt;/InformacionAdicional&gt;
-
-  &lt;!-- Firma digital (representación simplificada) --&gt;
-  &lt;FirmaDigital&gt;
-    &lt;Certificado&gt;MIICertificadoDigital...&lt;/Certificado&gt;
-    &lt;Algoritmo&gt;SHA256withRSA&lt;/Algoritmo&gt;
-    &lt;FechaFirma&gt;2024-05-30T14:30:00Z&lt;/FechaFirma&gt;
-  &lt;/FirmaDigital&gt;
-
-&lt;/FacturaElectronica&gt;
-</code></pre>
+                <h1 id="2-pyspark-y-sparksql">2. PySpark y SparkSQL</h1>
+<h2 id="tema-21-operaciones-con-dataframes">Tema 2.1. Operaciones con DataFrames</h2>
+<p><em>Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.</em></p>
               
             </div>
           </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../tema42/" class="btn btn-neutral float-left" title="Instalación local usando Docker"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../tema45/" class="btn btn-neutral float-right" title="Monitoreo y manejo de dependencias">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
 
   <hr/>
 
@@ -261,6 +161,10 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
+      <span><a href="../tema42/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../tema45/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

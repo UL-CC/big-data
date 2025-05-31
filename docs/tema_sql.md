@@ -1,3 +1,5 @@
+[← Volver al Inicio](index.md)
+
 # Repaso de SQL
 
 ## 1. Consultas Básicas (SELECT)
@@ -256,4 +258,6 @@ LIMIT 10;
 -- Uso de EXPLAIN para analizar el plan de ejecución
 EXPLAIN SELECT * FROM productos WHERE categoria = 'Libros' AND precio > 20;
 ```
+
+[← Volver al Inicio](index.md)
 

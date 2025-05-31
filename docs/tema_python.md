@@ -1,3 +1,5 @@
+[← Volver al Inicio](index.md)
+
 # Dominio básico de Python
 
 Antes de sumergirse en es módulo, es importante que cada estudiante tenga una base sólida en Python y herramientas esenciales para el análisis de datos. Esta guía ofrece una serie de temas para repasar, junto con referencias a videos clave
@@ -28,4 +30,6 @@ Antes de sumergirse en es módulo, es importante que cada estudiante tenga una b
   - Video: [Análisis de Datos con Pandas](https://youtu.be/HMVFrFx2eH8?feature=shared&t=581)
   - Cuaderno: [Pandas](https://colab.research.google.com/drive/1w-mTwigCx6hkO_AjSg23Na27BoDEYOeh?usp=sharing)
   - Sitio: [Manual de Pandas](https://aprendeconalf.es/docencia/python/manual/pandas/)
+
+[← Volver al Inicio](index.md)
 

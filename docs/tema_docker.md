@@ -1,3 +1,5 @@
+[← Volver al Inicio](index.md)
+
 # Instalación y Configuración de Docker y WSL2
 
 Para trabajar cómodamente con [Spark](https://spark.apache.org/) y [Jupyter](https://jupyter.org/), es recomendable usar [Docker](https://www.docker.com/) en combinación con [WSL2](https://learn.microsoft.com/es-es/windows/wsl/install) (Windows Subsystem for Linux). Esto garantizará un entorno flexible y eficiente para el desarrollo.
@@ -45,4 +47,6 @@ docker run hello-world
 ```
 
 Ese contenedor solo sirve para probar que Docker funciona, hay más imágenes preconstruidas en [Docker Hub](https://hub.docker.com/) que puedes utilizar para ejecutar otros servicios.
+
+[← Volver al Inicio](index.md)
 
