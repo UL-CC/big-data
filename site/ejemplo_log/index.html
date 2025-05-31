@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Ejemplo LOG de acceso web - Métodos de Procesamiento y Análisis de Big Data</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Ejemplo LOG de acceso web";
+        var mkdocs_page_input_path = "ejemplo_log.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Métodos de Procesamiento y Análisis de Big Data
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Inicio</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Introducción</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema11/">Fundamentos de Big Data</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema12/">Introducción al ecosistema Spark</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema13/">RDD, DataFrame y Dataset</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema14/">Instalación y configuración de Spark</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema15/">Primeros pasos con PySpark</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">PySpark y SparkSQL</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../tema21.md">Operaciones con DataFrames</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema22.md">Funciones integradas y definidas por el usuario</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema23.md">Consultas con SparkSQL</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema24.md">Esquemas y tipos de datos complejos</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema25.md">Optimización con Catalyst y Tungsten</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Arquitectura y Diseño de Flujos ETL</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../tema31.md">Diseño de pipelines ETL</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema32.md">Conexión a múltiples fuentes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema33.md">Procesos escalables y particionamiento</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema34.md">Buenas prácticas para ETL en Spark</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema35.md">Introducción a Apache Airflow</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Automatización y Orquestación con Apache Airflow</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../tema41.md">Arquitectura y componentes de Airflow</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema42.md">Instalación local usando Docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema43.md">DAGs, operadores y tareas</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema44.md">Uso de `BashOperator`, `PythonOperator` y `SparkSubmitOperator`</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema45.md">Monitoreo y manejo de dependencias</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Proyecto Integrador y Despliegue</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../tema51.md">Desarrollo del proyecto integrador</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema51.md">Despliegue en nube</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Métodos de Procesamiento y Análisis de Big Data</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Ejemplo LOG de acceso web</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="ejemplo-log-de-acceso-web">Ejemplo LOG de acceso web</h1>
+<pre><code class="language-text">192.168.1.45 - - [30/May/2025:08:15:23 +0000] &quot;GET /index.html HTTP/1.1&quot; 200 4521 &quot;-&quot; &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36&quot;
+10.0.0.12 - - [30/May/2025:08:15:45 +0000] &quot;POST /api/login HTTP/1.1&quot; 200 156 &quot;https://example.com/login&quot; &quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15&quot;
+203.0.113.78 - - [30/May/2025:08:16:02 +0000] &quot;GET /css/styles.css HTTP/1.1&quot; 200 12458 &quot;https://example.com/index.html&quot; &quot;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36&quot;
+192.168.1.67 - - [30/May/2025:08:16:18 +0000] &quot;GET /images/logo.png HTTP/1.1&quot; 200 8742 &quot;https://example.com/index.html&quot; &quot;Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15&quot;
+198.51.100.34 - - [30/May/2025:08:16:35 +0000] &quot;GET /products/catalog HTTP/1.1&quot; 200 15632 &quot;https://example.com/index.html&quot; &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101 Firefox/91.0&quot;
+172.16.0.89 - - [30/May/2025:08:16:52 +0000] &quot;POST /api/search HTTP/1.1&quot; 200 2847 &quot;https://example.com/products&quot; &quot;Mozilla/5.0 (Android 11; Mobile; rv:68.0) Gecko/68.0 Firefox/88.0&quot;
+10.0.0.156 - - [30/May/2025:08:17:08 +0000] &quot;GET /admin/dashboard HTTP/1.1&quot; 401 891 &quot;-&quot; &quot;curl/7.68.0&quot;
+192.168.1.23 - - [30/May/2025:08:17:25 +0000] &quot;GET /js/main.js HTTP/1.1&quot; 200 34521 &quot;https://example.com/products&quot; &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36&quot;
+203.0.113.145 - - [30/May/2025:08:17:41 +0000] &quot;GET /about-us HTTP/1.1&quot; 200 6789 &quot;https://example.com/index.html&quot; &quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36&quot;
+198.51.100.67 - - [30/May/2025:08:17:58 +0000] &quot;GET /contact HTTP/1.1&quot; 200 3456 &quot;https://example.com/about-us&quot; &quot;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:89.0) Gecko/20100101 Firefox/89.0&quot;
+172.16.0.201 - - [30/May/2025:08:18:14 +0000] &quot;POST /api/newsletter HTTP/1.1&quot; 201 78 &quot;https://example.com/contact&quot; &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36&quot;
+192.168.1.78 - - [30/May/2025:08:18:31 +0000] &quot;GET /favicon.ico HTTP/1.1&quot; 200 1150 &quot;-&quot; &quot;Mozilla/5.0 (iPhone; CPU iPhone OS 14_7_1 like Mac OS X) AppleWebKit/605.1.15&quot;
+10.0.0.87 - - [30/May/2025:08:18:47 +0000] &quot;GET /products/item/123 HTTP/1.1&quot; 200 9876 &quot;https://example.com/products/catalog&quot; &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36&quot;
+203.0.113.92 - - [30/May/2025:08:19:04 +0000] &quot;GET /images/product-123.jpg HTTP/1.1&quot; 200 45632 &quot;https://example.com/products/item/123&quot; &quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15&quot;
+198.51.100.156 - - [30/May/2025:08:19:20 +0000] &quot;POST /api/cart/add HTTP/1.1&quot; 200 234 &quot;https://example.com/products/item/123&quot; &quot;Mozilla/5.0 (Android 12; SM-G991B) AppleWebKit/537.36&quot;
+172.16.0.45 - - [30/May/2025:08:19:37 +0000] &quot;GET /cart HTTP/1.1&quot; 200 5678 &quot;https://example.com/products/item/123&quot; &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:92.0) Gecko/20100101 Firefox/92.0&quot;
+192.168.1.134 - - [30/May/2025:08:19:53 +0000] &quot;GET /checkout HTTP/1.1&quot; 200 7890 &quot;https://example.com/cart&quot; &quot;Mozilla/5.0 (iPad; CPU OS 15_0 like Mac OS X) AppleWebKit/605.1.15&quot;
+10.0.0.198 - - [30/May/2025:08:20:10 +0000] &quot;POST /api/payment HTTP/1.1&quot; 200 445 &quot;https://example.com/checkout&quot; &quot;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36&quot;
+203.0.113.34 - - [30/May/2025:08:20:26 +0000] &quot;GET /order/confirmation/987654 HTTP/1.1&quot; 200 2345 &quot;https://example.com/checkout&quot; &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36&quot;
+198.51.100.89 - - [30/May/2025:08:20:43 +0000] &quot;GET /robots.txt HTTP/1.1&quot; 200 156 &quot;-&quot; &quot;Googlebot/2.1 (+http://www.google.com/bot.html)&quot;
+172.16.0.123 - - [30/May/2025:08:20:59 +0000] &quot;GET /sitemap.xml HTTP/1.1&quot; 200 3456 &quot;-&quot; &quot;Bingbot/2.0 (+http://www.bing.com/bingbot.htm)&quot;
+192.168.1.99 - - [30/May/2025:08:21:16 +0000] &quot;GET /blog HTTP/1.1&quot; 200 12345 &quot;https://example.com/index.html&quot; &quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36&quot;
+10.0.0.67 - - [30/May/2025:08:21:32 +0000] &quot;GET /blog/post/latest-trends HTTP/1.1&quot; 200 8765 &quot;https://example.com/blog&quot; &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:90.0) Gecko/20100101 Firefox/90.0&quot;
+203.0.113.178 - - [30/May/2025:08:21:49 +0000] &quot;GET /images/blog/trends.jpg HTTP/1.1&quot; 200 67890 &quot;https://example.com/blog/post/latest-trends&quot; &quot;Mozilla/5.0 (iPhone; CPU iPhone OS 15_1 like Mac OS X) AppleWebKit/605.1.15&quot;
+198.51.100.123 - - [30/May/2025:08:22:05 +0000] &quot;POST /api/comments HTTP/1.1&quot; 201 89 &quot;https://example.com/blog/post/latest-trends&quot; &quot;Mozilla/5.0 (Android 11; Pixel 5) AppleWebKit/537.36&quot;
+172.16.0.67 - - [30/May/2025:08:22:22 +0000] &quot;GET /support HTTP/1.1&quot; 200 4567 &quot;https://example.com/index.html&quot; &quot;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:88.0) Gecko/20100101 Firefox/88.0&quot;
+192.168.1.156 - - [30/May/2025:08:22:38 +0000] &quot;GET /support/faq HTTP/1.1&quot; 200 9876 &quot;https://example.com/support&quot; &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36&quot;
+10.0.0.234 - - [30/May/2025:08:22:55 +0000] &quot;POST /api/ticket HTTP/1.1&quot; 201 156 &quot;https://example.com/support&quot; &quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15&quot;
+203.0.113.67 - - [30/May/2025:08:23:11 +0000] &quot;GET /downloads HTTP/1.1&quot; 200 2345 &quot;https://example.com/support&quot; &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101 Firefox/91.0&quot;
+198.51.100.45 - - [30/May/2025:08:23:28 +0000] &quot;GET /downloads/manual.pdf HTTP/1.1&quot; 200 1234567 &quot;https://example.com/downloads&quot; &quot;Mozilla/5.0 (iPad; CPU OS 14_8 like Mac OS X) AppleWebKit/605.1.15&quot;
+172.16.0.189 - - [30/May/2025:08:23:44 +0000] &quot;GET /api/status HTTP/1.1&quot; 200 56 &quot;-&quot; &quot;curl/7.74.0&quot;
+192.168.1.67 - - [30/May/2025:08:24:01 +0000] &quot;GET /search?q=laptop HTTP/1.1&quot; 200 15678 &quot;https://example.com/index.html&quot; &quot;Mozilla/5.0 (Android 12; SM-A515F) AppleWebKit/537.36&quot;
+10.0.0.123 - - [30/May/2025:08:24:17 +0000] &quot;GET /products/item/456 HTTP/1.1&quot; 200 8900 &quot;https://example.com/search?q=laptop&quot; &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36&quot;
+203.0.113.156 - - [30/May/2025:08:24:34 +0000] &quot;GET /api/reviews/456 HTTP/1.1&quot; 200 3456 &quot;https://example.com/products/item/456&quot; &quot;Mozilla/5.0 (X11; Linux x86_64; rv:89.0) Gecko/20100101 Firefox/89.0&quot;
+198.51.100.78 - - [30/May/2025:08:24:50 +0000] &quot;GET /login HTTP/1.1&quot; 200 2345 &quot;-&quot; &quot;Mozilla/5.0 (iPhone; CPU iPhone OS 15_2 like Mac OS X) AppleWebKit/605.1.15&quot;
+172.16.0.234 - - [30/May/2025:08:25:07 +0000] &quot;POST /api/auth HTTP/1.1&quot; 401 234 &quot;https://example.com/login&quot; &quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36&quot;
+192.168.1.89 - - [30/May/2025:08:25:23 +0000] &quot;GET /password-reset HTTP/1.1&quot; 200 1789 &quot;https://example.com/login&quot; &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:93.0) Gecko/20100101 Firefox/93.0&quot;
+10.0.0.156 - - [30/May/2025:08:25:40 +0000] &quot;POST /api/password-reset HTTP/1.1&quot; 200 67 &quot;https://example.com/password-reset&quot; &quot;Mozilla/5.0 (Android 11; Pixel 4a) AppleWebKit/537.36&quot;
+203.0.113.99 - - [30/May/2025:08:25:56 +0000] &quot;GET /profile HTTP/1.1&quot; 302 0 &quot;https://example.com/index.html&quot; &quot;Mozilla/5.0 (iPad; CPU OS 15_1
+</code></pre>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

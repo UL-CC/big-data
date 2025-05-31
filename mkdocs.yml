@@ -1,0 +1,39 @@
+site_name: Métodos de Procesamiento y Análisis de Big Data
+
+nav:
+  - Inicio: index.md
+  
+  - Introducción:
+    - Fundamentos de Big Data: tema11.md
+    - Introducción al ecosistema Spark: tema12.md
+    - RDD, DataFrame y Dataset: tema13.md
+    - Instalación y configuración de Spark: tema14.md
+    - Primeros pasos con PySpark: tema15.md
+
+  - PySpark y SparkSQL:
+    - Operaciones con DataFrames: tema21.md
+    - Funciones integradas y definidas por el usuario: tema22.md
+    - Consultas con SparkSQL: tema23.md
+    - Esquemas y tipos de datos complejos: tema24.md
+    - Optimización con Catalyst y Tungsten: tema25.md
+
+  - Arquitectura y Diseño de Flujos ETL:
+    - Diseño de pipelines ETL: tema31.md
+    - Conexión a múltiples fuentes: tema32.md
+    - Procesos escalables y particionamiento: tema33.md
+    - Buenas prácticas para ETL en Spark: tema34.md
+    - Introducción a Apache Airflow: tema35.md
+
+  - Automatización y Orquestación con Apache Airflow:
+    - Arquitectura y componentes de Airflow: tema41.md
+    - Instalación local usando Docker: tema42.md
+    - DAGs, operadores y tareas: tema43.md
+    - Uso de `BashOperator`, `PythonOperator` y `SparkSubmitOperator`: tema44.md
+    - Monitoreo y manejo de dependencias: tema45.md
+
+  - Proyecto Integrador y Despliegue:
+    - Desarrollo del proyecto integrador: tema51.md
+    - Despliegue en nube: tema51.md
+
+theme: readthedocs
+

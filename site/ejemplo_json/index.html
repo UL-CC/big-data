@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Ejemplo JSON - Métodos de Procesamiento y Análisis de Big Data</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Ejemplo JSON";
+        var mkdocs_page_input_path = "ejemplo_json.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Métodos de Procesamiento y Análisis de Big Data
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Inicio</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Introducción</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema11/">Fundamentos de Big Data</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema12/">Introducción al ecosistema Spark</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema13/">RDD, DataFrame y Dataset</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema14/">Instalación y configuración de Spark</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema15/">Primeros pasos con PySpark</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">PySpark y SparkSQL</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../tema21.md">Operaciones con DataFrames</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema22.md">Funciones integradas y definidas por el usuario</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema23.md">Consultas con SparkSQL</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema24.md">Esquemas y tipos de datos complejos</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema25.md">Optimización con Catalyst y Tungsten</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Arquitectura y Diseño de Flujos ETL</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../tema31.md">Diseño de pipelines ETL</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema32.md">Conexión a múltiples fuentes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema33.md">Procesos escalables y particionamiento</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema34.md">Buenas prácticas para ETL en Spark</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema35.md">Introducción a Apache Airflow</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Automatización y Orquestación con Apache Airflow</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../tema41.md">Arquitectura y componentes de Airflow</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema42.md">Instalación local usando Docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema43.md">DAGs, operadores y tareas</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema44.md">Uso de `BashOperator`, `PythonOperator` y `SparkSubmitOperator`</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema45.md">Monitoreo y manejo de dependencias</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Proyecto Integrador y Despliegue</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../tema51.md">Desarrollo del proyecto integrador</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema51.md">Despliegue en nube</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Métodos de Procesamiento y Análisis de Big Data</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Ejemplo JSON</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="ejemplo-json">Ejemplo JSON</h1>
+<pre><code class="language-json">{
+  &quot;hospital&quot;: {
+    &quot;id&quot;: &quot;HSP-001&quot;,
+    &quot;nombre&quot;: &quot;Hospital Universitario del Valle&quot;,
+    &quot;ubicacion&quot;: &quot;Cali, Colombia&quot;
+  },
+  &quot;sesion_monitoreo&quot;: {
+    &quot;id&quot;: &quot;SES-20250530-001&quot;,
+    &quot;fecha_inicio&quot;: &quot;2025-05-30T08:00:00Z&quot;,
+    &quot;fecha_fin&quot;: &quot;2025-05-30T20:00:00Z&quot;,
+    &quot;unidad&quot;: &quot;UCI&quot;,
+    &quot;habitacion&quot;: &quot;UCI-205&quot;
+  },
+  &quot;paciente&quot;: {
+    &quot;id&quot;: &quot;P12345&quot;,
+    &quot;historia_clinica&quot;: &quot;HC-789456&quot;,
+    &quot;edad&quot;: 45,
+    &quot;sexo&quot;: &quot;M&quot;,
+    &quot;peso_kg&quot;: 75.5,
+    &quot;altura_cm&quot;: 175,
+    &quot;condicion_principal&quot;: &quot;Post-operatorio cardiovascular&quot;
+  },
+  &quot;dispositivos_monitoreados&quot;: [
+    {
+      &quot;dispositivo_id&quot;: &quot;MON-CV-001&quot;,
+      &quot;fabricante&quot;: &quot;Philips&quot;,
+      &quot;modelo&quot;: &quot;IntelliVue MX800&quot;,
+      &quot;ubicacion&quot;: &quot;Cabecera cama&quot;,
+      &quot;estado&quot;: &quot;activo&quot;,
+      &quot;ultima_calibracion&quot;: &quot;2025-05-29T14:30:00Z&quot;
+    },
+    {
+      &quot;dispositivo_id&quot;: &quot;VENT-001&quot;,
+      &quot;fabricante&quot;: &quot;Medtronic&quot;,
+      &quot;modelo&quot;: &quot;Puritan Bennett 980&quot;,
+      &quot;ubicacion&quot;: &quot;Soporte ventilatorio&quot;,
+      &quot;estado&quot;: &quot;activo&quot;,
+      &quot;ultima_mantenimiento&quot;: &quot;2025-05-25T09:00:00Z&quot;
+    }
+  ],
+  &quot;registros_sensores&quot;: [
+    {
+      &quot;id&quot;: &quot;REG-001&quot;,
+      &quot;paciente_id&quot;: &quot;P12345&quot;,
+      &quot;dispositivo_id&quot;: &quot;MON-CV-001&quot;,
+      &quot;timestamp&quot;: &quot;2025-05-30T10:00:00Z&quot;,
+      &quot;tipo_sensor&quot;: &quot;electrocardiograma&quot;,
+      &quot;tipo_dato&quot;: &quot;frecuencia_cardiaca&quot;,
+      &quot;valor&quot;: 72,
+      &quot;unidad&quot;: &quot;bpm&quot;,
+      &quot;rango_normal&quot;: {
+        &quot;min&quot;: 60,
+        &quot;max&quot;: 100
+      },
+      &quot;estado_alerta&quot;: &quot;normal&quot;,
+      &quot;calidad_senal&quot;: &quot;excelente&quot;,
+      &quot;metadatos&quot;: {
+        &quot;derivacion&quot;: &quot;Lead II&quot;,
+        &quot;filtro_aplicado&quot;: &quot;50Hz&quot;,
+        &quot;resolucion&quot;: &quot;0.1bpm&quot;
+      }
+    },
+    {
+      &quot;id&quot;: &quot;REG-002&quot;,
+      &quot;paciente_id&quot;: &quot;P12345&quot;,
+      &quot;dispositivo_id&quot;: &quot;MON-CV-001&quot;,
+      &quot;timestamp&quot;: &quot;2025-05-30T10:00:15Z&quot;,
+      &quot;tipo_sensor&quot;: &quot;presion_arterial&quot;,
+      &quot;tipo_dato&quot;: &quot;presion_arterial_sistolica&quot;,
+      &quot;valor&quot;: 125,
+      &quot;unidad&quot;: &quot;mmHg&quot;,
+      &quot;rango_normal&quot;: {
+        &quot;min&quot;: 90,
+        &quot;max&quot;: 140
+      },
+      &quot;estado_alerta&quot;: &quot;normal&quot;,
+      &quot;metadatos&quot;: {
+        &quot;metodo_medicion&quot;: &quot;oscilometrico&quot;,
+        &quot;brazalete_tamano&quot;: &quot;adulto_standard&quot;,
+        &quot;ciclo_medicion&quot;: &quot;automatico_5min&quot;
+      },
+      &quot;medicion_completa&quot;: {
+        &quot;sistolica&quot;: 125,
+        &quot;diastolica&quot;: 78,
+        &quot;presion_media&quot;: 94,
+        &quot;presion_pulso&quot;: 47
+      }
+    },
+    {
+      &quot;id&quot;: &quot;REG-003&quot;,
+      &quot;paciente_id&quot;: &quot;P12345&quot;,
+      &quot;dispositivo_id&quot;: &quot;MON-CV-001&quot;,
+      &quot;timestamp&quot;: &quot;2025-05-30T10:01:00Z&quot;,
+      &quot;tipo_sensor&quot;: &quot;oximetria_pulso&quot;,
+      &quot;tipo_dato&quot;: &quot;saturacion_oxigeno&quot;,
+      &quot;valor&quot;: 98,
+      &quot;unidad&quot;: &quot;%&quot;,
+      &quot;rango_normal&quot;: {
+        &quot;min&quot;: 95,
+        &quot;max&quot;: 100
+      },
+      &quot;estado_alerta&quot;: &quot;normal&quot;,
+      &quot;calidad_senal&quot;: &quot;buena&quot;,
+      &quot;metadatos&quot;: {
+        &quot;longitud_onda&quot;: &quot;660nm/940nm&quot;,
+        &quot;ubicacion_sensor&quot;: &quot;dedo_indice_derecho&quot;,
+        &quot;perfusion_index&quot;: 2.1,
+        &quot;frecuencia_pulso&quot;: 73
+      }
+    },
+    {
+      &quot;id&quot;: &quot;REG-004&quot;,
+      &quot;paciente_id&quot;: &quot;P12345&quot;,
+      &quot;dispositivo_id&quot;: &quot;MON-CV-001&quot;,
+      &quot;timestamp&quot;: &quot;2025-05-30T10:02:00Z&quot;,
+      &quot;tipo_sensor&quot;: &quot;temperatura&quot;,
+      &quot;tipo_dato&quot;: &quot;temperatura_corporal&quot;,
+      &quot;valor&quot;: 36.8,
+      &quot;unidad&quot;: &quot;°C&quot;,
+      &quot;rango_normal&quot;: {
+        &quot;min&quot;: 36.0,
+        &quot;max&quot;: 37.5
+      },
+      &quot;estado_alerta&quot;: &quot;normal&quot;,
+      &quot;metadatos&quot;: {
+        &quot;ubicacion_medicion&quot;: &quot;timpano&quot;,
+        &quot;sensor_tipo&quot;: &quot;infrarrojo&quot;,
+        &quot;compensacion_ambiental&quot;: true
+      }
+    },
+    {
+      &quot;id&quot;: &quot;REG-005&quot;,
+      &quot;paciente_id&quot;: &quot;P12345&quot;,
+      &quot;dispositivo_id&quot;: &quot;VENT-001&quot;,
+      &quot;timestamp&quot;: &quot;2025-05-30T10:03:00Z&quot;,
+      &quot;tipo_sensor&quot;: &quot;ventilador_mecanico&quot;,
+      &quot;tipo_dato&quot;: &quot;parametros_ventilatorios&quot;,
+      &quot;metadatos&quot;: {
+        &quot;modo_ventilacion&quot;: &quot;SIMV&quot;,
+        &quot;trigger_sensibilidad&quot;: &quot;-2cmH2O&quot;
+      },
+      &quot;parametros&quot;: {
+        &quot;volumen_corriente&quot;: {
+          &quot;valor&quot;: 450,
+          &quot;unidad&quot;: &quot;ml&quot;,
+          &quot;programado&quot;: 450,
+          &quot;medido&quot;: 448
+        },
+        &quot;frecuencia_respiratoria&quot;: {
+          &quot;valor&quot;: 16,
+          &quot;unidad&quot;: &quot;rpm&quot;,
+          &quot;programado&quot;: 16,
+          &quot;total&quot;: 18,
+          &quot;espontanea&quot;: 2
+        },
+        &quot;presion_pico&quot;: {
+          &quot;valor&quot;: 28,
+          &quot;unidad&quot;: &quot;cmH2O&quot;,
+          &quot;limite_alarma&quot;: 35
+        },
+        &quot;presion_meseta&quot;: {
+          &quot;valor&quot;: 22,
+          &quot;unidad&quot;: &quot;cmH2O&quot;
+        },
+        &quot;peep&quot;: {
+          &quot;valor&quot;: 8,
+          &quot;unidad&quot;: &quot;cmH2O&quot;,
+          &quot;programado&quot;: 8
+        },
+        &quot;fio2&quot;: {
+          &quot;valor&quot;: 45,
+          &quot;unidad&quot;: &quot;%&quot;,
+          &quot;programado&quot;: 45
+        },
+        &quot;compliance&quot;: {
+          &quot;valor&quot;: 35,
+          &quot;unidad&quot;: &quot;ml/cmH2O&quot;
+        }
+      },
+      &quot;estado_alerta&quot;: &quot;normal&quot;
+    },
+    {
+      &quot;id&quot;: &quot;REG-006&quot;,
+      &quot;paciente_id&quot;: &quot;P12345&quot;,
+      &quot;dispositivo_id&quot;: &quot;MON-CV-001&quot;,
+      &quot;timestamp&quot;: &quot;2025-05-30T10:15:30Z&quot;,
+      &quot;tipo_sensor&quot;: &quot;electrocardiograma&quot;,
+      &quot;tipo_dato&quot;: &quot;arritmia_detectada&quot;,
+      &quot;valor&quot;: &quot;PVC_aislado&quot;,
+      &quot;severidad&quot;: &quot;leve&quot;,
+      &quot;estado_alerta&quot;: &quot;atencion&quot;,
+      &quot;metadatos&quot;: {
+        &quot;derivacion&quot;: &quot;Lead V1&quot;,
+        &quot;duracion_evento&quot;: &quot;0.12s&quot;,
+        &quot;acoplamiento&quot;: &quot;tardio&quot;,
+        &quot;morfologia&quot;: &quot;unifocal&quot;
+      },
+      &quot;contexto_evento&quot;: {
+        &quot;fc_antes&quot;: 74,
+        &quot;fc_despues&quot;: 71,
+        &quot;timestamp_anterior&quot;: &quot;2025-05-30T10:15:25Z&quot;
+      }
+    },
+    {
+      &quot;id&quot;: &quot;REG-007&quot;,
+      &quot;paciente_id&quot;: &quot;P12345&quot;,
+      &quot;dispositivo_id&quot;: &quot;MON-CV-001&quot;,
+      &quot;timestamp&quot;: &quot;2025-05-30T10:45:00Z&quot;,
+      &quot;tipo_sensor&quot;: &quot;presion_arterial&quot;,
+      &quot;tipo_dato&quot;: &quot;presion_arterial_sistolica&quot;,
+      &quot;valor&quot;: 155,
+      &quot;unidad&quot;: &quot;mmHg&quot;,
+      &quot;rango_normal&quot;: {
+        &quot;min&quot;: 90,
+        &quot;max&quot;: 140
+      },
+      &quot;estado_alerta&quot;: &quot;alerta_alta&quot;,
+      &quot;nivel_prioridad&quot;: &quot;media&quot;,
+      &quot;medicion_completa&quot;: {
+        &quot;sistolica&quot;: 155,
+        &quot;diastolica&quot;: 92,
+        &quot;presion_media&quot;: 113,
+        &quot;presion_pulso&quot;: 63
+      },
+      &quot;acciones_automaticas&quot;: [
+        &quot;notificacion_enfermeria&quot;,
+        &quot;registro_tendencia&quot;,
+        &quot;sugerencia_remedicion_5min&quot;
+      ],
+      &quot;confirmacion_requerida&quot;: true
+    }
+  ],
+  &quot;alertas_activas&quot;: [
+    {
+      &quot;id&quot;: &quot;ALT-001&quot;,
+      &quot;timestamp&quot;: &quot;2025-05-30T10:45:00Z&quot;,
+      &quot;tipo&quot;: &quot;presion_arterial_elevada&quot;,
+      &quot;prioridad&quot;: &quot;media&quot;,
+      &quot;parametro_afectado&quot;: &quot;presion_arterial_sistolica&quot;,
+      &quot;valor_actual&quot;: 155,
+      &quot;valor_umbral&quot;: 140,
+      &quot;estado&quot;: &quot;activa&quot;,
+      &quot;acciones_tomadas&quot;: [
+        &quot;notificacion_enfermera_turno&quot;,
+        &quot;registro_evento_historial&quot;
+      ],
+      &quot;tiempo_desde_activacion&quot;: &quot;00:00:30&quot;
+    }
+  ],
+  &quot;estadisticas_sesion&quot;: {
+    &quot;total_registros&quot;: 7,
+    &quot;registros_por_tipo&quot;: {
+      &quot;frecuencia_cardiaca&quot;: 1,
+      &quot;presion_arterial&quot;: 2,
+      &quot;saturacion_oxigeno&quot;: 1,
+      &quot;temperatura&quot;: 1,
+      &quot;ventilacion&quot;: 1,
+      &quot;eventos_especiales&quot;: 1
+    },
+    &quot;alertas_generadas&quot;: 1,
+    &quot;calidad_datos&quot;: {
+      &quot;excelente&quot;: 4,
+      &quot;buena&quot;: 2,
+      &quot;regular&quot;: 1
+    },
+    &quot;tiempo_monitoreo_minutos&quot;: 45
+  },
+  &quot;configuracion_sistema&quot;: {
+    &quot;frecuencia_muestreo&quot;: {
+      &quot;signos_vitales&quot;: &quot;15s&quot;,
+      &quot;ventilacion&quot;: &quot;60s&quot;,
+      &quot;ecg_continuo&quot;: &quot;1s&quot;
+    },
+    &quot;umbrales_personalizados&quot;: {
+      &quot;fc_min&quot;: 55,
+      &quot;fc_max&quot;: 110,
+      &quot;pa_sistolica_max&quot;: 150,
+      &quot;spo2_min&quot;: 92
+    },
+    &quot;notificaciones&quot;: {
+      &quot;audio&quot;: true,
+      &quot;visual&quot;: true,
+      &quot;remota&quot;: true
+    }
+  }
+}
+</code></pre>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

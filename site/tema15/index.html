@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Primeros pasos con PySpark - Métodos de Procesamiento y Análisis de Big Data</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Primeros pasos con PySpark";
+        var mkdocs_page_input_path = "tema15.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Métodos de Procesamiento y Análisis de Big Data
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Inicio</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Introducción</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../tema11/">Fundamentos de Big Data</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema12/">Introducción al ecosistema Spark</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema13/">RDD, DataFrame y Dataset</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema14/">Instalación y configuración de Spark</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Primeros pasos con PySpark</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#tema-15-primeros-pasos-con-pyspark">Tema 1.5 Primeros pasos con PySpark</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#151-entorno-de-desarrollo-para-pyspark">1.5.1 Entorno de desarrollo para PySpark</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#configuracion-de-un-entorno-python-anacondaminiconda-virtualenv">Configuración de un entorno Python (Anaconda/Miniconda, virtualenv)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#instalacion-de-pyspark-pip-install-pyspark">Instalación de PySpark (pip install pyspark)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#integracion-con-jupyter-notebooks-o-ides-vs-code-pycharm">Integración con Jupyter Notebooks o IDEs (VS Code, PyCharm)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#acceso-a-la-spark-ui">Acceso a la Spark UI</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#152-inicializacion-de-sparksession">1.5.2 Inicialización de SparkSession</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#el-papel-de-sparksession">El papel de SparkSession</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#creacion-de-una-sparksession">Creación de una SparkSession</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#153-carga-de-datos-con-pyspark">1.5.3 Carga de datos con PySpark</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#lectura-de-archivos-csv-inferschema-header-delimiter">Lectura de archivos CSV (inferSchema, header, delimiter)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#lectura-de-archivos-json">Lectura de archivos JSON</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#154-exploracion-basica-de-dataframes">1.5.4 Exploración básica de DataFrames</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#visualizacion-de-datos-show-printschema-describe">Visualización de datos (show(), printSchema(), describe())</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#seleccion-de-columnas-select">Selección de columnas (select())</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#filtrado-de-filas-filter-where">Filtrado de filas (filter() / where())</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#155-operaciones-comunes-de-transformacion">1.5.5 Operaciones comunes de transformación</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#renombrar-y-eliminar-columnas-withcolumnrenamed-drop">Renombrar y eliminar columnas (withColumnRenamed(), drop())</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#anadir-y-modificar-columnas-withcolumn">Añadir y modificar columnas (withColumn())</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#operaciones-de-agregacion-groupby-agg-sum-avg-min-max">Operaciones de agregación (groupBy(), agg(), sum(), avg(), min(), max())</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#156-escritura-de-datos-con-pyspark">1.5.6 Escritura de datos con PySpark</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#guardar-dataframes-en-formato-csv-json-parquet">Guardar DataFrames en formato CSV, JSON, Parquet</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#modos-de-escritura-append-overwrite-ignore-errorifexists">Modos de escritura (append, overwrite, ignore, errorIfExists)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#particionamiento-de-la-salida-partitionby">Particionamiento de la salida (partitionBy())</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tarea">Tarea</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">PySpark y SparkSQL</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../tema21.md">Operaciones con DataFrames</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema22.md">Funciones integradas y definidas por el usuario</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema23.md">Consultas con SparkSQL</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema24.md">Esquemas y tipos de datos complejos</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema25.md">Optimización con Catalyst y Tungsten</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Arquitectura y Diseño de Flujos ETL</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../tema31.md">Diseño de pipelines ETL</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema32.md">Conexión a múltiples fuentes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema33.md">Procesos escalables y particionamiento</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema34.md">Buenas prácticas para ETL en Spark</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema35.md">Introducción a Apache Airflow</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Automatización y Orquestación con Apache Airflow</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../tema41.md">Arquitectura y componentes de Airflow</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema42.md">Instalación local usando Docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema43.md">DAGs, operadores y tareas</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema44.md">Uso de `BashOperator`, `PythonOperator` y `SparkSubmitOperator`</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema45.md">Monitoreo y manejo de dependencias</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Proyecto Integrador y Despliegue</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../tema51.md">Desarrollo del proyecto integrador</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema51.md">Despliegue en nube</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Métodos de Procesamiento y Análisis de Big Data</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Introducción</li>
+      <li class="breadcrumb-item active">Primeros pasos con PySpark</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="1-introduccion">1. Introducción</h1>
+<h2 id="tema-15-primeros-pasos-con-pyspark">Tema 1.5 Primeros pasos con PySpark</h2>
+<p><strong>Objetivo</strong>:</p>
+<p>Adquirir las habilidades fundamentales para configurar un entorno de desarrollo PySpark, inicializar una sesión Spark, cargar y explorar datos, y realizar transformaciones básicas de DataFrames, sentando las bases para el análisis y procesamiento de Big Data.</p>
+<p><strong>Introducción</strong>:</p>
+<p>PySpark es la API de Python para Apache Spark, que permite a los desarrolladores y científicos de datos aprovechar el poder computacional distribuido de Spark utilizando la familiaridad y versatilidad del lenguaje Python. Es una herramienta indispensable para el procesamiento de datos a gran escala, Machine Learning y análisis en entornos Big Data. Este tema te guiará a través de los primeros pasos esenciales con PySpark, desde la configuración de tu entorno hasta la ejecución de tus primeras operaciones con DataFrames.</p>
+<p><strong>Desarrollo</strong>:</p>
+<p>En este tema, exploraremos cómo empezar a trabajar con PySpark de forma práctica. Comenzaremos configurando un entorno de desarrollo Python adecuado e instalando las librerías necesarias. Luego, aprenderemos a inicializar una <code>SparkSession</code>, que es el punto de entrada principal para cualquier aplicación Spark. Una vez que tengamos un contexto Spark, nos centraremos en cómo cargar datos desde diversas fuentes en DataFrames y cómo realizar operaciones básicas de exploración para entender la estructura y el contenido de nuestros datos. Finalmente, cubriremos las transformaciones más comunes que te permitirán manipular y preparar tus datos para análisis más avanzados.</p>
+<h3 id="151-entorno-de-desarrollo-para-pyspark">1.5.1 Entorno de desarrollo para PySpark</h3>
+<p>Un entorno de desarrollo bien configurado es crucial para trabajar eficientemente con PySpark. Esto implica tener una instalación de Python gestionada, PySpark instalado como una librería de Python, y un entorno para escribir y ejecutar código, como Jupyter Notebooks o un IDE.</p>
+<h5 id="configuracion-de-un-entorno-python-anacondaminiconda-virtualenv">Configuración de un entorno Python (Anaconda/Miniconda, virtualenv)</h5>
+<p>Para gestionar las dependencias de Python y evitar conflictos entre proyectos, es altamente recomendable utilizar entornos virtuales. <strong>Anaconda/Miniconda</strong> son distribuciones de Python que vienen con su propio gestor de paquetes (<code>conda</code>) y facilitan la creación y gestión de entornos. <strong>virtualenv</strong> es otra herramienta estándar de Python para crear entornos virtuales aislados.</p>
+<ol>
+<li>Crear un nuevo entorno conda para PySpark: <code>conda create -n pyspark_env python=3.9</code>.</li>
+<li>Activar el entorno recién creado: <code>conda activate pyspark_env</code>.</li>
+<li>Usar <code>virtualenv</code> para crear un entorno: <code>python -m venv pyspark_venv</code> y activarlo con <code>source pyspark_venv/bin/activate</code> (Linux/macOS) o <code>pyspark_venv\Scripts\activate</code> (Windows).</li>
+</ol>
+<h5 id="instalacion-de-pyspark-pip-install-pyspark">Instalación de PySpark (<code>pip install pyspark</code>)</h5>
+<p>Una vez que tu entorno Python está activado, la instalación de PySpark es tan sencilla como usar <code>pip</code>. Esto descargará la librería de PySpark y sus dependencias, permitiéndote importar <code>pyspark</code> en tus scripts.</p>
+<ol>
+<li>Instalar la última versión de PySpark: <code>pip install pyspark</code>.</li>
+<li>Instalar una versión específica de PySpark para asegurar compatibilidad: <code>pip install pyspark==3.5.0</code>.</li>
+<li>Verificar la instalación abriendo un intérprete de Python y ejecutando <code>import pyspark</code>. Si no hay errores, la instalación fue exitosa.</li>
+</ol>
+<h5 id="integracion-con-jupyter-notebooks-o-ides-vs-code-pycharm">Integración con Jupyter Notebooks o IDEs (VS Code, PyCharm)</h5>
+<p>Para escribir y ejecutar código PySpark de forma interactiva y con herramientas de desarrollo avanzadas, puedes integrar PySpark con Jupyter Notebooks o IDEs como VS Code o PyCharm.</p>
+<ol>
+<li>Para usar PySpark en <strong>Jupyter Notebooks</strong>, instala <code>jupyter</code> (<code>pip install jupyter</code>). Luego, al iniciar un notebook, puedes importar <code>SparkSession</code> y usarlo directamente.</li>
+</ol>
+<pre><code class="language-python"># En una celda de Jupyter
+from pyspark.sql import SparkSession
+spark = SparkSession.builder.appName(&quot;MyFirstPySparkApp&quot;).getOrCreate()
+</code></pre>
+<ol>
+<li>En <strong>VS Code</strong>, instala la extensión de Python y abre una carpeta de proyecto. Puedes configurar el intérprete de Python para que sea el de tu entorno virtual de PySpark. Para ejecutar scripts <code>.py</code>, configura <code>SPARK_HOME</code> y <code>PYTHONPATH</code> en tu terminal antes de ejecutar <code>spark-submit</code>.</li>
+<li>En <strong>PyCharm</strong>, puedes configurar un intérprete de Python basado en tu entorno virtual. Para ejecutar aplicaciones Spark, puedes configurar una "Run Configuration" que utilice <code>spark-submit</code> internamente.</li>
+</ol>
+<h5 id="acceso-a-la-spark-ui">Acceso a la Spark UI</h5>
+<p>La <strong>Spark UI</strong> es una interfaz web que proporciona monitoreo en tiempo real de las aplicaciones Spark en ejecución. Es invaluable para depurar, optimizar y entender el rendimiento de tus aplicaciones PySpark. Cuando ejecutas una aplicación Spark, el Driver de Spark lanza un servidor web para la UI.</p>
+<ol>
+<li>Al ejecutar una aplicación PySpark localmente, la Spark UI suele estar disponible en <code>http://localhost:4040</code>. Si ya hay una aplicación ejecutándose, el puerto puede incrementarse (ej. 4041, 4042).</li>
+<li>Acceder a la pestaña "Jobs" para ver el DAG de ejecución, las etapas y las tareas, y cuánto tiempo tardó cada una.</li>
+<li>Utilizar la pestaña "Executors" para monitorear el uso de memoria y CPU de los ejecutores y revisar sus logs en busca de errores.</li>
+</ol>
+<h3 id="152-inicializacion-de-sparksession">1.5.2 Inicialización de SparkSession</h3>
+<p>La <code>SparkSession</code> es el punto de entrada principal para programar Spark con la API de DataFrame y Dataset. Sustituyó a <code>SparkContext</code> y <code>SQLContext</code> a partir de Spark 2.0, unificando todas las funcionalidades en una sola interfaz.</p>
+<h5 id="el-papel-de-sparksession">El papel de <code>SparkSession</code></h5>
+<p><code>SparkSession</code> es el objeto unificado para interactuar con Spark. Proporciona acceso a todas las funcionalidades de Spark, incluyendo la creación de DataFrames, la ejecución de SQL, la lectura y escritura de datos, y el acceso al <code>SparkContext</code> subyacente. Se encarga de la comunicación con el clúster y la gestión de recursos.</p>
+<ol>
+<li>Crear una <code>SparkSession</code> con un nombre de aplicación específico y el modo de ejecución local:</li>
+</ol>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+spark = SparkSession.builder \
+    .appName(&quot;MiPrimeraAppPySpark&quot;) \
+    .master(&quot;local[*]&quot;) \
+    .getOrCreate()
+</code></pre>
+<ol>
+<li>Si intentas crear una segunda <code>SparkSession</code> en la misma aplicación, <code>getOrCreate()</code> devolverá la instancia existente, asegurando que solo haya una activa.</li>
+<li>Utilizar el objeto <code>spark</code> para acceder a funcionalidades como <code>spark.read</code> (para cargar datos) o <code>spark.sql</code> (para ejecutar consultas SQL).</li>
+</ol>
+<h5 id="creacion-de-una-sparksession">Creación de una <code>SparkSession</code></h5>
+<p>La <code>SparkSession</code> se crea utilizando el patrón <code>builder</code>. Puedes encadenar métodos para configurar diferentes aspectos de la sesión antes de llamar a <code>getOrCreate()</code> para obtener la instancia.</p>
+<ol>
+<li>Crear una <code>SparkSession</code> simple para desarrollo local:</li>
+</ol>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+spark = SparkSession.builder.appName(&quot;LocalTestApp&quot;).master(&quot;local[*]&quot;).getOrCreate()
+</code></pre>
+<ol>
+<li>Configurar la memoria del driver y los ejecutores al crear la <code>SparkSession</code>:</li>
+</ol>
+<pre><code class="language-python">spark = SparkSession.builder \
+    .appName(&quot;BigDataJob&quot;) \
+    .master(&quot;yarn&quot;) \
+    .config(&quot;spark.driver.memory&quot;, &quot;4g&quot;) \
+    .config(&quot;spark.executor.memory&quot;, &quot;8g&quot;) \
+    .config(&quot;spark.executor.cores&quot;, &quot;4&quot;) \
+    .getOrCreate()
+</code></pre>
+<ol>
+<li>Detener la <code>SparkSession</code> al finalizar la aplicación para liberar recursos: <code>spark.stop()</code>. Esto es importante, especialmente en entornos de producción o scripts.</li>
+</ol>
+<h3 id="153-carga-de-datos-con-pyspark">1.5.3 Carga de datos con PySpark</h3>
+<p>Una de las tareas más comunes en el procesamiento de datos es cargar información desde diversas fuentes. PySpark proporciona APIs flexibles y potentes para leer datos en DataFrames desde una variedad de formatos y sistemas de archivos distribuidos.</p>
+<h5 id="lectura-de-archivos-csv-inferschema-header-delimiter">Lectura de archivos CSV (inferSchema, header, delimiter)</h5>
+<p>El formato CSV es uno de los más utilizados para el intercambio de datos. PySpark ofrece opciones robustas para leer archivos CSV, incluyendo la inferencia automática del esquema, el manejo de encabezados y la especificación de delimitadores.</p>
+<ol>
+<li>Cargar un archivo CSV, indicando que la primera fila es el encabezado y que Spark debe inferir el esquema (tipos de datos de las columnas):</li>
+</ol>
+<pre><code class="language-python">df_csv = spark.read.csv(&quot;data/clientes.csv&quot;, header=True, inferSchema=True)
+df_csv.show()
+</code></pre>
+<ol>
+<li>Cargar un CSV con un delimitador diferente (ej. <code>;</code>) y sin encabezado:</li>
+</ol>
+<pre><code class="language-python">df_semicolon = spark.read.csv(&quot;data/productos.txt&quot;, sep=&quot;;&quot;, header=False)
+df_semicolon.printSchema() # Mostrará _c0, _c1, etc.
+</code></pre>
+<ol>
+<li>Deshabilitar la inferencia de esquema para mayor control y especificar el esquema manualmente para un CSV grande (mejora el rendimiento):</li>
+</ol>
+<pre><code class="language-python">from pyspark.sql.types import StructType, StructField, StringType, IntegerType
+schema = StructType([
+    StructField(&quot;id&quot;, IntegerType(), True),
+    StructField(&quot;nombre&quot;, StringType(), True),
+    StructField(&quot;edad&quot;, IntegerType(), True)
+])
+df_manual_schema = spark.read.csv(&quot;data/usuarios.csv&quot;, header=True, schema=schema)
+</code></pre>
+<h5 id="lectura-de-archivos-json">Lectura de archivos JSON</h5>
+<p>Los archivos JSON son comunes para datos semiestructurados. PySpark puede leer JSON de forma sencilla, tratándolos como objetos anidados y creando un esquema basado en su estructura.</p>
+<ol>
+<li>Cargar un archivo JSON (cada línea es un objeto JSON válido):</li>
+</ol>
+<pre><code class="language-python">df_json = spark.read.json(&quot;data/eventos.json&quot;)
+df_json.show()
+df_json.printSchema() # Muestra la estructura inferida
+</code></pre>
+<ol>
+<li>Cargar múltiples archivos JSON de un directorio:</li>
+</ol>
+<pre><code class="language-python">df_multi_json = spark.read.json(&quot;data/json_logs/*.json&quot;)
+</code></pre>
+<ol>
+<li>Si los archivos JSON tienen un formato más complejo o se distribuyen en múltiples líneas, Spark puede necesitar una configuración adicional, aunque por defecto asume un objeto JSON por línea.</li>
+</ol>
+<h3 id="154-exploracion-basica-de-dataframes">1.5.4 Exploración básica de DataFrames</h3>
+<p>Una vez que los datos se han cargado en un DataFrame, el siguiente paso es explorarlos para entender su estructura, contenido y calidad. PySpark proporciona métodos intuitivos para visualizar, inspeccionar y obtener estadísticas descriptivas de tus DataFrames.</p>
+<h5 id="visualizacion-de-datos-show-printschema-describe">Visualización de datos (<code>show()</code>, <code>printSchema()</code>, <code>describe()</code>)</h5>
+<p>Estos métodos son esenciales para obtener una primera impresión rápida de tu DataFrame. <code>show()</code> muestra las primeras filas, <code>printSchema()</code> revela la estructura de las columnas y sus tipos de datos, y <code>describe()</code> proporciona estadísticas resumidas para columnas numéricas y de cadena.</p>
+<ol>
+<li>Mostrar las primeras 5 filas del DataFrame:</li>
+</ol>
+<pre><code class="language-python">df.show(5)
+# Por defecto muestra 20 filas, show(n) para n filas, show(n, truncate=False) para no truncar cadenas largas
+</code></pre>
+<ol>
+<li>Imprimir el esquema del DataFrame para ver nombres de columnas y tipos de datos:</li>
+</ol>
+<pre><code class="language-python">df.printSchema()
+# Output:
+# root
+#  |-- id: integer (nullable = true)
+#  |-- nombre: string (nullable = true)
+#  |-- edad: integer (nullable = true)
+</code></pre>
+<ol>
+<li>Obtener estadísticas descriptivas para todas las columnas numéricas y de cadena:</li>
+</ol>
+<pre><code class="language-python">df.describe().show()
+# Output (ejemplo para 'edad' y 'nombre'):
+# summary  id       nombre   edad
+# -------- -------- -------- ----
+# count    100      100      100
+# mean     50.5     null     35.0
+# stddev   29.01    null     10.0
+# min      1        Alice    20
+# max      100      Zoe      50
+</code></pre>
+<h5 id="seleccion-de-columnas-select">Selección de columnas (<code>select()</code>)</h5>
+<p>La operación <code>select()</code> te permite elegir un subconjunto de columnas de un DataFrame, o incluso crear nuevas columnas basadas en transformaciones de las existentes. Es fundamental para reducir el volumen de datos o preparar datos para análisis específicos.</p>
+<ol>
+<li>Seleccionar una o varias columnas por su nombre:</li>
+</ol>
+<pre><code class="language-python">df_selected = df.select(&quot;nombre&quot;, &quot;edad&quot;)
+df_selected.show()
+</code></pre>
+<ol>
+<li>Renombrar una columna mientras se selecciona:</li>
+</ol>
+<pre><code class="language-python">from pyspark.sql.functions import col
+df_renamed = df.select(col(&quot;nombre&quot;).alias(&quot;nombre_completo&quot;), &quot;edad&quot;)
+df_renamed.show()
+</code></pre>
+<ol>
+<li>Crear una nueva columna aplicando una función a una columna existente:</li>
+</ol>
+<pre><code class="language-python">df_with_new_col = df.select(&quot;nombre&quot;, &quot;edad&quot;, (col(&quot;edad&quot;) * 12).alias(&quot;edad_meses&quot;))
+df_with_new_col.show()
+</code></pre>
+<h5 id="filtrado-de-filas-filter-where">Filtrado de filas (<code>filter()</code> / <code>where()</code>)</h5>
+<p>Las operaciones <code>filter()</code> y <code>where()</code> son equivalentes y se utilizan para seleccionar filas que satisfacen una o más condiciones. Son cruciales para limpiar datos o para concentrarse en subconjuntos específicos de información.</p>
+<ol>
+<li>Filtrar filas donde la edad sea mayor de 30:</li>
+</ol>
+<pre><code class="language-python">df_adultos = df.filter(df.edad &gt; 30)
+df_adultos.show()
+</code></pre>
+<ol>
+<li>Aplicar múltiples condiciones de filtrado usando operadores lógicos (<code>&amp;</code> para AND, <code>|</code> para OR, <code>~</code> para NOT):</li>
+</ol>
+<pre><code class="language-python">df_filtered = df.filter((df.edad &gt;= 25) &amp; (df.nombre.contains(&quot;a&quot;)))
+df_filtered.show()
+</code></pre>
+<ol>
+<li>Usar una expresión SQL para el filtrado:</li>
+</ol>
+<pre><code class="language-python">df_sql_filter = df.where(&quot;edad &lt; 30 AND id % 2 = 0&quot;)
+df_sql_filter.show()
+</code></pre>
+<h3 id="155-operaciones-comunes-de-transformacion">1.5.5 Operaciones comunes de transformación</h3>
+<p>Las transformaciones son el corazón del procesamiento de datos en Spark. Permiten modificar DataFrames de diversas maneras, desde añadir o eliminar columnas hasta realizar agregaciones y uniones, preparando los datos para análisis más complejos.</p>
+<h5 id="renombrar-y-eliminar-columnas-withcolumnrenamed-drop">Renombrar y eliminar columnas (<code>withColumnRenamed()</code>, <code>drop()</code>)</h5>
+<p>Estas operaciones son fundamentales para limpiar y organizar tu DataFrame, haciéndolo más legible y adecuado para los análisis posteriores.</p>
+<ol>
+<li>Renombrar una columna:</li>
+</ol>
+<pre><code class="language-python">df_renamed_col = df.withColumnRenamed(&quot;nombre&quot;, &quot;nombre_del_cliente&quot;)
+df_renamed_col.show()
+</code></pre>
+<ol>
+<li>Eliminar una o varias columnas:</li>
+</ol>
+<pre><code class="language-python">df_dropped_col = df.drop(&quot;id&quot;, &quot;nombre_del_cliente&quot;) # Si se renombro antes
+df_dropped_col.show()
+</code></pre>
+<ol>
+<li>Renombrar una columna y luego eliminar otra en una secuencia:</li>
+</ol>
+<pre><code class="language-python">df_processed = df.withColumnRenamed(&quot;edad&quot;, &quot;age&quot;).drop(&quot;id&quot;)
+df_processed.show()
+</code></pre>
+<h5 id="anadir-y-modificar-columnas-withcolumn">Añadir y modificar columnas (<code>withColumn()</code>)</h5>
+<p>El método <code>withColumn()</code> es extremadamente versátil. Permite añadir una nueva columna a un DataFrame o modificar una existente, basándose en expresiones o funciones.</p>
+<ol>
+<li>Añadir una nueva columna calculada, por ejemplo, <code>es_mayor_edad</code> basada en <code>edad</code>:</li>
+</ol>
+<pre><code class="language-python">from pyspark.sql.functions import when
+df_with_flag = df.withColumn(&quot;es_mayor_edad&quot;, when(df.edad &gt;= 18, &quot;Sí&quot;).otherwise(&quot;No&quot;))
+df_with_flag.show()
+</code></pre>
+<ol>
+<li>Modificar una columna existente, por ejemplo, convertir <code>nombre</code> a mayúsculas:</li>
+</ol>
+<pre><code class="language-python">from pyspark.sql.functions import upper
+df_upper_name = df.withColumn(&quot;nombre&quot;, upper(df.nombre))
+df_upper_name.show()
+</code></pre>
+<ol>
+<li>Crear una columna a partir de un valor literal:</li>
+</ol>
+<pre><code class="language-python">from pyspark.sql.functions import lit
+df_with_constant = df.withColumn(&quot;fuente&quot;, lit(&quot;sistema_A&quot;))
+df_with_constant.show()
+</code></pre>
+<h5 id="operaciones-de-agregacion-groupby-agg-sum-avg-min-max">Operaciones de agregación (<code>groupBy()</code>, <code>agg()</code>, <code>sum()</code>, <code>avg()</code>, <code>min()</code>, <code>max()</code>)</h5>
+<p>Las agregaciones son fundamentales para resumir datos. <code>groupBy()</code> se utiliza para agrupar filas que tienen el mismo valor en una o más columnas, y <code>agg()</code> se utiliza para aplicar funciones de agregación (como suma, promedio, conteo) a los grupos resultantes.</p>
+<ol>
+<li>Calcular el promedio de edad por sexo:</li>
+</ol>
+<pre><code class="language-python">df_agg = df.groupBy(&quot;sexo&quot;).agg({&quot;edad&quot;: &quot;avg&quot;}).show()
+# Alternativa más explícita con funciones:
+# from pyspark.sql.functions import avg
+# df.groupBy(&quot;sexo&quot;).agg(avg(&quot;edad&quot;).alias(&quot;edad_promedio&quot;)).show()
+</code></pre>
+<ol>
+<li>Contar el número de clientes por ciudad y la edad máxima en cada ciudad:</li>
+</ol>
+<pre><code class="language-python">from pyspark.sql.functions import count, max
+df.groupBy(&quot;ciudad&quot;).agg(count(&quot;*&quot;).alias(&quot;num_clientes&quot;), max(&quot;edad&quot;).alias(&quot;edad_maxima&quot;)).show()
+</code></pre>
+<ol>
+<li>Agregación de múltiples columnas y funciones:</li>
+</ol>
+<pre><code class="language-python">from pyspark.sql.functions import sum, min
+df.groupBy(&quot;departamento&quot;).agg(
+    sum(&quot;ventas&quot;).alias(&quot;total_ventas&quot;),
+    min(&quot;fecha_pedido&quot;).alias(&quot;primer_pedido&quot;)
+).show()
+</code></pre>
+<h3 id="156-escritura-de-datos-con-pyspark">1.5.6 Escritura de datos con PySpark</h3>
+<p>Una vez que has procesado y transformado tus datos con PySpark, el paso final es guardar los resultados en un formato y ubicación deseados. PySpark soporta la escritura en varios formatos y ofrece modos para controlar cómo se manejan los datos existentes.</p>
+<h5 id="guardar-dataframes-en-formato-csv-json-parquet">Guardar DataFrames en formato CSV, JSON, Parquet</h5>
+<p>PySpark permite guardar DataFrames en diversos formatos de archivo, como CSV, JSON y Parquet. El formato Parquet es generalmente preferido en el ecosistema Big Data por su eficiencia en el almacenamiento y el rendimiento de las consultas, ya que es un formato columnar optimizado.</p>
+<ol>
+<li>Guardar un DataFrame en formato CSV:</li>
+</ol>
+<pre><code class="language-python">df_resultado.write.csv(&quot;output/clientes_procesados.csv&quot;, header=True, mode=&quot;overwrite&quot;)
+# Esto creará un directorio con múltiples archivos CSV (uno por partición)
+</code></pre>
+<ol>
+<li>Guardar un DataFrame en formato JSON:</li>
+</ol>
+<pre><code class="language-python">df_resultado.write.json(&quot;output/eventos_limpios.json&quot;, mode=&quot;append&quot;)
+</code></pre>
+<ol>
+<li>Guardar un DataFrame en formato Parquet (recomendado para eficiencia):</li>
+</ol>
+<pre><code class="language-python">df_resultado.write.parquet(&quot;output/datos_analiticos.parquet&quot;, mode=&quot;overwrite&quot;)
+</code></pre>
+<h5 id="modos-de-escritura-append-overwrite-ignore-errorifexists">Modos de escritura (append, overwrite, ignore, errorIfExists)</h5>
+<p>PySpark ofrece diferentes modos para manejar la situación cuando un archivo o directorio de salida ya existe, lo que te da control sobre la persistencia de tus datos.</p>
+<ol>
+<li><strong><code>overwrite</code></strong>: Sobrescribe el directorio de salida si ya existe. ¡Útil pero peligroso si no se usa con cuidado!</li>
+</ol>
+<pre><code class="language-python">df.write.mode(&quot;overwrite&quot;).parquet(&quot;output/mi_data&quot;)
+</code></pre>
+<ol>
+<li><strong><code>append</code></strong>: Si el directorio de salida ya existe, los nuevos datos se añadirán a los datos existentes.</li>
+</ol>
+<pre><code class="language-python">df.write.mode(&quot;append&quot;).csv(&quot;output/registros.csv&quot;)
+</code></pre>
+<ol>
+<li><strong><code>ignore</code></strong>: Si el directorio de salida ya existe, la operación de escritura no hará nada y los datos existentes permanecerán intactos.</li>
+</ol>
+<pre><code class="language-python">df.write.mode(&quot;ignore&quot;).json(&quot;output/datos_seguros.json&quot;)
+</code></pre>
+<ol>
+<li><strong><code>errorIfExists</code></strong> (por defecto): Si el directorio de salida ya existe, lanzará una excepción, evitando la sobrescritura accidental.</li>
+</ol>
+<pre><code class="language-python"># df.write.mode(&quot;errorIfExists&quot;).csv(&quot;output/error.csv&quot;) # Esto fallará si el directorio existe
+df.write.csv(&quot;output/nuevo_csv.csv&quot;) # El modo por defecto es errorIfExists
+</code></pre>
+<h5 id="particionamiento-de-la-salida-partitionby">Particionamiento de la salida (<code>partitionBy()</code>)</h5>
+<p>El método <code>partitionBy()</code> permite organizar la salida de tu DataFrame en subdirectorios basados en los valores de una o más columnas. Esto mejora el rendimiento de lectura para consultas que filtran por esas columnas, ya que Spark puede escanear solo los subdirectorios relevantes.</p>
+<ol>
+<li>Particionar los datos de ventas por año y mes:</li>
+</ol>
+<pre><code class="language-python">df_ventas.write.partitionBy(&quot;anio&quot;, &quot;mes&quot;).parquet(&quot;output/ventas_particionadas&quot;)
+# Esto creará una estructura como: ventas_particionadas/anio=2023/mes=01/part-*.parquet
+</code></pre>
+<ol>
+<li>Guardar datos de usuarios particionados por país:</li>
+</ol>
+<pre><code class="language-python">df_usuarios.write.mode(&quot;overwrite&quot;).partitionBy(&quot;pais&quot;).json(&quot;output/usuarios_por_pais&quot;)
+</code></pre>
+<ol>
+<li>Combinar particionamiento con un formato de archivo específico:</li>
+</ol>
+<pre><code class="language-python">df_logs.write.partitionBy(&quot;fecha&quot;).csv(&quot;output/logs_diarios&quot;, header=True)
+</code></pre>
+<h2 id="tarea">Tarea</h2>
+<p>Aquí tienes 8 ejercicios de programación PySpark para practicar los conceptos aprendidos:</p>
+<ol>
+<li>
+<p><strong>Inicialización y Carga Básica</strong>:</p>
+<ul>
+<li>Crea una <code>SparkSession</code> llamada "MiPrimeraAppPySpark".</li>
+<li>Crea una lista de tuplas en Python que represente datos de empleados (ej. <code>[(1, "Alice", 30, "IT"), (2, "Bob", 24, "HR"), (3, "Charlie", 35, "IT")]</code>). Define un esquema explícito para este DataFrame.</li>
+<li>Crea un DataFrame a partir de esta lista y el esquema.</li>
+<li>Muestra el DataFrame y su esquema.</li>
+</ul>
+</li>
+<li>
+<p><strong>Lectura de CSV y Exploración</strong>:</p>
+<ul>
+<li>Descarga un archivo CSV público, como "data_sales.csv" (puedes buscarlo en Kaggle o crear uno simple con datos de ventas: <code>ID_Venta,Producto,Cantidad,Precio,Fecha,Ciudad</code>).</li>
+<li>Carga este archivo CSV en un DataFrame, asegurándote de que el encabezado sea reconocido y el esquema sea inferido automáticamente.</li>
+<li>Muestra las primeras 10 filas del DataFrame.</li>
+<li>Imprime el esquema inferido.</li>
+<li>Genera estadísticas descriptivas para el DataFrame y muéstralas.</li>
+</ul>
+</li>
+<li>
+<p><strong>Selección y Filtrado</strong>:</p>
+<ul>
+<li>Usando el DataFrame de ventas del ejercicio 2, selecciona las columnas <code>Producto</code>, <code>Cantidad</code> y <code>Precio</code>.</li>
+<li>Filtra el DataFrame para mostrar solo las ventas donde la <code>Cantidad</code> sea mayor que 5.</li>
+<li>Filtra el DataFrame para mostrar las ventas de "Producto_A" realizadas en la "Ciudad_X" (ajusta a tus datos de prueba).</li>
+</ul>
+</li>
+<li>
+<p><strong>Añadir y Modificar Columnas</strong>:</p>
+<ul>
+<li>En el DataFrame de ventas, añade una nueva columna llamada <code>Total_Venta</code> que sea el producto de <code>Cantidad</code> por <code>Precio</code>.</li>
+<li>Modifica la columna <code>Producto</code> para que todos los nombres de los productos estén en mayúsculas.</li>
+<li>Añade una columna llamada <code>Es_Gran_Venta</code> que sea "Sí" si <code>Total_Venta</code> es mayor que 100 y "No" en caso contrario.</li>
+</ul>
+</li>
+<li>
+<p><strong>Agregaciones</strong>:</p>
+<ul>
+<li>Calcula la <code>Cantidad</code> total vendida por cada <code>Producto</code>.</li>
+<li>Encuentra el <code>Precio</code> promedio de los productos por cada <code>Ciudad</code>.</li>
+<li>Determina el número de ventas (<code>ID_Venta</code> o conteo de filas) y el <code>Total_Venta</code> máximo por cada <code>Fecha</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Uniones de DataFrames</strong>:</p>
+<ul>
+<li>Crea un segundo DataFrame llamado <code>df_productos</code> con la siguiente estructura: <code>ID_Producto, Nombre_Producto, Categoria</code> (ej. <code>[(1, "Laptop", "Electrónica"), (2, "Mouse", "Accesorios")]</code>). Asegúrate de que <code>Nombre_Producto</code> coincida con algunos nombres en tu DataFrame de ventas.</li>
+<li>Une el DataFrame de ventas con el DataFrame de productos usando el <code>Producto</code> (o <code>Nombre_Producto</code>) como clave común.</li>
+<li>Muestra las ventas junto con la categoría del producto.</li>
+</ul>
+</li>
+<li>
+<p><strong>Escritura de Datos y Modos</strong>:</p>
+<ul>
+<li>Guarda el DataFrame de ventas procesado (con <code>Total_Venta</code> y <code>Es_Gran_Venta</code>) en un nuevo directorio llamado <code>output/ventas_analisis_parquet</code> en formato Parquet, usando el modo <code>overwrite</code>.</li>
+<li>Intenta guardar el mismo DataFrame en el mismo directorio usando el modo <code>errorIfExists</code>. Observa el error.</li>
+<li>Cambia el modo a <code>ignore</code> y reintenta la operación.</li>
+</ul>
+</li>
+<li>
+<p><strong>Particionamiento de Salida</strong>:</p>
+<ul>
+<li>Utilizando el DataFrame de ventas procesado, guarda los datos en formato CSV en el directorio <code>output/ventas_particionadas_por_ciudad</code> y particiónalos por la columna <code>Ciudad</code>.</li>
+<li>Verifica la estructura de directorios creada en <code>output/ventas_particionadas_por_ciudad</code>.</li>
+<li>Carga solo los datos de una <code>Ciudad</code> específica (ej. "Madrid" o "Bogota") usando la ruta particionada y verifica que solo se carguen esas filas.</li>
+</ul>
+</li>
+</ol>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../tema14/" class="btn btn-neutral float-left" title="Instalación y configuración de Spark"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../tema14/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
