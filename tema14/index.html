@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Instalación y configuración de Spark - Métodos de Procesamiento y Análisis de Big Data</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Instalaci\u00f3n y configuraci\u00f3n de Spark";
+        var mkdocs_page_input_path = "tema14.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Métodos de Procesamiento y Análisis de Big Data
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Inicio</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Introducción</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../tema11/">Fundamentos de Big Data</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema12/">Introducción al ecosistema Spark</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema13/">RDD, DataFrame y Dataset</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Instalación y configuración de Spark</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#tema-14-instalacion-y-configuracion-de-spark">Tema 1.4 Instalación y configuración de Spark</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#141-requisitos-previos-para-la-instalacion">1.4.1 Requisitos previos para la instalación</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#java-development-kit-jdk">Java Development Kit (JDK)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#python-para-pyspark">Python (para PySpark)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#apache-hadoop-opcional-para-hdfs-y-yarn">Apache Hadoop (opcional, para HDFS y YARN)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#142-instalacion-de-un-cluster-spark-on-premise">1.4.2 Instalación de un clúster Spark On-Premise</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#descarga-de-spark">Descarga de Spark</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#configuracion-del-modo-standalone">Configuración del modo Standalone</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#configuracion-con-yarn-yet-another-resource-negotiator">Configuración con YARN (Yet Another Resource Negotiator)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#optimizacion-de-la-configuracion-memoria-cores-paralelismo">Optimización de la configuración (memoria, cores, paralelismo)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#143-spark-en-entornos-de-nube-aws-azure-gcp">1.4.3 Spark en entornos de nube (AWS, Azure, GCP)</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#servicios-gestionados-de-spark-en-la-nube">Servicios gestionados de Spark en la nube</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#ventajas-de-los-servicios-gestionados">Ventajas de los servicios gestionados</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#configuracion-de-acceso-a-datos-en-la-nube">Configuración de acceso a datos en la nube</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#144-instalacion-de-spark-en-windows-para-practicas">1.4.4 Instalación de Spark en Windows (para prácticas)</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#uso-de-imagenes-docker-para-spark-ej-bitnamispark">Uso de imágenes Docker para Spark (ej. bitnami/spark)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#configuracion-de-entorno-de-desarrollo-jupyter-ides">Configuración de entorno de desarrollo (Jupyter, IDEs)</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tarea">Tarea</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema15/">Primeros pasos con PySpark</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">PySpark y SparkSQL</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../tema21.md">Operaciones con DataFrames</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema22.md">Funciones integradas y definidas por el usuario</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema23.md">Consultas con SparkSQL</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema24.md">Esquemas y tipos de datos complejos</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema25.md">Optimización con Catalyst y Tungsten</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Arquitectura y Diseño de Flujos ETL</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../tema31.md">Diseño de pipelines ETL</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema32.md">Conexión a múltiples fuentes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema33.md">Procesos escalables y particionamiento</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema34.md">Buenas prácticas para ETL en Spark</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema35.md">Introducción a Apache Airflow</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Automatización y Orquestación con Apache Airflow</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../tema41.md">Arquitectura y componentes de Airflow</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema42.md">Instalación local usando Docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema43.md">DAGs, operadores y tareas</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema44.md">Uso de `BashOperator`, `PythonOperator` y `SparkSubmitOperator`</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema45.md">Monitoreo y manejo de dependencias</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Proyecto Integrador y Despliegue</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../tema51.md">Desarrollo del proyecto integrador</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema51.md">Despliegue en nube</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Métodos de Procesamiento y Análisis de Big Data</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Introducción</li>
+      <li class="breadcrumb-item active">Instalación y configuración de Spark</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="1-introduccion">1. Introducción</h1>
+<h2 id="tema-14-instalacion-y-configuracion-de-spark">Tema 1.4 Instalación y configuración de Spark</h2>
+<p><strong>Objetivo</strong>:</p>
+<p>Instalar y configurar entornos de Apache Spark tanto en escenarios locales (para desarrollo y pruebas) como en configuraciones de clúster on-premise y plataformas de nube, asegurando la capacidad de ejecutar aplicaciones Spark de manera eficiente.</p>
+<p><strong>Introducción</strong>:</p>
+<p>Para aprovechar el poder de Apache Spark, es fundamental comprender cómo instalarlo y configurarlo correctamente. Este tema cubrirá los pasos necesarios para establecer un entorno Spark, desde los requisitos básicos hasta la configuración de clústeres a gran escala en diferentes modos de despliegue. Abordaremos tanto las instalaciones on-premise, que te dan un control total, como los servicios gestionados en la nube, que simplifican la operación. Finalmente, nos centraremos en la configuración de un entorno de desarrollo en Windows utilizando Docker y WSL2, lo que te permitirá realizar las prácticas del curso de manera efectiva y sin complicaciones.</p>
+<p><strong>Desarrollo</strong>:</p>
+<p>La instalación y configuración de Spark puede variar significativamente dependiendo del entorno de despliegue. Ya sea que busques construir un clúster dedicado en tus propios servidores, aprovechar la elasticidad de los servicios en la nube, o simplemente configurar un entorno local para tus prácticas de desarrollo, cada escenario tiene sus particularidades. En este tema, desglosaremos los requisitos previos, los pasos detallados para las instalaciones on-premise, las consideraciones clave al trabajar con Spark en la nube, y una guía práctica para configurar tu estación de trabajo Windows con Docker y WSL2 para una experiencia de desarrollo fluida y eficiente.</p>
+<h3 id="141-requisitos-previos-para-la-instalacion">1.4.1 Requisitos previos para la instalación</h3>
+<p>Antes de sumergirte en la instalación de Spark, es crucial asegurar que tu sistema cumpla con ciertos requisitos de software. Spark está construido sobre Java y se integra estrechamente con otros componentes, por lo que tener las versiones correctas de las dependencias es fundamental para evitar problemas de compatibilidad y asegurar un funcionamiento óptimo.</p>
+<h5 id="java-development-kit-jdk">Java Development Kit (JDK)</h5>
+<p>Apache Spark requiere una instalación de <strong>Java Development Kit (JDK)</strong> para funcionar, ya que el propio Spark está escrito en Scala y Java. Es esencial tener una versión de JDK compatible con la versión de Spark que planeas instalar. Generalmente, Spark es compatible con JDK 8 o superior, pero siempre es buena práctica revisar la documentación oficial para la versión específica de Spark que estés utilizando.</p>
+<ul>
+<li>Verificar la versión de Java instalada ejecutando <code>java -version</code> en la terminal. Si no está instalada o la versión es incompatible, descargar e instalar el JDK apropiado (por ejemplo, OpenJDK 11 o Oracle JDK 8).</li>
+<li>Configurar la variable de entorno <code>JAVA_HOME</code> para que apunte al directorio de instalación de tu JDK. Esto es crucial para que Spark encuentre la JVM.</li>
+<li>Asegurarse de que el directorio <code>bin</code> del JDK esté en la variable <code>PATH</code> del sistema para poder ejecutar comandos Java desde cualquier ubicación.</li>
+</ul>
+<h5 id="python-para-pyspark">Python (para PySpark)</h5>
+<p>Si planeas usar <strong>PySpark</strong> para escribir aplicaciones Spark en Python, necesitarás una instalación de Python en tu sistema. Spark utiliza el intérprete de Python para ejecutar el código PySpark. Es recomendable usar una versión de Python compatible con la versión de Spark que estás instalando, generalmente Python 3.9 o superior.</p>
+<h5 id="apache-hadoop-opcional-para-hdfs-y-yarn">Apache Hadoop (opcional, para HDFS y YARN)</h5>
+<p>Aunque Spark puede ejecutarse de forma independiente, a menudo se utiliza en conjunción con <strong>Apache Hadoop</strong>, especialmente para el sistema de archivos distribuido (HDFS) y el gestor de recursos (YARN). Si planeas usar Spark con HDFS o YARN, necesitarás una instalación de Hadoop. La versión de Spark que descargues debería estar precompilada con la versión de Hadoop que planeas usar para evitar problemas de compatibilidad.</p>
+<ul>
+<li>Si tu clúster ya tiene Hadoop instalado, asegurarte de que <code>HADOOP_HOME</code> y <code>HADOOP_CONF_DIR</code> estén configurados correctamente para que Spark pueda interactuar con él.</li>
+<li>Si no tienes Hadoop, puedes descargar una distribución precompilada de Spark que incluya los <em>binaries</em> de Hadoop, lo que te permitirá usar funcionalidades básicas de Hadoop sin una instalación completa.</li>
+<li>En entornos de nube, esta dependencia se maneja típicamente por el servicio gestionado (ej., EMR ya incluye Hadoop).</li>
+</ul>
+<h3 id="142-instalacion-de-un-cluster-spark-on-premise">1.4.2 Instalación de un clúster Spark On-Premise</h3>
+<p>Configurar un clúster Spark on-premise te brinda el máximo control y flexibilidad, aunque requiere una inversión significativa en hardware, configuración y mantenimiento. Es una opción común para organizaciones con centros de datos existentes o necesidades específicas de seguridad y rendimiento.</p>
+<h5 id="descarga-de-spark">Descarga de Spark</h5>
+<p>El primer paso para una instalación on-premise es obtener la distribución de Spark. Debes elegir la versión precompilada que mejor se adapte a tu entorno de Hadoop (si lo usas) y tu versión de Scala. La descarga se realiza desde el sitio web oficial de Apache Spark.</p>
+<ol>
+<li>Navegar a la sección de descargas de Apache Spark y seleccionar la versión más reciente compatible con tu JDK y la versión de Hadoop deseada (ej., "Spark 3.5.1 for Hadoop 3.3 and later").</li>
+<li>Descargar el archivo <code>.tgz</code> (tar.gz) a cada nodo del clúster o a un servidor central para su distribución.</li>
+<li>Descomprimir el archivo en un directorio accesible, por ejemplo, <code>/opt/spark</code> en sistemas Linux:</li>
+</ol>
+<pre><code class="language-bash">tar -xzf spark-&lt;version&gt;-bin-hadoop&lt;version&gt;.tgz -C /opt/
+</code></pre>
+<h5 id="configuracion-del-modo-standalone">Configuración del modo Standalone</h5>
+<p>El modo Standalone es el gestor de clústeres autónomo de Spark. Es el más fácil de configurar y es útil para pruebas rápidas o clústeres dedicados a Spark sin otras dependencias de gestores de recursos. Implica configurar un <strong>Master</strong> y varios <strong>Workers</strong>.</p>
+<ol>
+<li>En el nodo que será el Master, editar <code>spark/conf/spark-env.sh</code> (si no existe, copiar <code>spark-env.sh.template</code>) y añadir <code>export SPARK_MASTER_HOST=&lt;IP_DEL_MASTER&gt;</code>. También puedes configurar <code>SPARK_MASTER_PORT</code> y <code>SPARK_MASTER_WEBUI_PORT</code>.</li>
+<li>En cada nodo Worker, editar su <code>spark/conf/spark-env.sh</code> para definir <code>export SPARK_MASTER_URL=spark://&lt;IP_DEL_MASTER&gt;:&lt;PUERTO_DEL_MASTER&gt;</code>.</li>
+<li>Iniciar el Master y los Workers utilizando los scripts <code>sbin/start-master.sh</code> y <code>sbin/start-workers.sh</code> (o <code>sbin/start-all.sh</code> si usas <code>conf/slaves</code>). Verifica la UI del Master en <code>http://&lt;IP_DEL_MASTER&gt;:8080</code>.</li>
+</ol>
+<p><strong>Comentario para la Nube</strong>: En entornos de nube, el modo Standalone raramente se usa para producción. Los servicios gestionados (AWS EMR, Azure Databricks, GCP Dataproc) lo abstraen o emplean gestores de clústeres más robustos como YARN o Kubernetes. Sin embargo, puedes replicar esta configuración manualmente en VMs en la nube si necesitas un control granular y no quieres usar un servicio gestionado.</p>
+<h5 id="configuracion-con-yarn-yet-another-resource-negotiator">Configuración con YARN (Yet Another Resource Negotiator)</h5>
+<p><strong>YARN</strong> es el gestor de recursos de Hadoop y es la forma más común de desplegar Spark en clústeres de Hadoop existentes. Permite a Spark compartir recursos dinámicamente con otras aplicaciones Hadoop. Para configurar Spark con YARN, es necesario que Spark tenga acceso a los archivos de configuración de Hadoop.</p>
+<ol>
+<li>Asegurarse de que la variable de entorno <code>HADOOP_CONF_DIR</code> esté configurada en <code>spark/conf/spark-env.sh</code> en todos los nodos y apunte al directorio que contiene <code>core-site.xml</code> y <code>yarn-site.xml</code> de tu instalación de Hadoop.</li>
+<li>Verificar que el clúster Hadoop con YARN esté en funcionamiento (ResourceManager, NodeManagers, etc.).</li>
+<li>Enviar una aplicación Spark a YARN utilizando <code>spark-submit --master yarn --deploy-mode cluster &lt;your-app.jar&gt;</code>. Spark utilizará YARN para asignar recursos y ejecutar la aplicación.</li>
+</ol>
+<p><strong>Comentario para la Nube</strong>: <strong>YARN es el <em>Cluster Manager</em> predeterminado en muchos servicios gestionados de Spark en la nube, como AWS EMR y GCP Dataproc.</strong> En estos casos, la integración con YARN es automática y no requiere configuración manual de <code>HADOOP_CONF_DIR</code>. Solo necesitas especificar <code>--master yarn</code> al enviar tus trabajos.</p>
+<h5 id="optimizacion-de-la-configuracion-memoria-cores-paralelismo">Optimización de la configuración (memoria, cores, paralelismo)</h5>
+<p>La optimización del rendimiento de Spark depende en gran medida de una configuración adecuada de sus recursos. Esto implica ajustar la memoria asignada al driver y a los ejecutores, el número de <em>cores</em> por ejecutor, y el paralelismo de las tareas. Una configuración incorrecta puede llevar a errores de memoria, subutilización de recursos o ejecuciones lentas.</p>
+<ol>
+<li>Ajustar la memoria del driver (<code>spark.driver.memory</code>) si el programa principal necesita cargar muchos datos en memoria o manejar una gran cantidad de metadatos. Por ejemplo: <code>--driver-memory 4g</code>.</li>
+<li>Configurar la memoria y los <em>cores</em> por ejecutor (<code>spark.executor.memory</code>, <code>spark.executor.cores</code>) para balancear el número de tareas concurrentes por nodo y la cantidad de datos que puede procesar cada tarea. Por ejemplo: <code>--executor-memory 8g --executor-cores 4</code>.</li>
+<li>Controlar el paralelismo de las operaciones de <em>shuffle</em> (<code>spark.sql.shuffle.partitions</code>) para evitar la creación de demasiadas particiones pequeñas o muy pocas particiones grandes, lo que puede impactar el rendimiento. Un valor de 200 o más es común para clústeres grandes.</li>
+</ol>
+<p><strong>Comentario para la Nube</strong>: La optimización de la configuración es igualmente crítica en la nube. Los servicios gestionados ofrecen la flexibilidad de ajustar estos parámetros a través de la consola o la CLI. Además, algunos servicios como Databricks y Dataproc ofrecen características avanzadas como el autoescalado y la optimización automática del motor que pueden simplificar este proceso, aunque entender los parámetros básicos sigue siendo fundamental.</p>
+<h3 id="143-spark-en-entornos-de-nube-aws-azure-gcp">1.4.3 Spark en entornos de nube (AWS, Azure, GCP)</h3>
+<p>La computación en la nube ha revolucionado la forma en que se despliegan y gestionan los clústeres de Spark. Los proveedores de la nube ofrecen servicios gestionados que abstraen la complejidad de la infraestructura subyacente, permitiéndote enfocarte en el desarrollo de tus aplicaciones de datos.</p>
+<h5 id="servicios-gestionados-de-spark-en-la-nube">Servicios gestionados de Spark en la nube</h5>
+<p>Estos servicios ofrecen una experiencia "llave en mano" para Spark, donde el proveedor se encarga del aprovisionamiento de máquinas, la instalación del software Spark y Hadoop, la configuración de red y el monitoreo básico. Esto reduce significativamente la carga operativa y el tiempo de configuración.</p>
+<ol>
+<li><strong>AWS EMR (Elastic MapReduce)</strong>: Un servicio de clústeres gestionados que facilita el despliegue y la ejecución de frameworks de Big Data como Spark, Hadoop, Hive, Presto, etc. Se integra nativamente con S3 para almacenamiento y Kinesis para streaming.</li>
+<li><strong>Azure HDInsight</strong>: El servicio de análisis de Big Data de Microsoft Azure, que ofrece clústeres gestionados para Spark, Hadoop, Kafka y otros. Se integra con Azure Data Lake Storage (ADLS), Cosmos DB y Azure Synapse Analytics.</li>
+<li><strong>GCP Dataproc</strong>: El servicio de Google Cloud para Spark y Hadoop. Se caracteriza por su rápido aprovisionamiento de clústeres y escalado automático, con fuerte integración con Google Cloud Storage (GCS) y BigQuery.</li>
+<li><strong>Databricks</strong>: Una plataforma unificada para datos y IA, construida sobre Spark y disponible en AWS, Azure y GCP. Ofrece un entorno de desarrollo colaborativo (notebooks), optimizaciones de rendimiento a nivel de motor y gestión simplificada de clústeres.</li>
+</ol>
+<h5 id="ventajas-de-los-servicios-gestionados">Ventajas de los servicios gestionados</h5>
+<p>Las soluciones de Spark en la nube ofrecen beneficios sustanciales en comparación con las instalaciones on-premise, principalmente en términos de escalabilidad, flexibilidad de costos y reducción de la sobrecarga de gestión.</p>
+<ol>
+<li>Un clúster EMR o Dataproc puede escalar automáticamente el número de nodos hacia arriba o hacia abajo en función de la demanda de carga de trabajo, lo que optimiza el uso de recursos y el costo.</li>
+<li>Solo pagas por los recursos computacionales y de almacenamiento que consumes, sin la necesidad de una inversión inicial en hardware. Puedes apagar los clústeres cuando no los uses.</li>
+<li>El proveedor de la nube se encarga de las actualizaciones de software, parches de seguridad, mantenimiento de infraestructura y recuperación de fallos, liberando a tu equipo para centrarse en el desarrollo de aplicaciones.</li>
+</ol>
+<h5 id="configuracion-de-acceso-a-datos-en-la-nube">Configuración de acceso a datos en la nube</h5>
+<p>Un aspecto clave al usar Spark en la nube es la configuración del acceso a los sistemas de almacenamiento de objetos nativos de la nube (como S3 en AWS, ADLS en Azure o GCS en GCP). Estos sistemas son altamente escalables, duraderos y rentables, y Spark se integra muy bien con ellos.</p>
+<ol>
+<li>Para acceder a datos en <strong>AWS S3</strong> desde EMR, solo necesitas especificar la ruta <code>s3a://&lt;bucket-name&gt;/&lt;path-to-data&gt;</code> en tu código Spark, y EMR gestionará automáticamente las credenciales de autenticación si el clúster tiene los roles IAM correctos.</li>
+<li>En <strong>Azure HDInsight</strong>, puedes leer y escribir datos en <strong>Azure Data Lake Storage (ADLS) Gen2</strong> especificando rutas como <code>abfss://&lt;filesystem&gt;@&lt;accountname&gt;.dfs.core.windows.net/&lt;path&gt;</code>. La autenticación se maneja a través de las identidades de Azure.</li>
+<li>Con <strong>GCP Dataproc</strong>, el acceso a <strong>Google Cloud Storage (GCS)</strong> es directo usando rutas <code>gs://&lt;bucket-name&gt;/&lt;path-to-data&gt;</code>, ya que los servicios de Google Cloud están configurados para interoperar con la seguridad del proyecto de GCP.</li>
+</ol>
+<h3 id="144-instalacion-de-spark-en-windows-para-practicas">1.4.4 Instalación de Spark en Windows (para prácticas)</h3>
+<p>Para el desarrollo y las prácticas locales en Windows, la instalación nativa de Spark puede ser compleja debido a dependencias de Hadoop y Path variables. La solución más robusta y recomendada es <a href="../tema_docker/">utilizar <strong>Docker</strong> y el <strong>Windows Subsystem for Linux 2 (WSL2)</strong></a>, que te permite ejecutar un entorno Linux con Spark de manera ligera y eficiente en tu máquina Windows.</p>
+<h5 id="uso-de-imagenes-docker-para-spark-ej-bitnamispark">Uso de imágenes Docker para Spark (ej. bitnami/spark)</h5>
+<p>Una vez que Docker Desktop y WSL2 están listos, puedes utilizar imágenes Docker preconstruidas que ya contienen Spark. Esto elimina la necesidad de instalar Java, Scala o Spark manualmente en tu entorno WSL, simplificando enormemente el setup para las prácticas.</p>
+<p>Desde tu terminal de WSL2 (o PowerShell/CMD), descargar la imagen de Spark deseada, con el comando:</p>
+<pre><code class="language-bash">docker pull bitnami/spark:latest
+</code></pre>
+<ol>
+<li>Ejecutar un contenedor Spark en modo Standalone. </li>
+</ol>
+<p>Primero el Master: </p>
+<pre><code class="language-bash">docker run -d --name spark-master -p 8080:8080 -p 7077:7077 bitnami/spark:latest start_master.sh
+</code></pre>
+<p>Luego, un Worker:</p>
+<pre><code class="language-bash">docker run -d --name spark-worker1 --link spark-master:spark-master bitnami/spark:latest start_worker.sh spark://spark-master:7077
+</code></pre>
+<p>Acceder al Spark Shell (PySpark o Scala) dentro del contenedor Master: </p>
+<pre><code class="language-bash">docker exec -it spark-master pyspark
+</code></pre>
+<p>Ahora puedes escribir y ejecutar código Spark directamente en tu terminal.</p>
+<h5 id="configuracion-de-entorno-de-desarrollo-jupyter-ides">Configuración de entorno de desarrollo (Jupyter, IDEs)</h5>
+<p>Para una experiencia de desarrollo más completa, puedes configurar un entorno como Jupyter Notebook o integrar Spark con tu IDE favorito, conectándote al clúster Spark que se ejecuta en Docker/WSL2.</p>
+<p>Dentro de tu distribución WSL2, instala Jupyter: </p>
+<pre><code class="language-bash">pip install jupyter
+</code></pre>
+<p>Luego, para interactuar con PySpark, puedes añadir un kernel de PySpark al Jupyter:</p>
+<pre><code class="language-bash"># En tu .bashrc o .zshrc en WSL2
+export SPARK_HOME=/opt/bitnami/spark # Si usas la imagen bitnami/spark
+export PATH=$SPARK_HOME/bin:$PATH
+export PYTHONPATH=$SPARK_HOME/python:$PYTHONPATH
+export PYSPARK_SUBMIT_ARGS=&quot;--master spark://localhost:7077 pyspark-shell&quot;
+</code></pre>
+<p>Luego, desde WSL2, lanza Jupyter: </p>
+<pre><code class="language-bash">jupyter notebook --no-browser --port=8888 --ip=0.0.0.0
+</code></pre>
+<p>Accede desde tu navegador Windows a <code>http://localhost:8888</code></p>
+<h2 id="tarea">Tarea</h2>
+<ol>
+<li>Imagina que tu equipo tiene un centro de datos on-premise y está decidiendo si migrar su clúster Spark a la nube o mantenerlo local. Detalla al menos <strong>cinco pros y cinco contras</strong> de cada enfoque, considerando aspectos como costos, escalabilidad, seguridad y complejidad operativa.</li>
+<li>Explica con tus propias palabras qué es un <strong>Cluster Manager</strong> en Spark y por qué es una pieza tan fundamental en la arquitectura distribuida de Spark. Proporciona un ejemplo de cómo YARN y Spark Standalone difieren en su gestión de recursos.</li>
+<li>Investiga el concepto de <strong>autoescalado (autoscaling)</strong> en los servicios gestionados de Spark en la nube (ej., Dataproc o EMR). Describe cómo funciona y qué beneficios aporta en comparación con la gestión manual de recursos.</li>
+<li>¿Cuáles son los pasos clave para conectar un Jupyter Notebook (ejecutándose en tu entorno WSL2) a un clúster Spark que está en un contenedor Docker? Proporciona un pseudocódigo o un ejemplo de configuración de variables de entorno necesario.</li>
+</ol>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../tema13/" class="btn btn-neutral float-left" title="RDD, DataFrame y Dataset"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../tema15/" class="btn btn-neutral float-right" title="Primeros pasos con PySpark">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../tema13/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../tema15/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

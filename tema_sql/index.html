@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Repaso de SQL - Métodos de Procesamiento y Análisis de Big Data</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Repaso de SQL";
+        var mkdocs_page_input_path = "tema_sql.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Métodos de Procesamiento y Análisis de Big Data
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Inicio</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Introducción</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema11/">Fundamentos de Big Data</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema12/">Introducción al ecosistema Spark</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema13/">RDD, DataFrame y Dataset</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema14/">Instalación y configuración de Spark</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema15/">Primeros pasos con PySpark</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">PySpark y SparkSQL</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../tema21.md">Operaciones con DataFrames</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema22.md">Funciones integradas y definidas por el usuario</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema23.md">Consultas con SparkSQL</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema24.md">Esquemas y tipos de datos complejos</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema25.md">Optimización con Catalyst y Tungsten</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Arquitectura y Diseño de Flujos ETL</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../tema31.md">Diseño de pipelines ETL</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema32.md">Conexión a múltiples fuentes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema33.md">Procesos escalables y particionamiento</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema34.md">Buenas prácticas para ETL en Spark</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema35.md">Introducción a Apache Airflow</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Automatización y Orquestación con Apache Airflow</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../tema41.md">Arquitectura y componentes de Airflow</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema42.md">Instalación local usando Docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema43.md">DAGs, operadores y tareas</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema44.md">Uso de `BashOperator`, `PythonOperator` y `SparkSubmitOperator`</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema45.md">Monitoreo y manejo de dependencias</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Proyecto Integrador y Despliegue</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../tema51.md">Desarrollo del proyecto integrador</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema51.md">Despliegue en nube</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Métodos de Procesamiento y Análisis de Big Data</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Repaso de SQL</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="repaso-de-sql">Repaso de SQL</h1>
+<h2 id="1-consultas-basicas-select">1. Consultas Básicas (SELECT)</h2>
+<p>El comando SELECT es la base de toda consulta SQL. Permite recuperar datos de una o más tablas especificando qué columnas mostrar y de qué tablas.</p>
+<ul>
+<li><strong>Selección básica</strong></li>
+</ul>
+<pre><code class="language-sql">SELECT nombre, email, edad 
+FROM usuarios 
+WHERE edad &gt; 25;
+</code></pre>
+<ul>
+<li><strong>Selección con alias y ordenamiento</strong></li>
+</ul>
+<pre><code class="language-sql">SELECT 
+    nombre AS nombre_completo,
+    salario * 12 AS salario_anual
+FROM empleados 
+ORDER BY salario_anual DESC;
+</code></pre>
+<h2 id="2-filtrado-de-datos-where">2. Filtrado de Datos (WHERE)</h2>
+<p>La cláusula WHERE permite filtrar registros basándose en condiciones específicas. Es esencial para obtener exactamente los datos que necesitas.</p>
+<ul>
+<li><strong>Filtros con operadores lógicos</strong></li>
+</ul>
+<pre><code class="language-sql">SELECT * FROM productos 
+WHERE precio BETWEEN 100 AND 500 
+AND categoria = 'Electrónicos' 
+AND stock &gt; 0;
+</code></pre>
+<ul>
+<li><strong>Filtros con patrones y listas</strong></li>
+</ul>
+<pre><code class="language-sql">SELECT cliente_id, nombre FROM clientes 
+WHERE nombre LIKE 'Juan%' 
+OR ciudad IN ('Madrid', 'Barcelona', 'Valencia');
+</code></pre>
+<h2 id="3-joins-uniones-de-tablas">3. Joins (Uniones de Tablas)</h2>
+<p>Los joins permiten combinar datos de múltiples tablas relacionadas. Son fundamentales para trabajar con bases de datos normalizadas.</p>
+<ul>
+<li><strong>INNER JOIN</strong></li>
+</ul>
+<pre><code class="language-sql">SELECT 
+    u.nombre,
+    p.titulo,
+    p.fecha_publicacion
+FROM usuarios u
+INNER JOIN posts p ON u.id = p.usuario_id
+WHERE p.fecha_publicacion &gt; '2024-01-01';
+</code></pre>
+<ul>
+<li><strong>LEFT JOIN</strong></li>
+</ul>
+<pre><code class="language-sql">SELECT 
+    c.nombre AS cliente,
+    COUNT(p.id) AS total_pedidos
+FROM clientes c
+LEFT JOIN pedidos p ON c.id = p.cliente_id
+GROUP BY c.id, c.nombre;
+</code></pre>
+<h2 id="4-funciones-de-agregacion">4. Funciones de Agregación</h2>
+<p>Las funciones de agregación realizan cálculos sobre conjuntos de filas y devuelven un único valor: COUNT, SUM, AVG, MIN, MAX.</p>
+<ul>
+<li><strong>Funciones básicas de agregación</strong></li>
+</ul>
+<pre><code class="language-sql">SELECT 
+    COUNT(*) AS total_productos,
+    AVG(precio) AS precio_promedio,
+    MAX(precio) AS precio_maximo,
+    MIN(stock) AS stock_minimo
+FROM productos
+WHERE categoria = 'Libros';
+</code></pre>
+<ul>
+<li><strong>Agregación con GROUP BY</strong></li>
+</ul>
+<pre><code class="language-sql">SELECT 
+    categoria,
+    COUNT(*) AS cantidad_productos,
+    SUM(precio * stock) AS valor_inventario
+FROM productos
+GROUP BY categoria
+HAVING COUNT(*) &gt; 5;
+</code></pre>
+<h2 id="5-agrupacion-y-filtrado-de-grupos-group-by-y-having">5. Agrupación y Filtrado de Grupos (GROUP BY y HAVING)</h2>
+<p>GROUP BY agrupa filas con valores similares, mientras que HAVING filtra grupos (no filas individuales como WHERE).</p>
+<ul>
+<li><strong>Agrupación simple</strong></li>
+</ul>
+<pre><code class="language-sql">SELECT 
+    departamento,
+    COUNT(*) AS num_empleados,
+    AVG(salario) AS salario_promedio
+FROM empleados
+GROUP BY departamento
+ORDER BY salario_promedio DESC;
+</code></pre>
+<ul>
+<li><strong>Agrupación con filtrado de grupos</strong></li>
+</ul>
+<pre><code class="language-sql">SELECT 
+    YEAR(fecha_pedido) AS año,
+    MONTH(fecha_pedido) AS mes,
+    SUM(total) AS ventas_mensuales
+FROM pedidos
+GROUP BY YEAR(fecha_pedido), MONTH(fecha_pedido)
+HAVING SUM(total) &gt; 10000;
+</code></pre>
+<h2 id="6-insercion-de-datos-insert">6. Inserción de Datos (INSERT)</h2>
+<p>INSERT permite agregar nuevos registros a las tablas. Es crucial dominar tanto inserciones simples como múltiples.</p>
+<ul>
+<li><strong>Inserción simple</strong></li>
+</ul>
+<pre><code class="language-sql">INSERT INTO usuarios (nombre, email, fecha_registro, activo)
+VALUES ('María García', 'maria@email.com', '2024-05-31', TRUE);
+</code></pre>
+<ul>
+<li><strong>Inserción múltiple</strong></li>
+</ul>
+<pre><code class="language-sql">INSERT INTO productos (nombre, precio, categoria, stock)
+VALUES 
+    ('iPhone 15', 999.99, 'Electrónicos', 50),
+    ('MacBook Pro', 1999.99, 'Electrónicos', 25),
+    ('iPad Air', 599.99, 'Electrónicos', 75);
+</code></pre>
+<h2 id="7-actualizacion-de-datos-update">7. Actualización de Datos (UPDATE)</h2>
+<p>UPDATE modifica registros existentes. Siempre debe usarse con WHERE para evitar actualizar toda la tabla accidentalmente.</p>
+<ul>
+<li><strong>Actualización condicional</strong></li>
+</ul>
+<pre><code class="language-sql">UPDATE empleados 
+SET salario = salario * 1.10,
+    fecha_actualizacion = NOW()
+WHERE departamento = 'Ventas' 
+AND fecha_contratacion &lt; '2023-01-01';
+</code></pre>
+<ul>
+<li><strong>Actualización con subconsulta</strong></li>
+</ul>
+<pre><code class="language-sql">UPDATE productos 
+SET precio = precio * 0.90
+WHERE categoria = 'Ropa' 
+AND id IN (
+    SELECT producto_id 
+    FROM inventario 
+    WHERE stock &gt; 100
+);
+</code></pre>
+<h2 id="8-eliminacion-de-datos-delete">8. Eliminación de Datos (DELETE)</h2>
+<p>DELETE elimina registros de una tabla. Como UPDATE, siempre debe incluir WHERE para evitar eliminar todos los registros.</p>
+<ul>
+<li><strong>Eliminación condicional</strong></li>
+</ul>
+<pre><code class="language-sql">DELETE FROM pedidos 
+WHERE estado = 'cancelado' 
+AND fecha_pedido &lt; DATE_SUB(NOW(), INTERVAL 1 YEAR);
+</code></pre>
+<ul>
+<li><strong>Eliminación con subconsulta</strong></li>
+</ul>
+<pre><code class="language-sql">DELETE FROM usuarios 
+WHERE activo = FALSE 
+AND id NOT IN (
+    SELECT DISTINCT usuario_id 
+    FROM pedidos 
+    WHERE fecha_pedido &gt; DATE_SUB(NOW(), INTERVAL 6 MONTH)
+);
+</code></pre>
+<h2 id="9-subconsultas">9. Subconsultas</h2>
+<p>Las subconsultas son consultas anidadas dentro de otras consultas. Permiten realizar operaciones complejas y comparaciones dinámicas.</p>
+<ul>
+<li><strong>Subconsulta en WHERE</strong></li>
+</ul>
+<pre><code class="language-sql">SELECT nombre, salario 
+FROM empleados
+WHERE salario &gt; (
+    SELECT AVG(salario) 
+    FROM empleados 
+    WHERE departamento = 'IT'
+);
+</code></pre>
+<ul>
+<li><strong>Subconsulta correlacionada</strong></li>
+</ul>
+<pre><code class="language-sql">SELECT 
+    e1.nombre,
+    e1.departamento,
+    e1.salario
+FROM empleados e1
+WHERE e1.salario = (
+    SELECT MAX(e2.salario)
+    FROM empleados e2
+    WHERE e2.departamento = e1.departamento
+);
+</code></pre>
+<h2 id="10-indices-y-optimizacion">10. Índices y Optimización</h2>
+<p>Los índices mejoran el rendimiento de las consultas, especialmente en tablas grandes. Es importante saber cuándo y cómo usarlos.</p>
+<ul>
+<li><strong>Creación de índices</strong></li>
+</ul>
+<pre><code class="language-sql">-- Índice simple para búsquedas frecuentes
+CREATE INDEX idx_usuarios_email ON usuarios(email);
+
+-- Índice compuesto para consultas multi-columna
+CREATE INDEX idx_pedidos_fecha_cliente ON pedidos(fecha_pedido, cliente_id);
+</code></pre>
+<ul>
+<li><strong>Optimización de consultas</strong></li>
+</ul>
+<pre><code class="language-sql">-- Consulta optimizada usando índices
+SELECT * FROM pedidos 
+WHERE cliente_id = 123 
+AND fecha_pedido BETWEEN '2024-01-01' AND '2024-12-31'
+ORDER BY fecha_pedido DESC
+LIMIT 10;
+
+-- Uso de EXPLAIN para analizar el plan de ejecución
+EXPLAIN SELECT * FROM productos WHERE categoria = 'Libros' AND precio &gt; 20;
+</code></pre>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Introducción al ecosistema Spark - Métodos de Procesamiento y Análisis de Big Data</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Introducci\u00f3n al ecosistema Spark";
+        var mkdocs_page_input_path = "tema12.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Métodos de Procesamiento y Análisis de Big Data
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Inicio</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Introducción</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../tema11/">Fundamentos de Big Data</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Introducción al ecosistema Spark</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#tema-12-introduccion-al-ecosistema-spark">Tema 1.2 Introducción al ecosistema Spark</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#121-que-es-apache-spark">1.2.1 ¿Qué es Apache Spark?</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#procesamiento-en-memoria">Procesamiento en memoria</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#resilient-distributed-datasets-rdds">Resilient Distributed Datasets (RDDs)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#122-componentes-principales-de-spark">1.2.2 Componentes principales de Spark</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#spark-core">Spark Core</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#spark-sql">Spark SQL</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#spark-streaming">Spark Streaming</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#mllib">MLlib</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#graphx">GraphX</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#123-arquitectura-de-spark">1.2.3 Arquitectura de Spark</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#spark-driver">Spark Driver</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#spark-executor">Spark Executor</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#cluster-manager">Cluster Manager</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#124-interaccion-con-spark">1.2.4 Interacción con Spark</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#spark-shell">Spark Shell</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#spark-submit">Spark Submit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#spark-ui">Spark UI</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#125-conceptos-fundamentales-de-procesamiento-distribuido-en-spark">1.2.5 Conceptos fundamentales de procesamiento distribuido en Spark</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#particionamiento-de-datos">Particionamiento de datos</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#persistencia-de-datos-caching">Persistencia de datos (Caching)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#lazy-evaluation-evaluacion-perezosa">Lazy Evaluation (Evaluación Perezosa)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#126-comparacion-de-spark-con-otras-herramientas-big-data">1.2.6 Comparación de Spark con otras herramientas Big Data</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#spark-vs-hadoop-mapreduce">Spark vs. Hadoop MapReduce</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tarea">Tarea</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema13/">RDD, DataFrame y Dataset</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema14/">Instalación y configuración de Spark</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema15/">Primeros pasos con PySpark</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">PySpark y SparkSQL</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../tema21.md">Operaciones con DataFrames</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema22.md">Funciones integradas y definidas por el usuario</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema23.md">Consultas con SparkSQL</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema24.md">Esquemas y tipos de datos complejos</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema25.md">Optimización con Catalyst y Tungsten</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Arquitectura y Diseño de Flujos ETL</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../tema31.md">Diseño de pipelines ETL</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema32.md">Conexión a múltiples fuentes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema33.md">Procesos escalables y particionamiento</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema34.md">Buenas prácticas para ETL en Spark</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema35.md">Introducción a Apache Airflow</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Automatización y Orquestación con Apache Airflow</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../tema41.md">Arquitectura y componentes de Airflow</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema42.md">Instalación local usando Docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema43.md">DAGs, operadores y tareas</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema44.md">Uso de `BashOperator`, `PythonOperator` y `SparkSubmitOperator`</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema45.md">Monitoreo y manejo de dependencias</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Proyecto Integrador y Despliegue</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../tema51.md">Desarrollo del proyecto integrador</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema51.md">Despliegue en nube</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Métodos de Procesamiento y Análisis de Big Data</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Introducción</li>
+      <li class="breadcrumb-item active">Introducción al ecosistema Spark</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="1-introduccion">1. Introducción</h1>
+<h2 id="tema-12-introduccion-al-ecosistema-spark">Tema 1.2 Introducción al ecosistema Spark</h2>
+<p><strong>Objetivo</strong>:</p>
+<p>Comprender la arquitectura, componentes principales y modos de operación de Apache Spark, así como sus ventajas y casos de uso en el procesamiento de Big Data, para sentar las bases de su aplicación práctica.</p>
+<p><strong>Introducción</strong>:</p>
+<p>En la era del Big Data, el procesamiento eficiente de grandes volúmenes de información es crucial. Apache Spark ha emergido como una de las herramientas más potentes y versátiles para esta tarea. Este tema proporcionará una visión integral del ecosistema Spark, desde su concepción hasta sus principales componentes y cómo interactúa con otras tecnologías del Big Data, preparando el terreno para un uso efectivo en el análisis y la ingeniería de datos.</p>
+<p><strong>Desarrollo</strong>:</p>
+<p>Apache Spark es un motor unificado de análisis para el procesamiento de datos a gran escala. A diferencia de sus predecesores, como Hadoop MapReduce, Spark se distingue por su capacidad para procesar datos en memoria, lo que resulta en una velocidad significativamente mayor. Su diseño modular y extensible permite manejar una amplia variedad de cargas de trabajo, desde el procesamiento por lotes hasta el análisis en tiempo real, aprendizaje automático y procesamiento de grafos, todo ello dentro de un único ecosistema cohesivo.</p>
+<h3 id="121-que-es-apache-spark">1.2.1 ¿Qué es Apache Spark?</h3>
+<p>Apache Spark es un motor de procesamiento de datos distribuido de código abierto, diseñado para el análisis rápido de grandes volúmenes de datos. Se desarrolló en la Universidad de California, Berkeley, en el AMPLab, y fue donado a la Apache Software Foundation. Su principal fortaleza radica en su capacidad para realizar operaciones en memoria, lo que lo hace considerablemente más rápido que otros sistemas de procesamiento distribuido que dependen en gran medida del disco, como Hadoop MapReduce. Spark está optimizado para flujos de trabajo iterativos y consultas interactivas, lo que lo convierte en una opción ideal para Machine Learning y análisis de datos complejos.</p>
+<h5 id="procesamiento-en-memoria">Procesamiento en memoria</h5>
+<p>Se refiere a la capacidad de Apache Spark para retener los datos en la memoria RAM de los nodos del clúster mientras realiza operaciones, en lugar de escribirlos y leerlos repetidamente del disco. Esta característica es la principal razón de la alta velocidad de Spark, ya que el acceso a la memoria es órdenes de magnitud más rápido que el acceso al disco. Permite operaciones iterativas rápidas, algo esencial para algoritmos de Machine Learning y operaciones ETL complejas que requieren múltiples pasadas sobre los mismos datos.</p>
+<ol>
+<li>Un algoritmo de <em>Machine Learning</em> que requiere varias iteraciones para optimizar un modelo. Spark mantiene los datos en memoria a través de las iteraciones, evitando la sobrecarga de I/O de disco.</li>
+<li>Un proceso de <em>ETL</em> (Extracción, Transformación, Carga) que realiza múltiples transformaciones sobre un conjunto de datos. En lugar de guardar resultados intermedios en disco, Spark los gestiona en memoria.</li>
+<li>Consultas interactivas en un <em>data lake</em>. Los analistas pueden ejecutar consultas complejas con tiempos de respuesta muy bajos, ya que los datos relevantes pueden ser cacheados en memoria.</li>
+</ol>
+<h5 id="resilient-distributed-datasets-rdds">Resilient Distributed Datasets (RDDs)</h5>
+<p>Los RDDs son la colección fundamental de elementos tolerantes a fallos en Spark que se ejecutan en paralelo. Son la abstracción de datos principal en Spark Core. Un RDD es una colección inmutable y particionada de registros que se puede operar en paralelo. Los RDDs pueden ser creados a partir de fuentes externas (como HDFS o S3) o de colecciones existentes en Scala, Python o Java. Son "resilientes" porque pueden reconstruirse automáticamente en caso de fallo de un nodo, y "distribuidos" porque se extienden a través de múltiples nodos en un clúster.</p>
+<ol>
+<li>Cargar un archivo CSV grande de 1 TB desde HDFS en un RDD para su procesamiento.</li>
+<li>Realizar una operación <code>map</code> sobre un RDD para transformar cada elemento (ej: convertir una cadena a un número entero).</li>
+<li>Aplicar una operación <code>reduceByKey</code> a un RDD de pares clave-valor para sumar los valores por cada clave.</li>
+</ol>
+<h3 id="122-componentes-principales-de-spark">1.2.2 Componentes principales de Spark</h3>
+<p>Spark no es una herramienta monolítica; es un ecosistema compuesto por varios módulos integrados que extienden sus capacidades. Estos componentes se construyen sobre Spark Core y proporcionan APIs de alto nivel para diferentes tipos de procesamiento de datos, lo que permite a los desarrolladores elegir la herramienta adecuada para su tarea sin tener que manejar las complejidades del procesamiento distribuido desde cero.</p>
+<h5 id="spark-core">Spark Core</h5>
+<p>Es el motor subyacente de todas las funcionalidades de Spark. Proporciona la funcionalidad básica de E/S, la planificación de tareas y la gestión de memoria. La abstracción fundamental de Spark Core es el RDD, que permite operaciones de procesamiento distribuido. Es la base sobre la cual se construyen todos los demás componentes de Spark.</p>
+<ol>
+<li>Leer un conjunto de datos sin estructura específica (por ejemplo, logs de servidores) y aplicar transformaciones básicas con RDDs.</li>
+<li>Realizar operaciones de bajo nivel y personalizadas que no están fácilmente disponibles en las APIs de alto nivel (como Spark SQL).</li>
+<li>Implementar un algoritmo de procesamiento de datos altamente específico donde se necesita control granular sobre las operaciones de particionamiento y persistencia.</li>
+</ol>
+<h5 id="spark-sql">Spark SQL</h5>
+<p>Spark SQL es un módulo para trabajar con datos estructurados y semiestructurados. Proporciona una interfaz de programación unificada para ejecutar consultas SQL y operaciones de manipulación de datos sobre estructuras como DataFrames y Datasets. Permite integrar código Spark con consultas SQL, facilitando la interacción con bases de datos relacionales, Hive, JSON, Parquet, etc. Su optimizador Catalyst es clave para su alto rendimiento.</p>
+<ol>
+<li>Cargar un archivo Parquet en un <strong>DataFrame</strong> y ejecutar una consulta SQL estándar como <code>SELECT * FROM tabla WHERE columna &gt; 100</code>.</li>
+<li>Unir dos <strong>DataFrames</strong> basados en una clave común para combinar información de diferentes fuentes de datos.</li>
+<li>Leer un conjunto de datos JSON y transformarlo en un <strong>DataFrame</strong> para luego exportarlo a una base de datos relacional.</li>
+</ol>
+<h5 id="spark-streaming">Spark Streaming</h5>
+<p>Spark Streaming es una extensión de la API principal de Spark que permite el procesamiento de flujos de datos en tiempo real. Recibe flujos de datos de diversas fuentes (Kafka, Flume, Kinesis, TCP Sockets, etc.) y los divide en pequeños lotes que luego son procesados por el motor Spark Core. Esto permite aplicar las mismas transformaciones de datos que se usan para el procesamiento por lotes a los datos en tiempo real.</p>
+<ol>
+<li>Analizar el <em>clickstream</em> de un sitio web en tiempo real para detectar patrones de navegación o anomalías.</li>
+<li>Monitorear datos de sensores de IoT para detectar fallos o eventos críticos instantáneamente.</li>
+<li>Procesar mensajes de Twitter en vivo para realizar análisis de sentimiento sobre temas específicos.</li>
+</ol>
+<h5 id="mllib">MLlib</h5>
+<p>MLlib es la biblioteca de aprendizaje automático de Spark. Proporciona una colección de algoritmos de Machine Learning de alto rendimiento y escalables, como clasificación, regresión, clustering, filtrado colaborativo, entre otros. Está diseñada para integrarse perfectamente con los DataFrames de Spark SQL, lo que permite a los usuarios construir pipelines de ML complejos.</p>
+<ol>
+<li>Entrenar un modelo de <strong>clasificación</strong> para predecir si un cliente abandonará un servicio (churn prediction) usando datos de transacciones.</li>
+<li>Aplicar un algoritmo de <strong>clustering</strong> para segmentar clientes basado en su comportamiento de compra.</li>
+<li>Construir un sistema de <strong>recomendación</strong> de productos utilizando datos de interacciones de usuarios con artículos.</li>
+</ol>
+<h5 id="graphx">GraphX</h5>
+<p>GraphX es la API de Spark para el procesamiento de grafos y el cálculo de grafos en paralelo. Combina las propiedades de los RDDs de Spark con las operaciones de grafos para proporcionar un marco flexible y eficiente para trabajar con estructuras de datos de grafos. Permite construir y manipular grafos, y ejecutar algoritmos de grafos como PageRank o Connected Components.</p>
+<ol>
+<li>Calcular el <strong>PageRank</strong> de nodos en una red social para identificar los usuarios más influyentes.</li>
+<li>Identificar las <strong>conexiones más cortas</strong> entre dos puntos en una red de transporte.</li>
+<li>Detectar <strong>comunidades o grupos</strong> de usuarios en una red de colaboración.</li>
+</ol>
+<h3 id="123-arquitectura-de-spark">1.2.3 Arquitectura de Spark</h3>
+<p>La arquitectura de Spark es clave para su capacidad de procesamiento distribuido y tolerancia a fallos. Se basa en un modelo maestro-esclavo, donde un <strong>Driver</strong> coordina las operaciones entre los <strong>Executors</strong> distribuidos en el clúster, con la ayuda de un <strong>Cluster Manager</strong>. Entender estos roles es fundamental para desplegar y gestionar aplicaciones Spark de manera efectiva.</p>
+<h5 id="spark-driver">Spark Driver</h5>
+<p>El <strong>Spark Driver</strong> es el programa principal que coordina y gestiona la ejecución de una aplicación Spark. Contiene el <code>main</code> de la aplicación Spark y crea el <code>SparkContext</code> (o <code>SparkSession</code> en versiones más recientes). El Driver es responsable de convertir el código de la aplicación Spark en una serie de tareas, programarlas en los <strong>Executors</strong> y monitorear su ejecución. Es el punto de entrada para cualquier aplicación Spark.</p>
+<ol>
+<li>Un programa Python que inicializa una <code>SparkSession</code>, lee un archivo CSV y ejecuta algunas transformaciones de datos. El Driver se encarga de dividir el trabajo y enviarlo a los Executors.</li>
+<li>Cuando se utiliza <code>spark-submit</code> para lanzar una aplicación, el comando invoca el Driver en el nodo especificado (o en el <em>cluster manager</em>).</li>
+<li>En un <em>Jupyter Notebook</em> con un kernel Spark, el Driver se ejecuta en el proceso del <em>notebook</em> o en un nodo configurado, orquestando todas las operaciones.</li>
+</ol>
+<h5 id="spark-executor">Spark Executor</h5>
+<p>Un <strong>Spark Executor</strong> es un proceso que se ejecuta en los nodos <em>worker</em> del clúster de Spark. Son responsables de ejecutar las tareas individuales asignadas por el Driver y de almacenar los datos que se cachean o se persisten. Cada Executor tiene un cierto número de <em>cores</em> y una cantidad de memoria RAM asignada para ejecutar tareas en paralelo y almacenar datos.</p>
+<ol>
+<li>Un Executor recibe una tarea del Driver para filtrar un subconjunto de filas de un DataFrame.</li>
+<li>Múltiples Executors procesan diferentes particiones del mismo RDD en paralelo.</li>
+<li>Un Executor almacena en caché una porción de un DataFrame en su memoria local para acelerar futuras operaciones sobre esos datos.</li>
+</ol>
+<h5 id="cluster-manager">Cluster Manager</h5>
+<p>El <strong>Cluster Manager</strong> es el componente responsable de asignar recursos del clúster (CPU, memoria) a la aplicación Spark. Actúa como intermediario entre el Driver y los Executors, gestionando la asignación de nodos y la disponibilidad de recursos. Spark puede trabajar con varios tipos de <em>Cluster Managers</em>.</p>
+<ol>
+<li><strong>YARN (Yet Another Resource Negotiator)</strong>: Es el <em>Cluster Manager</em> más común en entornos Hadoop. Spark lo utiliza para solicitar recursos en un clúster Hadoop existente.</li>
+<li><strong>Apache Mesos</strong>: Un gestor de recursos de propósito general que puede ejecutar Spark junto con otras aplicaciones distribuidas.</li>
+<li><strong>Spark Standalone</strong>: El propio <em>Cluster Manager</em> de Spark, ideal para entornos de desarrollo y pruebas o clústeres dedicados a Spark sin otras dependencias.</li>
+</ol>
+<h3 id="124-interaccion-con-spark">1.2.4 Interacción con Spark</h3>
+<p>La interacción con Apache Spark puede realizarse de diversas maneras, dependiendo del propósito, ya sea para desarrollo interactivo, ejecución de trabajos programados o monitoreo. Comprender cómo interactuar con Spark permite a los desarrolladores y operadores gestionar sus aplicaciones de forma eficiente.</p>
+<h5 id="spark-shell">Spark Shell</h5>
+<p>El <strong>Spark Shell</strong> es una herramienta interactiva basada en la consola que permite a los usuarios experimentar con Spark directamente. Proporciona un entorno REPL (Read-Eval-Print Loop) donde se pueden escribir y ejecutar comandos Spark en Scala, Python o R. Es ideal para prototipado, pruebas rápidas y exploración de datos.</p>
+<ol>
+<li>Iniciar <code>pyspark</code> en la terminal para abrir el Spark Shell con soporte para Python.</li>
+<li>Escribir <code>sc.parallelize([1, 2, 3]).map(lambda x: x*2).collect()</code> en el Spark Shell para ver el resultado de una operación simple.</li>
+<li>Probar la lectura de un archivo de datos pequeño y las primeras transformaciones antes de integrarlas en un script más grande.</li>
+</ol>
+<h5 id="spark-submit">Spark Submit</h5>
+<p><code>spark-submit</code> es el comando de línea de comandos principal utilizado para enviar aplicaciones Spark (escritas en Scala, Java, Python o R) a un clúster Spark. Permite especificar la ubicación del código de la aplicación, los recursos a asignar (memoria del driver, memoria de los executors, número de cores, etc.) y el <em>Cluster Manager</em> a utilizar. Es la forma estándar de ejecutar trabajos Spark en producción.</p>
+<ol>
+<li><code>spark-submit --class com.example.MyApp --master yarn --deploy-mode cluster myapp.jar</code> para enviar una aplicación Java/Scala a un clúster YARN.</li>
+<li><code>spark-submit --master local[*] my_python_script.py</code> para ejecutar un script Python en modo local (útil para desarrollo y pruebas en una sola máquina).</li>
+<li><code>spark-submit --driver-memory 4g --executor-memory 8g --num-executors 10 my_etl_job.py</code> para asignar recursos específicos a una aplicación ETL.</li>
+</ol>
+<h5 id="spark-ui">Spark UI</h5>
+<p>La <strong>Spark UI (User Interface)</strong> es una interfaz web que proporciona monitoreo en tiempo real de las aplicaciones Spark en ejecución. Permite a los usuarios ver el estado de los trabajos, las etapas, las tareas, el consumo de memoria de los Executors, los logs y otra información detallada sobre la ejecución de la aplicación. Es una herramienta invaluable para depurar, optimizar y comprender el rendimiento de las aplicaciones Spark.</p>
+<ol>
+<li>Acceder a <code>http://localhost:4040</code> (o la dirección IP y puerto correspondientes) mientras una aplicación Spark se está ejecutando para ver los DAGs de las etapas.</li>
+<li>Inspeccionar la pestaña "Stages" para identificar qué partes de un trabajo están tardando más en ejecutarse o si hay <em>skew</em> en los datos (desequilibrio de carga).</li>
+<li>Revisar los logs de los Executors en la pestaña "Executors" para diagnosticar errores o problemas de memoria.</li>
+</ol>
+<h5 id="125-conceptos-fundamentales-de-procesamiento-distribuido-en-spark">1.2.5 Conceptos fundamentales de procesamiento distribuido en Spark</h5>
+<p>El procesamiento distribuido en Spark se basa en varios conceptos clave que optimizan el rendimiento y la tolerancia a fallos. Entender cómo Spark maneja la partición de datos, la persistencia y la evaluación perezosa es crucial para escribir aplicaciones eficientes y robustas.</p>
+<h5 id="particionamiento-de-datos">Particionamiento de datos</h5>
+<p>El <strong>particionamiento de datos</strong> en Spark se refiere a cómo los datos se dividen y se distribuyen entre los nodos de un clúster. Cada partición de un RDD o DataFrame es un conjunto lógico de datos que puede ser procesado por una tarea individual en un Executor. El número y la estrategia de particionamiento afectan directamente el paralelismo, la eficiencia de las operaciones de <em>shuffle</em> (reorganización de datos entre nodos) y el rendimiento general de la aplicación.</p>
+<ol>
+<li>Al leer un archivo de texto grande, Spark lo divide automáticamente en particiones basadas en el tamaño de bloque del sistema de archivos subyacente (ej. HDFS).</li>
+<li>Después de una operación como <code>groupByKey</code> o <code>join</code>, Spark puede necesitar re-particionar los datos (esto se conoce como <em>shuffle</em>) para asegurar que los datos relacionados estén en el mismo nodo.</li>
+<li>Un desarrollador puede especificar el número de particiones manualmente (<code>repartition</code> o <code>coalesce</code>) para optimizar el rendimiento, por ejemplo, para evitar demasiadas particiones pequeñas o muy pocas particiones grandes.</li>
+</ol>
+<h5 id="persistencia-de-datos-caching">Persistencia de datos (Caching)</h5>
+<p>La <strong>persistencia de datos</strong> o <em>caching</em> en Spark es la capacidad de almacenar en memoria o en disco los RDDs o DataFrames intermedios para acelerar futuras operaciones sobre ellos. Cuando se marca un RDD/DataFrame para persistencia, Spark intenta mantener sus particiones en la memoria RAM de los Executors. Esto es especialmente útil para flujos de trabajo iterativos o cuando se accede repetidamente al mismo conjunto de datos.</p>
+<ol>
+<li>Marcar un DataFrame como <code>df.cache()</code> después de una costosa operación de carga y limpieza, antes de ejecutar múltiples consultas sobre él.</li>
+<li>En un algoritmo de Machine Learning iterativo, el conjunto de datos de entrenamiento se persiste (<code>persist(StorageLevel.MEMORY_AND_DISK)</code>) para evitar recalcularlo en cada iteración.</li>
+<li>Un conjunto de datos de referencia (ej. una tabla de códigos postales) que se une frecuentemente con otros DataFrames se puede persistir para un acceso rápido.</li>
+</ol>
+<h5 id="lazy-evaluation-evaluacion-perezosa">Lazy Evaluation (Evaluación Perezosa)</h5>
+<p>La <strong>Evaluación Perezosa</strong> es un concepto fundamental en Spark que significa que las transformaciones (operaciones que producen un nuevo RDD/DataFrame a partir de uno existente, como <code>map</code>, <code>filter</code>, <code>join</code>) no se ejecutan inmediatamente cuando se invocan. En su lugar, Spark construye un <em>plan lógico</em> de las operaciones. La ejecución real de estas transformaciones solo ocurre cuando se invoca una <strong>acción</strong> (operación que devuelve un valor al Driver o escribe datos en un sistema externo, como <code>count</code>, <code>collect</code>, <code>saveAsTextFile</code>).</p>
+<ol>
+<li>Cuando se escribe <code>df.filter("edad &gt; 30").select("nombre")</code>, Spark no procesa los datos en ese instante; solo registra estas transformaciones en su plan.</li>
+<li>La ejecución real del código del ejemplo anterior solo se dispara cuando se añade una acción como <code>.show()</code> o <code>.count()</code>.</li>
+<li>La evaluación perezosa permite a Spark optimizar el plan de ejecución completo (DAG) antes de ejecutar cualquier cálculo, eliminando operaciones innecesarias o reordenándolas para una mayor eficiencia.</li>
+</ol>
+<h3 id="126-comparacion-de-spark-con-otras-herramientas-big-data">1.2.6 Comparación de Spark con otras herramientas Big Data</h3>
+<p>Apache Spark, aunque muy potente, no es una solución aislada. Se integra y a menudo complementa a otras herramientas en el ecosistema Big Data. Comprender su posición y cómo se compara con otras soluciones es crucial para tomar decisiones arquitectónicas informadas.</p>
+<h5 id="spark-vs-hadoop-mapreduce">Spark vs. Hadoop MapReduce</h5>
+<p><strong>Hadoop MapReduce</strong> es el motor de procesamiento original del ecosistema Hadoop. Opera en un modelo de dos fases (map y reduce), escribiendo resultados intermedios en disco. <strong>Spark</strong>, por otro lado, puede realizar operaciones multipase en memoria y ofrece una API más flexible. Spark es generalmente más rápido para cargas de trabajo iterativas y para el procesamiento de datos en tiempo real, mientras que MapReduce puede ser adecuado para procesamientos por lotes masivos que no requieren mucha interacción o iteraciones.</p>
+<ol>
+<li>Para un proceso de <em>ETL</em> que involucra múltiples pasos de transformación y limpieza de datos (ej. <code>filter</code> -&gt; <code>join</code> -&gt; <code>groupBy</code>), Spark es significativamente más eficiente que MapReduce debido a su procesamiento en memoria.</li>
+<li>Un algoritmo de <em>PageRank</em> o <em>K-Means</em> que requiere muchas iteraciones sobre el mismo conjunto de datos se ejecuta mucho más rápido en Spark.</li>
+<li>Para un análisis de datos que solo implica una operación de conteo masiva y una sola pasada (ej. <code>word count</code> en archivos muy grandes), MapReduce podría ser suficiente, aunque Spark también lo manejaría eficientemente.</li>
+</ol>
+<h2 id="tarea">Tarea</h2>
+<ol>
+<li>Busca un ejemplo de código en Python o Scala donde se utilice <code>persist()</code> con diferentes <code>StorageLevel</code> (por ejemplo, <code>MEMORY_ONLY</code>, <code>DISK_ONLY</code>, <code>MEMORY_AND_DISK</code>) y explica cuándo sería apropiado usar cada uno.</li>
+<li>Compara la resiliencia de los <strong>RDDs</strong> en Spark con la tolerancia a fallos en <strong>Hadoop HDFS</strong>. ¿Cuáles son las similitudes y diferencias clave en cómo manejan la pérdida de datos o nodos?</li>
+<li>Identifica dos escenarios de negocio donde <strong>Spark Streaming</strong> sería la solución ideal y justifica por qué.</li>
+</ol>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../tema11/" class="btn btn-neutral float-left" title="Fundamentos de Big Data"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../tema13/" class="btn btn-neutral float-right" title="RDD, DataFrame y Dataset">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../tema11/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../tema13/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

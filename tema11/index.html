@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Fundamentos de Big Data - Métodos de Procesamiento y Análisis de Big Data</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Fundamentos de Big Data";
+        var mkdocs_page_input_path = "tema11.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Métodos de Procesamiento y Análisis de Big Data
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Inicio</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Introducción</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Fundamentos de Big Data</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#tema-11-fundamentos-de-big-data">Tema 1.1. Fundamentos de Big Data</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#111-que-es-big-data">1.1.1 ¿Qué es Big Data?</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#112-las-5-vs-del-big-data">1.1.2 Las 5 Vs del Big Data:</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#volumen">Volumen</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#velocidad">Velocidad</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#variedad">Variedad</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#veracidad">Veracidad</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#valor">Valor</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#113-desafios-del-big-data">1.1.3 Desafíos del Big Data:</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#114-oportunidades-del-big-data">1.1.4 Oportunidades del Big Data:</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#115-tipos-de-datos-en-big-data">1.1.5 Tipos de Datos en Big Data:</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#datos-estructurados">Datos Estructurados</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#datos-semi-estructurados">Datos Semi-estructurados</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#datos-no-estructurados">Datos No Estructurados</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#116-modelos-de-procesamiento-de-datos">1.1.6 Modelos de Procesamiento de Datos</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#procesamiento-batch-por-lotes">Procesamiento Batch (por Lotes)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#procesamiento-en-tiempo-real-streaming">Procesamiento en Tiempo Real (Streaming)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#procesamiento-interactivo-ad-hocexploratorio">Procesamiento Interactivo (Ad-Hoc/Exploratorio)</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tarea">Tarea</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema12/">Introducción al ecosistema Spark</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema13/">RDD, DataFrame y Dataset</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema14/">Instalación y configuración de Spark</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema15/">Primeros pasos con PySpark</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">PySpark y SparkSQL</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../tema21.md">Operaciones con DataFrames</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema22.md">Funciones integradas y definidas por el usuario</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema23.md">Consultas con SparkSQL</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema24.md">Esquemas y tipos de datos complejos</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema25.md">Optimización con Catalyst y Tungsten</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Arquitectura y Diseño de Flujos ETL</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../tema31.md">Diseño de pipelines ETL</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema32.md">Conexión a múltiples fuentes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema33.md">Procesos escalables y particionamiento</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema34.md">Buenas prácticas para ETL en Spark</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema35.md">Introducción a Apache Airflow</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Automatización y Orquestación con Apache Airflow</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../tema41.md">Arquitectura y componentes de Airflow</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema42.md">Instalación local usando Docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema43.md">DAGs, operadores y tareas</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema44.md">Uso de `BashOperator`, `PythonOperator` y `SparkSubmitOperator`</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema45.md">Monitoreo y manejo de dependencias</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Proyecto Integrador y Despliegue</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../tema51.md">Desarrollo del proyecto integrador</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema51.md">Despliegue en nube</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Métodos de Procesamiento y Análisis de Big Data</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Introducción</li>
+      <li class="breadcrumb-item active">Fundamentos de Big Data</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="1-introduccion">1. Introducción</h1>
+<h2 id="tema-11-fundamentos-de-big-data">Tema 1.1. Fundamentos de Big Data</h2>
+<p><strong>Objetivo</strong>:</p>
+<p>Al finalizar este tema, el estudiante comprenderá qué es Big Data, identificará sus características principales (las 'Vs'), reconocerá los desafíos y oportunidades que presenta, y diferenciará los tipos de datos y los modelos de procesamiento de datos más comunes en el contexto del Big Data.</p>
+<p><strong>Introducción</strong>:</p>
+<p>En la era digital actual, la cantidad de datos generados crece exponencialmente cada segundo. Desde nuestras interacciones en redes sociales hasta transacciones comerciales y sensores IoT, todo produce datos. Sin embargo, no es solo el volumen lo que define el "Big Data", sino también la velocidad a la que se generan y la variedad de sus formatos. Este tema sentará las bases para entender este fenómeno, explorando sus dimensiones, las problemáticas que resuelve y las nuevas oportunidades de negocio y análisis que habilita, preparando al estudiante para adentrarse en las herramientas diseñadas para manejar este desafío.</p>
+<p><strong>Desarrollo</strong>:</p>
+<p>El concepto de "Big Data" ha evolucionado para describir conjuntos de datos tan grandes y complejos que los métodos tradicionales de procesamiento y análisis de datos no son adecuados. Va más allá del tamaño, abarcando la complejidad y la velocidad con la que los datos son generados, procesados y analizados.</p>
+<h3 id="111-que-es-big-data">1.1.1 ¿Qué es Big Data?</h3>
+<p>Big Data se refiere al conjunto de tecnologías, arquitecturas y metodologías orientadas al manejo de grandes volúmenes de datos que, por su tamaño, velocidad de generación y variedad de formatos, exceden las capacidades de los sistemas tradicionales de gestión y procesamiento de datos, para realizar la labor en un tiempo razonable. Este paradigma implica trabajar con datos estructurados, semi-estructurados y no estructurados que son generados de manera continua desde múltiples fuentes, como sensores IoT, redes sociales, logs de sistemas, transacciones financieras, aplicaciones móviles, entre otros.</p>
+<p>El objetivo de Big Data no es solo almacenar grandes cantidades de información, sino habilitar su análisis a través de herramientas y plataformas distribuidas como Apache Hadoop, Apache Spark, y sistemas en la nube (AWS, Azure, GCP), que permiten descubrir patrones, correlaciones, comportamientos y tendencias en tiempo casi real. Esto proporciona una base sólida para la toma de decisiones basada en datos (data-driven decision making) en contextos empresariales, científicos, industriales y sociales.</p>
+<h3 id="112-las-5-vs-del-big-data">1.1.2 Las 5 <strong>V</strong>s del Big Data:</h3>
+<p>Estas cinco características definen intrínsecamente lo que consideramos Big Data:</p>
+<h5 id="volumen">Volumen</h5>
+<p>Se refiere a la <strong>cantidad masiva de datos</strong> generados por fuentes heterogéneas a una escala que supera la capacidad de almacenamiento, procesamiento y análisis de los sistemas tradicionales. El volumen en Big Data se mide en terabytes (TB), petabytes (PB), exabytes (EB) y más, y exige arquitecturas distribuidas para su gestión eficiente. Esta dimensión implica diseñar soluciones capaces de almacenar datos a gran escala (como HDFS, S3, Snowflake o BigQuery) y realizar operaciones analíticas paralelas mediante frameworks como Apache Spark o Hive.</p>
+<ul>
+<li>Walmart procesa más de un millón de transacciones de clientes por hora, lo que se traduce en más de 2.5 petabytes de datos generados diariamente.</li>
+<li>El <strong>Large Hadron Collider (LHC)</strong> del CERN genera aproximadamente 1 petabyte de datos por segundo durante sus experimentos, de los cuales solo una fracción se conserva para análisis posterior.</li>
+<li>Plataformas como <strong>Facebook</strong> almacenan y gestionan más de 300 petabytes de datos generados por interacciones de usuarios, contenido multimedia, mensajes y logs de actividad.</li>
+</ul>
+<h5 id="velocidad">Velocidad</h5>
+<p>Hace referencia a la <strong>rapidez con la que los datos son generados, transmitidos, recibidos y procesados</strong>. En aplicaciones modernas, como monitoreo en tiempo real, detección de fraude, análisis de redes sociales o telemetría industrial, los datos deben ser procesados en milisegundos o segundos. Esto requiere sistemas capaces de ingerir flujos de datos continuos (streaming) utilizando tecnologías como Apache Kafka, Apache Flink, Spark Streaming o Google Dataflow, combinadas con almacenamiento en memoria y mecanismos de baja latencia.</p>
+<ul>
+<li>Twitter genera más de 500 millones de tweets al día, que deben ser indexados y disponibles casi instantáneamente para búsquedas y análisis en tiempo real.</li>
+<li>Los <strong>sistemas de detección de fraude bancario</strong> procesan miles de transacciones por segundo, aplicando modelos de machine learning en tiempo real para identificar comportamientos sospechosos.</li>
+<li>En <strong>vehículos autónomos</strong>, los sensores LIDAR, cámaras y radares generan flujos de datos que deben ser analizados al instante para tomar decisiones de navegación y evitar colisiones.</li>
+</ul>
+<h5 id="variedad">Variedad</h5>
+<p>Describe la <strong>diversidad de formatos, fuentes y estructuras</strong> de los datos disponibles en los entornos Big Data. Incluye datos estructurados (por ejemplo, registros en bases de datos relacionales), semi-estructurados (como JSON, XML, YAML), y no estructurados (texto libre, imágenes, audio, video, logs, etc.). Esta heterogeneidad plantea desafíos en la integración, transformación y análisis de datos, lo que requiere pipelines ETL flexibles y herramientas capaces de manejar múltiples formatos, como Apache NiFi, Databricks, o soluciones basadas en el modelo de Data Lake.</p>
+<ul>
+<li>Un sistema de salud digital recolecta datos de pacientes de diversas fuentes: registros médicos electrónicos (estructurados), notas de doctores (no estructurados), imágenes de resonancia magnética (no estructurados), y datos de dispositivos wearables (semi-estructurados).</li>
+<li>Una <strong>empresa de medios digitales</strong> puede manejar simultáneamente streams de video (no estructurados), logs de visualización (estructurados), comentarios de usuarios (semi-estructurados) y datos de interacción en redes sociales.</li>
+<li>En el <strong>análisis de ciberseguridad</strong>, se integran eventos de red (estructurados), reportes técnicos (no estructurados), y registros de acceso de usuarios (semi-estructurados) para detectar amenazas complejas.</li>
+</ul>
+<h5 id="veracidad">Veracidad</h5>
+<p>Se refiere al <strong>grado de confiabilidad, calidad y precisión de los datos</strong>. Dado que los datos provienen de múltiples fuentes, muchas veces no controladas, pueden estar incompletos, duplicados, inconsistentes o sesgados. La veracidad es crítica para garantizar que los análisis y modelos derivados sean válidos y útiles. Requiere técnicas de limpieza, validación, reconciliación de fuentes, y gobernanza de datos, apoyadas en catálogos de datos, reglas de calidad y mecanismos de trazabilidad.</p>
+<ul>
+<li>Un análisis de sentimiento en redes sociales puede verse afectado por bots o noticias falsas, introduciendo ruido y reduciendo la veracidad de los hallazgos.</li>
+<li>En el sector financiero, <strong>datos inconsistentes entre diferentes fuentes bancarias</strong> pueden provocar errores en modelos predictivos de riesgo crediticio si no se valida adecuadamente la calidad de los datos.</li>
+<li>Los sistemas de sensores industriales (IoT), <strong>lecturas defectuosas o con interferencias</strong> pueden generar falsas alarmas o decisiones erróneas si no se filtran y validan correctamente los datos recolectados.</li>
+</ul>
+<h5 id="valor">Valor</h5>
+<p>Representa la <strong>capacidad de los datos para generar conocimiento accionable y ventaja competitiva</strong>. El verdadero objetivo del Big Data no es acumular información, sino transformar grandes volúmenes de datos en insights que soporten decisiones estratégicas, mejoren procesos operativos o creen nuevos productos y servicios. Obtener valor requiere combinar ingeniería de datos, analítica avanzada, inteligencia artificial y visualización de datos, siempre alineado con objetivos de negocio o científicos claramente definidos.</p>
+<ul>
+<li>El análisis de los patrones de compra de clientes en una tienda en línea permite a la empresa optimizar el inventario, personalizar ofertas y mejorar la experiencia del usuario, lo que se traduce en mayores ventas.</li>
+<li>En el sector energético, el análisis de datos de consumo eléctrico permite implementar <strong>modelos de tarificación dinámica</strong>, optimizar la distribución de energía y prevenir apagones.</li>
+<li>En agricultura de precisión, el uso de imágenes satelitales y sensores en campo permite <strong>maximizar el rendimiento de cultivos</strong>, reducir el uso de insumos y tomar decisiones más informadas sobre riego y cosecha.</li>
+</ul>
+<h3 id="113-desafios-del-big-data">1.1.3 Desafíos del Big Data:</h3>
+<p>El manejo de Big Data presenta varios desafíos significativos:</p>
+<ul>
+<li><strong>Almacenamiento</strong>: La necesidad de infraestructuras escalables y distribuidas para almacenar volúmenes masivos de datos de diferentes formatos.</li>
+<li><strong>Procesamiento</strong>: Desarrollar sistemas capaces de procesar rápidamente datos en constante movimiento y en diferentes formatos.</li>
+<li><strong>Análisis</strong>: Diseñar algoritmos y técnicas que puedan extraer patrones significativos de conjuntos de datos complejos y heterogéneos.</li>
+<li><strong>Seguridad y Privacidad</strong>: Proteger la información sensible y cumplir con las regulaciones de privacidad de datos (como GDPR o CCPA) en entornos distribuidos.</li>
+<li><strong>Gobernanza de Datos</strong>: Establecer políticas y procedimientos para la gestión de la disponibilidad, usabilidad, integridad y seguridad de los datos.</li>
+</ul>
+<h3 id="114-oportunidades-del-big-data">1.1.4 Oportunidades del Big Data:</h3>
+<p>A pesar de los desafíos, Big Data abre un abanico de oportunidades en diversas industrias:</p>
+<ul>
+<li><strong>Toma de Decisiones Mejorada</strong>: Basadas en análisis de datos en tiempo real y predictivos.</li>
+<li><strong>Personalización y Experiencia del Cliente</strong>: Entender mejor el comportamiento del cliente para ofrecer productos y servicios más relevantes.</li>
+<li><strong>Optimización de Operaciones</strong>: Mejora de la eficiencia en la cadena de suministro, logística, mantenimiento predictivo, etc.</li>
+<li><strong>Nuevos Productos y Servicios</strong>: Desarrollo de innovaciones basadas en la información obtenida de los datos.</li>
+<li><strong>Detección de Fraude y Riesgos</strong>: Identificación de patrones anómalos que indican actividades fraudulentas o riesgos.</li>
+<li><strong>Investigación Científica</strong>: Avances en medicina, astronomía, climatología, entre otros.</li>
+</ul>
+<h3 id="115-tipos-de-datos-en-big-data">1.1.5 Tipos de Datos en Big Data:</h3>
+<h5 id="datos-estructurados">Datos Estructurados</h5>
+<p>Son datos que se encuentran organizados en un <strong>esquema rígido y predefinido</strong>, generalmente en forma de filas y columnas, lo que permite su almacenamiento y consulta eficiente mediante <strong>sistemas de gestión de bases de datos relacionales (RDBMS)</strong> como MySQL, PostgreSQL u Oracle. Están gobernados por modelos tabulares (normalizados o no) con tipos de datos específicos, claves primarias/foráneas y reglas de integridad. Su estructura facilita la indexación, consultas SQL, análisis OLAP, y migraciones entre sistemas.</p>
+<ol>
+<li>Tablas de clientes en una base de datos bancaria (<code>tipo_doc</code>, <code>num_doc</code>, <code>nombre_completo</code>, <code>tipo_cta</code>, <code>num_cta</code>, <code>saldo</code>).</li>
+<li>Registros de ventas diarias en un sistema ERP (<code>FechaTx</code>, <code>IdProducto</code>, <code>Cantidad</code>, <code>Precio</code>).</li>
+<li>Inventario de una tienda en formato CSV con columnas bien definidas (<code>ID</code>, <code>descripción</code>, <code>categoría</code>, <code>stock</code>).</li>
+<li>La base de datos de pacientes con campos como <code>ID_Paciente</code>, <code>Nombre</code>, <code>Fecha_Nacimiento</code>, <code>Grupo_Sanguineo</code>.</li>
+</ol>
+<h5 id="datos-semi-estructurados">Datos Semi-estructurados</h5>
+<p>Son datos que <strong>no se ajustan completamente a un modelo relacional tradicional</strong>, pero contienen <strong>etiquetas, delimitadores o estructuras jerárquicas</strong> que permiten cierta organización y comprensión automatizada. A menudo se representan en formatos legibles por máquinas como <strong>JSON, XML o YAML</strong>, que pueden modelar relaciones complejas (análogas a objetos o diccionarios) y son comunes en APIs, configuraciones y flujos de integración. Su análisis requiere herramientas capaces de interpretar dicha estructura, como motores NoSQL (MongoDB, Elasticsearch) o lenguajes con soporte nativo para parsing (Python, Java).</p>
+<ol>
+<li>Documentos XML que describen transacciones electrónicas entre sistemas: <a href="../ejemplo_xml/">facturación electrónica</a></li>
+<li><a href="../ejemplo_log/">Logs de acceso web</a> en formato Apache/Nginx donde cada línea sigue una estructura repetitiva (IP, timestamp, recurso, código de estado).</li>
+<li>Registros de sensores de equipos médicos (<a href="../ejemplo_json/">monitores de signos vitales</a>) en formato JSON, donde cada registro puede tener diferentes campos dependiendo del tipo de sensor.</li>
+</ol>
+<h5 id="datos-no-estructurados">Datos No Estructurados</h5>
+<p>Son datos que <strong>carecen de un modelo predefinido o estructura fija</strong>, lo que los hace difíciles de organizar y analizar mediante métodos tradicionales. Representan la <strong>mayor parte del volumen de datos generados a nivel global</strong>, y suelen requerir <strong>técnicas avanzadas de procesamiento</strong> como análisis de texto (NLP), reconocimiento de imágenes, extracción de entidades, o clasificación mediante machine learning. Su almacenamiento se realiza comúnmente en sistemas distribuidos o Data Lakes.</p>
+<ol>
+<li>Publicaciones en redes sociales que combinan texto libre, emojis, hashtags e imágenes.</li>
+<li>Archivos de video provenientes de cámaras de seguridad sin etiquetas asociadas.</li>
+<li>Grabaciones de audio de llamadas en centros de atención al cliente.</li>
+<li>Imágenes de rayos X, grabaciones de voz de consultas médicas, informes médicos en formato de texto libre.</li>
+</ol>
+<h3 id="116-modelos-de-procesamiento-de-datos">1.1.6 Modelos de Procesamiento de Datos</h3>
+<h5 id="procesamiento-batch-por-lotes">Procesamiento Batch (por Lotes)</h5>
+<p>Es un enfoque de procesamiento de datos que consiste en <strong>acumular grandes volúmenes de información durante un intervalo de tiempo determinado</strong> para luego ser procesados de forma <strong>masiva y secuencial</strong>, sin requerir intervención humana durante la ejecución. Este tipo de procesamiento es ideal para cargas de trabajo donde la <strong>latencia no es crítica</strong>, y permite realizar tareas computacionalmente intensivas como agregaciones, transformaciones, limpieza y carga de datos históricos. Se implementa comúnmente con herramientas como <strong>Apache Hadoop, Apache Spark en modo batch, AWS Glue, o Azure Data Factory</strong>.</p>
+<ol>
+<li>Procesamiento nocturno de transacciones bancarias para generar extractos y actualizar balances.</li>
+<li>Carga diaria de datos históricos desde un sistema transaccional a un data warehouse para análisis BI.</li>
+<li>Generación mensual de reportes de nómina y deducciones en una empresa.</li>
+</ol>
+<h5 id="procesamiento-en-tiempo-real-streaming">Procesamiento en Tiempo Real (Streaming)</h5>
+<p>Este modelo se refiere al procesamiento de <strong>flujos de datos de forma continua e inmediata</strong>, a medida que los datos son generados o ingresan al sistema. Está diseñado para manejar eventos de alto volumen y baja latencia, permitiendo a los sistemas reaccionar casi en tiempo real. Utiliza frameworks especializados como <strong>Apache Kafka, Apache Flink, Apache Spark Streaming, Google Dataflow o AWS Kinesis</strong>, y se aplica en contextos donde <strong>la inmediatez en la toma de decisiones es crítica</strong>.</p>
+<ol>
+<li>Detección de fraudes en tarjetas de crédito, analizando patrones de transacciones mientras ocurren.</li>
+<li>Monitoreo de infraestructura tecnológica (DevOps/Observabilidad) para detectar errores o picos de carga en servidores.</li>
+<li>Recomendaciones personalizadas en plataformas de streaming o e-commerce, basadas en el comportamiento del usuario en tiempo real.</li>
+</ol>
+<h5 id="procesamiento-interactivo-ad-hocexploratorio">Procesamiento Interactivo (Ad-Hoc/Exploratorio)</h5>
+<p>Se refiere a la capacidad de los usuarios para <strong>ejecutar consultas dinámicas y obtener resultados rápidamente</strong>, con el objetivo de <strong>explorar, analizar o visualizar datos en forma directa</strong>, sin depender de procesos predefinidos o programación previa. Este tipo de procesamiento requiere <strong>sistemas optimizados para baja latencia y acceso aleatorio eficiente</strong>, como motores SQL distribuidos o motores de exploración columnar (por ejemplo, <strong>Presto, Trino, Google BigQuery, Snowflake, Dremio, Databricks SQL</strong>). Es fundamental en entornos analíticos donde los científicos o analistas de datos realizan exploración iterativa.</p>
+<ol>
+<li>Consultas ad-hoc sobre un data lake para identificar patrones de ventas por región y temporada.</li>
+<li>Exploración de grandes volúmenes de logs en tiempo casi real para diagnosticar errores de aplicaciones.</li>
+<li>Análisis interactivo de cohortes de usuarios en herramientas BI como Tableau o Power BI conectadas a un motor distribuido.</li>
+</ol>
+<h2 id="tarea">Tarea</h2>
+<p>Para consolidar tu comprensión sobre los fundamentos de Big Data, investiga y responde las siguientes preguntas. Documenta tus respuestas y las fuentes consultadas.</p>
+<ol>
+<li><strong>Explora las "V" adicionales</strong>: Además de Volumen, Velocidad, Variedad, Veracidad y Valor, algunos expertos proponen otras "V" (como Variabilidad, Visualización, Viabilidad, etc.). Elige al menos dos "V" adicionales y explica su relevancia en el contexto del Big Data actual.</li>
+<li><strong>Tecnologías emergentes para Big Data</strong>: Investiga una tecnología o paradigma emergente (aparte de Spark, que veremos en el siguiente tema) que esté ganando tracción en el ámbito del Big Data (ej. Lakehouses, Data Meshes, Procesamiento Serverless, etc.). Describe brevemente qué problema resuelve y cómo se integra con el ecosistema Big Data existente.</li>
+<li><strong>Comparación de arquitecturas Big Data</strong>: Investiga las diferencias fundamentales entre una arquitectura tradicional de Data Warehouse y una arquitectura de Data Lake. ¿Cuándo sería más apropiado usar una u otra, o una combinación de ambas (Data Lakehouse)?</li>
+</ol>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href=".." class="btn btn-neutral float-left" title="Inicio"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../tema12/" class="btn btn-neutral float-right" title="Introducción al ecosistema Spark">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../tema12/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

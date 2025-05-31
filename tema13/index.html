@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>RDD, DataFrame y Dataset - Métodos de Procesamiento y Análisis de Big Data</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "RDD, DataFrame y Dataset";
+        var mkdocs_page_input_path = "tema13.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Métodos de Procesamiento y Análisis de Big Data
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Inicio</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Introducción</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../tema11/">Fundamentos de Big Data</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema12/">Introducción al ecosistema Spark</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">RDD, DataFrame y Dataset</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#tema-13-rdd-dataframe-y-dataset">Tema 1.3 RDD, DataFrame y Dataset</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#131-rdd-resilient-distributed-datasets">1.3.1 RDD (Resilient Distributed Datasets)</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#caracteristicas-clave-de-los-rdds">Características clave de los RDDs</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#operaciones-de-transformacion">Operaciones de transformación</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#operaciones-de-accion">Operaciones de acción</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#132-dataframe">1.3.2 DataFrame</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#ventajas-sobre-los-rdds">Ventajas sobre los RDDs</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#creacion-y-manipulacion-de-dataframes">Creación y manipulación de DataFrames</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#133-dataset">1.3.3 Dataset</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#seguridad-de-tipos-type-safety">Seguridad de tipos (Type-safety)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#encoders">Encoders</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#134-comparacion-y-casos-de-uso">1.3.4 Comparación y Casos de Uso</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#tabla-comparativa-detallada-rdd-vs-dataframe-vs-dataset">Tabla comparativa detallada: RDD vs. DataFrame vs. Dataset</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tarea">Tarea</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema14/">Instalación y configuración de Spark</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema15/">Primeros pasos con PySpark</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">PySpark y SparkSQL</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../tema21.md">Operaciones con DataFrames</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema22.md">Funciones integradas y definidas por el usuario</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema23.md">Consultas con SparkSQL</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema24.md">Esquemas y tipos de datos complejos</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema25.md">Optimización con Catalyst y Tungsten</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Arquitectura y Diseño de Flujos ETL</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../tema31.md">Diseño de pipelines ETL</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema32.md">Conexión a múltiples fuentes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema33.md">Procesos escalables y particionamiento</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema34.md">Buenas prácticas para ETL en Spark</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema35.md">Introducción a Apache Airflow</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Automatización y Orquestación con Apache Airflow</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../tema41.md">Arquitectura y componentes de Airflow</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema42.md">Instalación local usando Docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema43.md">DAGs, operadores y tareas</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema44.md">Uso de `BashOperator`, `PythonOperator` y `SparkSubmitOperator`</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema45.md">Monitoreo y manejo de dependencias</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Proyecto Integrador y Despliegue</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../tema51.md">Desarrollo del proyecto integrador</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../tema51.md">Despliegue en nube</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Métodos de Procesamiento y Análisis de Big Data</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Introducción</li>
+      <li class="breadcrumb-item active">RDD, DataFrame y Dataset</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="1-introduccion">1. Introducción</h1>
+<h2 id="tema-13-rdd-dataframe-y-dataset">Tema 1.3 RDD, DataFrame y Dataset</h2>
+<p><strong>Objetivo</strong>:</p>
+<p>Comprender las diferencias, ventajas y casos de uso de las principales abstracciones de datos en Apache Spark: RDD, DataFrame y Dataset, permitiendo a los estudiantes seleccionar la herramienta adecuada para diversas tareas de procesamiento de datos.</p>
+<p><strong>Introducción</strong>:</p>
+<p>Apache Spark ofrece diferentes abstracciones para trabajar con datos, cada una con sus propias características y optimizaciones. Los <strong>Resilient Distributed Datasets (RDDs)</strong> fueron la abstracción original, proporcionando un control de bajo nivel. Posteriormente, surgieron los <strong>DataFrames</strong> para manejar datos estructurados y semiestructurados con optimizaciones de rendimiento significativas. Finalmente, los <strong>Datasets</strong> combinaron las ventajas de ambos, ofreciendo seguridad de tipos y las optimizaciones de los DataFrames. Dominar estas tres abstracciones es fundamental para explotar todo el potencial de Spark en el procesamiento de Big Data.</p>
+<p><strong>Desarrollo</strong>:</p>
+<p>En este tema, exploraremos en detalle RDDs, DataFrames y Datasets, las tres principales formas de representar y manipular datos en Apache Spark. Cada una representa un paso evolutivo en la API de Spark, diseñada para mejorar la facilidad de uso, el rendimiento y la seguridad de tipos. Analizaremos sus características distintivas, cómo interactúan entre sí y en qué escenarios es más apropiado utilizar cada una, lo que te permitirá construir aplicaciones Spark más eficientes y robustas.</p>
+<h3 id="131-rdd-resilient-distributed-datasets">1.3.1 RDD (Resilient Distributed Datasets)</h3>
+<p>Los <strong>RDDs</strong> (Resilient Distributed Datasets) son la colección fundamental de elementos tolerantes a fallos en Spark que se ejecutan en paralelo. Fueron la abstracción de datos original de Spark y representan una colección inmutable y particionada de registros. Los RDDs pueden ser creados a partir de fuentes de datos externas (como HDFS, S3, HBASE) o a partir de colecciones existentes en lenguajes de programación como Scala, Python o Java. Su principal fortaleza radica en su naturaleza inmutable y en la capacidad de Spark para reconstruirlos automáticamente en caso de fallos de nodos, gracias a su mecanismo de linaje.</p>
+<h5 id="caracteristicas-clave-de-los-rdds">Características clave de los RDDs</h5>
+<p>Los RDDs son fundamentalmente colecciones de objetos inmutables distribuidas entre un clúster. Son "resilientes" porque pueden recuperarse de fallos reconstruyendo sus particiones a partir de las operaciones que los generaron (su linaje). Son "distribuidos" porque sus datos se reparten entre múltiples nodos, permitiendo el procesamiento en paralelo. Ofrecen una API de bajo nivel, lo que da un control granular sobre las operaciones de transformación y acción, pero carecen de información de esquema inherente, lo que puede limitar las optimizaciones de Spark.</p>
+<ol>
+<li>Procesamiento de <strong>archivos de log sin formato</strong> donde cada línea es un string y no se conoce una estructura fija.</li>
+<li>Implementación de <strong>algoritmos de Machine Learning personalizados</strong> que requieren control detallado sobre las estructuras de datos y el procesamiento por bloques.</li>
+<li>Trabajar con <strong>datos binarios complejos o formatos propietarios</strong> para los cuales no existen <em>parsers</em> o esquemas predefinidos en Spark.</li>
+</ol>
+<h5 id="operaciones-de-transformacion">Operaciones de transformación</h5>
+<p>Las <strong>transformaciones</strong> en RDDs son operaciones que crean un nuevo RDD a partir de uno existente. Son de naturaleza <em>lazy</em> (perezosa), lo que significa que no se ejecutan inmediatamente. En su lugar, Spark registra la transformación en un <em>linaje</em> o <em>DAG</em> (Directed Acyclic Graph) de operaciones. Esto permite a Spark optimizar el plan de ejecución antes de realizar cualquier cálculo real. Algunos ejemplos comunes incluyen <code>map</code>, <code>filter</code>, <code>flatMap</code>, <code>union</code>, <code>groupByKey</code>.</p>
+<ol>
+<li>Usar <code>rdd.map(lambda x: x.upper())</code> para convertir todas las cadenas de texto en un RDD a mayúsculas.</li>
+<li>Utilizar <code>rdd.filter(lambda x: "error" in x)</code> para seleccionar solo las líneas de un log que contienen la palabra "error".</li>
+<li>Aplicar <code>rdd1.union(rdd2)</code> para combinar dos RDDs en uno solo.</li>
+</ol>
+<h5 id="operaciones-de-accion">Operaciones de acción</h5>
+<p>Las <strong>acciones</strong> en RDDs son operaciones que disparan la ejecución de las transformaciones y devuelven un resultado al programa Driver o escriben datos en un sistema de almacenamiento externo. A diferencia de las transformaciones, las acciones son <em>eager</em> (ávidas), lo que significa que fuerzan la evaluación del DAG de transformaciones. Ejemplos incluyen <code>collect</code>, <code>count</code>, <code>reduce</code>, <code>saveAsTextFile</code>, <code>foreach</code>.</p>
+<ol>
+<li>Usar <code>rdd.collect()</code> para obtener todos los elementos del RDD como una lista en el programa Driver (tener cuidado con RDDs muy grandes).</li>
+<li>Aplicar <code>rdd.count()</code> para obtener el número de elementos en el RDD.</li>
+<li>Utilizar <code>rdd.saveAsTextFile("ruta/salida")</code> para escribir el contenido del RDD en un archivo de texto en el sistema de archivos distribuido.</li>
+</ol>
+<h3 id="132-dataframe">1.3.2 DataFrame</h3>
+<p>Un <strong>DataFrame</strong> en Apache Spark es una colección distribuida de datos organizada en columnas con nombre. Se puede pensar en un DataFrame como una tabla en una base de datos relacional o una tabla en R/Python, pero con la capacidad de escalar a terabytes de datos en un clúster. A diferencia de los RDDs, los DataFrames tienen un esquema (estructura) definido, lo que permite a Spark realizar optimizaciones de rendimiento significativas a través de su optimizador Catalyst. Los DataFrames son la interfaz de programación preferida para la mayoría de los casos de uso de Spark, especialmente cuando se trabaja con datos estructurados y semiestructurados.</p>
+<h5 id="ventajas-sobre-los-rdds">Ventajas sobre los RDDs</h5>
+<p>Los DataFrames ofrecen varias ventajas clave sobre los RDDs, principalmente debido a su conocimiento del esquema de los datos. Esto permite optimizaciones de rendimiento a nivel de motor, una sintaxis más expresiva y familiar para usuarios de SQL o Pandas, y una mejor interoperabilidad con diferentes fuentes de datos y herramientas de análisis.</p>
+<ol>
+<li>Spark puede optimizar automáticamente las operaciones de un DataFrame (por ejemplo, el orden de los filtros o <em>joins</em>) usando el optimizador <strong>Catalyst</strong>, algo que no es posible con los RDDs.</li>
+<li>La sintaxis de los DataFrames es mucho más intuitiva y menos propensa a errores que las operaciones de bajo nivel de los RDDs, especialmente para tareas comunes como filtrar, seleccionar columnas o agregar datos.</li>
+<li>Los DataFrames permiten ejecutar consultas SQL directamente sobre ellos, facilitando la integración con herramientas de BI y la familiaridad para usuarios de bases de datos.</li>
+</ol>
+<h5 id="creacion-y-manipulacion-de-dataframes">Creación y manipulación de DataFrames</h5>
+<p>Los DataFrames se pueden crear a partir de una amplia variedad de fuentes de datos, incluyendo archivos CSV, JSON, Parquet, Hive tables, bases de datos JDBC, e incluso RDDs existentes. Una vez creados, Spark ofrece una API rica y expresiva para manipularlos, ya sea a través de un DSL (Domain Specific Language) con funciones de alto nivel o mediante consultas SQL.</p>
+<ol>
+<li>Cargar un archivo Parquet en un DataFrame: <code>spark.read.parquet("ruta/a/archivo.parquet")</code>.</li>
+<li>Seleccionar columnas y filtrar filas: <code>df.select("nombre", "edad").filter(df.edad &gt; 30)</code>.</li>
+<li>Realizar una agregación: <code>df.groupBy("departamento").agg(avg("salario").alias("salario_promedio"))</code>.</li>
+</ol>
+<h3 id="133-dataset">1.3.3 Dataset</h3>
+<p>El <strong>Dataset API</strong> fue introducido en Spark 1.6 como un intento de proporcionar lo mejor de ambos mundos: la eficiencia y optimizaciones de rendimiento de los DataFrames, junto con la seguridad de tipos y la capacidad de usar funciones lambda que caracterizan a los RDDs. Los Datasets son fuertemente tipados, lo que significa que los errores relacionados con el tipo de datos pueden detectarse en tiempo de compilación (solo en Scala y Java), en lugar de en tiempo de ejecución, lo que lleva a un código más robusto. En esencia, un DataFrame es un <code>Dataset[Row]</code>, donde <code>Row</code> es un tipo genérico y no tiene seguridad de tipos en tiempo de compilación. Los Datasets requieren un <em>Encoder</em> para serializar y deserializar los objetos entre el formato de JVM y el formato binario interno de Spark.</p>
+<h5 id="seguridad-de-tipos-type-safety">Seguridad de tipos (Type-safety)</h5>
+<p>La <strong>seguridad de tipos</strong> es la principal ventaja de los Datasets sobre los DataFrames para los usuarios de Scala y Java. Permite a los desarrolladores trabajar con objetos fuertemente tipados, lo que significa que el compilador puede verificar los tipos de datos y detectar errores en tiempo de compilación. Esto reduce la posibilidad de errores en tiempo de ejecución que podrían surgir al intentar acceder a campos inexistentes o realizar operaciones con tipos incompatibles, algo común con DataFrames (donde tales errores solo se manifiestan al ejecutar el código).</p>
+<ol>
+<li>En Scala, si se tiene un <code>Dataset[Person]</code>, donde <code>Person</code> es una <em>case class</em> con campos <code>name</code> y <code>age</code>, el compilador detectará un error si se intenta acceder a <code>person.address</code> si <code>address</code> no es un campo de la clase <code>Person</code>.</li>
+<li>Al realizar transformaciones en un <code>Dataset[Product]</code>, las operaciones se aplican directamente sobre los objetos <code>Product</code>, aprovechando la autocompletación y las verificaciones del IDE.</li>
+<li>La refactorización de código es más segura y sencilla con Datasets, ya que los cambios en el esquema se detectan de inmediato por el compilador.</li>
+</ol>
+<h5 id="encoders">Encoders</h5>
+<p>Los <strong>Encoders</strong> son un mecanismo de serialización que Spark utiliza para convertir objetos de JVM (como las <em>case classes</em> de Scala o los POJOs de Java) en el formato binario interno de Spark (formato Tungsten) y viceversa. Los Encoders son más eficientes que la serialización de Java u otros mecanismos porque generan código para serializar y deserializar datos de forma compacta y rápida, permitiendo a Spark realizar operaciones directamente sobre el formato binario optimizado, lo que contribuye a las mejoras de rendimiento de los Datasets.</p>
+<ol>
+<li>Al crear un <code>Dataset[Long]</code>, Spark utiliza un <code>Encoder</code> optimizado para los tipos <code>Long</code>, que sabe cómo representar y operar sobre estos números de manera eficiente en formato binario.</li>
+<li>Si tienes una <code>case class Person(name: String, age: Int)</code>, el <em>Encoder</em> para <code>Person</code> sabrá cómo convertir una lista de objetos <code>Person</code> en un formato de columnas de Spark y viceversa.</li>
+<li>Los <em>Encoders</em> permiten que las operaciones de Datasets sean tan eficientes como las de DataFrames, ya que ambos utilizan el mismo formato de almacenamiento y motor de ejecución optimizado.</li>
+</ol>
+<h3 id="134-comparacion-y-casos-de-uso">1.3.4 Comparación y Casos de Uso</h3>
+<p>La elección entre RDD, DataFrame y Dataset depende en gran medida del tipo de datos con el que se está trabajando, las necesidades de rendimiento, la seguridad de tipos deseada y el lenguaje de programación que se utiliza. Aunque las APIs de DataFrame y Dataset son las más recomendadas para la mayoría de los casos de uso modernos, entender las capacidades de los RDDs sigue siendo importante, especialmente para escenarios de bajo nivel o depuración.</p>
+<h5 id="tabla-comparativa-detallada-rdd-vs-dataframe-vs-dataset">Tabla comparativa detallada: RDD vs. DataFrame vs. Dataset</h5>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">RDD</th>
+<th style="text-align: left;">DataFrame</th>
+<th style="text-align: left;">Dataset</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Abstracción</strong></td>
+<td style="text-align: left;">Colección distribuida de objetos</td>
+<td style="text-align: left;">Colección distribuida de <code>Row</code> objetos con esquema</td>
+<td style="text-align: left;">Colección distribuida de objetos fuertemente tipados con esquema</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Optimización</strong></td>
+<td style="text-align: left;">Manual (sin optimizador)</td>
+<td style="text-align: left;"><strong>Catalyst Optimizer</strong> (optimización automática)</td>
+<td style="text-align: left;"><strong>Catalyst Optimizer</strong> (optimización automática)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Seguridad de Tipos</strong></td>
+<td style="text-align: left;">No (colección de <code>Object</code>)</td>
+<td style="text-align: left;">No (en tiempo de compilación, <code>Row</code> es genérico)</td>
+<td style="text-align: left;"><strong>Sí</strong> (en tiempo de compilación, para Scala/Java)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>API</strong></td>
+<td style="text-align: left;">Bajo nivel, funcional</td>
+<td style="text-align: left;">Alto nivel, SQL-like (DSL, SQL)</td>
+<td style="text-align: left;">Alto nivel, funcional y SQL-like</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Serialización</strong></td>
+<td style="text-align: left;">Java Serialization / Kryo</td>
+<td style="text-align: left;">Tungsten (binario optimizado)</td>
+<td style="text-align: left;">Tungsten (binario optimizado con Encoders)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rendimiento</strong></td>
+<td style="text-align: left;">Bueno, pero puede ser menor que DataFrame/Dataset</td>
+<td style="text-align: left;"><strong>Alto</strong> (optimización automática)</td>
+<td style="text-align: left;"><strong>Alto</strong> (optimización automática + Encoders)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Lenguajes</strong></td>
+<td style="text-align: left;">Scala, Java, Python, R</td>
+<td style="text-align: left;">Scala, Java, Python, R</td>
+<td style="text-align: left;"><strong>Scala, Java</strong> (principalmente)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Mutabilidad</strong></td>
+<td style="text-align: left;">Inmutable</td>
+<td style="text-align: left;">Inmutable</td>
+<td style="text-align: left;">Inmutable</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>Para un <strong>análisis de logs complejos y no estructurados</strong> donde necesitas un control muy granular sobre cada línea y las operaciones de bajo nivel, los <strong>RDDs</strong> son la opción adecuada.</li>
+<li>Para <strong>consultas analíticas sobre datos de ventas estructurados</strong> almacenados en Parquet, donde se busca eficiencia y facilidad de uso con sintaxis SQL, los <strong>DataFrames</strong> son la mejor elección.</li>
+<li>Si estás desarrollando una <strong>aplicación de procesamiento de datos en Scala o Java</strong> que requiere la máxima seguridad de tipos en tiempo de compilación y las optimizaciones de rendimiento de Spark, un <strong>Dataset</strong> es el camino a seguir.</li>
+</ol>
+<h2 id="tarea">Tarea</h2>
+<ol>
+<li>Explica la diferencia entre una <strong>transformación</strong> y una <strong>acción</strong> en Spark. Proporciona un ejemplo de código para cada una y describe cómo la evaluación perezosa afecta su ejecución.</li>
+<li>Considera un escenario donde tienes una tabla de clientes y otra de pedidos. Describe cómo usarías <strong>DataFrames</strong> para unir estas dos tablas y calcular el monto total de pedidos por cliente, utilizando tanto la API DSL como una consulta SQL.</li>
+<li>Imagina que estás depurando una aplicación Spark y notas que un RDD particular se está recalculando varias veces. ¿Cómo usarías el concepto de <strong>persistencia (caching)</strong> para optimizar el rendimiento en este escenario? Proporciona un ejemplo de código.</li>
+</ol>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../tema12/" class="btn btn-neutral float-left" title="Introducción al ecosistema Spark"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../tema14/" class="btn btn-neutral float-right" title="Instalación y configuración de Spark">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../tema12/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../tema14/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
