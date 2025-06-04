@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Consultas con SparkSQL - Métodos de Procesamiento y Análisis de Big Data</title>
+    <title>Consultas y SQL en Spark - Métodos de Procesamiento y Análisis de Big Data</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Consultas con SparkSQL";
+        var mkdocs_page_name = "Consultas y SQL en Spark";
         var mkdocs_page_input_path = "tema23.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,19 +58,57 @@
               </ul>
               <p class="caption"><span class="caption-text">PySpark y SparkSQL</span></p>
               <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="../tema21/">Operaciones con DataFrames</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema21/">Fundamentos de DataFrames en Spark</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema22/">Funciones integradas y definidas por el usuario</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema22/">Manipulación y Transformación de Datos</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Consultas con SparkSQL</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Consultas y SQL en Spark</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#tema-23-rdd-dataframe-y-dataset">Tema 2.3. RDD, DataFrame y Dataset</a>
+    <li class="toctree-l2"><a class="reference internal" href="#tema-23-consultas-y-sql-en-spark">Tema 2.3 Consultas y SQL en Spark</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#231-fundamentos-de-sparksql">2.3.1 Fundamentos de SparkSQL</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#la-relacion-entre-dataframes-y-tablasvistas-en-sparksql">La relación entre DataFrames y Tablas/Vistas en SparkSQL</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#232-consultas-basicas-con-sparksql">2.3.2 Consultas básicas con SparkSQL</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#select-y-from">SELECT y FROM</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#where-filtrado">WHERE (Filtrado)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#group-by-y-having-agregacion">GROUP BY y HAVING (Agregación)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#233-creacion-y-uso-de-vistas-temporales">2.3.3 Creación y uso de vistas temporales</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#vistas-temporales">Vistas Temporales</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#vistas-globales-temporales">Vistas Globales Temporales</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#234-consultas-avanzadas-con-sparksql">2.3.4 Consultas avanzadas con SparkSQL</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#uniones-joins-avanzadas">Uniones (JOINs) avanzadas</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#subconsultas-y-ctes-common-table-expressions">Subconsultas y CTEs (Common Table Expressions)</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tarea">Tarea</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#ejercicios-practicos-relacionados-con-el-tema-23">Ejercicios Prácticos relacionados con el tema 2.3</a>
+    </li>
+        </ul>
     </li>
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema24/">Esquemas y tipos de datos complejos</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema25/">Optimización con Catalyst y Tungsten</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema24/">Optimización y Rendimiento</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Arquitectura y Diseño de Flujos ETL</span></p>
@@ -121,7 +159,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
           <li class="breadcrumb-item">PySpark y SparkSQL</li>
-      <li class="breadcrumb-item active">Consultas con SparkSQL</li>
+      <li class="breadcrumb-item active">Consultas y SQL en Spark</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -131,14 +169,740 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="2-pyspark-y-sparksql">2. PySpark y SparkSQL</h1>
-<h2 id="tema-23-rdd-dataframe-y-dataset">Tema 2.3. RDD, DataFrame y Dataset</h2>
-<p><em>Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.</em></p>
+<h2 id="tema-23-consultas-y-sql-en-spark">Tema 2.3 Consultas y SQL en Spark</h2>
+<p><strong>Objetivo</strong>:</p>
+<p>Al finalizar este tema, el estudiante será capaz de comprender los fundamentos de SparkSQL como una interfaz declarativa para el procesamiento de datos distribuidos, ejecutar consultas SQL directamente sobre DataFrames y fuentes de datos, crear y gestionar vistas temporales, y aplicar sentencias SQL avanzadas para realizar análisis complejos y transformaciones eficientes de grandes volúmenes de datos.</p>
+<p><strong>Introducción</strong>:</p>
+<p>Spark SQL es un módulo de Apache Spark para trabajar con datos estructurados. Proporciona una interfaz unificada para interactuar con datos utilizando consultas SQL estándar, lo que lo convierte en una herramienta invaluable para analistas de datos, ingenieros y científicos que ya están familiarizados con el lenguaje SQL. Permite a los usuarios consultar datos almacenados en DataFrames, así como en diversas fuentes de datos como Parquet, ORC, JSON, CSV, bases de datos JDBC y Hive, aprovechando al mismo tiempo el motor de ejecución optimizado de Spark para lograr un rendimiento excepcional en escala de Big Data.</p>
+<p><strong>Desarrollo</strong>:</p>
+<p>Este tema explorará cómo Spark SQL integra la potencia de SQL con la escalabilidad de Spark. Iniciaremos con los fundamentos de Spark SQL, comprendiendo cómo los DataFrames pueden ser vistos y consultados como tablas relacionales. Luego, avanzaremos a la ejecución de consultas SQL básicas y la creación y gestión de vistas temporales, que son esenciales para estructurar flujos de trabajo SQL. Finalmente, nos sumergiremos en consultas SQL avanzadas, incluyendo uniones complejas, subconsultas, funciones de ventana y CTEs (Common Table Expressions), demostrando cómo Spark SQL puede manejar escenarios de análisis y transformación de datos altamente sofisticados.</p>
+<h3 id="231-fundamentos-de-sparksql">2.3.1 Fundamentos de SparkSQL</h3>
+<p>Spark SQL permite la ejecución de consultas SQL sobre datos estructurados o semi-estructurados. Esencialmente, actúa como un motor SQL distribuido, permitiendo a los usuarios interactuar con DataFrames como si fueran tablas de bases de datos tradicionales, combinando la familiaridad de SQL con el poder de procesamiento de Spark.</p>
+<h5 id="la-relacion-entre-dataframes-y-tablasvistas-en-sparksql">La relación entre DataFrames y Tablas/Vistas en SparkSQL</h5>
+<p>La clave de SparkSQL reside en su capacidad para mapear DataFrames a estructuras relacionales como tablas o vistas. Esto permite que los datos en un DataFrame sean consultados usando sintaxis SQL estándar, lo que facilita la integración para usuarios con experiencia en bases de datos relacionales.</p>
+<ol>
+<li><strong>DataFrames como la base de SparkSQL:</strong></li>
+</ol>
+<p>Todos los datos en SparkSQL se manejan como DataFrames. Cuando se ejecuta una consulta SQL, Spark la analiza, la optimiza y la ejecuta sobre los DataFrames subyacentes. El resultado de una consulta SQL es siempre un DataFrame.</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.appName(&quot;SparkSQLFundamentals&quot;).getOrCreate()
+
+# Crear un DataFrame
+data = [(&quot;Alice&quot;, 25, &quot;NY&quot;), (&quot;Bob&quot;, 30, &quot;LA&quot;), (&quot;Charlie&quot;, 22, &quot;CHI&quot;)]
+df = spark.createDataFrame(data, [&quot;name&quot;, &quot;age&quot;, &quot;city&quot;])
+
+# El DataFrame es la representación en memoria
+df.show()
+# +-------+---+----+
+# |   name|age|city|
+# +-------+---+----+
+# |  Alice| 25|  NY|
+# |    Bob| 30|  LA|
+# |Charlie| 22| CHI|
+# +-------+---+----+
+
+# Sin una vista temporal, no podemos consultarlo directamente con spark.sql
+try:
+    spark.sql(&quot;SELECT * FROM my_table&quot;).show()
+except Exception as e:
+    print(f&quot;Error esperado: {e}&quot;)
+    # Resultado: Error esperado: Table or view not found: my_table;
+</code></pre>
+<ol>
+<li><strong><code>spark.sql()</code> para ejecutar consultas SQL:</strong></li>
+</ol>
+<p>Esta es la función principal para ejecutar consultas SQL directamente en el contexto de Spark. Las consultas se escriben como cadenas de texto.</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.appName(&quot;SparkSQLQuery&quot;).getOrCreate()
+
+data = [(&quot;Alice&quot;, 25), (&quot;Bob&quot;, 30)]
+df = spark.createDataFrame(data, [&quot;name&quot;, &quot;age&quot;])
+
+# Crear una vista temporal para poder consultar el DataFrame con SQL
+df.createOrReplaceTempView(&quot;people&quot;)
+
+# Ejecutar una consulta SQL
+result_df = spark.sql(&quot;SELECT name, age FROM people WHERE age &gt; 25&quot;)
+result_df.show()
+# Resultado:
+# +----+---+
+# |name|age|
+# +----+---+
+# | Bob| 30|
+# +----+---+
+</code></pre>
+<ol>
+<li><strong>Optimizador Catalyst y Generación de Código Tungsten:</strong></li>
+</ol>
+<p>Spark SQL utiliza dos componentes clave para la optimización y ejecución de consultas:</p>
+<ul>
+<li><strong>Catalyst Optimizer:</strong> Un optimizador de consulta basado en reglas y costos que genera planes de ejecución eficientes. Puede realizar optimizaciones como predicado pushdown, column pruning y reordenamiento de joins.</li>
+<li><strong>Tungsten:</strong> Un motor de ejecución que genera código optimizado en tiempo de ejecución para DataFrames, mejorando la eficiencia de la CPU y el uso de memoria a través de técnicas como la eliminación de punteros y la gestión explícita de memoria.</li>
+</ul>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.appName(&quot;CatalystTungsten&quot;).getOrCreate()
+
+data = [(&quot;Laptop&quot;, 1200, &quot;Electronics&quot;, 10), (&quot;Mouse&quot;, 25, &quot;Electronics&quot;, 50), (&quot;Book&quot;, 15, &quot;Books&quot;, 100)]
+df = spark.createDataFrame(data, [&quot;product_name&quot;, &quot;price&quot;, &quot;category&quot;, &quot;stock&quot;])
+df.createOrReplaceTempView(&quot;products&quot;)
+
+# Observar el plan de ejecución lógico y físico (Catalyst y Tungsten en acción)
+# Explain muestra cómo Spark traduce la consulta SQL a una serie de operaciones optimizadas
+spark.sql(&quot;SELECT product_name, price FROM products WHERE category = 'Electronics' AND price &gt; 100&quot;).explain(extended=True)
+# La salida mostrará el plan lógico (Parsed, Analyzed, Optimized) y el plan físico.
+# Notar &quot;PushedFilters&quot; y &quot;PushedProjections&quot; que son optimizaciones de Catalyst.
+# Los operadores físicos son implementaciones optimizadas por Tungsten.
+</code></pre>
+<h3 id="232-consultas-basicas-con-sparksql">2.3.2 Consultas básicas con SparkSQL</h3>
+<p>Una vez que un DataFrame se ha registrado como una vista temporal, se pueden realizar las operaciones de SQL más comunes sobre él. Estas operaciones son equivalentes a las transformaciones de DataFrame API, pero expresadas en un lenguaje declarativo.</p>
+<h5 id="select-y-from">SELECT y FROM</h5>
+<p>La base de cualquier consulta SQL, permitiendo especificar qué columnas se quieren recuperar y de qué fuente de datos.</p>
+<ol>
+<li><strong>Selección de todas las columnas (<code>SELECT *</code>):</strong></li>
+</ol>
+<p>Recupera todas las columnas de una vista o tabla.</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.appName(&quot;BasicSQL&quot;).getOrCreate()
+
+data = [(&quot;Alice&quot;, 25), (&quot;Bob&quot;, 30)]
+df = spark.createDataFrame(data, [&quot;name&quot;, &quot;age&quot;])
+df.createOrReplaceTempView(&quot;people&quot;)
+
+spark.sql(&quot;SELECT * FROM people&quot;).show()
+# Resultado:
+# +-----+---+
+# | name|age|
+# +-----+---+
+# |Alice| 25|
+# |  Bob| 30|
+# +-----+---+
+</code></pre>
+<ol>
+<li><strong>Selección de columnas específicas (<code>SELECT column1, column2</code>):</strong></li>
+</ol>
+<p>Permite especificar las columnas que se desean recuperar, optimizando el rendimiento al no leer datos innecesarios.</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.appName(&quot;BasicSQL&quot;).getOrCreate()
+
+data = [(&quot;Alice&quot;, 25, &quot;NY&quot;), (&quot;Bob&quot;, 30, &quot;LA&quot;)]
+df = spark.createDataFrame(data, [&quot;name&quot;, &quot;age&quot;, &quot;city&quot;])
+df.createOrReplaceTempView(&quot;users&quot;)
+
+spark.sql(&quot;SELECT name, city FROM users&quot;).show()
+# Resultado:
+# +-----+----+
+# | name|city|
+# +-----+----+
+# |Alice|  NY|
+# |  Bob|  LA|
+# +-----+----+
+</code></pre>
+<ol>
+<li><strong>Renombrar columnas con <code>AS</code>:</strong></li>
+</ol>
+<p>Asigna un alias a una columna para hacer el resultado más legible o para evitar conflictos de nombres.</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.appName(&quot;BasicSQL&quot;).getOrCreate()
+
+data = [(&quot;ProductA&quot;, 100), (&quot;ProductB&quot;, 200)]
+df = spark.createDataFrame(data, [&quot;item_name&quot;, &quot;item_price&quot;])
+df.createOrReplaceTempView(&quot;items&quot;)
+
+spark.sql(&quot;SELECT item_name AS product, item_price AS price FROM items&quot;).show()
+# Resultado:
+# +--------+-----+
+# | product|price|
+# +--------+-----+
+# |ProductA|  100|
+# |ProductB|  200|
+# +--------+-----+
+</code></pre>
+<h5 id="where-filtrado">WHERE (Filtrado)</h5>
+<p>La cláusula <code>WHERE</code> se utiliza para filtrar filas basándose en una o más condiciones, al igual que en SQL tradicional.</p>
+<ol>
+<li><strong>Condiciones de igualdad y desigualdad (<code>=</code>, <code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>):</strong></li>
+</ol>
+<p>Filtra filas donde una columna cumple una condición de comparación.</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.appName(&quot;BasicSQLWhere&quot;).getOrCreate()
+
+data = [(&quot;Juan&quot;, 30), (&quot;Maria&quot;, 25), (&quot;Pedro&quot;, 35)]
+df = spark.createDataFrame(data, [&quot;name&quot;, &quot;age&quot;])
+df.createOrReplaceTempView(&quot;employees&quot;)
+
+spark.sql(&quot;SELECT name, age FROM employees WHERE age &gt; 28&quot;).show()
+# Resultado:
+# +-----+---+
+# | name|age|
+# +-----+---+
+# | Juan| 30|
+# |Pedro| 35|
+# +-----+---+
+</code></pre>
+<ol>
+<li><strong>Operadores lógicos (<code>AND</code>, <code>OR</code>, <code>NOT</code>):</strong></li>
+</ol>
+<p>Combina múltiples condiciones de filtrado.</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.appName(&quot;BasicSQLWhereLogic&quot;).getOrCreate()
+
+data = [(&quot;Shirt&quot;, &quot;Blue&quot;, &quot;Small&quot;), (&quot;Pants&quot;, &quot;Black&quot;, &quot;Medium&quot;), (&quot;T-Shirt&quot;, &quot;Red&quot;, &quot;Large&quot;)]
+df = spark.createDataFrame(data, [&quot;item&quot;, &quot;color&quot;, &quot;size&quot;])
+df.createOrReplaceTempView(&quot;apparel&quot;)
+
+spark.sql(&quot;SELECT item, color FROM apparel WHERE color = 'Blue' OR size = 'Large'&quot;).show()
+# Resultado:
+# +-------+-----+
+# |   item|color|
+# +-------+-----+
+# |  Shirt| Blue|
+# |T-Shirt|  Red|
+# +-------+-----+
+</code></pre>
+<ol>
+<li><strong><code>LIKE</code>, <code>IN</code>, <code>BETWEEN</code>, <code>IS NULL</code> / <code>IS NOT NULL</code>:</strong></li>
+</ol>
+<p>Funciones de filtrado comunes para patrones, listas de valores, rangos y valores nulos.</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.appName(&quot;BasicSQLWhereSpecial&quot;).getOrCreate()
+
+data = [(&quot;Apple&quot;, 1.0), (&quot;Banana&quot;, 0.5), (&quot;Cherry&quot;, 2.0), (&quot;Date&quot;, None)]
+df = spark.createDataFrame(data, [&quot;fruit&quot;, &quot;price&quot;])
+df.createOrReplaceTempView(&quot;fruits&quot;)
+
+# LIKE
+spark.sql(&quot;SELECT fruit FROM fruits WHERE fruit LIKE 'B%'&quot;).show()
+# Resultado:
+# +------+
+# | fruit|
+# +------+
+# |Banana|
+# +------+
+
+# IN
+spark.sql(&quot;SELECT fruit FROM fruits WHERE fruit IN ('Apple', 'Cherry')&quot;).show()
+# Resultado:
+# +------+
+# | fruit|
+# +------+
+# | Apple|
+# |Cherry|
+# +------+
+
+# BETWEEN
+spark.sql(&quot;SELECT fruit, price FROM fruits WHERE price BETWEEN 0.8 AND 1.5&quot;).show()
+# Resultado:
+# +-----+-----+
+# |fruit|price|
+# +-----+-----+
+# |Apple|  1.0|
+# +-----+-----+
+
+# IS NULL / IS NOT NULL
+spark.sql(&quot;SELECT fruit, price FROM fruits WHERE price IS NULL&quot;).show()
+# Resultado:
+# +----+-----+
+# |fruit|price|
+# +----+-----+
+# |Date| null|
+# +----+-----+
+</code></pre>
+<h5 id="group-by-y-having-agregacion">GROUP BY y HAVING (Agregación)</h5>
+<p><code>GROUP BY</code> se utiliza para agrupar filas que tienen los mismos valores en una o más columnas, permitiendo aplicar funciones de agregación. <code>HAVING</code> se usa para filtrar los resultados de las agregaciones.</p>
+<ol>
+<li><strong>Funciones de agregación (<code>COUNT</code>, <code>SUM</code>, <code>AVG</code>, <code>MIN</code>, <code>MAX</code>):</strong></li>
+</ol>
+<p>Permiten resumir datos dentro de cada grupo.</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.appName(&quot;BasicSQLAggregation&quot;).getOrCreate()
+
+data = [(&quot;DeptA&quot;, 100), (&quot;DeptB&quot;, 150), (&quot;DeptA&quot;, 200), (&quot;DeptC&quot;, 50), (&quot;DeptB&quot;, 100)]
+df = spark.createDataFrame(data, [&quot;department&quot;, &quot;salary&quot;])
+df.createOrReplaceTempView(&quot;salaries&quot;)
+
+spark.sql(&quot;SELECT department, SUM(salary) AS total_salary, COUNT(*) AS num_employees FROM salaries GROUP BY department&quot;).show()
+# Resultado:
+# +----------+------------+-------------+
+# |department|total_salary|num_employees|
+# +----------+------------+-------------+
+# |     DeptA|         300|            2|
+# |     DeptB|         250|            2|
+# |     DeptC|          50|            1|
+# +----------+------------+-------------+
+</code></pre>
+<ol>
+<li><strong><code>HAVING</code> para filtrar resultados de agregación:</strong></li>
+</ol>
+<p>Aplica condiciones de filtrado <em>después</em> de que las agregaciones se han calculado, a diferencia de <code>WHERE</code> que filtra antes.</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.appName(&quot;BasicSQLHaving&quot;).getOrCreate()
+
+data = [(&quot;DeptA&quot;, 100), (&quot;DeptB&quot;, 150), (&quot;DeptA&quot;, 200), (&quot;DeptC&quot;, 50), (&quot;DeptB&quot;, 100)]
+df = spark.createDataFrame(data, [&quot;department&quot;, &quot;salary&quot;])
+df.createOrReplaceTempView(&quot;salaries&quot;)
+
+# Sumar salarios por departamento, pero solo para aquellos departamentos con un total de salarios &gt; 200
+spark.sql(&quot;SELECT department, SUM(salary) AS total_salary FROM salaries GROUP BY department HAVING SUM(salary) &gt; 200&quot;).show()
+# Resultado:
+# +----------+------------+
+# |department|total_salary|
+# +----------+------------+
+# |     DeptA|         300|
+# +----------+------------+
+</code></pre>
+<h3 id="233-creacion-y-uso-de-vistas-temporales">2.3.3 Creación y uso de vistas temporales</h3>
+<p>Las vistas temporales en SparkSQL son referencias a DataFrames que se registran en el catálogo de Spark como si fueran tablas de bases de datos. Son "temporales" porque solo duran mientras la <code>SparkSession</code> esté activa, o hasta que se eliminen explícitamente. Son esenciales para permitir que las consultas SQL interactúen con los DataFrames.</p>
+<h5 id="vistas-temporales">Vistas Temporales</h5>
+<p>Las vistas temporales son la forma principal de exponer un DataFrame para ser consultado mediante SQL.</p>
+<ol>
+<li>
+<p><strong><code>createTempView()</code> vs. <code>createOrReplaceTempView()</code>:</strong></p>
+</li>
+<li>
+<p><code>createTempView(view_name)</code>: Crea una vista temporal con el nombre especificado. Si ya existe una vista con ese nombre, lanzará un error.</p>
+</li>
+<li><code>createOrReplaceTempView(view_name)</code>: Crea o reemplaza una vista temporal. Si una vista con el mismo nombre ya existe, la reemplazará sin lanzar un error. Esta es la más comúnmente utilizada.</li>
+</ol>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.appName(&quot;TempViews&quot;).getOrCreate()
+
+data1 = [(&quot;Laptop&quot;, 1200)]
+df1 = spark.createDataFrame(data1, [&quot;item&quot;, &quot;price&quot;])
+
+data2 = [(&quot;Monitor&quot;, 300)]
+df2 = spark.createDataFrame(data2, [&quot;item&quot;, &quot;price&quot;])
+
+# Usar createTempView (fallará si se ejecuta dos veces sin borrar)
+df1.createTempView(&quot;products_v1&quot;)
+spark.sql(&quot;SELECT * FROM products_v1&quot;).show()
+
+# Usar createOrReplaceTempView (permite sobrescribir)
+df2.createOrReplaceTempView(&quot;products_v1&quot;) # Reemplaza la vista existente
+spark.sql(&quot;SELECT * FROM products_v1&quot;).show()
+# Resultado:
+# +-------+-----+
+# |   item|price|
+# +-------+-----+
+# |Monitor|  300|
+# +-------+-----+
+</code></pre>
+<ol>
+<li><strong>Alcance de las vistas temporales (sesión):</strong></li>
+</ol>
+<p>Las vistas temporales son locales a la <code>SparkSession</code> en la que se crearon. No son visibles para otras <code>SparkSession</code>s ni persisten después de que la <code>SparkSession</code> finaliza.</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+
+spark1 = SparkSession.builder.appName(&quot;Session1&quot;).getOrCreate()
+spark2 = SparkSession.builder.appName(&quot;Session2&quot;).getOrCreate()
+
+df_session1 = spark1.createDataFrame([(&quot;Data1&quot;,)], [&quot;col&quot;])
+df_session1.createOrReplaceTempView(&quot;my_data_session1&quot;)
+
+# Consulta en la misma sesión (spark1)
+spark1.sql(&quot;SELECT * FROM my_data_session1&quot;).show()
+
+# Intentar consultar desde otra sesión (spark2) - esto fallará
+try:
+    spark2.sql(&quot;SELECT * FROM my_data_session1&quot;).show()
+except Exception as e:
+    print(f&quot;Error esperado en spark2: {e}&quot;)
+    # Resultado: Error esperado en spark2: Table or view not found: my_data_session1;
+</code></pre>
+<ol>
+<li><strong>Eliminación de vistas temporales (<code>dropTempView()</code>):</strong></li>
+</ol>
+<p>Aunque son temporales, es buena práctica eliminarlas explícitamente si ya no se necesitan para liberar recursos o evitar conflictos de nombres.</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.appName(&quot;DropView&quot;).getOrCreate()
+
+df = spark.createDataFrame([(&quot;test&quot;,)], [&quot;col&quot;])
+df.createOrReplaceTempView(&quot;my_test_view&quot;)
+
+spark.sql(&quot;SELECT * FROM my_test_view&quot;).show()
+
+spark.catalog.dropTempView(&quot;my_test_view&quot;)
+
+# Intentar consultar después de eliminar - esto fallará
+try:
+    spark.sql(&quot;SELECT * FROM my_test_view&quot;).show()
+except Exception as e:
+    print(f&quot;Error esperado: {e}&quot;)
+    # Resultado: Error esperado: Table or view not found: my_test_view;
+</code></pre>
+<h5 id="vistas-globales-temporales">Vistas Globales Temporales</h5>
+<p>A diferencia de las vistas temporales, las vistas globales temporales son visibles a través de todas las <code>SparkSession</code>s dentro de la misma aplicación Spark. Esto las hace útiles para compartir datos entre diferentes módulos o usuarios de una misma aplicación.</p>
+<ol>
+<li>
+<p><strong><code>createGlobalTempView()</code> vs. <code>createOrReplaceGlobalTempView()</code>:</strong></p>
+</li>
+<li>
+<p><code>createGlobalTempView(view_name)</code>: Crea una vista global temporal. Lanza un error si ya existe.</p>
+</li>
+<li><code>createOrReplaceGlobalTempView(view_name)</code>: Crea o reemplaza una vista global temporal.</li>
+</ol>
+<p>Las vistas globales temporales se acceden con el prefijo <code>global_temp</code>.<code>view_name</code>.</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+
+# Session 1
+spark1 = SparkSession.builder.appName(&quot;GlobalViewSession1&quot;).getOrCreate()
+
+df_global = spark1.createDataFrame([(&quot;GlobalData&quot;,)], [&quot;data_col&quot;])
+df_global.createOrReplaceGlobalTempView(&quot;shared_data&quot;)
+
+spark1.sql(&quot;SELECT * FROM global_temp.shared_data&quot;).show()
+
+# Session 2
+spark2 = SparkSession.builder.appName(&quot;GlobalViewSession2&quot;).getOrCreate()
+
+# La vista global es accesible desde otra SparkSession
+spark2.sql(&quot;SELECT * FROM global_temp.shared_data&quot;).show()
+# Resultado (desde spark2):
+# +----------+
+# |  data_col|
+# +----------+
+# |GlobalData|
+# +----------+
+</code></pre>
+<ol>
+<li><strong>Alcance de las vistas globales temporales (aplicación Spark):</strong></li>
+</ol>
+<p>Persisten mientras la aplicación Spark esté activa (es decir, el proceso <code>SparkContext</code> esté en ejecución). Se eliminan cuando la aplicación finaliza.</p>
+<p>El ejemplo anterior demuestra el alcance a través de sesiones, una vez que el script o la aplicación Spark finalizan, la vista global temporal se destruye.</p>
+<ol>
+<li><strong>Eliminación de vistas globales temporales (<code>dropGlobalTempView()</code>):</strong></li>
+</ol>
+<p>Se pueden eliminar explícitamente si ya no se necesitan.</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.appName(&quot;DropGlobalView&quot;).getOrCreate()
+
+df = spark.createDataFrame([(&quot;global test&quot;,)], [&quot;col&quot;])
+df.createOrReplaceGlobalTempView(&quot;my_global_view&quot;)
+
+spark.sql(&quot;SELECT * FROM global_temp.my_global_view&quot;).show()
+
+spark.catalog.dropGlobalTempView(&quot;my_global_view&quot;)
+
+# Intentar consultar después de eliminar - esto fallará
+try:
+    spark.sql(&quot;SELECT * FROM global_temp.my_global_view&quot;).show()
+except Exception as e:
+    print(f&quot;Error esperado: {e}&quot;)
+    # Resultado: Error esperado: Table or view not found: my_global_view;
+</code></pre>
+<h3 id="234-consultas-avanzadas-con-sparksql">2.3.4 Consultas avanzadas con SparkSQL</h3>
+<p>SparkSQL no se limita a consultas básicas; soporta características SQL avanzadas que son fundamentales para análisis complejos y transformaciones de datos, como uniones complejas, subconsultas, funciones de ventana y Common Table Expressions (CTEs).</p>
+<h5 id="uniones-joins-avanzadas">Uniones (JOINs) avanzadas</h5>
+<p>Más allá del <code>INNER JOIN</code>, SparkSQL soporta una gama completa de tipos de uniones, incluyendo <code>LEFT OUTER</code>, <code>RIGHT OUTER</code>, <code>FULL OUTER</code>, <code>LEFT SEMI</code> y <code>LEFT ANTI JOIN</code>.</p>
+<ol>
+<li><strong>Tipos de JOINs (<code>INNER</code>, <code>LEFT OUTER</code>, <code>RIGHT OUTER</code>, <code>FULL OUTER</code>):</strong></li>
+</ol>
+<p>Comprender las diferencias entre los tipos de uniones es crucial para obtener los resultados deseados.</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.appName(&quot;AdvancedJoins&quot;).getOrCreate()
+
+# Tabla de empleados
+employees_data = [(1, &quot;Alice&quot;, 101), (2, &quot;Bob&quot;, 102), (3, &quot;Charlie&quot;, 103)]
+employees_df = spark.createDataFrame(employees_data, [&quot;emp_id&quot;, &quot;emp_name&quot;, &quot;dept_id&quot;])
+employees_df.createOrReplaceTempView(&quot;employees&quot;)
+
+# Tabla de departamentos
+departments_data = [(101, &quot;Sales&quot;), (102, &quot;HR&quot;), (104, &quot;IT&quot;)]
+departments_df = spark.createDataFrame(departments_data, [&quot;dept_id&quot;, &quot;dept_name&quot;])
+departments_df.createOrReplaceTempView(&quot;departments&quot;)
+
+# LEFT OUTER JOIN (todas las filas de la izquierda, coincidencias de la derecha o NULLs)
+spark.sql(&quot;&quot;&quot;
+    SELECT e.emp_name, d.dept_name
+    FROM employees e
+    LEFT OUTER JOIN departments d ON e.dept_id = d.dept_id
+&quot;&quot;&quot;).show()
+# Resultado:
+# +---------+---------+
+# | emp_name|dept_name|
+# +---------+---------+
+# |    Alice|    Sales|
+# |      Bob|       HR|
+# |  Charlie|     null|
+# +---------+---------+
+
+# FULL OUTER JOIN (todas las filas de ambas tablas, con NULLs donde no hay coincidencia)
+spark.sql(&quot;&quot;&quot;
+    SELECT e.emp_name, d.dept_name
+    FROM employees e
+    FULL OUTER JOIN departments d ON e.dept_id = d.dept_id
+&quot;&quot;&quot;).show()
+# Resultado:
+# +---------+---------+
+# | emp_name|dept_name|
+# +---------+---------+
+# |  Charlie|     null|
+# |    Alice|    Sales|
+# |      Bob|       HR|
+# |     null|       IT|
+# +---------+---------+
+</code></pre>
+<ol>
+<li>
+<p><strong><code>LEFT SEMI JOIN</code> y <code>LEFT ANTI JOIN</code> (Subconsultas optimizadas):</strong></p>
+</li>
+<li>
+<p><code>LEFT SEMI JOIN</code>: Retorna las filas del lado izquierdo (primera tabla) que tienen una coincidencia en el lado derecho (segunda tabla). No incluye columnas de la tabla derecha. Es similar a un <code>INNER JOIN</code> pero solo retorna columnas de la tabla izquierda y es más eficiente.</p>
+</li>
+<li><code>LEFT ANTI JOIN</code>: Retorna las filas del lado izquierdo que <em>no</em> tienen una coincidencia en el lado derecho. Útil para encontrar registros huérfanos.</li>
+</ol>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.appName(&quot;SemiAntiJoins&quot;).getOrCreate()
+
+# Tabla de clientes
+customers_data = [(1, &quot;Ana&quot;), (2, &quot;Luis&quot;), (3, &quot;Marta&quot;), (4, &quot;Pedro&quot;)]
+customers_df = spark.createDataFrame(customers_data, [&quot;customer_id&quot;, &quot;customer_name&quot;])
+customers_df.createOrReplaceTempView(&quot;customers&quot;)
+
+# Tabla de pedidos
+orders_data = [(101, 1, 50), (102, 2, 75), (103, 1, 120)] # Marta y Pedro no tienen pedidos
+orders_df = spark.createDataFrame(orders_data, [&quot;order_id&quot;, &quot;customer_id&quot;, &quot;amount&quot;])
+orders_df.createOrReplaceTempView(&quot;orders&quot;)
+
+# LEFT SEMI JOIN (clientes que tienen al menos un pedido)
+spark.sql(&quot;&quot;&quot;
+    SELECT c.customer_name
+    FROM customers c
+    LEFT SEMI JOIN orders o ON c.customer_id = o.customer_id
+&quot;&quot;&quot;).show()
+# Resultado:
+# +-------------+
+# |customer_name|
+# +-------------+
+# |          Ana|
+# |         Luis|
+# +-------------+
+
+# LEFT ANTI JOIN (clientes que NO tienen ningún pedido)
+spark.sql(&quot;&quot;&quot;
+    SELECT c.customer_name
+    FROM customers c
+    LEFT ANTI JOIN orders o ON c.customer_id = o.customer_id
+&quot;&quot;&quot;).show()
+# Resultado:
+# +-------------+
+# |customer_name|
+# +-------------+
+# |        Marta|
+# |        Pedro|
+# +-------------+
+</code></pre>
+<h5 id="subconsultas-y-ctes-common-table-expressions">Subconsultas y CTEs (Common Table Expressions)</h5>
+<p>Las subconsultas y CTEs permiten dividir consultas complejas en partes más manejables, mejorando la legibilidad y, en algunos casos, la optimización.</p>
+<ol>
+<li><strong>Subconsultas en <code>WHERE</code> (IN, EXISTS):</strong></li>
+</ol>
+<p>Permiten filtrar resultados basándose en los valores de otra consulta.</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.appName(&quot;Subqueries&quot;).getOrCreate()
+
+# Tabla de productos
+products_data = [(1, &quot;Laptop&quot;, 1200), (2, &quot;Mouse&quot;, 25), (3, &quot;Keyboard&quot;, 75), (4, &quot;Monitor&quot;, 300)]
+products_df = spark.createDataFrame(products_data, [&quot;product_id&quot;, &quot;product_name&quot;, &quot;price&quot;])
+products_df.createOrReplaceTempView(&quot;products&quot;)
+
+# Tabla de stock
+stock_data = [(1, 10), (3, 5), (5, 20)] # Producto 2 y 4 no tienen stock
+stock_df = spark.createDataFrame(stock_data, [&quot;product_id&quot;, &quot;quantity&quot;])
+stock_df.createOrReplaceTempView(&quot;stock&quot;)
+
+# Seleccionar productos que tienen stock (usando IN)
+spark.sql(&quot;&quot;&quot;
+    SELECT product_name, price
+    FROM products
+    WHERE product_id IN (SELECT product_id FROM stock)
+&quot;&quot;&quot;).show()
+# Resultado:
+# +------------+-----+
+# |product_name|price|
+# +------------+-----+
+# |      Laptop| 1200|
+# |    Keyboard|   75|
+# +------------+-----+
+</code></pre>
+<ol>
+<li><strong>CTEs (Common Table Expressions) con <code>WITH</code>:</strong></li>
+</ol>
+<p>Las CTEs definen un conjunto de resultados temporal y nombrado que se puede referenciar dentro de una única sentencia <code>SELECT</code>, <code>INSERT</code>, <code>UPDATE</code> o <code>DELETE</code>. Mejoran la legibilidad y la modularidad de las consultas complejas.</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.appName(&quot;CTEs&quot;).getOrCreate()
+
+# Tabla de ventas
+sales_data = [(&quot;RegionA&quot;, &quot;Q1&quot;, 1000), (&quot;RegionA&quot;, &quot;Q2&quot;, 1200),
+              (&quot;RegionB&quot;, &quot;Q1&quot;, 800), (&quot;RegionB&quot;, &quot;Q2&quot;, 900),
+              (&quot;RegionA&quot;, &quot;Q3&quot;, 1500)]
+sales_df = spark.createDataFrame(sales_data, [&quot;region&quot;, &quot;quarter&quot;, &quot;revenue&quot;])
+sales_df.createOrReplaceTempView(&quot;sales&quot;)
+
+# Calcular el promedio de ingresos por región usando una CTE
+spark.sql(&quot;&quot;&quot;
+    WITH RegionalRevenue AS (
+        SELECT
+            region,
+            SUM(revenue) AS total_region_revenue
+        FROM sales
+        GROUP BY region
+    )
+    SELECT
+        r.region,
+        r.total_region_revenue,
+        (SELECT AVG(total_region_revenue) FROM RegionalRevenue) AS overall_avg_revenue
+    FROM RegionalRevenue r
+&quot;&quot;&quot;).show()
+# Resultado:
+# +-------+------------------+-------------------+
+# | region|total_region_revenue|overall_avg_revenue|
+# +-------+------------------+-------------------+
+# |RegionA|              3700|             2200.0|
+# |RegionB|              1700|             2200.0|
+# +-------+------------------+-------------------+
+</code></pre>
+<ol>
+<li><strong>Funciones de Ventana (Window Functions):</strong></li>
+</ol>
+<p>Permiten realizar cálculos sobre un conjunto de filas relacionadas con la fila actual (<code>PARTITION BY</code>, <code>ORDER BY</code>, <code>ROWS BETWEEN</code> / <code>RANGE BETWEEN</code>). Son muy potentes para cálculos analíticos como promedios móviles, rankings, sumas acumuladas, etc.</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.appName(&quot;WindowFunctions&quot;).getOrCreate()
+
+# Tabla de transacciones
+transactions_data = [(&quot;StoreA&quot;, &quot;2023-01-01&quot;, 100), (&quot;StoreA&quot;, &quot;2023-01-02&quot;, 150), (&quot;StoreA&quot;, &quot;2023-01-03&quot;, 80),
+                     (&quot;StoreB&quot;, &quot;2023-01-01&quot;, 200), (&quot;StoreB&quot;, &quot;2023-01-02&quot;, 120)]
+transactions_df = spark.createDataFrame(transactions_data, [&quot;store_id&quot;, &quot;sale_date&quot;, &quot;amount&quot;])
+transactions_df.createOrReplaceTempView(&quot;transactions&quot;)
+
+# Calcular la suma acumulada de ventas por tienda, ordenada por fecha
+spark.sql(&quot;&quot;&quot;
+    SELECT
+        store_id,
+        sale_date,
+        amount,
+        SUM(amount) OVER (PARTITION BY store_id ORDER BY sale_date) AS running_total
+    FROM transactions
+    ORDER BY store_id, sale_date
+&quot;&quot;&quot;).show()
+# Resultado:
+# +--------+----------+------+-------------+
+# |store_id| sale_date|amount|running_total|
+# +--------+----------+------+-------------+
+# |  StoreA|2023-01-01|   100|          100|
+# |  StoreA|2023-01-02|   150|          250|
+# |  StoreA|2023-01-03|    80|          330|
+# |  StoreB|2023-01-01|   200|          200|
+# |  StoreB|2023-01-02|   120|          320|
+# +--------+----------+------+-------------+
+
+# Ranking de transacciones por tienda
+spark.sql(&quot;&quot;&quot;
+    SELECT
+        store_id,
+        sale_date,
+        amount,
+        ROW_NUMBER() OVER (PARTITION BY store_id ORDER BY amount DESC) AS rank_by_amount
+    FROM transactions
+    ORDER BY store_id, rank_by_amount
+&quot;&quot;&quot;).show()
+# Resultado:
+# +--------+----------+------+------------+
+# |store_id| sale_date|amount|rank_by_amount|
+# +--------+----------+------+------------+
+# |  StoreA|2023-01-02|   150|           1|
+# |  StoreA|2023-01-01|   100|           2|
+# |  StoreA|2023-01-03|    80|           3|
+# |  StoreB|2023-01-01|   200|           1|
+# |  StoreB|2023-01-02|   120|           2|
+# +--------+----------+------+------------+
+</code></pre>
+<h2 id="tarea">Tarea</h2>
+<h3 id="ejercicios-practicos-relacionados-con-el-tema-23">Ejercicios Prácticos relacionados con el tema 2.3</h3>
+<ol>
+<li>
+<p>Crea un DataFrame de <code>estudiantes</code> con las columnas <code>id</code>, <code>nombre</code>, <code>carrera</code> y <code>promedio_calificaciones</code>.
+    Datos de ejemplo: <code>[(1, "Juan", "Ingeniería", 4.2), (2, "Maria", "Medicina", 3.8), (3, "Pedro", "Ingeniería", 4.5), (4, "Ana", "Derecho", 3.5)]</code>.</p>
+<p>Registra este DataFrame como una vista temporal llamada <code>estudiantes_temp</code>.
+Luego, escribe una consulta SparkSQL que seleccione el <code>nombre</code> y la <code>carrera</code> de todos los estudiantes con un <code>promedio_calificaciones</code> superior a <code>4.0</code>.</p>
+</li>
+<li>
+<p>Usando la vista <code>estudiantes_temp</code>, escribe una consulta SparkSQL que seleccione el <code>nombre</code>, <code>carrera</code> y <code>promedio_calificaciones</code> de los estudiantes cuya <code>carrera</code> sea 'Ingeniería' Y cuyo <code>nombre</code> empiece con 'P'.</p>
+</li>
+<li>
+<p>Crea un DataFrame de <code>ventas</code> con columnas <code>region</code>, <code>producto</code> y <code>cantidad</code>.
+    Datos de ejemplo: <code>[("Norte", "A", 10), ("Norte", "B", 15), ("Sur", "A", 20), ("Norte", "A", 5), ("Sur", "B", 12)]</code>.</p>
+<p>Registra este DataFrame como <code>ventas_temp</code>.
+Escribe una consulta SparkSQL que calcule la <code>SUM</code> de <code>cantidad</code> por <code>region</code> y <code>producto</code>, pero solo para aquellos grupos donde la <code>cantidad</code> total sea mayor o igual a <code>25</code>.</p>
+</li>
+<li>
+<p>Crea un DataFrame de <code>departamentos</code> con <code>id_departamento</code> y <code>nombre_departamento</code>.
+    Datos de ejemplo: <code>[(1, "Ventas"), (2, "Marketing"), (3, "Recursos Humanos")]</code>.</p>
+<p>Registra este DataFrame como <code>departamentos_temp</code>.
+Realiza un <code>INNER JOIN</code> entre <code>estudiantes_temp</code> (asume que <code>carrera</code> se puede unir con <code>nombre_departamento</code>) y <code>departamentos_temp</code> para mostrar el <code>nombre</code> del estudiante y el <code>nombre_departamento</code> al que pertenecen. <em>Nota: Para simplificar, puedes asumir que <code>carrera</code> de <code>estudiantes_temp</code> corresponde a <code>nombre_departamento</code> en <code>departamentos_temp</code>.</em></p>
+</li>
+<li>
+<p>Crea un DataFrame de <code>productos_disponibles</code> con <code>producto_id</code> y <code>nombre_producto</code>.
+    Datos de ejemplo: <code>[(101, "Laptop"), (102, "Mouse"), (103, "Teclado"), (104, "Monitor")]</code>.</p>
+<p>Registra como <code>productos_disponibles_temp</code>.</p>
+<p>Crea otro DataFrame de <code>productos_vendidos</code> con <code>producto_id</code> y <code>fecha_venta</code>.
+Datos de ejemplo: <code>[(101, "2023-01-01"), (103, "2023-01-05")]</code>.</p>
+<p>Registra como <code>productos_vendidos_temp</code>.
+Escribe una consulta SparkSQL que encuentre los <code>nombre_producto</code> de los productos que <em>nunca</em> han sido vendidos.</p>
+</li>
+<li>
+<p>Utilizando las vistas <code>productos_disponibles_temp</code> y <code>productos_vendidos_temp</code> del ejercicio anterior, escribe una consulta SparkSQL usando una subconsulta con <code>IN</code> para seleccionar los <code>nombre_producto</code> de los productos que <em>sí</em> han sido vendidos.</p>
+</li>
+<li>
+<p>Crea un DataFrame de <code>empleados_salarios</code> con <code>id_empleado</code>, <code>departamento</code> y <code>salario</code>.
+    Datos de ejemplo: <code>[(1, "IT", 60000), (2, "IT", 70000), (3, "HR", 50000), (4, "HR", 55000), (5, "IT", 65000)]</code>.</p>
+<p>Registra como <code>empleados_salarios_temp</code>.
+Usa una CTE para calcular el <code>salario_promedio_departamental</code> para cada <code>departamento</code>. Luego, en la consulta principal, selecciona <code>id_empleado</code>, <code>departamento</code>, <code>salario</code> y el <code>salario_promedio_departamental</code> de su departamento.</p>
+</li>
+<li>
+<p>Crea un DataFrame de <code>puntajes_examen</code> con <code>clase</code>, <code>estudiante</code> y <code>puntaje</code>.
+    Datos de ejemplo: <code>[("A", "Alice", 90), ("A", "Bob", 85), ("A", "Charlie", 92), ("B", "David", 78), ("B", "Eve", 95)]</code>.</p>
+<p>Registra como <code>puntajes_examen_temp</code>.
+Usa una función de ventana para calcular el ranking de <code>puntaje</code> para cada <code>estudiante</code> <em>dentro de cada <code>clase</code></em>, ordenando de mayor a menor puntaje. Muestra <code>clase</code>, <code>estudiante</code>, <code>puntaje</code> y <code>ranking</code>.</p>
+</li>
+<li>
+<p>Utilizando la vista <code>ventas_temp</code> del ejercicio 3 (añade una columna <code>fecha_venta</code> si no la tienes, ej. <code>"2023-01-01"</code> para todos por simplicidad, o mejor, crea nuevos datos con fechas distintas para cada venta en la misma región):
+    <code>[("Norte", "A", 10, "2023-01-01"), ("Norte", "B", 15, "2023-01-02"), ("Norte", "A", 5, "2023-01-03")]</code>.</p>
+<p>Registra como <code>ventas_fecha_temp</code>.
+Calcula la <code>cantidad_acumulada</code> de ventas por <code>region</code>, ordenada por <code>fecha_venta</code>.</p>
+</li>
+<li>
+<p>Crea dos DataFrames: <code>usuarios</code> (<code>user_id</code>, <code>name</code>) y <code>compras</code> (<code>purchase_id</code>, <code>user_id</code>, <code>amount</code>, <code>purchase_date</code>).
+    <code>usuarios</code> ejemplo: <code>[(1, "User A"), (2, "User B")]</code>
+    <code>compras</code> ejemplo: <code>[(101, 1, 50.0, "2023-01-01"), (102, 1, 75.0, "2023-01-10"), (103, 2, 120.0, "2023-01-15")]</code></p>
+<p>Registra ambos como vistas temporales (<code>users_temp</code>, <code>purchases_temp</code>).
+Usa una CTE para encontrar el <code>total_comprado</code> por cada <code>user_id</code>. Luego, en la consulta principal, une la CTE con <code>users_temp</code> para mostrar <code>name</code> y su <code>total_comprado</code>.</p>
+</li>
+</ol>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../tema22/" class="btn btn-neutral float-left" title="Funciones integradas y definidas por el usuario"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../tema24/" class="btn btn-neutral float-right" title="Esquemas y tipos de datos complejos">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../tema22/" class="btn btn-neutral float-left" title="Manipulación y Transformación de Datos"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../tema24/" class="btn btn-neutral float-right" title="Optimización y Rendimiento">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>

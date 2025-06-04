@@ -23,11 +23,10 @@
 
 **Objetivo**: Al finalizar esta unidad, el estudiante será capaz de manipular, transformar y consultar grandes volúmenes de datos utilizando DataFrames de Apache Spark y SparkSQL, aplicando funciones integradas y personalizadas, gestionando esquemas complejos y comprendiendo los principios de optimización subyacentes para mejorar el rendimiento de las operaciones.
 
-- [Operaciones con DataFrames](tema21.md)
-- [Funciones integradas y definidas por el usuario](tema22.md)
-- [Consultas con SparkSQL](tema23.md)
-- [Esquemas y tipos de datos complejos](tema24.md)
-- [Optimización con Catalyst y Tungsten](tema25.md)
+- [Fundamentos de DataFrames en Spark](tema21.md)
+- [Manipulación y Transformación de Datos](tema22.md)
+- [Consultas y SQL en Spark](tema23.md)
+- [Optimización y Rendimiento](tema24.md)
 
 ## 3. Arquitectura y Diseño de Flujos ETL
 

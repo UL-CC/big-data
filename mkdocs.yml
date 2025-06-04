@@ -11,11 +11,10 @@ nav:
     - Primeros pasos con PySpark: tema15.md
 
   - PySpark y SparkSQL:
-    - Operaciones con DataFrames: tema21.md
-    - Funciones integradas y definidas por el usuario: tema22.md
-    - Consultas con SparkSQL: tema23.md
-    - Esquemas y tipos de datos complejos: tema24.md
-    - Optimización con Catalyst y Tungsten: tema25.md
+    - Fundamentos de DataFrames en Spark: tema21.md
+    - Manipulación y Transformación de Datos: tema22.md
+    - Consultas y SQL en Spark: tema23.md
+    - Optimización y Rendimiento: tema24.md
 
   - Arquitectura y Diseño de Flujos ETL:
     - Diseño de pipelines ETL: tema31.md
