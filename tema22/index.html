@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Funciones integradas y definidas por el usuario - Métodos de Procesamiento y Análisis de Big Data</title>
+    <title>Manipulación y Transformación de Datos - Métodos de Procesamiento y Análisis de Big Data</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Funciones integradas y definidas por el usuario";
+        var mkdocs_page_name = "Manipulaci\u00f3n y Transformaci\u00f3n de Datos";
         var mkdocs_page_input_path = "tema22.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,19 +58,55 @@
               </ul>
               <p class="caption"><span class="caption-text">PySpark y SparkSQL</span></p>
               <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="../tema21/">Operaciones con DataFrames</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema21/">Fundamentos de DataFrames en Spark</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Funciones integradas y definidas por el usuario</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Manipulación y Transformación de Datos</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#tema-22-introduccion-al-ecosistema-spark">Tema 2.2. Introducción al ecosistema Spark</a>
+    <li class="toctree-l2"><a class="reference internal" href="#tema-22-manipulacion-y-transformacion-de-datos">Tema 2.2 Manipulación y Transformación de Datos</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#221-operaciones-con-dataframes-seleccion-filtrado-agregaciones">2.2.1 Operaciones con DataFrames (selección, filtrado, agregaciones)</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#seleccion-avanzada-de-columnas">Selección Avanzada de Columnas</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#filtrado-avanzado-de-filas">Filtrado Avanzado de Filas</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#agregaciones-avanzadas-y-agrupamiento">Agregaciones Avanzadas y Agrupamiento</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#222-funciones-integradas-y-definidas-por-el-usuario-udfs">2.2.2 Funciones integradas y definidas por el usuario (UDFs)</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#funciones-integradas-de-spark-sql">Funciones Integradas de Spark SQL</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#funciones-definidas-por-el-usuario-udfs">Funciones Definidas por el Usuario (UDFs)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#223-particionamiento-y-paralelismo">2.2.3 Particionamiento y paralelismo</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#conceptos-de-particionamiento">Conceptos de Particionamiento</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#control-del-particionamiento-y-paralelismo">Control del Particionamiento y Paralelismo</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#224-manejo-de-datos-distribuidos">2.2.4 Manejo de datos distribuidos</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#persistencia-y-almacenamiento-en-cache">Persistencia y Almacenamiento en Caché</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#comprension-y-optimizacion-de-shuffles">Comprensión y Optimización de Shuffles</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tarea">Tarea</a>
     </li>
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema23/">Consultas con SparkSQL</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema23/">Consultas y SQL en Spark</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema24/">Esquemas y tipos de datos complejos</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema25/">Optimización con Catalyst y Tungsten</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema24/">Optimización y Rendimiento</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Arquitectura y Diseño de Flujos ETL</span></p>
@@ -121,7 +157,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
           <li class="breadcrumb-item">PySpark y SparkSQL</li>
-      <li class="breadcrumb-item active">Funciones integradas y definidas por el usuario</li>
+      <li class="breadcrumb-item active">Manipulación y Transformación de Datos</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -131,14 +167,897 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="2-pyspark-y-sparksql">2. PySpark y SparkSQL</h1>
-<h2 id="tema-22-introduccion-al-ecosistema-spark">Tema 2.2. Introducción al ecosistema Spark</h2>
-<p><em>Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.</em></p>
+<h2 id="tema-22-manipulacion-y-transformacion-de-datos">Tema 2.2 Manipulación y Transformación de Datos</h2>
+<p><strong>Objetivo</strong>:</p>
+<p>Al finalizar esta unidad, el estudiante será capaz de aplicar técnicas avanzadas de manipulación y transformación sobre DataFrames de Apache Spark, utilizando un amplio rango de funciones integradas, creando funciones personalizadas (UDFs) para lógica específica, y comprendiendo cómo el particionamiento y el paralelismo influyen en el procesamiento eficiente de grandes volúmenes de datos distribuidos.</p>
+<p><strong>Introducción</strong>:</p>
+<p>La capacidad de transformar datos brutos en información valiosa es el corazón del análisis de Big Data. En Apache Spark, los DataFrames no solo ofrecen una interfaz intuitiva para trabajar con datos estructurados y semi-estructurados, sino que también proporcionan un conjunto robusto de operaciones y funciones para la manipulación y limpieza de datos a escala. Desde simples selecciones y filtrados hasta complejas agregaciones y uniones, Spark permite a los usuarios moldear sus datos para satisfacer las necesidades de análisis, modelado o visualización, todo ello aprovechando su arquitectura distribuida subyacente.</p>
+<p><strong>Desarrollo</strong>:</p>
+<p>Este tema profundiza en las capacidades de manipulación de DataFrames de Spark. Retomaremos y ampliaremos las operaciones fundamentales, exploraremos el vasto catálogo de funciones integradas de Spark SQL y aprenderemos a extender esta funcionalidad creando nuestras propias funciones definidas por el usuario (UDFs). Además, abordaremos conceptos cruciales como el particionamiento y el paralelismo, fundamentales para optimizar el rendimiento y escalar el procesamiento de datos distribuidos de manera efectiva. Comprender estos conceptos es clave para escribir código Spark eficiente y robusto en escenarios de Big Data.</p>
+<h3 id="221-operaciones-con-dataframes-seleccion-filtrado-agregaciones">2.2.1 Operaciones con DataFrames (selección, filtrado, agregaciones)</h3>
+<p>Si bien ya se introdujeron las operaciones básicas en el tema 2.1, esta sección se enfoca en profundizar y mostrar ejemplos más avanzados y combinaciones de estas operaciones, destacando su poder para la limpieza y preparación de datos. La flexibilidad del API de DataFrames permite encadenar múltiples transformaciones, construyendo flujos de trabajo de datos complejos de manera legible y eficiente.</p>
+<h5 id="seleccion-avanzada-de-columnas">Selección Avanzada de Columnas</h5>
+<p>Más allá de simplemente elegir columnas por nombre, Spark ofrece potentes capacidades para manipular columnas existentes o crear nuevas basadas en expresiones complejas.</p>
+<ol>
+<li><strong>Seleccionar y Renombrar Múltiples Columnas dinámicamente:</strong></li>
+</ol>
+<p>Es común necesitar seleccionar un subconjunto de columnas y, al mismo tiempo, renombrarlas. Esto se puede hacer de forma programática utilizando listas de columnas y aplicando aliases.</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+from pyspark.sql.functions import col
+
+spark = SparkSession.builder.appName(&quot;AdvancedSelection&quot;).getOrCreate()
+
+data = [(&quot;Alice&quot;, 25, &quot;NY&quot;, &quot;USA&quot;), (&quot;Bob&quot;, 30, &quot;LA&quot;, &quot;USA&quot;), (&quot;Charlie&quot;, 22, &quot;CHI&quot;, &quot;USA&quot;)]
+df = spark.createDataFrame(data, [&quot;name&quot;, &quot;age&quot;, &quot;city&quot;, &quot;country&quot;])
+
+# Seleccionar y renombrar múltiples columnas
+selected_cols = [col(&quot;name&quot;).alias(&quot;full_name&quot;), col(&quot;age&quot;), col(&quot;city&quot;).alias(&quot;location&quot;)]
+df.select(*selected_cols).show()
+# Resultado:
+# +---------+---+--------+
+# |full_name|age|location|
+# +---------+---+--------+
+# |    Alice| 25|      NY|
+# |      Bob| 30|      LA|
+# |  Charlie| 22|     CHI|
+# +---------+---+--------+
+</code></pre>
+<ol>
+<li><strong>Uso de expresiones SQL en <code>select</code>:</strong></li>
+</ol>
+<p>Spark permite incrustar expresiones SQL directamente dentro de la función <code>select</code> para mayor flexibilidad, especialmente cuando se trabaja con funciones complejas o lógicas condicionales.</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+from pyspark.sql.functions import expr
+
+spark = SparkSession.builder.appName(&quot;SqlExpressions&quot;).getOrCreate()
+
+data = [(&quot;Alice&quot;, 25, 50000), (&quot;Bob&quot;, 30, 60000), (&quot;Charlie&quot;, 22, 45000)]
+df = spark.createDataFrame(data, [&quot;name&quot;, &quot;age&quot;, &quot;salary&quot;])
+
+# Calcular un bono basado en el salario usando una expresión SQL
+df.select(&quot;name&quot;, &quot;salary&quot;, expr(&quot;salary * 0.10 AS bonus&quot;)).show()
+# Resultado:
+# +-------+------+-------+
+# |   name|salary|  bonus|
+# +-------+------+-------+
+# |  Alice| 50000| 5000.0|
+# |    Bob| 60000| 6000.0|
+# |Charlie| 45000| 4500.0|
+# +-------+------+-------+
+</code></pre>
+<ol>
+<li><strong>Eliminar columnas (<code>drop</code>):</strong></li>
+</ol>
+<p>Es una operación común para limpiar DataFrames, eliminando columnas que no son relevantes para el análisis posterior.</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.appName(&quot;DropColumn&quot;).getOrCreate()
+
+data = [(&quot;Alice&quot;, 25, &quot;NY&quot;, &quot;USA&quot;), (&quot;Bob&quot;, 30, &quot;LA&quot;, &quot;USA&quot;)]
+df = spark.createDataFrame(data, [&quot;name&quot;, &quot;age&quot;, &quot;city&quot;, &quot;country&quot;])
+
+# Eliminar una sola columna
+df.drop(&quot;country&quot;).show()
+# Resultado:
+# +-----+---+----+
+# | name|age|city|
+# +-----+---+----+
+# |Alice| 25|  NY|
+# |  Bob| 30|  LA|
+# +-----+---+----+
+
+# Eliminar múltiples columnas
+df.drop(&quot;age&quot;, &quot;city&quot;).show()
+# Resultado:
+# +-----+-------+
+# | name|country|
+# +-----+-------+
+# |Alice|    USA|
+# |  Bob|    USA|
+# +-----+-------+
+</code></pre>
+<h5 id="filtrado-avanzado-de-filas">Filtrado Avanzado de Filas</h5>
+<p>Las condiciones de filtrado pueden ser muy complejas, combinando múltiples operadores lógicos y funciones.</p>
+<ol>
+<li><strong>Combinar múltiples condiciones con <code>&amp;</code> (AND), <code>|</code> (OR), <code>~</code> (NOT):</strong></li>
+</ol>
+<p>Permite construir filtros sofisticados para aislar subconjuntos de datos específicos.</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+from pyspark.sql.functions import col
+
+spark = SparkSession.builder.appName(&quot;AdvancedFiltering&quot;).getOrCreate()
+
+data = [(&quot;Laptop&quot;, 1200, &quot;Electronics&quot;), (&quot;Mouse&quot;, 25, &quot;Electronics&quot;),
+        (&quot;Book&quot;, 15, &quot;Books&quot;), (&quot;Monitor&quot;, 300, &quot;Electronics&quot;), (&quot;Pen&quot;, 2, &quot;Office&quot;)]
+df = spark.createDataFrame(data, [&quot;product&quot;, &quot;price&quot;, &quot;category&quot;])
+
+# Filtrar productos de &quot;Electronics&quot; con precio &gt; 100 O productos de &quot;Books&quot;
+df.filter( (col(&quot;category&quot;) == &quot;Electronics&quot;) &amp; (col(&quot;price&quot;) &gt; 100) | (col(&quot;category&quot;) == &quot;Books&quot;) ).show()
+# Resultado:
+# +--------+-----+-----------+
+# | product|price|   category|
+# +--------+-----+-----------+
+# |  Laptop| 1200|Electronics|
+# |    Book|   15|      Books|
+# | Monitor|  300|Electronics|
+# +--------+-----+-----------+
+</code></pre>
+<ol>
+<li><strong>Uso de <code>isin</code> para filtrar por múltiples valores en una columna:</strong></li>
+</ol>
+<p>Una forma concisa de filtrar filas donde una columna toma uno de varios valores posibles.</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+from pyspark.sql.functions import col
+
+spark = SparkSession.builder.appName(&quot;FilteringIsIn&quot;).getOrCreate()
+
+data = [(&quot;Alice&quot;, &quot;NY&quot;), (&quot;Bob&quot;, &quot;LA&quot;), (&quot;Charlie&quot;, &quot;CHI&quot;), (&quot;David&quot;, &quot;NY&quot;)]
+df = spark.createDataFrame(data, [&quot;name&quot;, &quot;city&quot;])
+
+# Filtrar por ciudades específicas
+df.filter(col(&quot;city&quot;).isin(&quot;NY&quot;, &quot;LA&quot;)).show()
+# Resultado:
+# +-----+----+
+# | name|city|
+# +-----+----+
+# |Alice|  NY|
+# |  Bob|  LA|
+# |David|  NY|
+# +-----+----+
+</code></pre>
+<ol>
+<li><strong>Manejo de valores nulos en filtros (<code>isNull</code>, <code>isNotNull</code>, <code>na.drop</code>):</strong></li>
+</ol>
+<p>Es crucial manejar los valores nulos al filtrar para evitar resultados inesperados o errores.</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+from pyspark.sql.functions import col
+
+spark = SparkSession.builder.appName(&quot;HandlingNullsFiltering&quot;).getOrCreate()
+
+data = [(&quot;Alice&quot;, 25), (&quot;Bob&quot;, None), (&quot;Charlie&quot;, 22), (&quot;David&quot;, None)]
+df = spark.createDataFrame(data, [&quot;name&quot;, &quot;age&quot;])
+
+# Filtrar filas donde 'age' no es nulo
+df.filter(col(&quot;age&quot;).isNotNull()).show()
+# Resultado:
+# +-------+---+
+# |   name|age|
+# +-------+---+
+# |  Alice| 25|
+# |Charlie| 22|
+# +-------+---+
+
+# Filtrar filas donde 'age' es nulo
+df.filter(col(&quot;age&quot;).isNull()).show()
+# Resultado:
+# +-----+----+
+# | name| age|
+# +-----+----+
+# |  Bob|null|
+# |David|null|
+# +-----+----+
+
+# Eliminar filas con cualquier valor nulo
+df.na.drop().show()
+# Resultado:
+# +-------+---+
+# |   name|age|
+# +-------+---+
+# |  Alice| 25|
+# |Charlie| 22|
+# +-------+---+
+</code></pre>
+<h5 id="agregaciones-avanzadas-y-agrupamiento">Agregaciones Avanzadas y Agrupamiento</h5>
+<p>Las agregaciones son potentes para resumir datos. Spark permite agregaciones por múltiples columnas, con funciones de ventana y pivoteo.</p>
+<ol>
+<li><strong>Agregaciones sobre múltiples columnas con <code>agg</code>:</strong></li>
+</ol>
+<p>Permite aplicar múltiples funciones de agregación a diferentes columnas en una sola operación de <code>groupBy</code>.</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+from pyspark.sql.functions import avg, sum, count, col
+
+spark = SparkSession.builder.appName(&quot;MultiAggregations&quot;).getOrCreate()
+
+data = [(&quot;Dept1&quot;, &quot;Alice&quot;, 1000, 5), (&quot;Dept1&quot;, &quot;Bob&quot;, 1200, 8),
+        (&quot;Dept2&quot;, &quot;Charlie&quot;, 900, 3), (&quot;Dept2&quot;, &quot;David&quot;, 1500, 10)]
+df = spark.createDataFrame(data, [&quot;department&quot;, &quot;name&quot;, &quot;salary&quot;, &quot;projects_completed&quot;])
+
+# Agregaciones múltiples por departamento
+df.groupBy(&quot;department&quot;).agg(
+    avg(col(&quot;salary&quot;)).alias(&quot;avg_salary&quot;),
+    sum(col(&quot;projects_completed&quot;)).alias(&quot;total_projects&quot;),
+    count(col(&quot;name&quot;)).alias(&quot;num_employees&quot;)
+).show()
+# Resultado:
+# +----------+----------+--------------+-------------+
+# |department|avg_salary|total_projects|num_employees|
+# +----------+----------+--------------+-------------+
+# |     Dept1|    1100.0|            13|            2|
+# |     Dept2|    1200.0|            13|            2|
+# +----------+----------+--------------+-------------+
+</code></pre>
+<ol>
+<li><strong>Pivoteo de datos (<code>pivot</code>):</strong></li>
+</ol>
+<p>Transforma filas en columnas, muy útil para análisis de series temporales o reportes.</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+from pyspark.sql.functions import sum
+
+spark = SparkSession.builder.appName(&quot;PivotOperation&quot;).getOrCreate()
+
+data = [(&quot;Sales&quot;, &quot;Jan&quot;, 100), (&quot;Sales&quot;, &quot;Feb&quot;, 120),
+        (&quot;Marketing&quot;, &quot;Jan&quot;, 80), (&quot;Marketing&quot;, &quot;Feb&quot;, 90),
+        (&quot;Sales&quot;, &quot;Mar&quot;, 150)]
+df = spark.createDataFrame(data, [&quot;department&quot;, &quot;month&quot;, &quot;revenue&quot;])
+
+# Pivoteo de ingresos por departamento y mes
+df.groupBy(&quot;department&quot;).pivot(&quot;month&quot;, [&quot;Jan&quot;, &quot;Feb&quot;, &quot;Mar&quot;]).agg(sum(&quot;revenue&quot;)).show()
+# Resultado:
+# +----------+---+---+---+
+# |department|Jan|Feb|Mar|
+# +----------+---+---+---+
+# |     Sales|100|120|150|
+# | Marketing| 80| 90|null|
+# +----------+---+---+---+
+</code></pre>
+<ol>
+<li><strong>Uniones de DataFrames (<code>join</code>):</strong></li>
+</ol>
+<p>Combina dos DataFrames en función de una o más claves comunes. Spark soporta varios tipos de uniones (inner, outer, left, right, anti, semi).</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.appName(&quot;DataFrameJoins&quot;).getOrCreate()
+
+# DataFrame de empleados
+employees_data = [(&quot;Alice&quot;, 1, &quot;Sales&quot;), (&quot;Bob&quot;, 2, &quot;HR&quot;), (&quot;Charlie&quot;, 3, &quot;IT&quot;)]
+employees_df = spark.createDataFrame(employees_data, [&quot;name&quot;, &quot;emp_id&quot;, &quot;dept_id&quot;])
+
+# DataFrame de departamentos
+departments_data = [(1, &quot;Sales&quot;, &quot;NY&quot;), (2, &quot;HR&quot;, &quot;LA&quot;), (4, &quot;Finance&quot;, &quot;CHI&quot;)]
+departments_df = spark.createDataFrame(departments_data, [&quot;dept_id&quot;, &quot;dept_name&quot;, &quot;location&quot;])
+
+# Inner Join: solo filas que coinciden en ambas tablas
+employees_df.join(departments_df, on=&quot;dept_id&quot;, how=&quot;inner&quot;).show()
+# Resultado:
+# +-------+-----+---------+---------+--------+
+# |dept_id| name|   emp_id|dept_name|location|
+# +-------+-----+---------+---------+--------+
+# |      1|Alice|        1|    Sales|      NY|
+# |      2|  Bob|        2|       HR|      LA|
+# +-------+-----+---------+---------+--------+
+
+# Left Outer Join: todas las filas de la izquierda, y las que coinciden de la derecha
+employees_df.join(departments_df, on=&quot;dept_id&quot;, how=&quot;left_outer&quot;).show()
+# Resultado:
+# +-------+-------+------+---------+---------+--------+
+# |dept_id|   name|emp_id|dept_name|location|
+# +-------+-------+------+---------+---------+--------+
+# |      1|  Alice|     1|    Sales|       NY|
+# |      2|    Bob|     2|       HR|       LA|
+# |      3|Charlie|     3|     null|     null|
+# +-------+-------+------+---------+---------+--------+
+</code></pre>
+<h3 id="222-funciones-integradas-y-definidas-por-el-usuario-udfs">2.2.2 Funciones integradas y definidas por el usuario (UDFs)</h3>
+<p>Spark proporciona una rica biblioteca de funciones integradas (<code>pyspark.sql.functions</code>) que cubren una amplia gama de transformaciones de datos. Sin embargo, cuando la lógica de negocio es muy específica y no está cubierta por las funciones existentes, las Funciones Definidas por el Usuario (UDFs) permiten extender la funcionalidad de Spark utilizando código Python.</p>
+<h5 id="funciones-integradas-de-spark-sql">Funciones Integradas de Spark SQL</h5>
+<p>Estas funciones son altamente optimizadas y deben ser la primera opción para cualquier transformación. Cubren operaciones numéricas, de cadena, de fecha y hora, y de manipulación de arrays y mapas.</p>
+<ol>
+<li><strong>Funciones de cadena (<code>substring</code>, <code>concat_ws</code>, <code>length</code>, <code>lower</code>, <code>upper</code>):</strong></li>
+</ol>
+<p>Útiles para manipular texto en columnas.</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+from pyspark.sql.functions import col, substring, concat_ws, length, lower, upper
+
+spark = SparkSession.builder.appName(&quot;StringFunctions&quot;).getOrCreate()
+
+data = [(&quot;john doe&quot;,), (&quot;JANE SMITH&quot;,)]
+df = spark.createDataFrame(data, [&quot;full_name&quot;])
+
+# Extraer subcadena
+df.withColumn(&quot;first_3_chars&quot;, substring(col(&quot;full_name&quot;), 1, 3)).show()
+# Resultado:
+# +----------+-------------+
+# | full_name|first_3_chars|
+# +----------+-------------+
+# |  john doe|          joh|
+# |JANE SMITH|          JAN|
+# +----------+-------------+
+
+# Concatenar con separador (necesita más columnas para ser útil, ejemplo conceptual)
+df.withColumn(&quot;formatted_name&quot;, concat_ws(&quot;, &quot;, lower(col(&quot;full_name&quot;)))).show() # En este caso, solo convierte a minúsculas
+# Resultado:
+# +----------+--------------+
+# | full_name|formatted_name|
+# +----------+--------------+
+# |  john doe|      john doe|
+# |JANE SMITH|    jane smith|
+# +----------+--------------+
+
+# Obtener longitud y convertir a mayúsculas/minúsculas
+df.select(col(&quot;full_name&quot;), length(col(&quot;full_name&quot;)).alias(&quot;name_length&quot;),
+          lower(col(&quot;full_name&quot;)).alias(&quot;lower_name&quot;),
+          upper(col(&quot;full_name&quot;)).alias(&quot;upper_name&quot;)).show()
+# Resultado:
+# +----------+-----------+----------+----------+
+# | full_name|name_length|lower_name|upper_name|
+# +----------+-----------+----------+----------+
+# |  john doe|          8|  john doe|  JOHN DOE|
+# |JANE SMITH|         10|jane smith|JANE SMITH|
+# +----------+-----------+----------+----------+
+</code></pre>
+<ol>
+<li><strong>Funciones de fecha y hora (<code>current_date</code>, <code>datediff</code>, <code>year</code>, <code>month</code>, <code>to_date</code>, <code>to_timestamp</code>):</strong></li>
+</ol>
+<p>Esenciales para el procesamiento de datos temporales.</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+from pyspark.sql.functions import col, current_date, datediff, year, month, to_date, to_timestamp
+
+spark = SparkSession.builder.appName(&quot;DateFunctions&quot;).getOrCreate()
+
+data = [(&quot;2023-01-15&quot;,), (&quot;2024-03-01&quot;,)]
+df = spark.createDataFrame(data, [&quot;event_date&quot;])
+
+# Convertir a tipo Date y obtener el año y mes
+df.withColumn(&quot;event_date_parsed&quot;, to_date(col(&quot;event_date&quot;))) \
+  .withColumn(&quot;current_date&quot;, current_date()) \
+  .withColumn(&quot;days_since_event&quot;, datediff(col(&quot;current_date&quot;), col(&quot;event_date_parsed&quot;))) \
+  .withColumn(&quot;event_year&quot;, year(col(&quot;event_date_parsed&quot;))) \
+  .withColumn(&quot;event_month&quot;, month(col(&quot;event_date_parsed&quot;))) \
+  .show()
+# Resultado (valores de días_since_event variarán con la fecha actual):
+# +----------+-----------------+------------+----------------+----------+-----------+
+# |event_date|event_date_parsed|current_date|days_since_event|event_year|event_month|
+# +----------+-----------------+------------+----------------+----------+-----------+
+# |2023-01-15|       2023-01-15|  2025-05-31|             867|      2023|          1|
+# |2024-03-01|       2024-03-01|  2025-05-31|             457|      2024|          3|
+# +----------+-----------------+------------+----------------+----------+-----------+
+
+# Convertir a timestamp
+df_ts = spark.createDataFrame([(&quot;2023-01-15 10:30:00&quot;,)], [&quot;datetime_str&quot;])
+df_ts.withColumn(&quot;parsed_timestamp&quot;, to_timestamp(col(&quot;datetime_str&quot;))).show()
+# Resultado:
+# +-------------------+--------------------+
+# |       datetime_str|    parsed_timestamp|
+# +-------------------+--------------------+
+# |2023-01-15 10:30:00|2023-01-15 10:30:00|
+# +-------------------+--------------------+
+</code></pre>
+<ol>
+<li><strong>Funciones condicionales (<code>when</code>, <code>otherwise</code>):</strong></li>
+</ol>
+<p>Permiten aplicar lógica condicional para crear nuevas columnas o modificar existentes.</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+from pyspark.sql.functions import col, when
+
+spark = SparkSession.builder.appName(&quot;ConditionalFunctions&quot;).getOrCreate()
+
+data = [(&quot;Alice&quot;, 25, &quot;NY&quot;), (&quot;Bob&quot;, 35, &quot;LA&quot;), (&quot;Charlie&quot;, 17, &quot;CHI&quot;)]
+df = spark.createDataFrame(data, [&quot;name&quot;, &quot;age&quot;, &quot;city&quot;])
+
+# Clasificar edad en categorías
+df.withColumn(&quot;age_group&quot;,
+              when(col(&quot;age&quot;) &lt; 18, &quot;Minor&quot;)
+              .when(col(&quot;age&quot;) &gt;= 18, &quot;Adult&quot;)
+              .otherwise(&quot;Unknown&quot;)
+             ).show()
+# Resultado:
+# +-------+---+----+---------+
+# |   name|age|city|age_group|
+# +-------+---+----+---------+
+# |  Alice| 25|  NY|    Adult|
+# |    Bob| 35|  LA|    Adult|
+# |Charlie| 17| CHI|    Minor|
+# +-------+---+----+---------+
+</code></pre>
+<h5 id="funciones-definidas-por-el-usuario-udfs">Funciones Definidas por el Usuario (UDFs)</h5>
+<p>Las UDFs permiten a los desarrolladores de Python extender la funcionalidad de Spark implementando lógica personalizada. Aunque potentes, pueden tener un impacto en el rendimiento debido a la serialización y deserialización de datos entre la JVM (donde Spark se ejecuta) y el proceso Python.</p>
+<ol>
+<li><strong>Creación de UDFs simples:</strong></li>
+</ol>
+<p>Se definen como funciones Python normales y luego se registran en Spark usando <code>udf</code> de <code>pyspark.sql.functions</code>. Es crucial especificar el tipo de retorno.</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+from pyspark.sql.functions import udf, col
+from pyspark.sql.types import StringType
+
+spark = SparkSession.builder.appName(&quot;SimpleUDF&quot;).getOrCreate()
+
+data = [(&quot;alice&quot;,), (&quot;BOB&quot;,), (&quot;charlie&quot;,)]
+df = spark.createDataFrame(data, [&quot;name&quot;])
+
+# Definir una función Python para capitalizar la primera letra
+def capitalize_name(name):
+    return name.capitalize() if name else None
+
+# Registrar la UDF con el tipo de retorno
+capitalize_udf = udf(capitalize_name, StringType())
+
+# Aplicar la UDF al DataFrame
+df.withColumn(&quot;capitalized_name&quot;, capitalize_udf(col(&quot;name&quot;))).show()
+# Resultado:
+# +-------+----------------+
+# |   name|capitalized_name|
+# +-------+----------------+
+# |  alice|           Alice|
+# |    BOB|             Bob|
+# |charlie|         Charlie|
+# +-------+----------------+
+</code></pre>
+<ol>
+<li><strong>UDFs con múltiples argumentos:</strong></li>
+</ol>
+<p>Las UDFs pueden aceptar múltiples columnas como entrada.</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+from pyspark.sql.functions import udf, col
+from pyspark.sql.types import DoubleType
+
+spark = SparkSession.builder.appName(&quot;MultiArgUDF&quot;).getOrCreate()
+
+data = [(1000, 0.10), (1200, 0.05), (800, 0.15)]
+df = spark.createDataFrame(data, [&quot;base_salary&quot;, &quot;bonus_rate&quot;])
+
+# Función Python para calcular el salario total
+def calculate_total_salary(base_salary, bonus_rate):
+    if base_salary is None or bonus_rate is None:
+        return None
+    return base_salary * (1 + bonus_rate)
+
+# Registrar la UDF
+total_salary_udf = udf(calculate_total_salary, DoubleType())
+
+# Aplicar la UDF
+df.withColumn(&quot;total_salary&quot;, total_salary_udf(col(&quot;base_salary&quot;), col(&quot;bonus_rate&quot;))).show()
+# Resultado:
+# +-----------+----------+------------+
+# |base_salary|bonus_rate|total_salary|
+# +-----------+----------+------------+
+# |       1000|      0.10|      1100.0|
+# |       1200|      0.05|      1260.0|
+# |        800|      0.15|       920.0|
+# +-----------+----------+------------+
+</code></pre>
+<ol>
+<li><strong>Consideraciones de rendimiento de UDFs (Vectorized UDFs con Pandas):</strong></li>
+</ol>
+<p>Para mitigar el costo de serialización/deserialización, Spark 2.3+ introdujo las UDFs vectorizadas (anteriormente "Pandas UDFs"). Estas UDFs operan en <code>pandas.Series</code> o <code>pandas.DataFrame</code> en lugar de una fila a la vez, lo que reduce la sobrecarga y mejora significativamente el rendimiento para ciertas operaciones.</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+from pyspark.sql.functions import pandas_udf, PandasUDFType
+from pyspark.sql.types import DoubleType, StringType
+
+spark = SparkSession.builder.appName(&quot;PandasUDF&quot;).getOrCreate()
+
+data = [(1, 10.0), (2, 20.0), (3, 30.0)]
+df = spark.createDataFrame(data, [&quot;id&quot;, &quot;value&quot;])
+
+# Pandas UDF para escalar valores (Series a Series)
+@pandas_udf(DoubleType(), PandasUDFType.SCALAR)
+def multiply_by_two(value: float) -&gt; float:
+    return value * 2
+
+df.withColumn(&quot;value_doubled&quot;, multiply_by_two(col(&quot;value&quot;))).show()
+# Resultado:
+# +---+-----+-------------+
+# | id|value|value_doubled|
+# +---+-----+-------------+
+# |  1| 10.0|         20.0|
+# |  2| 20.0|         40.0|
+# |  3| 30.0|         60.0|
+# +---+-----+-------------+
+
+# Pandas UDF para agregación (Series a escalar)
+@pandas_udf(StringType(), PandasUDFType.GROUPED_AGG)
+def concat_strings(col_series):
+    return &quot;_&quot;.join(col_series.astype(str))
+
+df_agg = spark.createDataFrame([(&quot;A&quot;, &quot;x&quot;), (&quot;A&quot;, &quot;y&quot;), (&quot;B&quot;, &quot;z&quot;)], [&quot;group&quot;, &quot;value&quot;])
+df_agg.groupBy(&quot;group&quot;).agg(concat_strings(col(&quot;value&quot;)).alias(&quot;concatenated_values&quot;)).show()
+# Resultado:
+# +-----+-------------------+
+# |group|concatenated_values|
+# +-----+-------------------+
+# |    A|                x_y|
+# |    B|                  z|
+# +-----+-------------------+
+</code></pre>
+<h3 id="223-particionamiento-y-paralelismo">2.2.3 Particionamiento y paralelismo</h3>
+<p>El particionamiento es un concepto fundamental en Spark que define cómo se distribuyen los datos en el clúster. Un particionamiento adecuado es clave para optimizar el rendimiento de las operaciones, especialmente las que involucran shuffles (intercambio de datos entre nodos). El paralelismo se refiere a la cantidad de tareas que Spark puede ejecutar simultáneamente.</p>
+<h5 id="conceptos-de-particionamiento">Conceptos de Particionamiento</h5>
+<p>Los datos en Spark se dividen en "particiones" lógicas, cada una de las cuales es procesada por una tarea. La forma en que los datos se particionan afecta el rendimiento y la eficiencia de la computación.</p>
+<ol>
+<li><strong>¿Qué es una partición en Spark?:</strong></li>
+</ol>
+<p>Una partición es una división lógica de los datos de un RDD o DataFrame. Cada partición se puede almacenar en un nodo diferente del clúster y se procesa de forma independiente y paralela. Más particiones no siempre es mejor; el número óptimo depende del tamaño de los datos, el número de núcleos del clúster y la naturaleza de las operaciones.</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.appName(&quot;PartitionsConcept&quot;).getOrCreate()
+
+data = [(i,) for i in range(100)]
+df = spark.createDataFrame(data, [&quot;value&quot;])
+
+# Obtener el número de particiones actual (por defecto Spark usa el número de núcleos disponibles o spark.sql.shuffle.partitions)
+print(f&quot;Número inicial de particiones: {df.rdd.getNumPartitions()}&quot;)
+
+# Podemos re-particionar un DataFrame (esto implica un shuffle)
+df_repartitioned = df.repartition(10)
+print(f&quot;Número de particiones después de repartition: {df_repartitioned.rdd.getNumPartitions()}&quot;)
+
+# Una partición es como un bloque de trabajo para un núcleo de CPU.
+# Si tenemos 100 particiones y 20 núcleos, cada núcleo procesará 5 particiones en paralelo (idealmente).
+</code></pre>
+<ol>
+<li><strong>Visualización del número de particiones (<code>df.rdd.getNumPartitions()</code>):</strong></li>
+</ol>
+<p>Es importante saber cuántas particiones tiene un DataFrame para entender cómo se distribuirá el trabajo.</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.appName(&quot;CheckPartitions&quot;).getOrCreate()
+
+# Leer un archivo de ejemplo para ver sus particiones
+# Si no tienes un archivo grande, crea uno pequeño y léelo
+data = [(i, f&quot;Name_{i}&quot;) for i in range(1000)]
+df_large = spark.createDataFrame(data, [&quot;id&quot;, &quot;name&quot;])
+df_large.write.mode(&quot;overwrite&quot;).parquet(&quot;large_data.parquet&quot;)
+
+# Leer el DataFrame
+df_read = spark.read.parquet(&quot;large_data.parquet&quot;)
+
+# Ver el número de particiones
+print(f&quot;Número de particiones del DataFrame leído: {df_read.rdd.getNumPartitions()}&quot;)
+# Generalmente, Spark intenta que el número de particiones sea cercano al tamaño de bloque del HDFS (128MB por defecto)
+# o al número de núcleos en el cluster.
+</code></pre>
+<ol>
+<li><strong>Impacto del particionamiento en el rendimiento (Shuffle):</strong></li>
+</ol>
+<p>Las operaciones que requieren agrupar o unir datos (como <code>groupBy</code>, <code>join</code>, <code>orderBy</code>) a menudo implican un "shuffle", donde los datos se mueven entre los nodos del clúster. Un número incorrecto de particiones puede llevar a un shuffle ineficiente, causando cuellos de botella. Demasiadas particiones pequeñas pueden generar mucha sobrecarga, mientras que muy pocas pueden limitar el paralelismo.</p>
+<ul>
+<li><strong>Skewed data:</strong> Si los datos están muy desequilibrados en las particiones (algunas particiones tienen muchos más datos que otras), esto puede causar cuellos de botella donde una o pocas tareas tardan mucho más en completarse.</li>
+<li><strong>Small files problem:</strong> Si hay muchas particiones muy pequeñas, la sobrecarga de gestionar cada una puede ser mayor que el tiempo de procesamiento real.</li>
+</ul>
+<h5 id="control-del-particionamiento-y-paralelismo">Control del Particionamiento y Paralelismo</h5>
+<p>Spark ofrece mecanismos para controlar cómo se particionan los datos y el nivel de paralelismo.</p>
+<ol>
+<li><strong><code>repartition()</code> y <code>coalesce()</code>:</strong></li>
+</ol>
+<p><code>repartition()</code> crea un nuevo RDD/DataFrame con un número especificado de particiones, distribuyendo los datos uniformemente. Esto siempre implica un shuffle completo.
+<code>coalesce()</code> reduce el número de particiones sin shuffle si es posible (solo reduce el número de particiones en el mismo nodo), o con un shuffle mínimo si se requiere. Es más eficiente para reducir particiones.</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.appName(&quot;RepartitionCoalesce&quot;).getOrCreate()
+
+data = [(i,) for i in range(1000)]
+df = spark.createDataFrame(data, [&quot;value&quot;])
+
+print(f&quot;Particiones iniciales: {df.rdd.getNumPartitions()}&quot;) # Varía según la configuración local
+
+# Reparticionar a 4 particiones (siempre con shuffle)
+df_repartitioned = df.repartition(4)
+print(f&quot;Particiones después de repartition(4): {df_repartitioned.rdd.getNumPartitions()}&quot;)
+
+# Coalesce a 2 particiones (puede evitar shuffle si los datos ya están en menos de 2)
+df_coalesced = df_repartitioned.coalesce(2)
+print(f&quot;Particiones después de coalesce(2): {df_coalesced.rdd.getNumPartitions()}&quot;)
+
+# Coalesce a 1 partición (siempre implicará un shuffle si hay más de 1 partición)
+df_single_partition = df.coalesce(1)
+print(f&quot;Particiones después de coalesce(1): {df_single_partition.rdd.getNumPartitions()}&quot;)
+</code></pre>
+<ol>
+<li><strong>Configuración de <code>spark.sql.shuffle.partitions</code>:</strong></li>
+</ol>
+<p>Este parámetro controla el número de particiones que Spark utiliza por defecto después de una operación de shuffle. Un valor bien ajustado puede mejorar drásticamente el rendimiento de las operaciones de agregación y unión.</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+from pyspark.sql.functions import count
+
+# Configurar el número de particiones de shuffle antes de crear la SparkSession
+spark = SparkSession.builder \
+    .appName(&quot;ShufflePartitions&quot;) \
+    .config(&quot;spark.sql.shuffle.partitions&quot;, &quot;8&quot;) \
+    .getOrCreate()
+
+print(f&quot;spark.sql.shuffle.partitions: {spark.conf.get('spark.sql.shuffle.partitions')}&quot;)
+
+data = [(&quot;A&quot;, 1), (&quot;B&quot;, 2), (&quot;A&quot;, 3), (&quot;C&quot;, 4), (&quot;B&quot;, 5)]
+df = spark.createDataFrame(data, [&quot;key&quot;, &quot;value&quot;])
+
+# La operación groupBy implicará un shuffle, y el resultado tendrá 8 particiones.
+df_agg = df.groupBy(&quot;key&quot;).agg(count(&quot;*&quot;)).repartition(1) # Repartition para mostrar en una sola salida
+df_agg.show()
+# Para verificar el número de particiones de la salida de la agregación (antes del repartition)
+# print(df_agg.rdd.getNumPartitions())
+</code></pre>
+<ol>
+<li>
+<p><strong>Estrategias para optimizar particiones en Joins:</strong></p>
+</li>
+<li>
+<p><strong>Broadcast Join:</strong> Cuando un DataFrame es pequeño (por defecto, menos de <code>spark.sql.autoBroadcastJoinThreshold</code>), Spark puede "broadcast" (transmitir) el DataFrame pequeño a todos los nodos del clúster, evitando el shuffle de la tabla grande. Es muy eficiente.</p>
+</li>
+<li><strong>Hash Join:</strong> Cuando la clave de unión está particionada de forma similar en ambos DataFrames, Spark puede realizar un Hash Join, que es eficiente ya que los datos con la misma clave ya están en las mismas particiones.</li>
+<li><strong>Sort-Merge Join:</strong> El join por defecto si las tablas no se pueden transmitir y no están co-ubicadas. Implica ordenar y fusionar las particiones, lo que puede ser costoso.</li>
+</ol>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+from pyspark.sql.functions import broadcast # Para forzar un broadcast join
+
+spark = SparkSession.builder \
+    .appName(&quot;JoinStrategies&quot;) \
+    .config(&quot;spark.sql.autoBroadcastJoinThreshold&quot;, &quot;10MB&quot;) # Configurar el umbral de broadcast (por defecto 10MB)
+    .getOrCreate()
+
+# DataFrame pequeño (menos de 10MB de datos)
+small_df = spark.createDataFrame([(1, &quot;DeptA&quot;), (2, &quot;DeptB&quot;)], [&quot;dept_id&quot;, &quot;dept_name&quot;])
+# DataFrame grande
+large_df = spark.createDataFrame([(101, &quot;Alice&quot;, 1), (102, &quot;Bob&quot;, 2), (103, &quot;Charlie&quot;, 1)], [&quot;emp_id&quot;, &quot;emp_name&quot;, &quot;dept_id&quot;])
+
+# Spark automáticamente intentará un Broadcast Join si small_df está por debajo del umbral
+large_df.join(small_df, &quot;dept_id&quot;, &quot;inner&quot;).explain() # Ver el plan de ejecución para confirmar BroadcastHashJoin
+# Resultado de explain() debería mostrar &quot;*BroadcastHashJoin&quot;
+
+# Forzar un Broadcast Join (útil si Spark no lo infiere automáticamente o para depuración)
+large_df.join(broadcast(small_df), &quot;dept_id&quot;, &quot;inner&quot;).explain()
+</code></pre>
+<h3 id="224-manejo-de-datos-distribuidos">2.2.4 Manejo de datos distribuidos</h3>
+<p>Trabajar con datos distribuidos implica más que solo particionar. Se trata de entender cómo Spark gestiona la memoria, el almacenamiento en caché y la persistencia para optimizar el acceso a los datos, y cómo maneja los "shuffles" que son costosos.</p>
+<h5 id="persistencia-y-almacenamiento-en-cache">Persistencia y Almacenamiento en Caché</h5>
+<p>Para evitar recalcular DataFrames que se utilizan múltiples veces, Spark permite persistirlos en memoria o en disco.</p>
+<ol>
+<li><strong><code>cache()</code> y <code>persist()</code>:</strong></li>
+</ol>
+<p><code>cache()</code> es un alias de <code>persist()</code> con el nivel de almacenamiento por defecto (<code>MEMORY_AND_DISK</code>). Almacena el DataFrame en la memoria del clúster para un acceso rápido en operaciones futuras.
+<code>persist()</code> permite especificar diferentes niveles de almacenamiento (solo memoria, solo disco, memoria y disco, con o sin serialización, con o sin replicación).</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+from pyspark.storagelevel import StorageLevel
+
+spark = SparkSession.builder.appName(&quot;Persistence&quot;).getOrCreate()
+
+data = [(i, f&quot;Item_{i}&quot;) for i in range(100000)]
+df = spark.createDataFrame(data, [&quot;id&quot;, &quot;description&quot;])
+
+# Persistir en memoria y disco (comportamiento por defecto de cache())
+df.cache() # Equivalente a df.persist(StorageLevel.MEMORY_AND_DISK)
+
+# La primera acción dispara la carga y el almacenamiento en caché
+df.count()
+print(f&quot;DataFrame cached. Number of partitions: {df.rdd.getNumPartitions()}&quot;)
+
+# Las acciones subsiguientes serán más rápidas
+df.filter(df.id &gt; 50000).show(5)
+
+# Persistir solo en memoria (más rápido si los datos caben en memoria)
+df_mem_only = df.persist(StorageLevel.MEMORY_ONLY)
+df_mem_only.count()
+print(f&quot;DataFrame persisted in MEMORY_ONLY. Number of partitions: {df_mem_only.rdd.getNumPartitions()}&quot;)
+
+# Despersistir (liberar los datos de caché)
+df.unpersist()
+df_mem_only.unpersist()
+</code></pre>
+<ol>
+<li><strong>Niveles de almacenamiento (<code>StorageLevel</code>):</strong></li>
+</ol>
+<p>Permiten un control granular sobre cómo se almacenan los datos persistidos, equilibrando velocidad y tolerancia a fallos.</p>
+<ul>
+<li><code>MEMORY_ONLY</code>: Guarda el RDD deserializado como objetos Python en la JVM. Si no cabe, recalcula.</li>
+<li><code>MEMORY_AND_DISK</code>: Guarda en memoria; si no cabe, se desborda a disco.</li>
+<li><code>MEMORY_ONLY_SER</code>: Igual que MEMORY_ONLY, pero los datos están serializados (ahorra espacio, pero más lento de acceder).</li>
+<li><code>MEMORY_AND_DISK_SER</code>: Igual que MEMORY_AND_DISK, pero serializado.</li>
+<li><code>DISK_ONLY</code>: Solo guarda en disco.</li>
+<li>Versiones con <code>_2</code> al final (ej. <code>MEMORY_ONLY_2</code>): Replica la partición en dos nodos, para tolerancia a fallos.</li>
+</ul>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+from pyspark.storagelevel import StorageLevel
+
+spark = SparkSession.builder.appName(&quot;StorageLevels&quot;).getOrCreate()
+
+data = [(i,) for i in range(1000000)]
+df = spark.createDataFrame(data, [&quot;value&quot;])
+
+# Persistir en disco para mayor confiabilidad en caso de poca memoria
+df.persist(StorageLevel.DISK_ONLY)
+df.count() # Dispara la persistencia
+print(&quot;DataFrame persisted to DISK_ONLY.&quot;)
+
+# Persistir con replicación (para tolerancia a fallos)
+df.persist(StorageLevel.MEMORY_AND_DISK_2)
+df.count() # Dispara la persistencia
+print(&quot;DataFrame persisted to MEMORY_AND_DISK_2 (replicated).&quot;)
+
+df.unpersist()
+</code></pre>
+<ol>
+<li>
+<p><strong>¿Cuándo usar <code>cache()</code>/<code>persist()</code>?:</strong></p>
+</li>
+<li>
+<p>Cuando un DataFrame se usa en múltiples acciones (ej. <code>count()</code>, <code>show()</code>, luego <code>filter()</code>, <code>join()</code>).</p>
+</li>
+<li>Cuando un DataFrame es el resultado de transformaciones costosas (ej. <code>join</code> complejos, agregaciones pesadas).</li>
+<li>Antes de aplicar algoritmos iterativos (ej. Machine Learning), donde los datos se leen repetidamente.</li>
+<li>En puntos intermedios de un flujo de trabajo de ETL complejo que se reutilizan.</li>
+</ol>
+<h5 id="comprension-y-optimizacion-de-shuffles">Comprensión y Optimización de Shuffles</h5>
+<p>Los shuffles son la operación más costosa en Spark porque implican la transferencia de datos a través de la red entre diferentes nodos. Minimizar o optimizar los shuffles es clave para el rendimiento.</p>
+<ol>
+<li><strong>Identificación de operaciones que causan Shuffle:</strong></li>
+</ol>
+<p>Cualquier operación que requiera que Spark reorganice los datos a través del clúster, como:</p>
+<ul>
+<li><code>groupBy()</code></li>
+<li><code>join()</code> (excepto Broadcast Joins)</li>
+<li><code>orderBy()</code> y <code>sort()</code></li>
+<li><code>repartition()</code></li>
+<li>Ventanas analíticas (ciertas operaciones)</li>
+</ul>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+from pyspark.sql.functions import count
+
+spark = SparkSession.builder.appName(&quot;IdentifyShuffles&quot;).getOrCreate()
+
+data = [(&quot;A&quot;, 1), (&quot;B&quot;, 2), (&quot;A&quot;, 3), (&quot;C&quot;, 4)]
+df = spark.createDataFrame(data, [&quot;key&quot;, &quot;value&quot;])
+
+# explain() muestra el plan de ejecución y ayuda a identificar shuffles
+df.groupBy(&quot;key&quot;).agg(count(&quot;value&quot;)).explain()
+# En el plan de ejecución, buscar etapas como &quot;Exchange&quot;, &quot;Sort&quot;, &quot;HashPartitioning&quot;
+# Estas indican una operación de shuffle.
+# Ejemplo de salida parcial de explain:
+# == Physical Plan ==
+# *(2) HashAggregate(keys=[key#123], functions=[count(value#124)])
+# +- Exchange hashpartitioning(key#123, 200), [id=#12] &lt;--- Esto es un shuffle
+#    +- *(1) HashAggregate(keys=[key#123], functions=[partial_count(value#124)])
+#       +- *(1) Project [key#123, value#124]
+#          +- *(1) Scan ExistingRDD
+</code></pre>
+<ol>
+<li>
+<p><strong>Mitigación de Shuffles (ej. Broadcast Join, Co-locación de datos):</strong></p>
+</li>
+<li>
+<p><strong>Broadcast Join:</strong> Como se mencionó, usar <code>broadcast()</code> para DataFrames pequeños evita el shuffle de la tabla grande.</p>
+</li>
+<li><strong>Co-locación de datos:</strong> Si los datos que se van a unir o agrupar ya están particionados de forma similar en el sistema de archivos (ej. Parquet particionado por la clave de unión), Spark puede evitar shuffles completos. Esto se logra mediante la escritura de datos particionados (<code>df.write.partitionBy(...)</code>).</li>
+</ol>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.appName(&quot;ShuffleMitigation&quot;).getOrCreate()
+
+# Pequeño DataFrame de lookup
+lookup_data = [(1, &quot;RegionA&quot;), (2, &quot;RegionB&quot;)]
+lookup_df = spark.createDataFrame(lookup_data, [&quot;region_id&quot;, &quot;region_name&quot;])
+
+# DataFrame grande
+sales_data = [(101, 1, 100), (102, 2, 150), (103, 1, 200)]
+sales_df = spark.createDataFrame(sales_data, [&quot;sale_id&quot;, &quot;region_id&quot;, &quot;amount&quot;])
+
+# Forzar Broadcast Join para evitar shuffle de sales_df
+from pyspark.sql.functions import broadcast
+sales_df.join(broadcast(lookup_df), &quot;region_id&quot;).explain()
+# Deberías ver BroadcastHashJoin en el plan
+
+# Ejemplo de co-locación con escritura particionada (requiere planificación previa)
+# df_large.write.partitionBy(&quot;join_key&quot;).parquet(&quot;path/to/partitioned_data&quot;)
+# df_other_large.write.partitionBy(&quot;join_key&quot;).parquet(&quot;path/to/other_partitioned_data&quot;)
+# Luego, al unirlos, si Spark detecta que están co-ubicados, puede usar un SortMergeJoin más eficiente
+</code></pre>
+<ol>
+<li><strong>Manejo de datos desequilibrados (Skewed Data):</strong></li>
+</ol>
+<p>Cuando un valor de clave tiene significativamente más filas que otros, la partición correspondiente se convierte en un cuello de botella.</p>
+<ul>
+<li><strong>Salting:</strong> Añadir un sufijo aleatorio a la clave desequilibrada en el DataFrame grande y replicar las filas de la clave desequilibrada en el DataFrame pequeño con los mismos sufijos.</li>
+<li><strong>Spark 3.x Adaptive Query Execution (AQE):</strong> AQE puede detectar y manejar skew de forma automática durante la ejecución de los joins, dividiendo las particiones grandes en subparticiones más pequeñas. Habilitar <code>spark.sql.adaptive.enabled</code> a <code>true</code> (es por defecto en Spark 3.2+).</li>
+</ul>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+from pyspark.sql.functions import lit, rand, concat
+
+spark = SparkSession.builder \
+    .appName(&quot;SkewedJoin&quot;) \
+    .config(&quot;spark.sql.adaptive.enabled&quot;, &quot;true&quot;) # Habilitar AQE
+    .getOrCreate()
+
+# Simular datos desequilibrados: 'HotKey' tiene muchos más registros
+data_large = [(i, &quot;NormalKey&quot;) for i in range(1000)] + \
+             [(i, &quot;HotKey&quot;) for i in range(9000)]
+large_df = spark.createDataFrame(data_large, [&quot;id&quot;, &quot;join_key&quot;])
+
+data_small = [(&quot;NormalKey&quot;, &quot;ValueA&quot;), (&quot;HotKey&quot;, &quot;ValueB&quot;)]
+small_df = spark.createDataFrame(data_small, [&quot;join_key&quot;, &quot;value&quot;])
+
+# Unión estándar (puede ser lenta debido a HotKey si AQE no está activo o no es suficiente)
+result_df = large_df.join(small_df, &quot;join_key&quot;, &quot;inner&quot;)
+result_df.explain() # Observar si AQE detecta el skew (si está habilitado)
+
+# Ejemplo de Salting (manual):
+# Añadir un &quot;salt&quot; aleatorio a las claves
+num_salt_buckets = 10
+salted_large_df = large_df.withColumn(&quot;salted_key&quot;,
+                                      concat(col(&quot;join_key&quot;), lit(&quot;_&quot;), (rand() * num_salt_buckets).cast(&quot;int&quot;)))
+salted_small_df = small_df.withColumn(&quot;salted_key&quot;,
+                                      concat(col(&quot;join_key&quot;), lit(&quot;_&quot;), (lit(0) + rand() * num_salt_buckets).cast(&quot;int&quot;)))
+# Si 'HotKey' tiene mucho skew, se replicaría 'HotKey' en small_df para cada sufijo de salt.
+# Luego, se uniría por (join_key, salted_key)
+
+# Unión con salting:
+# result_salted = salted_large_df.join(salted_small_df, on=&quot;salted_key&quot;, how=&quot;inner&quot;)
+# result_salted.show()
+</code></pre>
+<h2 id="tarea">Tarea</h2>
+<ol>
+<li>
+<p>Crea un DataFrame de <code>pedidos</code> con las columnas <code>order_id</code>, <code>customer_id</code>, <code>order_date</code> (formato 'YYYY-MM-DD'), y <code>amount</code> (valor numérico).
+    Datos de ejemplo:
+    <code>[("ORD001", "C001", "2023-01-10", 150.75), ("ORD002", "C002", "2023-01-15", 200.00), ("ORD003", "C001", "2023-02-01", 50.25), ("ORD004", "C003", "2023-02-05", 300.00)]</code></p>
+<p>Realiza las siguientes transformaciones:
+* Añade una columna <code>order_year</code> que contenga solo el año de <code>order_date</code>.
+* Añade una columna <code>order_month</code> que contenga el número del mes de <code>order_date</code>.
+* Añade una columna <code>is_high_value</code> que sea <code>True</code> si <code>amount</code> es mayor o igual a <code>100</code>, de lo contrario <code>False</code>.
+* Muestra el DataFrame resultante.</p>
+</li>
+<li>
+<p>Usando el DataFrame de <code>pedidos</code> del ejercicio 1, calcula el <code>total_amount_spent</code> y el <code>num_orders</code> por <code>customer_id</code>. Muestra los resultados.</p>
+</li>
+<li>
+<p>Crea un DataFrame de <code>productos</code> con columnas <code>product_name</code> y <code>category</code>.
+    Datos de ejemplo:
+    <code>[("laptop Dell", "electronics"), ("teclado logitech", "electronics"), ("libro de cocina", "books"), ("Auriculares sony", "electronics")]</code></p>
+<p>Realiza las siguientes transformaciones:
+* Normaliza la columna <code>product_name</code> a minúsculas.
+* Añade una columna <code>brand</code> que extraiga la primera palabra de <code>product_name</code>.
+* Añade una columna <code>product_type</code> basada en la <code>category</code>: si es "electronics", "Tech Gadget"; si es "books", "Reading Material"; de lo contrario "Other".
+* Muestra el DataFrame resultante.</p>
+</li>
+<li>
+<p>Define una UDF de PySpark llamada <code>classify_amount</code> que tome un <code>amount</code> numérico y devuelva una cadena: "Pequeño" si <code>amount &lt; 50</code>, "Mediano" si <code>50 &lt;= amount &lt; 200</code>, y "Grande" si <code>amount &gt;= 200</code>.
+    Aplica esta UDF al DataFrame de <code>pedidos</code> del ejercicio 1 para crear una nueva columna <code>amount_category</code>. Muestra el DataFrame.</p>
+</li>
+<li>
+<p>Crea un segundo DataFrame de <code>clientes</code> con las columnas <code>customer_id</code> y <code>customer_name</code>.
+    Datos de ejemplo:
+    <code>[("C001", "Ana Garcia"), ("C002", "Pedro Ruiz"), ("C003", "Laura Sanz"), ("C004", "Diego Marin")]</code></p>
+<p>Realiza un <code>INNER JOIN</code> entre el DataFrame de <code>pedidos</code> (ejercicio 1) y el DataFrame de <code>clientes</code> para mostrar los <code>order_id</code>, <code>customer_name</code> y <code>amount</code> de cada pedido.</p>
+</li>
+<li>
+<p>Realiza un <code>LEFT OUTER JOIN</code> de <code>clientes</code> (izquierda) con <code>pedidos</code> (derecha).</p>
+<ul>
+<li>Muestra todos los clientes y sus pedidos (si los tienen).</li>
+<li>Filtra el resultado para mostrar solo los clientes que <em>no</em> han realizado ningún pedido (es decir, donde <code>order_id</code> es nulo).</li>
+</ul>
+</li>
+<li>
+<p>Crea un DataFrame de <code>ventas_regionales</code> con columnas <code>region</code>, <code>product_category</code> y <code>sales_value</code>.
+    Datos de ejemplo:
+    <code>[("Norte", "Electronics", 1000), ("Norte", "Books", 500), ("Sur", "Electronics", 1200), ("Sur", "Books", 600), ("Centro", "Electronics", 800)]</code></p>
+<p>Pivotea este DataFrame para mostrar <code>sales_value</code> por <code>region</code> (filas) y <code>product_category</code> (columnas).</p>
+</li>
+<li>
+<p>Crea un DataFrame con 1,000,000 de filas y dos columnas: <code>id</code> (entero secuencial) y <code>random_value</code> (número aleatorio).</p>
+<ul>
+<li>Guarda este DataFrame en formato Parquet en un directorio temporal (<code>/tmp/large_data.parquet</code>).</li>
+<li>Lee el DataFrame de nuevo y averigua su número de particiones.</li>
+<li>Reparticiona el DataFrame a 10 particiones y persistélo en memoria (<code>MEMORY_AND_DISK</code>).</li>
+<li>Realiza una operación de conteo y luego despersiste el DataFrame.</li>
+</ul>
+</li>
+<li>
+<p>Configura <code>spark.sql.shuffle.partitions</code> a un valor bajo (ej. 2) y luego a un valor más alto (ej. 20).
+    Crea un DataFrame con una columna <code>category</code> que tenga 5 valores únicos y una columna <code>value</code>.</p>
+<p>Realiza una operación <code>groupBy</code> por <code>category</code> y suma <code>value</code>.
+* Usa <code>explain()</code> para observar los planes de ejecución y cómo el número de particiones de shuffle cambia.
+* (Opcional, para un entorno de clúster) Intenta medir el tiempo de ejecución en ambos casos para ver el impacto.</p>
+</li>
+<li>
+<p>Crea un DataFrame <code>dim_customers</code> muy pequeño (ej. 10 filas, <code>customer_id</code>, <code>customer_name</code>).
+    Crea un DataFrame <code>fact_transactions</code> muy grande (ej. 1,000,000 filas, <code>transaction_id</code>, <code>customer_id</code>, <code>amount</code>).</p>
+<p>Realiza un <code>INNER JOIN</code> entre <code>fact_transactions</code> y <code>dim_customers</code> en <code>customer_id</code>.
+* Usa <code>.explain()</code> para verificar si Spark ha utilizado automáticamente un <code>BroadcastHashJoin</code>.
+* Intenta forzar un <code>BroadcastHashJoin</code> si no se aplica automáticamente utilizando <code>broadcast(dim_customers)</code> en la unión, y verifica de nuevo el plan de ejecución.</p>
+</li>
+</ol>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../tema21/" class="btn btn-neutral float-left" title="Operaciones con DataFrames"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../tema23/" class="btn btn-neutral float-right" title="Consultas con SparkSQL">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../tema21/" class="btn btn-neutral float-left" title="Fundamentos de DataFrames en Spark"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../tema23/" class="btn btn-neutral float-right" title="Consultas y SQL en Spark">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>

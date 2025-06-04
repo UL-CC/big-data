@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Esquemas y tipos de datos complejos - Métodos de Procesamiento y Análisis de Big Data</title>
+    <title>Optimización y Rendimiento - Métodos de Procesamiento y Análisis de Big Data</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Esquemas y tipos de datos complejos";
+        var mkdocs_page_name = "Optimizaci\u00f3n y Rendimiento";
         var mkdocs_page_input_path = "tema24.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,19 +58,55 @@
               </ul>
               <p class="caption"><span class="caption-text">PySpark y SparkSQL</span></p>
               <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="../tema21/">Operaciones con DataFrames</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema21/">Fundamentos de DataFrames en Spark</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema22/">Funciones integradas y definidas por el usuario</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema22/">Manipulación y Transformación de Datos</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema23/">Consultas con SparkSQL</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema23/">Consultas y SQL en Spark</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Esquemas y tipos de datos complejos</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Optimización y Rendimiento</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#tema-24-instalacion-y-configuracion-de-spark">Tema 2.4. Instalación y configuración de Spark</a>
+    <li class="toctree-l2"><a class="reference internal" href="#tema-24-optimizacion-y-rendimiento">Tema 2.4 Optimización y Rendimiento</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#241-persistencia-y-cache-persist-y-cache">2.4.1 Persistencia y caché (persist() y cache())</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#niveles-de-almacenamiento-en-persist">Niveles de almacenamiento en persist()</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#diferencia-entre-persist-y-cache">Diferencia entre persist() y cache()</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#242-optimizacion-con-catalyst-y-tungsten">2.4.2 Optimización con Catalyst y Tungsten</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#catalyst-optimizer-el-cerebro-de-la-planificacion">Catalyst Optimizer: El Cerebro de la Planificación</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#tungsten-el-motor-de-ejecucion-de-bajo-nivel">Tungsten: El Motor de Ejecución de Bajo Nivel</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#243-broadcast-joins-y-estrategias-para-evitar-shuffles">2.4.3 Broadcast joins y estrategias para evitar shuffles</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#broadcast-join">Broadcast Join</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#estrategias-para-evitar-o-minimizar-shuffles">Estrategias para Evitar o Minimizar Shuffles</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#244-consideraciones-de-escalabilidad-y-desempeno">2.4.4 Consideraciones de escalabilidad y desempeño</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#configuracion-del-cluster-y-asignacion-de-recursos">Configuración del Clúster y Asignación de Recursos</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#monitoreo-y-diagnostico">Monitoreo y Diagnóstico</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#consideraciones-de-diseno-de-datos">Consideraciones de Diseño de Datos</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tarea">Tarea</a>
     </li>
     </ul>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema25/">Optimización con Catalyst y Tungsten</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Arquitectura y Diseño de Flujos ETL</span></p>
@@ -121,7 +157,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
           <li class="breadcrumb-item">PySpark y SparkSQL</li>
-      <li class="breadcrumb-item active">Esquemas y tipos de datos complejos</li>
+      <li class="breadcrumb-item active">Optimización y Rendimiento</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -131,14 +167,221 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="2-pyspark-y-sparksql">2. PySpark y SparkSQL</h1>
-<h2 id="tema-24-instalacion-y-configuracion-de-spark">Tema 2.4. Instalación y configuración de Spark</h2>
-<p><em>Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.</em></p>
+<h2 id="tema-24-optimizacion-y-rendimiento">Tema 2.4 Optimización y Rendimiento</h2>
+<p><strong>Objetivo</strong>:</p>
+<p>Al finalizar este tema, el estudiante será capaz de identificar y aplicar técnicas avanzadas de optimización y gestión del rendimiento en aplicaciones Spark, comprendiendo el funcionamiento interno del motor y las estrategias para el manejo eficiente de datos distribuidos y operaciones complejas, con el fin de mejorar significativamente la eficiencia y escalabilidad de los pipelines de procesamiento de Big Data.</p>
+<p><strong>Introducción</strong>:</p>
+<p>En el vasto universo del procesamiento de Big Data con Apache Spark, la capacidad de escribir código funcional es solo la primera parte de la ecuación. La verdadera maestría reside en optimizar ese código para que se ejecute de manera eficiente, consumiendo menos recursos y completando las tareas en el menor tiempo posible. Este tema se adentra en el corazón del rendimiento de Spark, explorando las herramientas y los principios subyacentes que permiten transformar una aplicación de datos masivos en una solución robusta y escalable.</p>
+<p><strong>Desarrollo</strong>:</p>
+<p>La optimización en Spark es un proceso multifacético que abarca desde la gestión inteligente de la memoria y el disco hasta la comprensión profunda de cómo Spark planifica y ejecuta las operaciones. Se explorarán conceptos fundamentales como la persistencia de DataFrames, la arquitectura de optimización de Spark (Catalyst y Tungsten), y estrategias avanzadas para el manejo de joins y la reducción de operaciones costosas como los shuffles. Finalmente, se abordarán consideraciones clave para escalar y mantener el desempeño en entornos de producción, proporcionando al estudiante las herramientas para diagnosticar cuellos de botella y aplicar soluciones efectivas en sus proyectos de Big Data.</p>
+<h3 id="241-persistencia-y-cache-persist-y-cache">2.4.1 Persistencia y caché (persist() y cache())</h3>
+<p>La persistencia en Spark es una característica fundamental para optimizar el rendimiento de las operaciones sobre DataFrames o RDDs que se reutilizan múltiples veces. Cuando una operación se ejecuta sobre un DataFrame, Spark recalcula el DataFrame desde el origen cada vez que se invoca una acción. Esto puede ser ineficiente si el mismo DataFrame es utilizado en varias operaciones subsiguientes. Al aplicar <code>persist()</code> o <code>cache()</code>, Spark almacena el DataFrame o RDD resultante de una transformación en memoria, en disco o una combinación de ambos, evitando recálculos innecesarios y acelerando las operaciones posteriores.</p>
+<h5 id="niveles-de-almacenamiento-en-persist">Niveles de almacenamiento en persist()</h5>
+<p>Spark ofrece diferentes niveles de almacenamiento para <code>persist()</code>, lo que permite controlar dónde y cómo se guardan los datos para optimizar el equilibrio entre memoria, disco y replicación. La elección del nivel adecuado depende de la cantidad de memoria disponible, la necesidad de tolerancia a fallos y la frecuencia de acceso a los datos.</p>
+<ol>
+<li>
+<p><strong><code>MEMORY_ONLY</code></strong>:</p>
+<p>Es el nivel por defecto para <code>cache()</code>. Los RDDs/DataFrames se almacenan como objetos deserializados de Python (o Java/Scala si se usa Scala/Java) en la JVM. Si no cabe en memoria, algunas particiones se recalculan cuando son necesarias.</p>
+<ul>
+<li><strong>Conjuntos de datos pequeños y medianos</strong>: Cuando se tiene un DataFrame que cabe completamente en la memoria de los ejecutores y se va a utilizar repetidamente en múltiples transformaciones. Por ejemplo, un catálogo de productos que se une frecuentemente con transacciones.</li>
+<li><strong>Operaciones iterativas</strong>: En algoritmos de machine learning (como K-Means o PageRank) donde un conjunto de datos se itera sobre muchas veces, manteniendo los datos en memoria reduce drásticamente el tiempo de ejecución de cada iteración.</li>
+</ul>
+</li>
+<li>
+<p><strong><code>MEMORY_AND_DISK</code></strong>:</p>
+<p>Almacena las particiones en memoria. Si no hay suficiente memoria, las particiones que no caben se almacenan en disco. Las particiones en disco se leen y deserializan bajo demanda.</p>
+<ul>
+<li><strong>DataFrames grandes con uso frecuente</strong>: Cuando se trabaja con un DataFrame que es demasiado grande para caber completamente en memoria, pero aún se necesita un acceso rápido. Por ejemplo, un historial de eventos de usuario que se procesa a diario pero no cabe 100% en RAM.</li>
+<li><strong>Reducir recálculos en fallos</strong>: Si se necesita persistir un DataFrame para su uso posterior y se busca una combinación de rendimiento y resiliencia básica sin replicación.</li>
+</ul>
+</li>
+<li>
+<p><strong><code>MEMORY_ONLY_SER</code> (Serialized)</strong>:</p>
+<p>Similar a <code>MEMORY_ONLY</code>, pero los objetos se almacenan en su forma serializada (bytes). Esto reduce el uso de memoria (hasta un 10x) a expensas de un mayor costo de CPU para deserializar los datos.</p>
+<ul>
+<li><strong>Optimización de memoria en clústeres limitados</strong>: Cuando la memoria es un recurso escaso y se prefiere sacrificar un poco de tiempo de CPU por un uso de memoria mucho más eficiente. Útil para DataFrames muy grandes que aún se quieren mantener mayormente en memoria.</li>
+<li><strong>Uso de Kryo Serialization</strong>: Combinado con la serialización Kryo personalizada, puede ser extremadamente eficiente en memoria y aún ofrecer buen rendimiento de acceso.</li>
+</ul>
+</li>
+<li>
+<p><strong><code>MEMORY_AND_DISK_SER</code></strong>:</p>
+<p>Igual que <code>MEMORY_ONLY_SER</code>, pero las particiones que no caben en memoria se almacenan en disco.</p>
+<ul>
+<li><strong>Grandes conjuntos de datos con memoria limitada</strong>: La opción más robusta para conjuntos de datos que exceden la memoria pero necesitan persistencia sin replicación. Ofrece un buen equilibrio entre uso de memoria, rendimiento y fiabilidad.</li>
+</ul>
+</li>
+<li>
+<p><strong><code>DISK_ONLY</code></strong>:</p>
+<p>Almacena las particiones solo en disco. Es el más lento de los niveles de persistencia ya que implica operaciones de E/S de disco.</p>
+<ul>
+<li><strong>Debugging y auditoría</strong>: Cuando se quiere guardar el estado intermedio de un DataFrame para inspección o para reiniciar un proceso sin tener que recalcular todo desde el principio, pero no se necesita el rendimiento de la memoria.</li>
+<li><strong>Tolerancia a fallos en el estado intermedio</strong>: En casos donde la memoria es extremadamente limitada y se necesita garantizar que los resultados intermedios no se pierdan en caso de fallo de un ejecutor, aunque el acceso sea más lento.</li>
+</ul>
+</li>
+</ol>
+<h5 id="diferencia-entre-persist-y-cache">Diferencia entre persist() y cache()</h5>
+<p>La función <code>cache()</code> es simplemente un alias para <code>persist()</code> con el nivel de almacenamiento por defecto <code>MEMORY_ONLY</code>. Esto significa que <code>df.cache()</code> es equivalente a <code>df.persist(StorageLevel.MEMORY_ONLY)</code>. Generalmente, <code>cache()</code> se usa para la persistencia más común y rápida (en memoria), mientras que <code>persist()</code> se utiliza cuando se necesita un control más granular sobre cómo se almacenan los datos. Es importante recordar que la persistencia es "lazy", es decir, los datos no se almacenan hasta que se ejecuta una acción sobre el DataFrame persistido por primera vez. Para despersistir un DataFrame, se utiliza <code>unpersist()</code>.</p>
+<h3 id="242-optimizacion-con-catalyst-y-tungsten">2.4.2 Optimización con Catalyst y Tungsten</h3>
+<p>Apache Spark se basa en dos motores de optimización clave: <strong>Catalyst Optimizer</strong> y <strong>Project Tungsten</strong>. Juntos, estos componentes son responsables de la eficiencia y el alto rendimiento que Spark logra en el procesamiento de datos a gran escala, transformando las operaciones de DataFrames y SQL en planes de ejecución optimizados y utilizando la memoria y la CPU de manera extremadamente eficiente.</p>
+<h5 id="catalyst-optimizer-el-cerebro-de-la-planificacion">Catalyst Optimizer: El Cerebro de la Planificación</h5>
+<p>Catalyst Optimizer es el motor de optimización de consultas de Spark SQL (y DataFrames). Funciona en varias fases para traducir las transformaciones de alto nivel que el usuario escribe en un plan de ejecución de bajo nivel y altamente optimizado. Su diseño modular y extensible permite incorporar nuevas técnicas de optimización y fuentes de datos.</p>
+<p>Fase 1: <strong>Análisis (Analysis)</strong>: Spark SQL analiza la consulta (DataFrame API o SQL) para resolver referencias, verificar la sintaxis y el esquema. Convierte el árbol lógico no resuelto (unresolved logical plan) en un árbol lógico resuelto (resolved logical plan). Es decir, mapea los nombres de columnas y tablas a sus respectivas fuentes de datos.</p>
+<ul>
+<li><strong>Identificación de errores de esquema</strong>: Si una columna referenciada no existe en el esquema de un DataFrame, Catalyst lo detectará en esta fase y lanzará una excepción.</li>
+<li><strong>Resolución de ambigüedades</strong>: Si una columna existe en múltiples tablas en un join, Catalyst requiere que se califique con el nombre de la tabla para resolver la ambigüedad.</li>
+</ul>
+<p>Fase 2: <strong>Optimización Lógica (Logical Optimization)</strong>: En esta fase, Catalyst aplica un conjunto de reglas de optimización sobre el plan lógico resuelto para reducir la cantidad de datos a procesar o el número de operaciones. Estas optimizaciones son independientes del tipo de motor de ejecución.</p>
+<ul>
+<li><strong>Predicado Pushdown (Predicate Pushdown)</strong>: Si se aplica un filtro (<code>.where()</code>) a un DataFrame que se lee de una fuente de datos (como Parquet), Catalyst empujará este filtro a la fuente de datos. Esto significa que la fuente de datos leerá solo los registros que cumplan con la condición, reduciendo la cantidad de datos que se transfieren a Spark.</li>
+<li><strong>Column Pruning</strong>: Si solo se seleccionan algunas columnas (<code>.select()</code>) de un DataFrame, Catalyst se asegura de que solo esas columnas se lean del origen de datos, en lugar de todo el conjunto de columnas.</li>
+<li><strong>Combinación de filtros</strong>: Si se tienen múltiples condiciones <code>filter()</code> o <code>where()</code>, Catalyst puede combinarlas en una sola expresión para una evaluación más eficiente.</li>
+</ul>
+<p>Fase 3: <strong>Planificación Física (Physical Planning)</strong>: El plan lógico optimizado se convierte en uno o más planes físicos. Aquí, Catalyst considera el entorno de ejecución (tamaño del clúster, datos en caché, etc.) y elige la mejor estrategia de ejecución para cada operación, generando código ejecutable para el motor Tungsten.</p>
+<ul>
+<li><strong>Elección de estrategia de Join</strong>: Catalyst decide si usar un <code>Broadcast Join</code>, <code>Shuffle Hash Join</code>, <code>Sort Merge Join</code>, etc., basándose en el tamaño de las tablas y la configuración.</li>
+<li><strong>Manejo de agregaciones</strong>: Decide si realizar agregaciones parciales (partial aggregations) en cada partición antes de combinarlas para reducir el shuffle.</li>
+</ul>
+<p>Fase 4: <strong>Generación de Código (Code Generation)</strong>: La fase final donde se genera código Java bytecode dinámicamente en tiempo de ejecución para ejecutar el plan físico. Esto evita la sobrecarga de la interpretación y permite que las operaciones se ejecuten a velocidades cercanas a las de código nativo.</p>
+<ul>
+<li><strong>Evaluación de expresiones</strong>: Genera código altamente optimizado para la evaluación de expresiones complejas en lugar de usar llamadas a funciones genéricas, lo que reduce la sobrecarga de la JVM.</li>
+<li><strong>Operaciones vectorizadas</strong>: Permite la ejecución de operaciones por lotes (vectorizadas) en lugar de una fila a la vez, lo que es mucho más eficiente para operaciones como filtros y proyecciones.</li>
+</ul>
+<h5 id="tungsten-el-motor-de-ejecucion-de-bajo-nivel">Tungsten: El Motor de Ejecución de Bajo Nivel</h5>
+<p>Project Tungsten es una iniciativa de optimización de bajo nivel en Spark que se enfoca en mejorar el uso de la memoria y la eficiencia de la CPU. Su objetivo principal es cerrar la brecha de rendimiento entre el código Java/Scala y el código nativo, utilizando técnicas como la gestión de memoria off-heap (fuera del heap de la JVM), la serialización eficiente y la generación de código justo a tiempo (JIT).</p>
+<p><strong>Gestión de Memoria Off-heap</strong>: Tungsten permite a Spark almacenar datos directamente en la memoria fuera del heap de la JVM, en formato binario y compactado. Esto reduce la sobrecarga de la recolección de basura (Garbage Collection) de la JVM, que puede ser un cuello de botella significativo en cargas de trabajo de Big Data.</p>
+<ul>
+<li><strong>Agregaciones y Joins con mucha memoria</strong>: Operaciones como <code>groupBy</code> o <code>join</code> que requieren mantener grandes tablas hash en memoria pueden beneficiarse enormemente al almacenar estas estructuras off-heap, evitando pausas prolongadas de GC.</li>
+<li><strong>Ordenamiento (Sorting)</strong>: La clasificación de grandes volúmenes de datos puede ser más eficiente al manejar los datos directamente en memoria off-heap, reduciendo la presión sobre el heap de la JVM.</li>
+</ul>
+<p><strong>Vectorización y Generación de Código</strong>: Tungsten trabaja en conjunto con Catalyst para generar código optimizado que procesa los datos de forma vectorial (por lotes) en lugar de fila por fila. Esto minimiza el costo de las llamadas a funciones y permite una mejor utilización del caché de la CPU.</p>
+<ul>
+<li><strong>Procesamiento de columnas</strong>: Al leer datos en formato columnar (como Parquet), Tungsten puede procesar múltiples valores de una columna a la vez, aplicando operaciones de forma más eficiente.</li>
+<li><strong>Operaciones de expresión</strong>: Para expresiones complejas que involucran múltiples funciones (ej. <code>col1 + col2 * 5 - length(col3)</code>), Tungsten genera un único bloque de código que evalúa toda la expresión de una vez.</li>
+</ul>
+<p><strong>Serialización Mejorada (Unsafe Row Format)</strong>: Tungsten introduce un formato de fila binario llamado "Unsafe Row", que es muy compacto y permite un acceso a datos basado en punteros, similar a cómo se accede a los datos en C++. Esto elimina la necesidad de serialización/deserialización costosa entre pasos.</p>
+<ul>
+<li><strong>Reducción de I/O en shuffles</strong>: Cuando los datos necesitan ser enviados a través de la red durante un shuffle, el formato Unsafe Row minimiza el volumen de datos a transferir, reduciendo el cuello de botella de la red.
+** <em>Caché de datos eficiente</em>*: Al almacenar datos en caché, el formato Unsafe Row permite que los datos se almacenen de manera más compacta y se accedan directamente sin deserialización completa, mejorando el rendimiento de las lecturas.</li>
+</ul>
+<h3 id="243-broadcast-joins-y-estrategias-para-evitar-shuffles">2.4.3 Broadcast joins y estrategias para evitar shuffles</h3>
+<p>El "shuffle" es una operación costosa en Spark que implica la reorganización de datos a través de la red entre los ejecutores. Ocurre en operaciones como <code>groupBy</code>, <code>join</code>, <code>orderBy</code>, y <code>repartition</code>. Minimizar los shuffles es una de las estrategias más importantes para optimizar el rendimiento en Spark. Una técnica clave para evitar shuffles en joins es el uso de <code>Broadcast Joins</code>.</p>
+<h5 id="broadcast-join">Broadcast Join</h5>
+<p>Un <code>Broadcast Join</code> es una estrategia de join en Spark donde una de las tablas (la más pequeña) se "broadcast" (transmite) a todos los nodos del clúster que participan en la operación de join. Esto significa que cada ejecutor obtiene una copia completa de la tabla pequeña en su memoria local. Al tener la tabla pequeña localmente, cada ejecutor puede realizar el join con las particiones de la tabla grande sin necesidad de un shuffle, ya que no necesita intercambiar datos con otros ejecutores para encontrar las claves coincidentes.</p>
+<p>Spark detecta automáticamente si una tabla es lo suficientemente pequeña (o si se le indica explícitamente con <code>broadcast()</code>) para ser transmitida. La tabla pequeña se colecta al driver, se serializa y luego se envía a cada ejecutor. Los ejecutores pueden entonces realizar un <code>Hash Join</code> con las particiones de la tabla grande.</p>
+<ul>
+<li><strong>Unión de una tabla de dimensiones pequeña con una tabla de hechos grande</strong>: Por ejemplo, unir una tabla de <code>clientes</code> (miles o cientos de miles de registros) con una tabla de <code>transacciones</code> (miles de millones de registros). Si la tabla de clientes es menor que el umbral de broadcast (por defecto 10 MB en Spark 3.x, configurable con <code>spark.sql.autoBroadcastJoinThreshold</code>), Spark automáticamente realizará un Broadcast Join.</li>
+<li><strong>Filtros complejos con Lookups</strong>: Cuando se tiene un conjunto de IDs de referencia (ej. una lista de códigos de productos a excluir) que es pequeño y se necesita filtrar o enriquecer un DataFrame muy grande. Se puede crear un pequeño DataFrame con estos IDs y luego hacer un Broadcast Join.</li>
+</ul>
+<h5 id="estrategias-para-evitar-o-minimizar-shuffles">Estrategias para Evitar o Minimizar Shuffles</h5>
+<p>Más allá de los Broadcast Joins, existen otras estrategias para reducir la necesidad de shuffles o mitigar su impacto en el rendimiento.</p>
+<p><strong>Predicado Pushdown y Column Pruning</strong>: Estas optimizaciones (explicadas en la sección de Catalyst) reducen la cantidad de datos que se leen del origen y se procesan, lo que indirectamente reduce la cantidad de datos que potencialmente necesitarían ser shufflados. Al filtrar o seleccionar columnas tempranamente, se trabaja con un conjunto de datos más pequeño desde el principio.</p>
+<ul>
+<li><strong>Filtrado por fecha antes del join</strong>: Si se va a unir una tabla de transacciones de varios años con una tabla de productos, y solo se necesitan transacciones del último mes, aplicar un <code>filter("fecha &gt;= '2025-01-01'")</code> antes del join reducirá significativamente el volumen de datos que participan en el join y, por lo tanto, en cualquier shuffle subsiguiente.</li>
+<li><strong>Seleccionar solo columnas necesarias</strong>: Si un DataFrame tiene 50 columnas pero solo se necesitan 5 para un análisis, realizar un <code>.select('col1', 'col2', ...)</code> al inicio reduce la cantidad de datos en memoria y en disco si hay shuffles.</li>
+</ul>
+<p><strong>Co-ubicación de Datos (Co-location)</strong>: Si los datos que se van a unir o agrupar están particionados de manera compatible en el almacenamiento subyacente (por ejemplo, en Hive o Parquet, utilizando la misma clave de partición que se usará para el join/group by), Spark puede aprovechar esto para realizar un <code>Sort-Merge Join</code> o <code>Hash Join</code> con menos o ningún shuffle. Esto requiere que las tablas se hayan escrito previamente con la misma estrategia de partición.</p>
+<ul>
+<li><strong>Joins entre tablas particionadas por la misma clave</strong>: Si la tabla de <code>pedidos</code> y la tabla de <code>ítems_pedido</code> están ambas particionadas por <code>id_pedido</code>, un join entre ellas por <code>id_pedido</code> será mucho más eficiente ya que Spark puede simplemente unir las particiones coincidentes localmente en cada nodo.</li>
+<li><strong>Agregaciones en datos pre-particionados</strong>: Si se agrupan datos por una columna que ya es la clave de partición de la tabla, Spark puede realizar agregaciones locales en cada partición antes de combinar resultados, reduciendo la cantidad de datos shufflados.</li>
+</ul>
+<p><strong>Acumuladores y Broadcast Variables (para datos pequeños)</strong>: Aunque no evitan directamente un shuffle en DataFrames en la misma medida que un Broadcast Join, los acumuladores y las broadcast variables (a nivel de RDD, pero también útiles para datos pequeños en Spark) son herramientas para compartir datos pequeños de manera eficiente entre tareas. Las broadcast variables permiten enviar un valor de solo lectura a todos los nodos, útil para tablas de búsqueda o configuraciones.</p>
+<ul>
+<li><strong>Listas de bloqueo o mapeos</strong>: Transmitir una lista pequeña de IDs prohibidos o un mapa de códigos a descripciones a todos los ejecutores para filtrar o enriquecer datos sin realizar un join formal.</li>
+<li><strong>Parámetros de configuración dinámicos</strong>: Si un algoritmo necesita un conjunto de parámetros que cambian dinámicamente pero es pequeño, se puede transmitir usando una broadcast variable.</li>
+</ul>
+<p><strong>Uso de <code>repartition</code> y <code>coalesce</code> con cuidado</strong>: Ambas funciones se utilizan para cambiar el número de particiones de un DataFrame. <code>repartition</code> siempre implica un shuffle completo de los datos, mientras que <code>coalesce</code> intenta reducir el número de particiones sin un shuffle completo si es posible (solo combina particiones existentes dentro del mismo nodo). Utilízalas solo cuando sea estrictamente necesario (ej. para uniones eficientes con datos de gran tamaño, o para reducir el número de archivos de salida).</p>
+<ul>
+<li><strong>Reducir archivos de salida (small files problem)</strong>: Si un procesamiento genera miles de archivos pequeños (problema de "small files"), un <code>df.coalesce(N).write.parquet(...)</code> puede combinarlos en <code>N</code> archivos más grandes al final de la operación, aunque <code>coalesce</code> también puede implicar un shuffle si se reduce el número de particiones drásticamente.</li>
+<li><strong>Preparación para operaciones posteriores</strong>: En algunos escenarios, re-particionar un DataFrame por la clave de join <em>antes</em> del join puede ser beneficioso si se planean múltiples joins o agregaciones sobre la misma clave, aunque es una decisión que debe tomarse con base en un análisis de rendimiento.</li>
+</ul>
+<h3 id="244-consideraciones-de-escalabilidad-y-desempeno">2.4.4 Consideraciones de escalabilidad y desempeño</h3>
+<p>La escalabilidad y el desempeño en Spark van más allá de la optimización de código individual; involucran la configuración del clúster, la gestión de recursos y la elección de las arquitecturas de datos adecuadas. Comprender estos aspectos es fundamental para diseñar aplicaciones Spark robustas que puedan manejar volúmenes de datos crecientes y mantener un rendimiento óptimo en entornos de producción.</p>
+<h5 id="configuracion-del-cluster-y-asignacion-de-recursos">Configuración del Clúster y Asignación de Recursos</h5>
+<p>Una configuración adecuada de Spark y la asignación de recursos a los ejecutores son críticas para el desempeño. Un clúster mal configurado puede llevar a cuellos de botella incluso con el código más optimizado.</p>
+<p><strong>Tamaño de los Ejecutores (<code>spark.executor.cores</code>, <code>spark.executor.memory</code>)</strong>: Estos parámetros controlan cuántos núcleos de CPU y cuánta memoria se asignan a cada ejecutor. Un número adecuado de núcleos permite el paralelismo, mientras que suficiente memoria evita derrames a disco y optimiza el caché. Un error común es tener ejecutores muy grandes (pocos ejecutores con muchos núcleos/memoria) o muy pequeños (muchos ejecutores con pocos recursos).</p>
+<ul>
+<li><strong>Clúster con nodos de 64GB RAM, 16 núcleos</strong>: Una configuración común podría ser <code>spark.executor.cores=5</code> y <code>spark.executor.memory=20GB</code>. Esto permite tener 2 ejecutores por nodo y deja memoria para el sistema operativo y el driver, maximizando la utilización de recursos sin sobrecargar.</li>
+<li><strong>Tareas con mucha memoria (e.g., joins grandes sin broadcast)</strong>: Aumentar <code>spark.executor.memory</code> puede ser necesario para evitar derrames a disco durante operaciones intensivas en memoria.</li>
+</ul>
+<p><strong>Memoria del Driver (<code>spark.driver.memory</code>)</strong>: La memoria asignada al nodo driver. El driver coordina las tareas, almacena metadatos y, en algunos casos, colecta resultados (como <code>collect()</code>). Si se realizan operaciones que recolectan grandes cantidades de datos al driver, o si se manejan muchas broadcast variables, se necesita más memoria para el driver.</p>
+<ul>
+<li><strong>Usar <code>collect()</code> en un DataFrame grande</strong>: Si se intenta <code>df.collect()</code> sobre un DataFrame con millones de filas, el driver podría quedarse sin memoria. Ajustar <code>spark.driver.memory</code> o reestructurar el código para evitar <code>collect()</code> en grandes volúmenes.</li>
+<li><strong>Broadcast de múltiples tablas pequeñas</strong>: Si se transmiten muchas tablas pequeñas, la memoria del driver podría verse afectada.</li>
+</ul>
+<p><strong>Configuración de Shuffle (<code>spark.shuffle.service.enabled</code>, <code>spark.shuffle.file.buffer</code>)</strong>: Estos parámetros afectan cómo Spark maneja los datos durante las operaciones de shuffle. Habilitar el servicio de shuffle externo (<code>spark.shuffle.service.enabled=true</code>) permite que los datos shufflados persistan incluso si un ejecutor falla, mejorando la fiabilidad. Ajustar el tamaño del buffer (<code>spark.shuffle.file.buffer</code>) puede optimizar las escrituras a disco durante el shuffle.</p>
+<ul>
+<li><strong>Estabilidad en shuffles grandes</strong>: En entornos de producción con shuffles frecuentes y grandes, habilitar el shuffle service es crucial para la estabilidad y resiliencia.</li>
+<li><strong>Rendimiento de I/O en shuffles</strong>: Para tareas con mucha escritura a disco durante shuffles, aumentar el buffer puede reducir la cantidad de pequeñas escrituras y mejorar el rendimiento.</li>
+</ul>
+<h5 id="monitoreo-y-diagnostico">Monitoreo y Diagnóstico</h5>
+<p>Monitorear las aplicaciones Spark es esencial para identificar cuellos de botella y comprender el comportamiento del rendimiento. Spark UI es la herramienta principal para esto.</p>
+<p><strong>Spark UI (Stages, Tasks, DAG Visualization)</strong>: La interfaz de usuario de Spark (accesible generalmente en <code>http://&lt;driver-ip&gt;:4040</code>) proporciona una visión detallada de las etapas (Stages), tareas (Tasks), y el Grafo Acíclico Dirigido (DAG) de la aplicación. Permite identificar qué etapas son lentas, si hay desequilibrio de datos (skew), o si los ejecutores están infrautilizados/sobrecargados.</p>
+<ul>
+<li><strong>Identificar Stage lento</strong>: Si una etapa particular (e.g., un <code>join</code> o <code>groupBy</code>) toma mucho tiempo, se puede profundizar en esa etapa para ver si alguna tarea está tardando más de lo normal (indicando skew) o si hay problemas de I/O.</li>
+<li><strong>Análisis de Shuffles</strong>: La Spark UI muestra el tamaño de los datos shufflados y el tiempo que toma. Un shuffle excesivo es una señal de que las estrategias de optimización (como Broadcast Join) podrían ser necesarias.</li>
+<li><strong>Revisar el plan de ejecución</strong>: En la pestaña "SQL" de la Spark UI, se puede ver el plan de ejecución generado por Catalyst, lo que ayuda a entender cómo Spark está procesando la consulta y si se están aplicando las optimizaciones esperadas (e.g., Predicate Pushdown).</li>
+</ul>
+<p><strong>Métricas de Recursos (CPU, Memoria, Disk I/O)</strong>: Además de Spark UI, es importante monitorear las métricas a nivel de clúster (CPU, uso de memoria, E/S de disco, red) para cada nodo ejecutor. Esto ayuda a identificar si el problema es de Spark en sí o si hay una limitación de recursos a nivel de infraestructura.</p>
+<ul>
+<li><strong>CPU subutilizada</strong>: Si la CPU de los ejecutores está consistentemente baja durante una etapa que se esperaba intensiva en CPU, podría indicar un problema de paralelismo o un cuello de botella en I/O.</li>
+<li><strong>Memoria agotada</strong>: Si los ejecutores están reportando errores OOM (Out Of Memory) o si hay mucho spill a disco, es una señal de que los DataFrames son demasiado grandes para la memoria disponible o que la configuración de persistencia es ineficiente.</li>
+</ul>
+<h5 id="consideraciones-de-diseno-de-datos">Consideraciones de Diseño de Datos</h5>
+<p>La forma en que se almacenan y estructuran los datos tiene un impacto directo en el rendimiento de Spark.</p>
+<p><strong>Formato de Archivos (Parquet, ORC)</strong>: Optar por formatos de archivo columnares como Parquet u ORC es crucial. Estos formatos son auto-descriptivos, comprimidos y permiten optimizaciones como "Predicate Pushdown" y "Column Pruning" de forma nativa, lo que reduce drásticamente la cantidad de datos leídos del disco.</p>
+<ul>
+<li><strong>Reemplazar CSV/JSON por Parquet</strong>: Migrar conjuntos de datos de formatos basados en filas (CSV, JSON) a Parquet para obtener mejoras significativas en el rendimiento de lectura y la eficiencia del almacenamiento.</li>
+<li><strong>Beneficios del Predicate Pushdown</strong>: Si se tiene una tabla Parquet de logs y se filtra por <code>timestamp &gt; 'X'</code>, Spark solo leerá los bloques de datos relevantes, sin necesidad de escanear todo el archivo.</li>
+</ul>
+<p><strong>Particionamiento de Datos</strong>: Organizar los datos en el sistema de archivos (HDFS, S3) en directorios basados en valores de columna (ej. <code>data/year=2024/month=01/</code>). Esto permite a Spark (y otras herramientas de Big Data) "podar" particiones (partition pruning), es decir, escanear solo los directorios relevantes para una consulta, evitando la lectura de datos innecesarios.</p>
+<ul>
+<li><strong>Consulta de datos por fecha</strong>: Si los datos de ventas están particionados por <code>año/mes/día</code>, una consulta para las ventas de un día específico solo escaneará el directorio correspondiente a ese día, no toda la tabla.</li>
+<li><strong>Optimizando Joins con partición por clave</strong>: Si se va a unir por una clave y ambas tablas están particionadas por esa misma clave, se puede evitar un shuffle completo (co-ubicación, como se mencionó anteriormente).</li>
+</ul>
+<p><strong>Tamaño de los Archivos (Small Files Problem)</strong>: Tener un gran número de archivos pequeños (ej. miles de archivos de unos pocos KB) en un sistema de archivos distribuido (como HDFS) puede degradar seriamente el rendimiento. Esto se debe a la sobrecarga de gestionar metadatos para cada archivo y la ineficiencia de la lectura de muchos archivos pequeños.</p>
+<ul>
+<li><strong>Compactación de datos históricos</strong>: Si se ingieren datos en pequeños lotes, periódicamente se debe ejecutar un proceso de "compactación" que combine estos pequeños archivos en unos pocos archivos más grandes (e.g., 128 MB a 1 GB) para optimizar las lecturas futuras.</li>
+<li><strong>Ajustar el número de particiones de salida</strong>: Al escribir resultados, se puede usar <code>repartition()</code> o <code>coalesce()</code> para controlar el número de archivos de salida y evitar generar demasiados pequeños.</li>
+</ul>
+<h2 id="tarea">Tarea</h2>
+<ol>
+<li>
+<p><strong>Ejercicio de Persistencia con diferentes niveles</strong>: Crea un DataFrame con 10 millones de filas y varias columnas. Realiza una serie de transformaciones sobre él. Luego, persiste el DataFrame utilizando <code>MEMORY_ONLY</code>, <code>MEMORY_AND_DISK</code>, y <code>DISK_ONLY</code> (en diferentes ejecuciones). Mide el tiempo de ejecución de las operaciones posteriores a la primera acción para cada nivel de persistencia y explica las diferencias observadas en el rendimiento y el uso de memoria/disco (usando Spark UI).</p>
+</li>
+<li>
+<p><strong>Identificación de un Shuffle Costoso</strong>: Diseña un escenario donde se genere un DataFrame grande y se realice una operación que cause un shuffle significativo (ej. un <code>groupBy</code> por una columna de alta cardinalidad o un <code>join</code> entre dos DataFrames grandes sin una estrategia de optimización). Utiliza Spark UI para identificar la etapa del shuffle, el volumen de datos shufflados y el tiempo que consume.</p>
+</li>
+<li>
+<p><strong>Implementación de Broadcast Join</strong>: Toma el escenario del ejercicio anterior (o crea uno similar con un join entre una tabla grande y una pequeña). Implementa un <code>Broadcast Join</code> utilizando <code>F.broadcast()</code> y compara el tiempo de ejecución y la ausencia/reducción del shuffle en Spark UI con respecto a un <code>join</code> normal.</p>
+</li>
+<li>
+<p><strong>Predicado Pushdown y Column Pruning en acción</strong>: Lee un archivo Parquet con múltiples columnas y filtra por una columna indexada (si el formato lo permite) y selecciona solo un subconjunto de columnas. Observa el plan de ejecución en Spark UI (pestaña SQL -&gt; Details) y explica cómo Catalyst aplica el Predicado Pushdown y el Column Pruning.</p>
+</li>
+<li>
+<p><strong>Simulación de "Small Files Problem" y Solución</strong>: Escribe un DataFrame grande en 1000 archivos pequeños. Luego, lee esos 1000 archivos y escribe el resultado en 10 archivos más grandes utilizando <code>coalesce()</code> o <code>repartition()</code>. Mide y compara los tiempos de lectura y escritura.</p>
+</li>
+<li>
+<p><strong>Configuración de Ejecutores</strong>: Experimenta con la configuración de <code>spark.executor.cores</code> y <code>spark.executor.memory</code> en una aplicación Spark. Ejecuta una carga de trabajo intensiva (ej. un join complejo o una agregación grande) con diferentes configuraciones (ej. pocos ejecutores grandes vs. muchos ejecutores pequeños, manteniendo el mismo número total de núcleos y memoria para el clúster). Analiza el impacto en el rendimiento y la utilización de recursos en Spark UI.</p>
+</li>
+<li>
+<p><strong>UDFs vs. Funciones Nativas para Optimización</strong>: Crea una función para manipular una columna (ej. concatenar strings, transformar un valor numérico). Primero, implementa la lógica como una UDF. Luego, re-implementa la misma lógica utilizando solo funciones nativas de Spark SQL (ej. <code>concat_ws</code>, <code>when</code>, <code>lit</code>). Compara el rendimiento de ambas implementaciones y explica por qué una es más eficiente.</p>
+</li>
+<li>
+<p><strong>Análisis de Derrames a Disco (Spill)</strong>: Ejecuta una operación Spark (ej. un <code>groupBy</code> con una clave de muy alta cardinalidad y un agregado complejo) con memoria de ejecutor limitada, forzando que Spark "derrame" datos al disco (spill). Monitorea el evento en Spark UI y explica qué significa el "spill" y cómo afecta el rendimiento.</p>
+</li>
+<li>
+<p><strong>Optimización de Sort</strong>: Genera un DataFrame con datos aleatorios y ordénalo utilizando <code>orderBy</code>. Luego, compara el plan de ejecución y el rendimiento si los datos ya estuvieran pre-ordenados o si se aplicara una partición adecuada antes del ordenamiento (esto puede ser un ejercicio conceptual o simulado).</p>
+</li>
+<li>
+<p><strong>Lectura con Particionamiento (Partition Pruning)</strong>: Crea un DataFrame grande y escríbelo en Parquet particionando por una columna (ej. <code>df.write.partitionBy("ciudad").parquet("path/to/data")</code>). Luego, lee los datos filtrando por esa columna particionada (ej. <code>spark.read.parquet("path/to/data").filter("ciudad = 'Bogota'")</code>). Observa en Spark UI cómo Spark solo escanea los directorios relevantes, demostrando el "partition pruning".</p>
+</li>
+</ol>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../tema23/" class="btn btn-neutral float-left" title="Consultas con SparkSQL"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../tema25/" class="btn btn-neutral float-right" title="Optimización con Catalyst y Tungsten">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../tema23/" class="btn btn-neutral float-left" title="Consultas y SQL en Spark"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../tema31/" class="btn btn-neutral float-right" title="Diseño de pipelines ETL">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -164,7 +407,7 @@
       <span><a href="../tema23/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../tema25/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../tema31/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
