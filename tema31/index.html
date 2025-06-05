@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Diseño de pipelines ETL - Métodos de Procesamiento y Análisis de Big Data</title>
+    <title>Diseño y Orquestación de Pipelines ETL - Métodos de Procesamiento y Análisis de Big Data</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Dise\u00f1o de pipelines ETL";
+        var mkdocs_page_name = "Dise\u00f1o y Orquestaci\u00f3n de Pipelines ETL";
         var mkdocs_page_input_path = "tema31.md";
         var mkdocs_page_url = null;
       </script>
@@ -69,19 +69,73 @@
               </ul>
               <p class="caption"><span class="caption-text">Arquitectura y Diseño de Flujos ETL</span></p>
               <ul class="current">
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Diseño de pipelines ETL</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Diseño y Orquestación de Pipelines ETL</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#tema-31-diseno-de-pipelines-etl">Tema 3.1. Diseño de pipelines ETL</a>
+    <li class="toctree-l2"><a class="reference internal" href="#tema-31-diseno-y-orquestacion-de-pipelines-etl">Tema 3.1. Diseño y Orquestación de Pipelines ETL</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#311-principios-y-etapas-del-proceso-etl">3.1.1 Principios y etapas del proceso ETL</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#extraccion-de-datos">Extracción de datos</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#transformacion-de-datos">Transformación de datos</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#carga-de-datos">Carga de datos</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#312-diferencias-entre-etl-y-elt">3.1.2 Diferencias entre ETL y ELT</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#caracteristicas-del-patron-etl">Características del patrón ETL</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#caracteristicas-del-patron-elt">Características del patrón ELT</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#cuando-usar-cada-patron">Cuándo usar cada patrón</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#313-diseno-modular-y-desacoplado-de-pipelines">3.1.3 Diseño modular y desacoplado de pipelines</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#principios-del-diseno-modular">Principios del diseño modular</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#desacoplamiento-de-componentes">Desacoplamiento de componentes</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#314-introduccion-a-apache-airflow">3.1.4 Introducción a Apache Airflow</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#dags-directed-acyclic-graphs">DAGs (Directed Acyclic Graphs)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#operadores-sensores-y-tareas">Operadores, sensores y tareas</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#gestion-de-dependencias-y-programacion">Gestión de dependencias y programación</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#315-orquestacion-de-tareas-distribuidas">3.1.5 Orquestación de tareas distribuidas</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#coordinacion-temporal-de-tareas">Coordinación temporal de tareas</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#distribucion-de-cargas-y-escalabilidad">Distribución de cargas y escalabilidad</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tarea">Tarea</a>
     </li>
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema32/">Conexión a múltiples fuentes</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema32/">Conexión a Múltiples Fuentes de Datos</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema33/">Procesos escalables y particionamiento</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema33/">Procesamiento Escalable y Particionamiento</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema34/">Buenas prácticas para ETL en Spark</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema34/">Manejo de Esquemas y Calidad de Datos</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema35/">Introducción a Apache Airflow</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema35/">Monitorización y Troubleshooting de Pipelines</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema36/">Seguridad en ETL y Protección de Datos</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema37/">Patrones de Diseño y Optimización en la Nube</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Automatización y Orquestación con Apache Airflow</span></p>
@@ -90,7 +144,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tema42/">Instalación local usando Docker</a>
                   </li>
-                  <li class="toctree-l1"><a class="" href="../tema43.md">DAGs, operadores y tareas</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema43/">DAGs, operadores y tareas</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tema44/">Uso de `BashOperator`, `PythonOperator` y `SparkSubmitOperator`</a>
                   </li>
@@ -101,7 +155,7 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../tema51/">Desarrollo del proyecto integrador</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema51/">Desarrollo del proyecto integrador</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema52/">Despliegue en nube</a>
                   </li>
               </ul>
       </div>
@@ -119,7 +173,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
           <li class="breadcrumb-item">Arquitectura y Diseño de Flujos ETL</li>
-      <li class="breadcrumb-item active">Diseño de pipelines ETL</li>
+      <li class="breadcrumb-item active">Diseño y Orquestación de Pipelines ETL</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -129,14 +183,427 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="3-arquitectura-y-diseno-de-flujos-etl">3. Arquitectura y Diseño de Flujos ETL</h1>
-<h2 id="tema-31-diseno-de-pipelines-etl">Tema 3.1. Diseño de pipelines ETL</h2>
-<p><em>Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.</em></p>
+<h2 id="tema-31-diseno-y-orquestacion-de-pipelines-etl">Tema 3.1. Diseño y Orquestación de Pipelines ETL</h2>
+<p><strong>Objetivo</strong>:</p>
+<p>Comprender la estructura lógica y la gestión de la ejecución de flujos de datos mediante el diseño y la orquestación de pipelines ETL eficientes. El estudiante será capaz de aplicar principios fundamentales del proceso ETL, diferenciar entre ETL y ELT, diseñar pipelines desacoplados y escalables, e introducirse en herramientas de orquestación como Apache Airflow para la coordinación de tareas distribuidas en el tiempo.</p>
+<p><strong>Introducción</strong>:</p>
+<p>Los pipelines ETL son la columna vertebral de cualquier solución de integración de datos en el ecosistema Big Data. Desde la recopilación de datos de múltiples fuentes hasta su transformación y carga en sistemas de almacenamiento analíticos, su diseño debe ser eficiente, escalable y mantenible. Además, la orquestación adecuada permite automatizar estos procesos, garantizando su ejecución en el orden correcto y en el momento adecuado.</p>
+<p><strong>Desarrollo</strong>:</p>
+<p>Este tema explora los fundamentos de los procesos ETL (Extracción, Transformación y Carga), sus variantes como ELT, y las decisiones arquitectónicas que conllevan. Se introduce el concepto de diseño modular para facilitar la reutilización y el mantenimiento de componentes. Finalmente, se estudian herramientas como Apache Airflow, que permiten orquestar tareas complejas y distribuidas a través de la definición de flujos de trabajo (DAGs) y la gestión de dependencias y programación.</p>
+<p>¡Claro que sí! Aquí tienes una versión más completa y clara del sub-tema 3.1.1, con ejemplos detallados y adicionales para cada etapa del proceso ETL:</p>
+<h3 id="311-principios-y-etapas-del-proceso-etl">3.1.1 Principios y etapas del proceso ETL</h3>
+<p>El <strong>proceso ETL</strong> (Extracción, Transformación y Carga) es una metodología fundamental en el mundo del Big Data para la integración de datos. Su objetivo principal es mover datos de diversas fuentes a un sistema de destino, como un data warehouse o un data lake, asegurando su <strong>calidad, consistencia y disponibilidad</strong> para análisis y toma de decisiones. Este proceso se divide en tres etapas principales:</p>
+<h5 id="extraccion-de-datos">Extracción de datos</h5>
+<p>La <strong>extracción</strong> es la primera fase del proceso ETL y consiste en la recolección de datos desde sus fuentes originales para llevarlos a un área de <strong>staging</strong> o procesamiento inicial. Esta área temporal es crucial, ya que permite trabajar con los datos sin afectar el rendimiento de las fuentes de origen. Las fuentes pueden ser muy variadas y complejas, desde bases de datos relacionales hasta sensores en tiempo real.</p>
+<ol>
+<li>
+<p><strong>Extracción desde bases de datos relacionales (usando JDBC)</strong>:</p>
+<ul>
+<li><strong>Escenario</strong>: Necesitas extraer los datos de ventas diarias de una base de datos de producción (por ejemplo, PostgreSQL o MySQL) para un informe de ventas.</li>
+<li><strong>Proceso</strong>: Se utiliza una conexión <strong>JDBC (Java Database Connectivity)</strong> para establecer comunicación con la base de datos. Puedes ejecutar consultas SQL complejas para seleccionar solo los datos relevantes, aplicar filtros por fecha o estado, y unirlos con otras tablas si es necesario. Por ejemplo, extraer solo las transacciones del último día con estado "completado" y que superen un cierto monto.</li>
+<li><strong>Ejemplo</strong>: Extraer datos de clientes de una base de datos Oracle, seleccionando aquellos que han realizado compras en los últimos 6 meses y excluyendo los clientes inactivos. Se podría usar una consulta como <code>SELECT * FROM clientes WHERE ultima_compra &gt;= CURRENT_DATE - INTERVAL '6 months' AND estado = 'activo';</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Recolección de datos de APIs REST con autenticación OAuth2</strong>:</p>
+<ul>
+<li><strong>Escenario</strong>: Quieres obtener datos de interacción de usuarios de una plataforma de redes sociales o un sistema de CRM externo que expone sus datos a través de una API REST.</li>
+<li><strong>Proceso</strong>: Para acceder a estas APIs, a menudo se requiere <strong>autenticación OAuth2</strong>. Esto implica un flujo donde tu aplicación solicita un token de acceso al servidor de autorización después de que el usuario (o la aplicación misma) ha otorgado los permisos necesarios. Con este token, puedes realizar solicitudes HTTP (GET, POST) a los endpoints de la API para recuperar los datos. Es común manejar la paginación y los límites de tasa (rate limiting) de la API para asegurar una extracción completa y eficiente.</li>
+<li><strong>Ejemplo</strong>: Extraer datos de órdenes de una plataforma de comercio electrónico como Shopify o Stripe. Se configura la aplicación para obtener tokens de acceso OAuth2 y luego se hacen llamadas a endpoints como <code>/admin/api/2023-10/orders.json</code> para obtener los detalles de las órdenes, filtrando por fecha o estado de pago.</li>
+</ul>
+</li>
+<li>
+<p><strong>Consumo de archivos planos (CSV, JSON) desde buckets en la nube</strong>:</p>
+<ul>
+<li><strong>Escenario</strong>: Una empresa recibe archivos CSV con datos de transacciones de sus socios comerciales o archivos JSON con logs de aplicaciones que se almacenan en servicios de almacenamiento en la nube como Amazon S3, Google Cloud Storage o Azure Blob Storage.</li>
+<li><strong>Proceso</strong>: Se utilizan los SDKs (Software Development Kits) o APIs de estos servicios en la nube para listar y descargar los archivos. Es fundamental tener en cuenta la estructura de los directorios (por ejemplo, <code>s3://bucket-name/raw_data/2025/06/03/transacciones.csv</code>) para una extracción organizada. Para archivos grandes, se pueden usar técnicas de descarga por partes o streaming para evitar problemas de memoria.</li>
+<li><strong>Ejemplo</strong>: Consumir archivos de logs de servidores web en formato JSON que se suben diariamente a un bucket de Azure Blob Storage. Se podría programar un script para que a las 2 AM descargue todos los archivos JSON del día anterior que se encuentren en un prefijo específico, como <code>logs/webserver/2025/06/03/</code>.</li>
+</ul>
+</li>
+</ol>
+<h5 id="transformacion-de-datos">Transformación de datos</h5>
+<p>Una vez extraídos los datos, la etapa de <strong>transformación</strong> es donde el valor real se agrega. Aquí, los datos son limpiados, combinados, enriquecidos y modificados para ajustarse a los requisitos del negocio y a la estructura del sistema de destino. Esta fase es crítica para garantizar la <strong>calidad y la usabilidad</strong> de los datos para análisis. Es común que esta etapa sea la más intensiva en recursos computacionales.</p>
+<ol>
+<li>
+<p><strong>Conversión de formatos de fecha y limpieza de valores nulos en Spark</strong>:</p>
+<ul>
+<li><strong>Escenario</strong>: Los datos extraídos contienen fechas en diferentes formatos (por ejemplo, "MM/DD/YYYY", "DD-MM-YY", "YYYYMMDD") y tienen muchos valores nulos en campos importantes como el ID de cliente o el monto de la transacción.</li>
+<li><strong>Proceso con Spark</strong>: Utilizando Apache Spark, puedes leer los datos (por ejemplo, desde un DataFrame). Para la conversión de fechas, se usan funciones como <code>to_date()</code> y <code>date_format()</code> para estandarizar a un formato único (por ejemplo, "YYYY-MM-DD"). Para los valores nulos, Spark ofrece funciones como <code>fillna()</code> para reemplazar nulos con un valor por defecto (0 para números, "Desconocido" para cadenas) o <code>dropna()</code> para eliminar filas que contengan nulos en columnas específicas.</li>
+<li><strong>Ejemplo</strong>: Un conjunto de datos de productos tiene una columna <code>precio</code> con algunos valores nulos y una columna <code>fecha_ingreso</code> con formatos inconsistentes. En Spark, puedes rellenar los nulos de <code>precio</code> con el promedio de los precios existentes y estandarizar <code>fecha_ingreso</code> a 'YYYY-MM-DD' usando algo como:
+    <code>python
+    df = df.withColumn("fecha_ingreso", to_date(col("fecha_ingreso"), "MM/dd/yyyy")) \
+           .fillna({"precio": df.agg({"precio": "avg"}).collect()[0][0]})</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Enriquecimiento de registros con datos geográficos desde una tabla de referencia externa</strong>:</p>
+<ul>
+<li><strong>Escenario</strong>: Tienes un conjunto de datos de ventas con el ID de la tienda, pero necesitas analizar las ventas por región geográfica (ciudad, estado, país). Dispones de una tabla maestra de tiendas con sus coordenadas geográficas y ubicaciones.</li>
+<li><strong>Proceso</strong>: Se realiza una operación de <strong>join</strong> (unión) entre el conjunto de datos de ventas y la tabla de referencia de tiendas utilizando el ID de la tienda como clave. Una vez unidos, puedes agregar columnas como <code>ciudad</code>, <code>estado</code>, <code>país</code> a cada registro de venta, permitiendo análisis geográficos detallados. Si la tabla de referencia es muy grande, se pueden usar técnicas de broadcast join en Spark para optimizar el rendimiento.</li>
+<li><strong>Ejemplo</strong>: Enriquecer un registro de llamadas de clientes con información del plan de servicio del cliente. Si la llamada solo contiene el <code>ID_cliente</code>, puedes unirla con una tabla maestra de <code>clientes_servicios</code> que contenga <code>ID_cliente</code> y <code>tipo_plan</code> para agregar esa información a cada registro de llamada.</li>
+</ul>
+</li>
+<li>
+<p><strong>Validación de estructuras de datos usando esquemas definidos (p. ej., Avro/Parquet)</strong>:</p>
+<ul>
+<li><strong>Escenario</strong>: Se reciben datos de diferentes sistemas que deben cumplir con una estructura y tipo de datos predefinidos para asegurar la consistencia en el data warehouse.</li>
+<li><strong>Proceso</strong>: Se utilizan <strong>esquemas predefinidos</strong> (como Avro o Parquet, o incluso JSON Schema) para validar que los datos entrantes cumplan con las especificaciones. Esto implica verificar que todas las columnas esperadas estén presentes, que los tipos de datos sean correctos (por ejemplo, que una columna de <code>edad</code> sea un entero y no una cadena), y que no haya datos inesperados. Si los datos no cumplen el esquema, pueden ser rechazados, puestos en cuarentena para revisión o corregidos automáticamente si es posible. Spark, al trabajar con Parquet o Avro, infiere o aplica esquemas, permitiendo la validación automática.</li>
+<li><strong>Ejemplo</strong>: Validar que los datos de un feed de productos contengan siempre las columnas <code>id_producto</code> (entero), <code>nombre_producto</code> (cadena), <code>precio</code> (decimal) y <code>disponible</code> (booleano). Si un archivo de entrada tiene <code>precio</code> como cadena o le falta la columna <code>disponible</code>, el proceso de validación lo marcará como un error.</li>
+</ul>
+</li>
+</ol>
+<h5 id="carga-de-datos">Carga de datos</h5>
+<p>La etapa final del proceso ETL es la <strong>carga</strong>, donde los datos transformados se mueven al sistema de destino final. Este sistema puede ser un data warehouse (para análisis estructurados y reportes), un data lake (para almacenar datos brutos o semi-estructurados para futuros usos), o una base de datos analítica (optimizada para consultas complejas). La eficiencia y la robustez de esta etapa son cruciales para la disponibilidad de los datos.</p>
+<ol>
+<li>
+<p><strong>Carga de datos en Amazon Redshift mediante COPY desde S3</strong>:</p>
+<ul>
+<li><strong>Escenario</strong>: Tienes grandes volúmenes de datos transformados en archivos Parquet o CSV en un bucket de Amazon S3, y necesitas cargarlos eficientemente en tu data warehouse columnar, Amazon Redshift.</li>
+<li><strong>Proceso</strong>: Redshift ofrece el comando <code>COPY</code> que es altamente optimizado para cargar datos masivos directamente desde S3. Este comando puede inferir el esquema o utilizar uno definido, manejar la compresión de archivos, y distribuir los datos de manera óptima entre los nodos de Redshift para un rendimiento de consulta superior. Es mucho más rápido que insertar fila por fila.</li>
+<li><strong>Ejemplo</strong>: Cargar los datos de logs de aplicaciones procesados en S3 a una tabla <code>app_logs</code> en Redshift. El comando Redshift sería algo como:
+    <code>sql
+    COPY app_logs FROM 's3://your-bucket/processed_logs/2025/06/03/'
+    CREDENTIALS 'aws_access_key_id=YOUR_ACCESS_KEY_ID;aws_secret_access_key=YOUR_SECRET_ACCESS_KEY'
+    FORMAT AS PARQUET;</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Inserción por lotes en Snowflake con control de errores</strong>:</p>
+<ul>
+<li><strong>Escenario</strong>: Necesitas cargar datos de transacciones financieras en Snowflake, y es crítico que cualquier fila con errores (por ejemplo, datos faltantes o incorrectos) sea identificada y aislada sin detener el proceso de carga.</li>
+<li><strong>Proceso</strong>: Snowflake soporta la <strong>carga por lotes (batch inserts)</strong> y ofrece robustas capacidades de <strong>manejo de errores</strong>. Puedes usar el comando <code>COPY INTO &lt;table&gt;</code> con opciones como <code>ON_ERROR = CONTINUE</code> o <code>ON_ERROR = ABORT_STATEMENT</code> y <code>VALIDATION_MODE = RETURN_ERRORS</code> para especificar cómo manejar los errores. Esto permite cargar las filas válidas y registrar las filas con errores en una tabla separada o un archivo para su posterior revisión y corrección.</li>
+<li><strong>Ejemplo</strong>: Cargar datos de clientes desde archivos CSV a una tabla <code>clientes</code> en Snowflake. Si una fila CSV tiene una fecha de nacimiento inválida, Snowflake puede saltar esa fila y continuar con el resto, registrando el error:
+    <code>sql
+    COPY INTO clientes FROM @my_s3_stage/clientes.csv
+    FILE_FORMAT = (TYPE = CSV FIELD_DELIMITER = ',' SKIP_HEADER = 1)
+    ON_ERROR = 'SKIP_FILE'; -- O 'CONTINUE' para registrar errores por fila</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Escritura de particiones optimizadas en HDFS para procesamiento posterior</strong>:</p>
+<ul>
+<li><strong>Escenario</strong>: Estás procesando grandes volúmenes de datos en un clúster de Hadoop (por ejemplo, con Spark), y los datos transformados serán utilizados por otros procesos analíticos (como Hive o Impala) que se benefician enormemente de la partición de datos.</li>
+<li><strong>Proceso</strong>: Al escribir los datos en <strong>HDFS (Hadoop Distributed File System)</strong>, se pueden <strong>particionar</strong> los datos por una o más columnas (por ejemplo, <code>año</code>, <code>mes</code>, <code>día</code>, <code>región</code>). Esto crea una estructura de directorios que permite que las consultas posteriores lean solo los datos relevantes, mejorando drásticamente el rendimiento. Además, se pueden guardar los datos en formatos optimizados para lectura como Parquet o ORC, que son auto-descriptivos y soportan compresión columnar.</li>
+<li><strong>Ejemplo</strong>: Guardar datos de eventos de usuario procesados en Spark en HDFS, particionando por <code>fecha</code> y <code>tipo_evento</code>. Esto resultaría en una estructura de directorios como <code>/user/events/fecha=2025-06-03/tipo_evento=clic/</code> o <code>/user/events/fecha=2025-06-03/tipo_evento=vista_pagina/</code>. Cuando se consulta, por ejemplo, <code>SELECT * FROM events WHERE fecha = '2025-06-03' AND tipo_evento = 'clic'</code>, el motor de consulta solo leerá el directorio específico, no todo el conjunto de datos. En Spark, esto se hace con:
+    <code>python
+    df_processed.write.partitionBy("fecha", "tipo_evento").parquet("/user/events/")</code></li>
+</ul>
+</li>
+</ol>
+<h3 id="312-diferencias-entre-etl-y-elt">3.1.2 Diferencias entre ETL y ELT</h3>
+<p><strong>ETL (Extract, Transform, Load)</strong> y <strong>ELT (Extract, Load, Transform)</strong> son dos enfoques fundamentales para la integración de datos, diseñados para mover y preparar información de diversas fuentes para su análisis y uso. Aunque ambos buscan el mismo objetivo final de disponibilizar datos transformados, se distinguen crucialmente en la secuencia de sus operaciones y en los entornos tecnológicos más adecuados para cada uno.</p>
+<h5 id="caracteristicas-del-patron-etl">Características del patrón ETL</h5>
+<p>En el modelo ETL tradicional, la <strong>transformación</strong> de los datos se realiza <strong>antes de la carga</strong> en el sistema de destino. Esto típicamente ocurre en un servidor o motor de procesamiento intermedio, distinto del sistema de origen y del sistema de destino final.</p>
+<p><strong>Útil en entornos donde la transformación debe ocurrir antes de tocar el sistema de destino</strong>: Este patrón es ideal cuando los datos necesitan ser limpiados, validados, enriquecidos o agregados de manera significativa antes de ser almacenados. Esto asegura que solo datos de alta calidad y estructurados de una forma específica lleguen al sistema de destino, lo cual es crucial para bases de datos transaccionales, sistemas de reportes operativos o aplicaciones que dependen de una estructura de datos rígida y predefinida.</p>
+<ul>
+<li><strong>Ejemplo</strong>: Una empresa de telecomunicaciones que procesa registros de llamadas (<strong>CDRs - Call Detail Records</strong>). Antes de cargar estos datos en un sistema de facturación o un data warehouse para análisis de uso, los datos de los CDRs (que pueden ser crudos, contener errores o duplicados) se extraen. Luego, se transforman: se eliminan duplicados, se estandarizan formatos de números telefónicos, se calculan duraciones de llamadas, se asocian a clientes específicos y se validan contra catálogos de tarifas. Solo después de estas rigurosas transformaciones, los datos limpios y estructurados se cargan en el sistema de destino, asegurando la precisión de la facturación y los reportes.</li>
+</ul>
+<p><strong>Común en soluciones <em>on-premise</em> con control sobre la lógica de negocio previa</strong>: Históricamente, el ETL ha sido el pilar de los entornos de <em>data warehousing</em> <em>on-premise</em>, donde las organizaciones tienen un control completo sobre la infraestructura y los servidores de procesamiento intermedios. Permite implementar reglas de negocio complejas y detalladas antes de que los datos ingresen al <em>data warehouse</em>, garantizando la consistencia y la integridad.</p>
+<ul>
+<li><strong>Ejemplo</strong>: Una institución bancaria que gestiona datos de transacciones financieras. Dada la sensibilidad y la necesidad de cumplimiento normativo, los datos de transacciones de múltiples sistemas (cajeros automáticos, banca en línea, sucursales) se extraen. Se aplican transformaciones en servidores <em>on-premise</em> para anonimizar información sensible, validar la coherencia entre cuentas, agregar transacciones diarias por cliente y aplicar reglas de negocio para detectar fraudes o patrones sospechosos. Esta preparación se realiza en entornos controlados y seguros antes de cargar los datos en un <em>data mart</em> departamental o un <em>data warehouse</em> central para análisis financiero y regulatorio.</li>
+</ul>
+<h5 id="caracteristicas-del-patron-elt">Características del patrón ELT</h5>
+<p>En el modelo ELT, los datos se <strong>cargan</strong> en el sistema de destino <strong>tal como están</strong> (o con transformaciones mínimas) y la <strong>transformación</strong> ocurre <strong>después</strong>, directamente en el sistema de destino. Este enfoque capitaliza la capacidad de cómputo y almacenamiento escalable de las plataformas de datos modernas.</p>
+<p><strong>Escenarios en los que el almacenamiento y procesamiento escalable está disponible (BigQuery, Snowflake, Amazon Redshift, Azure Synapse Analytics)</strong>: El ELT florece en el ecosistema de <em>Big Data</em> y la computación en la nube. Los <em>data warehouses</em> en la nube, <em>data lakes</em> y motores de procesamiento distribuido ofrecen una escalabilidad masiva tanto para el almacenamiento como para el cómputo, lo que permite cargar grandes volúmenes de datos crudos rápidamente y luego procesarlos internamente.</p>
+<ul>
+<li><strong>Ejemplo</strong>: Una empresa de <em>e-commerce</em> recopila clics de usuarios, eventos de navegación, datos de carritos abandonados y registros de <em>logs</em> de servidores web. Estos datos, a menudo semi-estructurados o no estructurados y en volúmenes masivos, se ingieren directamente en un <em>data lake</em> (por ejemplo, Amazon S3) o un <em>data warehouse</em> en la nube (como Google BigQuery) con mínimas transformaciones iniciales. Una vez cargados, los analistas de datos o los ingenieros de datos utilizan las capacidades de procesamiento del propio <em>data warehouse</em> (SQL, UDFs, etc.) o motores de procesamiento sobre el <em>data lake</em> (Spark, Presto) para limpiar, unir, agregar y transformar los datos según sea necesario para análisis de comportamiento del usuario, personalización o <em>machine learning</em>.</li>
+</ul>
+<p><strong>Útil para agilizar la carga y reducir el tiempo de espera en ingestión de datos crudos</strong>: Al posponer las transformaciones, el ELT permite una ingestión de datos mucho más rápida. Los datos se cargan "crudos" o "lo más crudos posible" en el sistema de destino, minimizando los cuellos de botella en la fase de carga. Esto es especialmente valioso para datos en tiempo real o casi real, donde la velocidad de ingestión es crítica.</p>
+<ul>
+<li><strong>Ejemplo</strong>: Una plataforma de redes sociales que ingiere constantemente millones de publicaciones, comentarios, "me gusta" y metadatos de usuarios. Sería ineficiente y lento aplicar transformaciones complejas a cada pieza de datos antes de cargarla. En cambio, todos estos datos se ingieren rápidamente en un <em>data lake</em> escalable. Posteriormente, los equipos de análisis utilizan herramientas y <em>frameworks</em> que operan directamente sobre el <em>data lake</em> para transformar estos datos crudos en conjuntos de datos agregados (por ejemplo, conteo de "me gusta" por publicación, análisis de sentimiento de comentarios) para reportes, <em>feeds</em> personalizados o modelos de recomendación.</li>
+</ul>
+<h5 id="cuando-usar-cada-patron">Cuándo usar cada patrón</h5>
+<p><strong>Usar ETL cuando la calidad y la estructura de los datos debe garantizarse antes de la carga</strong>: Este patrón es preferible cuando el sistema de destino es sensible a la calidad de los datos, tiene esquemas rígidos, o se requiere que los datos estén completamente limpios y conformes a reglas de negocio antes de su almacenamiento.</p>
+<ul>
+<li><strong>Ejemplo</strong>: Un sistema de <em>Enterprise Resource Planning</em> (<strong>ERP</strong>) o un sistema de gestión de clientes (<strong>CRM</strong>) que requiere datos maestros (clientes, productos, proveedores) con una estructura y validación estrictas. Si se integran datos de múltiples fuentes (sistemas legados, hojas de cálculo, sistemas de terceros) para poblar estos sistemas, el ETL se asegura de que la calidad y el formato de los datos sean impecables antes de la carga, evitando inconsistencias o errores que podrían afectar las operaciones diarias.</li>
+</ul>
+<p><strong>Usar ELT cuando el destino tiene suficiente capacidad de cómputo y permite transformaciones complejas dentro del motor</strong>: Este enfoque es ideal para entornos de <em>Big Data</em> y la nube, donde la escalabilidad de almacenamiento y procesamiento del destino es una ventaja. Permite a los analistas y científicos de datos trabajar directamente con los datos crudos y transformarlos <em>ad-hoc</em> según sus necesidades, sin la necesidad de un paso intermedio de transformación previo.</p>
+<ul>
+<li><strong>Ejemplo</strong>: Una empresa que busca realizar análisis predictivos y <em>machine learning</em> sobre vastos conjuntos de datos de comportamiento del cliente, datos de sensores IoT o registros de transacciones financieras a gran escala. Cargar todos los datos crudos en un <em>data lake</em> o <em>data warehouse</em> en la nube y luego utilizar herramientas como Apache Spark, SQL en <em>data warehouses</em> o incluso lenguajes de programación como Python y R directamente sobre la plataforma para realizar transformaciones complejas, ingenierías de características y construir modelos. Esto permite una mayor flexibilidad y experimentación con los datos.</li>
+</ul>
+<h3 id="313-diseno-modular-y-desacoplado-de-pipelines">3.1.3 Diseño modular y desacoplado de pipelines</h3>
+<p>El diseño modular es una estrategia fundamental en la construcción de <strong>pipelines de datos eficientes y resilientes</strong>. Consiste en descomponer un pipeline complejo en unidades más pequeñas, autónomas y bien definidas, conocidas como <strong>módulos o componentes</strong>. Cada uno de estos módulos tiene una <strong>responsabilidad única y bien delimitada</strong>, lo que los hace independientes entre sí. Este enfoque no solo simplifica enormemente el <strong>mantenimiento y la depuración</strong> de los pipelines, sino que también mejora significativamente su <strong>escalabilidad, flexibilidad y la capacidad de integrar sistemas de monitoreo y versionado</strong> de manera efectiva. Al dividir el problema en partes manejables, se facilita la colaboración entre equipos y se reduce el riesgo de errores en sistemas de gran escala.</p>
+<h5 id="principios-del-diseno-modular">Principios del diseño modular</h5>
+<ul>
+<li><strong>Separación de responsabilidades</strong>: Este principio es la piedra angular del diseño modular. Cada módulo debe tener una única razón para cambiar, es decir, debe encargarse de una <strong>función específica y bien definida</strong>. Por ejemplo, un módulo podría ser responsable exclusivamente de la extracción de datos, otro de las transformaciones de limpieza y enriquecimiento, y un tercero de la carga en un destino final. Esto evita que los cambios en una parte del sistema afecten a otras áreas no relacionadas.</li>
+<li><strong>Reutilización</strong>: Los módulos diseñados bajo este principio son <strong>genéricos y parametrizables</strong>, lo que permite su utilización en múltiples pipelines con diferentes configuraciones o fuentes de datos. En lugar de escribir código desde cero para cada nueva tarea, se pueden ensamblar pipelines a partir de una biblioteca de módulos existentes, lo que <strong>acelera el desarrollo y reduce la duplicación de código</strong>.</li>
+<li><strong>Testabilidad</strong>: La independencia de los módulos facilita la <strong>prueba unitaria y la integración continua</strong>. Cada componente puede ser <strong>verificado de manera aislada</strong> para asegurar que cumple con su función esperada, simplificando la detección y corrección de errores antes de que se propaguen a todo el pipeline. Esto lleva a una mayor <strong>confiabilidad del sistema</strong> y ciclos de desarrollo más rápidos.</li>
+</ul>
+<p><strong>Ejemplo en un pipeline de datos</strong></p>
+<ul>
+<li>
+<p><strong>Módulo de Extracción de Datos (Extract Layer)</strong>: Este módulo se especializa en la lectura de datos desde diversas fuentes y su preparación para las etapas posteriores.</p>
+<ul>
+<li>Un módulo de extracción genérico que puede leer datos de diferentes bases de datos relacionales (MySQL, PostgreSQL) usando JDBC, así como de servicios de almacenamiento en la nube como Amazon S3 o Google Cloud Storage. Este módulo se encargaría de normalizar la lectura, manejar las credenciales de conexión de forma segura y escribir los datos crudos en un formato intermedio eficiente como <strong>Parquet o Avro</strong> en un Data Lake (por ejemplo, HDFS o un bucket S3). Podría configurarse mediante parámetros como la URL de la base de datos, la tabla a leer, las credenciales, la ruta de S3 o el nombre del bucket.</li>
+</ul>
+</li>
+<li>
+<p><strong>Módulo de Transformación de Calidad y Enriquecimiento (Transform Layer)</strong>: Se enfoca en la aplicación de reglas de negocio y limpieza de datos.</p>
+<ul>
+<li>Un módulo de transformación que recibe un DataFrame de Spark. Este módulo podría incluir una serie de funciones parametrizables para:<ul>
+<li><strong>Validación de tipos de datos</strong>: Asegurando que las columnas contengan los tipos esperados (ej. <code>precio</code> es numérico).</li>
+<li><strong>Eliminación o imputación de valores nulos</strong>: Rellenando valores faltantes con promedios, medianas o valores por defecto, o eliminando registros incompletos.</li>
+<li><strong>Estandarización de formatos</strong>: Por ejemplo, convertir todas las fechas a un formato ISO 8601 o estandarizar códigos postales.</li>
+<li><strong>Enriquecimiento de datos</strong>: Uniendo el conjunto de datos actual con otras fuentes (ej. tablas de referencia de clientes o catálogos de productos) para añadir información relevante. Este módulo recibiría las reglas de transformación y las fuentes de datos adicionales como configuraciones, permitiendo su reutilización en diferentes contextos.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Módulo de Carga de Datos (Load Layer)</strong>: Responsable de persistir los datos transformados en los destinos finales.</p>
+<ul>
+<li>Un módulo de carga que puede conectarse a diversos destinos de almacenamiento o bases de datos analíticas. Podría configurarse para:<ul>
+<li>Cargar datos en un <strong>data warehouse columnar</strong> como Snowflake o Amazon Redshift, optimizando la escritura para el rendimiento de consultas.</li>
+<li>Escribir datos en un <strong>Data Lakehouse</strong> (como Delta Lake en Databricks) para permitir futuras consultas con SQL o herramientas de BI.</li>
+<li>Publicar datos en un <strong>servicio de mensajería</strong> como Apache Kafka para consumo en tiempo real por otras aplicaciones o microservicios. Este módulo sería configurable a través de parámetros que definan el destino (ej. tipo de base de datos, nombre del cluster, tema de Kafka), el modo de escritura (ej. <code>append</code>, <code>overwrite</code>, <code>upsert</code>) y las credenciales de autenticación.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="desacoplamiento-de-componentes">Desacoplamiento de componentes</h5>
+<p>El <strong>desacoplamiento</strong> es un principio de diseño que busca minimizar las dependencias directas entre los módulos de un pipeline. Su objetivo principal es asegurar que los cambios o fallas en un componente no tengan un impacto en cascada sobre los demás, lo que aumenta la <strong>tolerancia a fallos, la flexibilidad y la capacidad de evolución del sistema</strong>. Cuando los componentes están fuertemente acoplados, un cambio en uno de ellos podría requerir modificaciones en otros, lo que complica el mantenimiento y ralentiza el desarrollo. El desacoplamiento promueve la independencia operativa y tecnológica.</p>
+<ul>
+<li><strong>Uso de colas de mensajes para desacoplar operaciones asíncronas</strong>: Las colas de mensajes actúan como intermediarios entre los productores y consumidores de datos. Por ejemplo, Apache Kafka es una plataforma de streaming distribuida que permite que un módulo de extracción escriba eventos o registros en un <strong>tópico de Kafka</strong>, mientras que un módulo de transformación lee de ese tópico de forma <strong>asíncrona e independiente</strong>. Si el módulo de transformación experimenta una falla temporal, el módulo de extracción puede seguir produciendo datos sin interrupción, ya que los mensajes se acumulan en la cola. Esto mejora la <strong>resiliencia del pipeline</strong> y permite que los módulos operen a diferentes velocidades.</li>
+<li><strong>Serialización y persistencia de datos intermedios</strong>: En lugar de pasar datos directamente entre módulos en memoria, se puede <strong>serializar y almacenar los resultados intermedios</strong> de un módulo en un sistema de almacenamiento distribuido como <strong>HDFS (Hadoop Distributed File System)</strong>, <strong>Amazon S3</strong> o <strong>Azure Data Lake Storage</strong>. Esto permite que cada módulo "lea" los datos que necesita del almacenamiento y "escriba" sus resultados de vuelta, rompiendo la dependencia directa. Por ejemplo, el módulo de extracción podría escribir datos brutos en S3, y luego el módulo de transformación leería desde S3, procesaría los datos y escribiría los resultados transformados en otra ubicación en S3. Esto no solo desacopla, sino que también proporciona <strong>puntos de recuperación</strong> en caso de fallas y facilita la <strong>auditoría</strong> de las etapas del pipeline.</li>
+<li><strong>Configuración dinámica y externa de pipelines</strong>: En lugar de codificar las dependencias y la lógica del pipeline directamente en el código, se utilizan <strong>archivos de configuración externos</strong> (como YAML o JSON) para definir la secuencia de ejecución de los módulos, las fuentes de datos, los destinos y los parámetros específicos. Esto permite <strong>modificar el comportamiento de un pipeline sin necesidad de recompilar o redeployar el código</strong>. Por ejemplo, un archivo YAML podría especificar que el módulo de extracción <code>ModuloExtraccionDB</code> debe leer de una base de datos <code>db_produccion</code> y escribir en <code>s3://raw-data/</code>, y que posteriormente el <code>ModuloTransformacionCalidad</code> debe leer de <code>s3://raw-data/</code> y escribir en <code>s3://cleaned-data/</code>. Este enfoque promueve la <strong>flexibilidad y la agilidad</strong> en la gestión de pipelines.</li>
+</ul>
+<h3 id="314-introduccion-a-apache-airflow">3.1.4 Introducción a Apache Airflow</h3>
+<p><strong>Apache Airflow</strong> es una potente plataforma de código abierto diseñada para la <strong>programación, orquestación y monitoreo de flujos de trabajo (workflows)</strong>. En esencia, permite definir, programar y supervisar secuencias complejas de tareas de manera programática, utilizando un enfoque de <strong>DAGs (Directed Acyclic Graphs)</strong>. Su capacidad para manejar dependencias, reintentos y la ejecución distribuida lo convierte en una herramienta fundamental para la automatización de procesos de datos, ETL y otras operaciones de TI.</p>
+<h5 id="dags-directed-acyclic-graphs">DAGs (Directed Acyclic Graphs)</h5>
+<p>Los <strong>DAGs</strong> son el corazón de Airflow. Representan un flujo de tareas con dependencias claramente definidas y, como su nombre lo indica, no pueden contener ciclos. Cada nodo en un DAG es una tarea, y las aristas representan las dependencias entre ellas, indicando qué tareas deben completarse antes de que otras puedan comenzar.</p>
+<ul>
+<li><strong>Definición de un DAG en Python para ejecutar una serie de tareas de limpieza y carga diaria</strong>: Un DAG en Airflow se define completamente en código Python. Esto permite una gran flexibilidad y control de versiones. Por ejemplo, un DAG para un proceso ETL diario podría incluir tareas como la extracción de datos de una base de datos, la limpieza y transformación de esos datos, y finalmente la carga en un data warehouse.</li>
+</ul>
+<pre><code class="language-python">from airflow import DAG
+from airflow.operators.bash import BashOperator
+from airflow.utils.dates import days_ago
+
+with DAG(
+    dag_id='etl_diario',
+    start_date=days_ago(1),
+    schedule_interval='@daily',
+    catchup=False,
+    tags=['etl', 'datos']
+) as dag:
+    # Tarea 1: Extracción de datos
+    extraer_datos = BashOperator(
+        task_id='extraer_datos',
+        bash_command='python /app/scripts/extraer_datos.py'
+    )
+
+    # Tarea 2: Limpieza de datos
+    limpiar_datos = BashOperator(
+        task_id='limpiar_datos',
+        bash_command='python /app/scripts/limpiar_datos.py'
+    )
+
+    # Tarea 3: Carga de datos
+    cargar_datos = BashOperator(
+        task_id='cargar_datos',
+        bash_command='python /app/scripts/cargar_datos.py'
+    )
+
+    extraer_datos &gt;&gt; limpiar_datos &gt;&gt; cargar_datos
+</code></pre>
+<ul>
+<li><strong>Representación visual del flujo de tareas en la interfaz de Airflow</strong>: Una de las características más destacadas de Airflow es su interfaz de usuario web intuitiva. Esta interfaz permite visualizar el DAG de forma gráfica, mostrando las tareas, sus dependencias y el estado de cada ejecución. Esto facilita el monitoreo y la depuración de los flujos de trabajo.</li>
+<li><strong>Control de versiones y reutilización de DAGs en entornos dev/test/prod</strong>: Dado que los DAGs son código, se benefician de las prácticas de control de versiones (Git, por ejemplo). Esto permite un desarrollo colaborativo, seguimiento de cambios y la promoción de DAGs a través de diferentes entornos (desarrollo, pruebas, producción) de manera controlada y reproducible, asegurando la consistencia del flujo de trabajo en todas las fases.</li>
+</ul>
+<h5 id="operadores-sensores-y-tareas">Operadores, sensores y tareas</h5>
+<p>En Airflow, las <strong>tareas</strong> son las unidades básicas de trabajo que un DAG ejecuta. Estas tareas se definen utilizando <strong>operadores</strong> y <strong>sensores</strong>.</p>
+<ul>
+<li>
+<p><strong>Operadores</strong>: Son clases predefinidas que encapsulan la lógica para ejecutar una acción específica. Airflow ofrece una amplia variedad de operadores para interactuar con diferentes sistemas y tecnologías.</p>
+</li>
+<li>
+<p><strong>BashOperator</strong>: Permite ejecutar comandos de shell. Es útil para scripts sencillos, mover archivos o cualquier comando que pueda ejecutarse en la terminal.</p>
+</li>
+</ul>
+<pre><code class="language-python">from airflow.operators.bash import BashOperator
+# ... dentro de un DAG ...
+ejecutar_script_shell = BashOperator(
+    task_id='ejecutar_script_shell',
+    bash_command='sh /opt/airflow/scripts/mi_script.sh arg1 arg2'
+)
+</code></pre>
+<ul>
+<li><strong>PythonOperator</strong>: Permite ejecutar cualquier función de Python. Esto es extremadamente flexible para lógica de negocio personalizada, transformaciones de datos complejas o integración con bibliotecas de Python.</li>
+</ul>
+<pre><code class="language-python">from airflow.operators.python import PythonOperator
+import pandas as pd
+
+def transformar_datos_py():
+    # Ejemplo: Cargar, transformar y guardar datos con Pandas
+    df = pd.read_csv('/tmp/raw_data.csv')
+    df['columna_nueva'] = df['columna_existente'] * 2
+    df.to_csv('/tmp/transformed_data.csv', index=False)
+    print(&quot;Datos transformados exitosamente con Python.&quot;)
+
+# ... dentro de un DAG ...
+transformacion_python = PythonOperator(
+    task_id='transformacion_python',
+    python_callable=transformar_datos_py
+)
+</code></pre>
+<ul>
+<li><strong>SparkSubmitOperator</strong>: Facilita la ejecución de jobs de Apache Spark en un clúster. Es ideal para procesamientos de Big Data distribuidos.</li>
+</ul>
+<pre><code class="language-python">from airflow.providers.apache.spark.operators.spark_submit import SparkSubmitOperator
+# ... dentro de un DAG ...
+ejecutar_spark_job = SparkSubmitOperator(
+    task_id='ejecutar_spark_job',
+    application='/opt/airflow/dags/spark_jobs/procesar_ventas.py',
+    conn_id='spark_default',  # Conexión Spark configurada en Airflow
+    total_executor_cores='2',
+    executor_memory='2g',
+    num_executors='10',
+    application_args=['--input', '/path/to/input', '--output', '/path/to/output']
+)
+</code></pre>
+<ul>
+<li>
+<p><strong>Sensores</strong>: Son un tipo especial de operador que espera a que se cumpla una condición externa antes de que una tarea pueda continuar. Esto es crucial para flujos de trabajo que dependen de la disponibilidad de recursos o eventos externos.</p>
+</li>
+<li>
+<p><strong>Implementación de un sensor que espera archivos nuevos en S3</strong>: Un <code>S3KeySensor</code> puede ser utilizado para pausar un flujo de trabajo hasta que un archivo específico (o un patrón de archivos) aparezca en un bucket de S3.</p>
+</li>
+</ul>
+<pre><code class="language-python">from airflow.providers.amazon.aws.sensors.s3 import S3KeySensor
+# ... dentro de un DAG ...
+esperar_archivo_s3 = S3KeySensor(
+    task_id='esperar_archivo_s3',
+    bucket_name='mi-bucket-s3',
+    bucket_key='entrada_diaria/{{ ds_nodash }}.csv', # Espera un archivo con la fecha de ejecución
+    aws_conn_id='aws_default',
+    poke_interval=60,  # Chequea cada 60 segundos
+    timeout=60 * 60 * 24 # Timeout de 24 horas
+)
+</code></pre>
+<ul>
+<li><strong>Combinación de tareas condicionales con BranchPythonOperator</strong>: El <code>BranchPythonOperator</code> permite ejecutar una función Python que retorna el <code>task_id</code> de la siguiente tarea a ejecutar, creando así flujos de trabajo condicionales. Esto es útil para ramificar la ejecución basándose en la lógica de negocio o en resultados de tareas previas.</li>
+</ul>
+<pre><code class="language-python">from airflow.operators.python import BranchPythonOperator
+from airflow.operators.dummy import DummyOperator # Utilizado para tareas que no hacen nada
+from random import random
+
+def decidir_ramal():
+    if random() &gt; 0.5:
+        return 'procesar_datos_a'
+    else:
+        return 'procesar_datos_b'
+
+# ... dentro de un DAG ...
+iniciar_proceso = DummyOperator(task_id='iniciar_proceso')
+decidir_camino = BranchPythonOperator(
+    task_id='decidir_camino',
+    python_callable=decidir_ramal
+)
+procesar_datos_a = BashOperator(
+    task_id='procesar_datos_a',
+    bash_command='echo &quot;Procesando datos con la lógica A&quot;'
+)
+procesar_datos_b = BashOperator(
+    task_id='procesar_datos_b',
+    bash_command='echo &quot;Procesando datos con la lógica B&quot;'
+)
+finalizar_proceso = DummyOperator(task_id='finalizar_proceso', trigger_rule='none_failed_min_one_success')
+
+iniciar_proceso &gt;&gt; decidir_camino
+decidir_camino &gt;&gt; [procesar_datos_a, procesar_datos_b]
+[procesar_datos_a, procesar_datos_b] &gt;&gt; finalizar_proceso
+</code></pre>
+<h5 id="gestion-de-dependencias-y-programacion">Gestión de dependencias y programación</h5>
+<p>Una gestión eficiente de las dependencias y la programación es crucial para la estabilidad y el rendimiento de los flujos de trabajo ETL. Airflow proporciona mecanismos robustos para esto.</p>
+<ul>
+<li><strong>Programar un DAG para que se ejecute cada hora y recupere los datos más recientes</strong>: Airflow utiliza el parámetro <code>schedule_interval</code> para definir la frecuencia de ejecución de un DAG. Este puede ser una expresión cron, un <code>timedelta</code>, o una cadena predefinida como <code>@hourly</code>, <code>@daily</code>, etc. Para recuperar los datos más recientes, las tareas dentro del DAG pueden hacer uso de las variables de contexto de Airflow, como <code>{{ ds }}</code> (fecha de ejecución) o <code>{{ data_interval_start }}</code> y <code>{{ data_interval_end }}</code> (rango de tiempo de los datos a procesar).</li>
+</ul>
+<pre><code class="language-python">from airflow import DAG
+from airflow.operators.bash import BashOperator
+from datetime import datetime, timedelta
+
+with DAG(
+    dag_id='ingesta_horaria',
+    start_date=datetime(2023, 1, 1),
+    schedule_interval=timedelta(hours=1), # Ejecución cada hora
+    catchup=False,
+    tags=['ingesta']
+) as dag:
+    ingestar_datos = BashOperator(
+        task_id='ingestar_datos',
+        # Usando macros para el rango de tiempo de ejecución
+        bash_command='python /app/scripts/ingestar_datos.py --start_time {{ data_interval_start }} --end_time {{ data_interval_end }}'
+    )
+</code></pre>
+<ul>
+<li><strong>Gestión de tareas paralelas con <code>depends_on_past=False</code> para mejorar el rendimiento</strong>: Por defecto, las tareas de un DAG pueden tener una dependencia implícita de las ejecuciones previas exitosas. Sin embargo, en muchos escenarios, especialmente con grandes volúmenes de datos, es deseable que las tareas se ejecuten de forma paralela sin esperar la finalización de ejecuciones anteriores del mismo DAG. El parámetro <code>depends_on_past=False</code> a nivel de DAG o tarea permite que una tarea se ejecute incluso si su instancia anterior (de una ejecución previa del DAG) falló o aún no ha terminado, mejorando el rendimiento al permitir el paralelismo en el tiempo.</li>
+<li><strong>Implementación de <code>backfill</code> para recuperar ejecuciones pasadas no procesadas</strong>: Cuando un DAG se define por primera vez o ha estado inactivo y se necesita procesar datos de un período anterior, la función <code>backfill</code> de Airflow es invaluable. Permite ejecutar el DAG para un rango de fechas específico en el pasado, como si el DAG hubiera estado activo y programado durante ese tiempo. Esto es fundamental para cargar datos históricos o para recuperarse de interrupciones prolongadas en el procesamiento. Se puede ejecutar mediante la línea de comandos de Airflow:</li>
+</ul>
+<pre><code class="language-bash">airflow dags backfill -s 2024-01-01 -e 2024-01-31 mi_dag_id
+</code></pre>
+<p>Esto ejecutaría <code>mi_dag_id</code> para cada <code>schedule_interval</code> entre el 1 y el 31 de enero de 2024.</p>
+<h3 id="315-orquestacion-de-tareas-distribuidas">3.1.5 Orquestación de tareas distribuidas</h3>
+<p>La <strong>orquestación de tareas distribuidas</strong> es el proceso de gestionar y coordinar la ejecución de múltiples procesos de datos que operan en sistemas distribuidos. Esto implica no solo controlar cuándo y cómo se ejecutan estas tareas, sino también asegurar que se sincronicen correctamente y que el sistema sea capaz de recuperarse de fallos inesperados. En el contexto de Big Data y ETL, esto es fundamental para manejar volúmenes masivos de información de manera eficiente y confiable.</p>
+<h5 id="coordinacion-temporal-de-tareas">Coordinación temporal de tareas</h5>
+<p>La <strong>coordinación temporal de tareas</strong> se refiere a la capacidad de definir y hacer cumplir el orden y el momento de ejecución de las tareas. Las tareas en un flujo de trabajo de datos a menudo tienen interdependencias, lo que significa que una tarea solo puede comenzar una vez que otra ha finalizado o ha producido ciertos resultados. Los sistemas de orquestación permiten establecer <strong>horarios</strong> fijos (por ejemplo, ejecutar un ETL todas las noches a medianoche), <strong>condiciones de ejecución</strong> (como iniciar una transformación solo si se ha recibido un archivo específico) o <strong>secuencias dependientes</strong> (ejecutar el pre-procesamiento de datos antes de la carga en un <em>data warehouse</em>). Esta coordinación asegura que los datos se procesen en el orden correcto y que se cumplan los acuerdos de nivel de servicio (SLA).</p>
+<p><strong>Ejemplos</strong>:</p>
+<ul>
+<li>
+<p><strong>Pipeline diario que inicia a las 3am y espera la finalización de cargas previas</strong></p>
+<p>Este pipeline implementa un ETL nocturno que procesa datos transaccionales del día anterior. Utiliza <code>schedule_interval='0 3 * * *'</code> para ejecutarse diariamente a las 3:00 AM. La orquestación incluye sensores que verifican la disponibilidad de archivos fuente, tareas de extracción desde múltiples sistemas (CRM, ERP, logs web), transformaciones de limpieza y normalización de datos, y finalmente la carga hacia el data warehouse. Las dependencias aseguran que cada etapa complete exitosamente antes de proceder, con mecanismos de retry automático y alertas por email en caso de fallos. El pipeline también incluye checkpoints de validación que verifican la integridad de los datos antes de cada transformación mayor.</p>
+</li>
+<li>
+<p><strong>Pipeline semanal que consolida los datos de los últimos siete días</strong></p>
+<p>Este proceso se ejecuta cada lunes a las 6:00 AM usando <code>schedule_interval='0 6 * * 1'</code> para generar reportes ejecutivos y métricas de negocio. La orquestación coordina la agregación de datos desde múltiples fuentes diarias ya procesadas, calculando KPIs como retention de usuarios, revenue por segmento, y métricas de calidad de servicio. Incluye tareas paralelas que procesan diferentes dimensiones de análisis (geográfico, demográfico, temporal), seguidas por una tarea de consolidación final que genera dashboards actualizados y envía reportes automatizados a stakeholders. El pipeline implementa branching logic para manejar semanas con días festivos o datos faltantes.</p>
+</li>
+<li>
+<p><strong>Tarea condicional que solo se ejecute si la calidad de los datos supera cierto umbral</strong></p>
+<p>Esta implementación utiliza <code>BranchPythonOperator</code> para evaluar métricas de calidad como completitud, consistencia y validez de los datos. La función de decisión consulta reglas de negocio predefinidas (por ejemplo, &lt;5% de valores nulos, fechas dentro de rangos esperados, concordancia entre sistemas). Si los datos pasan las validaciones, se ejecuta el flujo principal de procesamiento; si no, se activa un flujo alternativo que registra los problemas, notifica al equipo de datos, y potencialmente ejecuta rutinas de limpieza automática. La orquestación incluye tareas downstream que solo se ejecutan tras confirmación manual o automática de que los datos corregidos cumplen los estándares de calidad.</p>
+</li>
+<li>
+<p><strong>Pipeline de ML con reentrenamiento condicional basado en drift de datos</strong></p>
+<p>Este pipeline monitorea continuamente la performance de modelos de machine learning en producción. Se ejecuta cada 4 horas usando sensores que evalúan métricas como accuracy, precision y recall contra umbrales predefinidos. Cuando detecta degradación del modelo (data drift o concept drift), automaticamente activa un flujo de reentrenamiento que incluye feature engineering actualizado, validación cruzada, y despliegue A/B testing del nuevo modelo. La orquestación coordina tareas paralelas para entrenar múltiples algoritmos, seleccionar el mejor performante, y actualizar gradualmente el modelo en producción solo después de validaciones exhaustivas en ambiente staging.</p>
+</li>
+<li>
+<p><strong>Pipeline de procesamiento de eventos en tiempo real con ventanas deslizantes</strong></p>
+<p>Este flujo procesa streams de datos de IoT o clickstream usando ventanas temporales de 15 minutos que se solapan cada 5 minutos. La orquestación maneja la complejidad de procesar datos que llegan con diferentes latencias, implementando buffers y mecanismos de ordenamiento temporal. Las tareas incluyen detección de anomalías en tiempo real, cálculo de métricas agregadas (promedios móviles, percentiles), y triggers automáticos para alertas cuando se detectan patrones críticos. El pipeline coordina la persistencia de resultados en sistemas OLTP para consultas rápidas y OLAP para análisis histórico, manejando backpressure y failover automático entre clusters de procesamiento.</p>
+</li>
+<li>
+<p><strong>Pipeline de compliance y auditoría con retención de datos personalizada</strong></p>
+<p>Este sistema implementa políticas de governanza de datos automatizadas que se ejecutan mensualmente para cumplir regulaciones como GDPR o HIPAA. La orquestación coordina tareas que identifican datos sensibles usando classificación automática, aplican técnicas de anonimización o pseudonimización según políticas definidas, y gestionan la retención/eliminación de datos basada en reglas legales específicas por jurisdicción. Incluye generación automática de reportes de compliance, logs de auditoría inmutables, y workflows de aprobación que requieren intervención humana para operaciones críticas como eliminación masiva de datos personales o cambios en políticas de retención.</p>
+</li>
+</ul>
+<h5 id="distribucion-de-cargas-y-escalabilidad">Distribución de cargas y escalabilidad</h5>
+<p>La <strong>distribución de cargas y escalabilidad</strong> es una de las mayores ventajas de la orquestación en entornos distribuidos. Al diseñar los flujos de trabajo para que se ejecuten en paralelo o en nodos separados, es posible procesar grandes volúmenes de datos de manera mucho más rápida y eficiente. Esto permite que el sistema <strong>escale horizontalmente</strong>, lo que significa que se pueden añadir más recursos (nodos o máquinas) para manejar un aumento en la demanda de procesamiento sin afectar el rendimiento. Los orquestadores facilitan la asignación dinámica de recursos y la gestión de la concurrencia.</p>
+<p><strong>Ejemplos</strong>:</p>
+<ul>
+<li>
+<p><strong>Ejecución paralela de tareas de carga para múltiples regiones geográficas</strong></p>
+<p>Imagina una empresa global que recopila datos de ventas de sus operaciones en Norteamérica, Europa y Asia. Un sistema de orquestación podría lanzar simultáneamente tres tareas de carga de datos, una para cada región, cada una procesando los datos de su respectiva fuente en paralelo. Esto reduce significativamente el tiempo total necesario para cargar todos los datos, en comparación con un enfoque secuencial.</p>
+</li>
+<li>
+<p><strong>Distribución de la transformación por particiones de tiempo usando Spark</strong></p>
+<p>Considera un <em>pipeline</em> ETL que procesa grandes volúmenes de datos transaccionales diarios. Usando Apache Spark, un orquestador podría dividir la transformación de los datos en <strong>particiones de tiempo</strong>. Por ejemplo, los datos de la primera mitad del día se procesan en un conjunto de <em>workers</em> de Spark, mientras que los datos de la segunda mitad se procesan simultáneamente en otro conjunto. Esto maximiza la utilización de recursos y acelera la finalización de la transformación.</p>
+</li>
+<li>
+<p><strong>Escalado automático de <em>workers</em> de Airflow según la demanda de procesamiento</strong></p>
+<p>Si un flujo de trabajo de datos tiene picos de demanda (por ejemplo, a fin de mes cuando se generan informes), un orquestador como Apache Airflow, integrado con plataformas de nube (AWS, GCP, Azure), puede configurarse para <strong>escalar automáticamente</strong> el número de <em>workers</em> disponibles. Durante los períodos de alta carga, se aprovisionan más <em>workers</em> para manejar las tareas concurrentes, y una vez que la demanda disminuye, los <em>workers</em> adicionales se desaprovisionan para optimizar costos.</p>
+</li>
+</ul>
+<h2 id="tarea">Tarea</h2>
+<ol>
+<li>Diseña un pipeline ETL en pseudocódigo que extraiga datos desde una base de datos PostgreSQL, los transforme en Spark y los cargue en un bucket S3 particionado por fecha.</li>
+<li>Compara las ventajas y desventajas de ETL y ELT en el contexto de una empresa que utiliza Snowflake como data warehouse.</li>
+<li>Define un DAG de Airflow simple que incluya tres tareas secuenciales: lectura de archivo, transformación y carga en base de datos.</li>
+<li>Identifica tres puntos donde aplicarías modularidad en un pipeline ETL y justifica su beneficio.</li>
+<li>Escribe una estrategia de orquestación para un pipeline que debe ejecutarse cada 15 minutos y detectar datos faltantes si alguna ejecución falla.</li>
+</ol>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
         <a href="../tema24/" class="btn btn-neutral float-left" title="Optimización y Rendimiento"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../tema32/" class="btn btn-neutral float-right" title="Conexión a múltiples fuentes">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../tema32/" class="btn btn-neutral float-right" title="Conexión a Múltiples Fuentes de Datos">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>

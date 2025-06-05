@@ -5,15 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Tema docker - Métodos de Procesamiento y Análisis de Big Data</title>
+    <title>Seguridad en ETL y Protección de Datos - Métodos de Procesamiento y Análisis de Big Data</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Tema docker";
-        var mkdocs_page_input_path = "tema_docker.md";
+        var mkdocs_page_name = "Seguridad en ETL y Protecci\u00f3n de Datos";
+        var mkdocs_page_input_path = "tema36.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -68,7 +68,7 @@
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Arquitectura y Diseño de Flujos ETL</span></p>
-              <ul>
+              <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../tema31/">Diseño y Orquestación de Pipelines ETL</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tema32/">Conexión a Múltiples Fuentes de Datos</a>
@@ -79,7 +79,11 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tema35/">Monitorización y Troubleshooting de Pipelines</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema36/">Seguridad en ETL y Protección de Datos</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Seguridad en ETL y Protección de Datos</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#tema-36-seguridad-en-etl-y-proteccion-de-datos">Tema 3.6. Seguridad en ETL y Protección de Datos</a>
+    </li>
+    </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tema37/">Patrones de Diseño y Optimización en la Nube</a>
                   </li>
@@ -118,7 +122,8 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Tema docker</li>
+          <li class="breadcrumb-item">Arquitectura y Diseño de Flujos ETL</li>
+      <li class="breadcrumb-item active">Seguridad en ETL y Protección de Datos</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -127,49 +132,16 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <p><a href="../">← Volver al Inicio</a></p>
-<h1 id="instalacion-y-configuracion-de-docker-y-wsl2">Instalación y Configuración de Docker y WSL2</h1>
-<p>Para trabajar cómodamente con <a href="https://spark.apache.org/">Spark</a> y <a href="https://jupyter.org/">Jupyter</a>, es recomendable usar <a href="https://www.docker.com/">Docker</a> en combinación con <a href="https://learn.microsoft.com/es-es/windows/wsl/install">WSL2</a> (Windows Subsystem for Linux). Esto garantizará un entorno flexible y eficiente para el desarrollo.</p>
-<p><strong>Docker</strong> en Windows requiere virtualización por hardware habilitada en el BIOS, una versión superior a <strong>Windows 10</strong> <code>1607</code>+ o soporte para Hyper-V,</p>
-<p>La forma más fácil para correr <strong>Docker</strong> en Windows, es configurarlo para utilizar <strong>WSL2</strong> (<em>Windows Subsystem para Linux</em>).</p>
-<h2 id="1-instalacion-de-wsl2">1. Instalación de WSL2</h2>
-<ul>
-<li>Para Habilitar WSL2, abre una ventana de <strong>PowerShell</strong> como administrador y ejecuta:</li>
-</ul>
-<pre><code class="language-powershell">wsl --install
-</code></pre>
-<ul>
-<li>Asegurate que WSL2 está ejecutando la última versión con el comando:</li>
-</ul>
-<pre><code class="language-powershell">wsl --update
-</code></pre>
-<ul>
-<li>Abre una ventana de <strong>Ubuntu</strong> desde el menú de inicio, y configura usuario y contraseña.  </li>
-</ul>
-<h2 id="2-instalacion-de-docker">2. Instalación de Docker</h2>
-<p><strong>Docker</strong> permitirá ejecutar <strong>Spark</strong> y <strong>Jupyter</strong> en contenedores sin complicaciones.</p>
-<ul>
-<li>
-<p>Descarga <strong>Docker Desktop</strong> para Windows desde el <a href="https://docs.docker.com/desktop/install/windows-install/">sitio web oficial</a> y sigue las instrucciones.</p>
-</li>
-<li>
-<p>Activa el uso de WSL2, abriendo el programa <strong>Docker Desktop</strong>, ir al menú <strong>Settings</strong>, pestaña <strong>General</strong> y activar <strong>Use the WSL 2 based engine</strong>, luego haz click en <strong>Apply &amp; Restart</strong> y listo.</p>
-</li>
-<li>
-<p>Verifica la instalación con este comando:</p>
-</li>
-</ul>
-<pre><code class="language-bash">docker --version
-</code></pre>
-<h2 id="3-ejecutando-un-contenedor-de-ejemplo">3. Ejecutando un contenedor de ejemplo</h2>
-<p>Ya tienes instalado <strong>Docker</strong>, es el momento de ejecutar tu primer contenedor, usando el siguiente comando: </p>
-<pre><code class="language-bash">docker run hello-world
-</code></pre>
-<p>Ese contenedor solo sirve para probar que Docker funciona, hay más imágenes preconstruidas en <a href="https://hub.docker.com/">Docker Hub</a> que puedes utilizar para ejecutar otros servicios.</p>
-<p><a href="../">← Volver al Inicio</a></p>
+                <h1 id="3-arquitectura-y-diseno-de-flujos-etl">3. Arquitectura y Diseño de Flujos ETL</h1>
+<h2 id="tema-36-seguridad-en-etl-y-proteccion-de-datos">Tema 3.6. Seguridad en ETL y Protección de Datos</h2>
+<p><em>Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.</em></p>
               
             </div>
           </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../tema35/" class="btn btn-neutral float-left" title="Monitorización y Troubleshooting de Pipelines"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../tema37/" class="btn btn-neutral float-right" title="Patrones de Diseño y Optimización en la Nube">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
 
   <hr/>
 
@@ -191,6 +163,10 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
+      <span><a href="../tema35/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../tema37/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

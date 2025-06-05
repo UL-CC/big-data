@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Conexión a múltiples fuentes - Métodos de Procesamiento y Análisis de Big Data</title>
+    <title>Conexión a Múltiples Fuentes de Datos - Métodos de Procesamiento y Análisis de Big Data</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Conexi\u00f3n a m\u00faltiples fuentes";
+        var mkdocs_page_name = "Conexi\u00f3n a M\u00faltiples Fuentes de Datos";
         var mkdocs_page_input_path = "tema32.md";
         var mkdocs_page_url = null;
       </script>
@@ -69,19 +69,77 @@
               </ul>
               <p class="caption"><span class="caption-text">Arquitectura y Diseño de Flujos ETL</span></p>
               <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="../tema31/">Diseño de pipelines ETL</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema31/">Diseño y Orquestación de Pipelines ETL</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Conexión a múltiples fuentes</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Conexión a Múltiples Fuentes de Datos</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#tema-32-conexion-a-multiples-fuentes">Tema 3.2. Conexión a múltiples fuentes</a>
+    <li class="toctree-l2"><a class="reference internal" href="#tema-32-conexion-a-multiples-fuentes-de-datos">Tema 3.2. Conexión a Múltiples Fuentes de Datos</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#321-tipos-de-fuentes-comunes">3.2.1 Tipos de fuentes comunes</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#bases-de-datos-relacionales-postgresql-mysql">Bases de datos relacionales (PostgreSQL, MySQL)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#almacenes-nosql-mongodb-cassandra">Almacenes NoSQL (MongoDB, Cassandra)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#archivos-planos-csv-json-parquet">Archivos planos (CSV, JSON, Parquet)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#apis-y-servicios-web">APIs y servicios web</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#322-conectores-spark-jdbc-filesource-delta-etc">3.2.2 Conectores Spark: JDBC, FileSource, Delta, etc.</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#conectores-jdbc">Conectores JDBC</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#filesource-y-formatos-soportados">FileSource y formatos soportados</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#conector-delta-lake">Conector Delta Lake</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#323-airflow-uso-de-hooks-y-connections">3.2.3 Airflow: uso de Hooks y Connections</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#hooks-en-airflow">Hooks en Airflow</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#connections-y-variables">Connections y Variables</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#mejores-practicas-para-hooks-y-connections">Mejores Prácticas para Hooks y Connections</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#ejemplo-avanzado-pipeline-completo-con-multiples-hooks">Ejemplo Avanzado: Pipeline Completo con Múltiples Hooks</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#324-lectura-incremental-vs-completa">3.2.4 Lectura incremental vs. completa</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#lectura-completa-full-load">Lectura completa (full load)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#lectura-incremental">Lectura incremental</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#325-gestion-de-autenticacion-y-configuracion-segura">3.2.5 Gestión de autenticación y configuración segura</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#uso-de-variables-y-secretos">Uso de variables y secretos</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#autenticacion-en-servicios-y-apis">Autenticación en servicios y APIs</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tarea">Tarea</a>
     </li>
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema33/">Procesos escalables y particionamiento</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema33/">Procesamiento Escalable y Particionamiento</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema34/">Buenas prácticas para ETL en Spark</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema34/">Manejo de Esquemas y Calidad de Datos</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema35/">Introducción a Apache Airflow</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema35/">Monitorización y Troubleshooting de Pipelines</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema36/">Seguridad en ETL y Protección de Datos</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema37/">Patrones de Diseño y Optimización en la Nube</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Automatización y Orquestación con Apache Airflow</span></p>
@@ -90,7 +148,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tema42/">Instalación local usando Docker</a>
                   </li>
-                  <li class="toctree-l1"><a class="" href="../tema43.md">DAGs, operadores y tareas</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema43/">DAGs, operadores y tareas</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tema44/">Uso de `BashOperator`, `PythonOperator` y `SparkSubmitOperator`</a>
                   </li>
@@ -101,7 +159,7 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../tema51/">Desarrollo del proyecto integrador</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema51/">Desarrollo del proyecto integrador</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema52/">Despliegue en nube</a>
                   </li>
               </ul>
       </div>
@@ -119,7 +177,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
           <li class="breadcrumb-item">Arquitectura y Diseño de Flujos ETL</li>
-      <li class="breadcrumb-item active">Conexión a múltiples fuentes</li>
+      <li class="breadcrumb-item active">Conexión a Múltiples Fuentes de Datos</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -129,14 +187,3630 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="3-arquitectura-y-diseno-de-flujos-etl">3. Arquitectura y Diseño de Flujos ETL</h1>
-<h2 id="tema-32-conexion-a-multiples-fuentes">Tema 3.2. Conexión a múltiples fuentes</h2>
-<p><em>Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.</em></p>
+<h2 id="tema-32-conexion-a-multiples-fuentes-de-datos">Tema 3.2. Conexión a Múltiples Fuentes de Datos</h2>
+<p><strong>Objetivo</strong>:</p>
+<p>Comprender cómo integrar múltiples tipos de fuentes de datos —estructuradas, semiestructuradas y no estructuradas— en un pipeline ETL, utilizando herramientas como Apache Spark y Apache Airflow. Esto incluye el uso de conectores apropiados, estrategias de autenticación segura, y técnicas de lectura eficientes.</p>
+<p><strong>Introducción</strong>:</p>
+<p>En entornos Big Data, los datos se originan desde diversas fuentes con distintos formatos, velocidades y estructuras. La capacidad de extraer datos de múltiples orígenes y consolidarlos de manera eficiente en un pipeline ETL es clave para cualquier sistema analítico moderno. Este tema explora las fuentes de datos más comunes y cómo integrarlas usando tecnologías como Spark y Airflow.</p>
+<p><strong>Desarrollo</strong>:</p>
+<p>La integración de múltiples fuentes en un pipeline ETL implica tanto desafíos técnicos como de gobernanza. Cada tipo de fuente —bases de datos, archivos, APIs— requiere técnicas y conectores específicos. Además, aspectos como la autenticación segura, la lectura incremental y el manejo de configuraciones son fundamentales para construir flujos de datos robustos y escalables. Spark y Airflow ofrecen mecanismos potentes para esta integración, facilitando el desarrollo de pipelines mantenibles y eficientes.</p>
+<h3 id="321-tipos-de-fuentes-comunes">3.2.1 Tipos de fuentes comunes</h3>
+<p>La diversidad de fuentes de datos implica conocer sus características y particularidades para una integración adecuada en el pipeline. Cada tipo de fuente presenta desafíos únicos en términos de conectividad, formato de datos, escalabilidad y optimización de rendimiento.</p>
+<h5 id="bases-de-datos-relacionales-postgresql-mysql">Bases de datos relacionales (PostgreSQL, MySQL)</h5>
+<p>Las bases de datos relacionales constituyen el backbone de muchas organizaciones, almacenando datos estructurados con esquemas bien definidos y relaciones entre tablas. Estas fuentes requieren conexión vía JDBC (Java Database Connectivity) y ofrecen la ventaja de poder ejecutar consultas SQL complejas directamente en la fuente, reduciendo la transferencia de datos innecesarios.</p>
+<p>Para una integración efectiva, es crucial considerar aspectos como la partición de datos, el control de paralelismo para evitar sobrecargar la base de datos origen, y la gestión de transacciones. Spark permite configurar parámetros como <code>numPartitions</code>, <code>lowerBound</code>, <code>upperBound</code> y <code>partitionColumn</code> para optimizar la lectura distribuida.</p>
+<p><strong>Usar JDBC en Spark para leer de PostgreSQL y transformar los resultados</strong>:</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+
+# Configuración de Spark con driver JDBC
+spark = SparkSession.builder \
+    .appName(&quot;PostgreSQL_ETL&quot;) \
+    .config(&quot;spark.jars&quot;, &quot;/path/to/postgresql-42.6.0.jar&quot;) \
+    .getOrCreate()
+
+# Configuración de conexión
+jdbc_url = &quot;jdbc:postgresql://localhost:5432/production_db&quot;
+connection_properties = {
+    &quot;user&quot;: &quot;spark_user&quot;,
+    &quot;password&quot;: &quot;secure_password&quot;,
+    &quot;driver&quot;: &quot;org.postgresql.Driver&quot;,
+    &quot;numPartitions&quot;: &quot;4&quot;,
+    &quot;partitionColumn&quot;: &quot;id&quot;,
+    &quot;lowerBound&quot;: &quot;1&quot;,
+    &quot;upperBound&quot;: &quot;1000000&quot;
+}
+
+# Lectura optimizada con particionamiento
+df = spark.read \
+    .jdbc(url=jdbc_url, 
+          table=&quot;(SELECT * FROM sales WHERE created_date &gt;= '2024-01-01') as sales_subset&quot;,
+          properties=connection_properties)
+
+# Transformaciones sobre los datos
+df_transformed = df \
+    .filter(df.amount &gt; 100) \
+    .groupBy(&quot;customer_id&quot;, &quot;product_category&quot;) \
+    .agg(
+        sum(&quot;amount&quot;).alias(&quot;total_sales&quot;),
+        count(&quot;order_id&quot;).alias(&quot;order_count&quot;),
+        avg(&quot;amount&quot;).alias(&quot;avg_order_value&quot;)
+    )
+
+# Escritura a formato optimizado
+df_transformed.write \
+    .mode(&quot;overwrite&quot;) \
+    .parquet(&quot;s3://data-lake/processed/sales_summary/&quot;)
+</code></pre>
+<p><strong>Ejecutar consultas filtradas desde Airflow para limitar la carga de datos</strong>:</p>
+<pre><code class="language-python">from airflow import DAG
+from airflow.providers.postgres.operators.postgres import PostgresOperator
+from airflow.providers.spark.operators.spark_submit import SparkSubmitOperator
+from airflow.providers.postgres.hooks.postgres import PostgresHook
+from datetime import datetime, timedelta
+
+default_args = {
+    'owner': 'data-team',
+    'depends_on_past': False,
+    'start_date': datetime(2024, 1, 1),
+    'email_on_failure': True,
+    'email_on_retry': False,
+    'retries': 2,
+    'retry_delay': timedelta(minutes=5)
+}
+
+dag = DAG(
+    'postgresql_incremental_etl',
+    default_args=default_args,
+    description='ETL incremental desde PostgreSQL',
+    schedule_interval='@daily',
+    catchup=False
+)
+
+# Operador para extraer datos incrementales
+extract_incremental_data = PostgresOperator(
+    task_id='extract_incremental_data',
+    postgres_conn_id='postgres_production',
+    sql=&quot;&quot;&quot;
+        CREATE TEMP TABLE temp_incremental_data AS
+        SELECT 
+            customer_id,
+            order_date,
+            product_id,
+            quantity,
+            unit_price,
+            total_amount
+        FROM orders 
+        WHERE order_date &gt;= '{{ ds }}' 
+        AND order_date &lt; '{{ next_ds }}'
+        AND status = 'completed';
+
+        COPY temp_incremental_data TO '/tmp/incremental_data_{{ ds }}.csv' 
+        WITH CSV HEADER;
+    &quot;&quot;&quot;,
+    dag=dag
+)
+
+# Función personalizada para transferir datos
+def transfer_to_spark(**context):
+    postgres_hook = PostgresHook(postgres_conn_id='postgres_production')
+
+    # Consulta optimizada con límites
+    sql_query = f&quot;&quot;&quot;
+        SELECT * FROM orders 
+        WHERE order_date = '{context['ds']}'
+        AND total_amount &gt; 0
+        ORDER BY order_id
+        LIMIT 100000
+    &quot;&quot;&quot;
+
+    # Exportar a formato intermedio
+    df = postgres_hook.get_pandas_df(sql_query)
+    df.to_parquet(f&quot;/tmp/orders_{context['ds']}.parquet&quot;)
+
+    return f&quot;/tmp/orders_{context['ds']}.parquet&quot;
+
+transfer_task = PythonOperator(
+    task_id='transfer_to_staging',
+    python_callable=transfer_to_spark,
+    dag=dag
+)
+
+extract_incremental_data &gt;&gt; transfer_task
+</code></pre>
+<h5 id="almacenes-nosql-mongodb-cassandra">Almacenes NoSQL (MongoDB, Cassandra)</h5>
+<p>Los almacenes NoSQL ofrecen flexibilidad de esquema y están diseñados para manejar grandes volúmenes de datos semiestructurados con alta disponibilidad y escalabilidad horizontal. MongoDB es ideal para documentos JSON complejos, mientras que Cassandra sobresale en casos de uso que requieren escrituras masivas y alta disponibilidad.</p>
+<p>La integración con estos sistemas requiere conectores específicos y consideraciones especiales para el particionamiento y la distribución de carga. Es importante entender los patrones de acceso a datos y las limitaciones de cada sistema para optimizar las consultas.</p>
+<p><strong>Ingestar documentos de MongoDB con Spark para análisis de logs</strong>:</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+from pyspark.sql.functions import *
+from pyspark.sql.types import *
+
+# Configuración de Spark con conector MongoDB
+spark = SparkSession.builder \
+    .appName(&quot;MongoDB_Log_Analysis&quot;) \
+    .config(&quot;spark.mongodb.input.uri&quot;, &quot;mongodb://localhost:27017/logs.application_logs&quot;) \
+    .config(&quot;spark.mongodb.output.uri&quot;, &quot;mongodb://localhost:27017/analytics.processed_logs&quot;) \
+    .config(&quot;spark.jars.packages&quot;, &quot;org.mongodb.spark:mongo-spark-connector_2.12:3.0.1&quot;) \
+    .getOrCreate()
+
+# Lectura de documentos con filtros a nivel de MongoDB
+df_logs = spark.read \
+    .format(&quot;mongo&quot;) \
+    .option(&quot;collection&quot;, &quot;application_logs&quot;) \
+    .option(&quot;pipeline&quot;, '[{&quot;$match&quot;: {&quot;timestamp&quot;: {&quot;$gte&quot;: {&quot;$date&quot;: &quot;2024-01-01T00:00:00Z&quot;}}}}]') \
+    .load()
+
+# Análisis de logs con transformaciones complejas
+df_analyzed = df_logs \
+    .withColumn(&quot;hour&quot;, hour(col(&quot;timestamp&quot;))) \
+    .withColumn(&quot;log_level&quot;, upper(col(&quot;level&quot;))) \
+    .withColumn(&quot;response_time_ms&quot;, col(&quot;response_time&quot;).cast(&quot;integer&quot;)) \
+    .filter(col(&quot;response_time_ms&quot;).isNotNull()) \
+    .groupBy(&quot;hour&quot;, &quot;log_level&quot;, &quot;service_name&quot;) \
+    .agg(
+        count(&quot;*&quot;).alias(&quot;log_count&quot;),
+        avg(&quot;response_time_ms&quot;).alias(&quot;avg_response_time&quot;),
+        max(&quot;response_time_ms&quot;).alias(&quot;max_response_time&quot;),
+        countDistinct(&quot;user_id&quot;).alias(&quot;unique_users&quot;)
+    )
+
+# Detección de anomalías
+df_anomalies = df_analyzed \
+    .filter(
+        (col(&quot;avg_response_time&quot;) &gt; 5000) | 
+        (col(&quot;log_level&quot;) == &quot;ERROR&quot;) |
+        (col(&quot;log_count&quot;) &gt; 10000)
+    )
+
+# Escritura de resultados procesados
+df_analyzed.write \
+    .format(&quot;mongo&quot;) \
+    .option(&quot;collection&quot;, &quot;hourly_metrics&quot;) \
+    .mode(&quot;overwrite&quot;) \
+    .save()
+
+df_anomalies.write \
+    .format(&quot;mongo&quot;) \
+    .option(&quot;collection&quot;, &quot;detected_anomalies&quot;) \
+    .mode(&quot;append&quot;) \
+    .save()
+</code></pre>
+<p><strong>Usar Cassandra para almacenar datos de sensores IoT y analizarlos por lotes</strong>:</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+from pyspark.sql.functions import *
+from pyspark.sql.types import *
+
+# Configuración para Cassandra
+spark = SparkSession.builder \
+    .appName(&quot;IoT_Sensor_Analytics&quot;) \
+    .config(&quot;spark.cassandra.connection.host&quot;, &quot;cassandra-cluster.example.com&quot;) \
+    .config(&quot;spark.cassandra.connection.port&quot;, &quot;9042&quot;) \
+    .config(&quot;spark.cassandra.auth.username&quot;, &quot;spark_user&quot;) \
+    .config(&quot;spark.cassandra.auth.password&quot;, &quot;secure_password&quot;) \
+    .config(&quot;spark.jars.packages&quot;, &quot;com.datastax.spark:spark-cassandra-connector_2.12:3.2.0&quot;) \
+    .getOrCreate()
+
+# Lectura de datos de sensores con filtros optimizados
+df_sensor_data = spark.read \
+    .format(&quot;org.apache.spark.sql.cassandra&quot;) \
+    .options(table=&quot;sensor_readings&quot;, keyspace=&quot;iot_data&quot;) \
+    .option(&quot;spark.cassandra.input.split.size_in_mb&quot;, &quot;512&quot;) \
+    .load() \
+    .filter(col(&quot;timestamp&quot;) &gt;= lit(&quot;2024-01-01&quot;)) \
+    .filter(col(&quot;sensor_type&quot;).isin([&quot;temperature&quot;, &quot;humidity&quot;, &quot;pressure&quot;]))
+
+# Análisis de tendencias y agregaciones
+df_hourly_aggregates = df_sensor_data \
+    .withColumn(&quot;hour_bucket&quot;, date_trunc(&quot;hour&quot;, col(&quot;timestamp&quot;))) \
+    .groupBy(&quot;device_id&quot;, &quot;sensor_type&quot;, &quot;location&quot;, &quot;hour_bucket&quot;) \
+    .agg(
+        avg(&quot;value&quot;).alias(&quot;avg_value&quot;),
+        min(&quot;value&quot;).alias(&quot;min_value&quot;),
+        max(&quot;value&quot;).alias(&quot;max_value&quot;),
+        stddev(&quot;value&quot;).alias(&quot;stddev_value&quot;),
+        count(&quot;*&quot;).alias(&quot;reading_count&quot;)
+    )
+
+# Detección de valores anómalos usando ventanas
+from pyspark.sql.window import Window
+
+window_spec = Window.partitionBy(&quot;device_id&quot;, &quot;sensor_type&quot;).orderBy(&quot;hour_bucket&quot;)
+
+df_with_trends = df_hourly_aggregates \
+    .withColumn(&quot;prev_avg&quot;, lag(&quot;avg_value&quot;).over(window_spec)) \
+    .withColumn(&quot;value_change&quot;, col(&quot;avg_value&quot;) - col(&quot;prev_avg&quot;)) \
+    .withColumn(&quot;is_anomaly&quot;, 
+                when(abs(col(&quot;value_change&quot;)) &gt; 3 * col(&quot;stddev_value&quot;), True)
+                .otherwise(False))
+
+# Escritura optimizada a Cassandra con TTL
+df_hourly_aggregates.write \
+    .format(&quot;org.apache.spark.sql.cassandra&quot;) \
+    .options(table=&quot;hourly_sensor_metrics&quot;, keyspace=&quot;iot_analytics&quot;) \
+    .option(&quot;spark.cassandra.output.ttl&quot;, &quot;2592000&quot;) \
+    .mode(&quot;append&quot;) \
+    .save()
+
+# Almacenar anomalías para alertas
+df_anomalies = df_with_trends.filter(col(&quot;is_anomaly&quot;) == True)
+df_anomalies.write \
+    .format(&quot;org.apache.spark.sql.cassandra&quot;) \
+    .options(table=&quot;sensor_anomalies&quot;, keyspace=&quot;iot_alerts&quot;) \
+    .mode(&quot;append&quot;) \
+    .save()
+</code></pre>
+<h5 id="archivos-planos-csv-json-parquet">Archivos planos (CSV, JSON, Parquet)</h5>
+<p>Los archivos planos representan una forma común de almacenar y intercambiar datos, especialmente en arquitecturas de data lake. Cada formato tiene sus ventajas: CSV para simplicidad e interoperabilidad, JSON para datos semiestructurados, y Parquet para optimización de almacenamiento y consultas analíticas.</p>
+<p>Spark proporciona APIs nativas optimizadas para estos formatos, con capacidades avanzadas como lectura schema-on-read, particionamiento automático, y optimizaciones de predicados pushdown en el caso de Parquet.</p>
+<p><strong>Leer archivos CSV con Spark y aplicar transformaciones</strong>:</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+from pyspark.sql.functions import *
+from pyspark.sql.types import *
+
+spark = SparkSession.builder \
+    .appName(&quot;CSV_Processing_Pipeline&quot;) \
+    .config(&quot;spark.sql.adaptive.enabled&quot;, &quot;true&quot;) \
+    .config(&quot;spark.sql.adaptive.coalescePartitions.enabled&quot;, &quot;true&quot;) \
+    .getOrCreate()
+
+# Definición de schema para optimizar la lectura
+sales_schema = StructType([
+    StructField(&quot;transaction_id&quot;, StringType(), False),
+    StructField(&quot;customer_id&quot;, IntegerType(), True),
+    StructField(&quot;product_id&quot;, StringType(), True),
+    StructField(&quot;quantity&quot;, IntegerType(), True),
+    StructField(&quot;unit_price&quot;, DecimalType(10,2), True),
+    StructField(&quot;discount&quot;, DecimalType(5,2), True),
+    StructField(&quot;transaction_date&quot;, DateType(), True),
+    StructField(&quot;store_location&quot;, StringType(), True)
+])
+
+# Lectura optimizada de múltiples archivos CSV
+df_sales = spark.read \
+    .option(&quot;header&quot;, &quot;true&quot;) \
+    .option(&quot;inferSchema&quot;, &quot;false&quot;) \
+    .option(&quot;timestampFormat&quot;, &quot;yyyy-MM-dd HH:mm:ss&quot;) \
+    .option(&quot;multiline&quot;, &quot;true&quot;) \
+    .option(&quot;escape&quot;, '&quot;') \
+    .schema(sales_schema) \
+    .csv(&quot;s3://data-lake/raw/sales/2024/*/sales_*.csv&quot;)
+
+# Limpieza y validación de datos
+df_cleaned = df_sales \
+    .filter(col(&quot;quantity&quot;) &gt; 0) \
+    .filter(col(&quot;unit_price&quot;) &gt; 0) \
+    .withColumn(&quot;total_amount&quot;, 
+                col(&quot;quantity&quot;) * col(&quot;unit_price&quot;) * (1 - col(&quot;discount&quot;)/100)) \
+    .withColumn(&quot;year_month&quot;, date_format(col(&quot;transaction_date&quot;), &quot;yyyy-MM&quot;)) \
+    .withColumn(&quot;day_of_week&quot;, dayofweek(col(&quot;transaction_date&quot;))) \
+    .filter(col(&quot;total_amount&quot;).isNotNull())
+
+# Agregaciones para análisis de ventas
+df_sales_summary = df_cleaned \
+    .groupBy(&quot;year_month&quot;, &quot;store_location&quot;, &quot;day_of_week&quot;) \
+    .agg(
+        sum(&quot;total_amount&quot;).alias(&quot;total_revenue&quot;),
+        sum(&quot;quantity&quot;).alias(&quot;total_units_sold&quot;),
+        countDistinct(&quot;customer_id&quot;).alias(&quot;unique_customers&quot;),
+        avg(&quot;total_amount&quot;).alias(&quot;avg_transaction_value&quot;),
+        count(&quot;transaction_id&quot;).alias(&quot;transaction_count&quot;)
+    ) \
+    .withColumn(&quot;revenue_per_customer&quot;, 
+                col(&quot;total_revenue&quot;) / col(&quot;unique_customers&quot;))
+
+# Escritura particionada para optimizar consultas futuras
+df_sales_summary.write \
+    .partitionBy(&quot;year_month&quot;) \
+    .mode(&quot;overwrite&quot;) \
+    .option(&quot;compression&quot;, &quot;snappy&quot;) \
+    .parquet(&quot;s3://data-lake/processed/sales_summary/&quot;)
+
+# Cache para reutilización en múltiples análisis
+df_cleaned.cache()
+
+# Análisis adicional: productos top por ubicación
+df_top_products = df_cleaned \
+    .groupBy(&quot;store_location&quot;, &quot;product_id&quot;) \
+    .agg(sum(&quot;quantity&quot;).alias(&quot;total_sold&quot;)) \
+    .withColumn(&quot;rank&quot;, 
+                row_number().over(
+                    Window.partitionBy(&quot;store_location&quot;)
+                    .orderBy(desc(&quot;total_sold&quot;))
+                )) \
+    .filter(col(&quot;rank&quot;) &lt;= 10)
+
+df_top_products.write \
+    .mode(&quot;overwrite&quot;) \
+    .json(&quot;s3://data-lake/analytics/top_products_by_location/&quot;)
+</code></pre>
+<p><strong>Ingerir JSON de logs web para análisis de tráfico</strong>:</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+from pyspark.sql.functions import *
+from pyspark.sql.types import *
+
+spark = SparkSession.builder \
+    .appName(&quot;Web_Logs_Traffic_Analysis&quot;) \
+    .config(&quot;spark.sql.adaptive.enabled&quot;, &quot;true&quot;) \
+    .getOrCreate()
+
+# Lectura de logs JSON con schema flexible
+df_logs = spark.read \
+    .option(&quot;multiline&quot;, &quot;true&quot;) \
+    .option(&quot;mode&quot;, &quot;PERMISSIVE&quot;) \
+    .option(&quot;columnNameOfCorruptRecord&quot;, &quot;_corrupt_record&quot;) \
+    .json(&quot;s3://logs-bucket/web-logs/2024/*/*/*.json&quot;)
+
+# Extracción y procesamiento de campos anidados
+df_processed = df_logs \
+    .withColumn(&quot;timestamp&quot;, to_timestamp(col(&quot;@timestamp&quot;), &quot;yyyy-MM-dd'T'HH:mm:ss.SSS'Z'&quot;)) \
+    .withColumn(&quot;ip_address&quot;, col(&quot;clientip&quot;)) \
+    .withColumn(&quot;user_agent&quot;, col(&quot;agent&quot;)) \
+    .withColumn(&quot;request_method&quot;, regexp_extract(col(&quot;request&quot;), r'^(\w+)', 1)) \
+    .withColumn(&quot;request_url&quot;, regexp_extract(col(&quot;request&quot;), r'^\w+\s+([^\s]+)', 1)) \
+    .withColumn(&quot;response_code&quot;, col(&quot;response&quot;).cast(&quot;integer&quot;)) \
+    .withColumn(&quot;response_size&quot;, col(&quot;bytes&quot;).cast(&quot;long&quot;)) \
+    .withColumn(&quot;referrer&quot;, col(&quot;referrer&quot;)) \
+    .withColumn(&quot;hour&quot;, hour(col(&quot;timestamp&quot;))) \
+    .withColumn(&quot;date&quot;, to_date(col(&quot;timestamp&quot;))) \
+    .filter(col(&quot;_corrupt_record&quot;).isNull()) \
+    .drop(&quot;_corrupt_record&quot;)
+
+# Análisis de tráfico web
+df_traffic_analysis = df_processed \
+    .groupBy(&quot;date&quot;, &quot;hour&quot;, &quot;request_method&quot;) \
+    .agg(
+        count(&quot;*&quot;).alias(&quot;request_count&quot;),
+        countDistinct(&quot;ip_address&quot;).alias(&quot;unique_visitors&quot;),
+        avg(&quot;response_size&quot;).alias(&quot;avg_response_size&quot;),
+        sum(&quot;response_size&quot;).alias(&quot;total_bytes_served&quot;),
+        sum(when(col(&quot;response_code&quot;) &gt;= 400, 1).otherwise(0)).alias(&quot;error_count&quot;),
+        sum(when(col(&quot;response_code&quot;) == 200, 1).otherwise(0)).alias(&quot;success_count&quot;)
+    ) \
+    .withColumn(&quot;error_rate&quot;, col(&quot;error_count&quot;) / col(&quot;request_count&quot;) * 100) \
+    .withColumn(&quot;success_rate&quot;, col(&quot;success_count&quot;) / col(&quot;request_count&quot;) * 100)
+
+# Análisis de páginas más visitadas
+df_popular_pages = df_processed \
+    .filter(col(&quot;request_method&quot;) == &quot;GET&quot;) \
+    .filter(col(&quot;response_code&quot;) == 200) \
+    .groupBy(&quot;date&quot;, &quot;request_url&quot;) \
+    .agg(
+        count(&quot;*&quot;).alias(&quot;page_views&quot;),
+        countDistinct(&quot;ip_address&quot;).alias(&quot;unique_visitors&quot;)
+    ) \
+    .withColumn(&quot;rank&quot;, 
+                row_number().over(
+                    Window.partitionBy(&quot;date&quot;)
+                    .orderBy(desc(&quot;page_views&quot;))
+                ))
+
+# Detección de posibles ataques o comportamientos anómalos
+df_security_analysis = df_processed \
+    .groupBy(&quot;ip_address&quot;, &quot;date&quot;) \
+    .agg(
+        count(&quot;*&quot;).alias(&quot;requests_per_day&quot;),
+        countDistinct(&quot;request_url&quot;).alias(&quot;unique_pages_accessed&quot;),
+        sum(when(col(&quot;response_code&quot;) &gt;= 400, 1).otherwise(0)).alias(&quot;failed_requests&quot;)
+    ) \
+    .withColumn(&quot;suspicious_activity&quot;, 
+                when(
+                    (col(&quot;requests_per_day&quot;) &gt; 10000) | 
+                    (col(&quot;failed_requests&quot;) &gt; 100) |
+                    (col(&quot;unique_pages_accessed&quot;) &lt; 2), 
+                    True
+                ).otherwise(False))
+
+# Escritura de resultados en diferentes formatos
+df_traffic_analysis.write \
+    .partitionBy(&quot;date&quot;) \
+    .mode(&quot;overwrite&quot;) \
+    .parquet(&quot;s3://analytics-bucket/web-traffic-analysis/&quot;)
+
+df_popular_pages.filter(col(&quot;rank&quot;) &lt;= 50).write \
+    .partitionBy(&quot;date&quot;) \
+    .mode(&quot;overwrite&quot;) \
+    .json(&quot;s3://analytics-bucket/popular-pages/&quot;)
+
+df_security_analysis.filter(col(&quot;suspicious_activity&quot;) == True).write \
+    .mode(&quot;append&quot;) \
+    .option(&quot;compression&quot;, &quot;gzip&quot;) \
+    .csv(&quot;s3://security-bucket/suspicious-activity/&quot;, header=True)
+</code></pre>
+<h5 id="apis-y-servicios-web">APIs y servicios web</h5>
+<p>Las APIs y servicios web permiten acceder a datos en tiempo real o expuestos por terceros, proporcionando información dinámica y actualizada. La integración requiere manejo de autenticación, rate limiting, paginación, y gestión de errores. Airflow es ideal para orquestar estas integraciones mediante HttpHook, mientras que Spark puede procesar los datos obtenidos.</p>
+<p><strong>Obtener tasas de cambio de divisas desde una API REST</strong>:</p>
+<pre><code class="language-python">from airflow import DAG
+from airflow.providers.http.operators.http import SimpleHttpOperator
+from airflow.providers.http.hooks.http import HttpHook
+from airflow.operators.python import PythonOperator
+from airflow.providers.postgres.operators.postgres import PostgresOperator
+from datetime import datetime, timedelta
+import json
+import pandas as pd
+
+# Configuración del DAG
+default_args = {
+    'owner': 'finance-team',
+    'depends_on_past': False,
+    'start_date': datetime(2024, 1, 1),
+    'email_on_failure': True,
+    'retries': 3,
+    'retry_delay': timedelta(minutes=5)
+}
+
+dag = DAG(
+    'currency_exchange_etl',
+    default_args=default_args,
+    description='ETL para tasas de cambio de divisas',
+    schedule_interval=timedelta(hours=1),
+    catchup=False
+)
+
+# Función para extraer datos de API con manejo de errores
+def extract_exchange_rates(**context):
+    http_hook = HttpHook(http_conn_id='exchange_api', method='GET')
+
+    # Configuración de la petición
+    endpoint = 'v1/latest'
+    headers = {
+        'Authorization': 'Bearer {{ var.value.exchange_api_key }}',
+        'Content-Type': 'application/json'
+    }
+
+    params = {
+        'base': 'USD',
+        'symbols': 'EUR,GBP,JPY,CAD,AUD,CHF,CNY,MXN,BRL'
+    }
+
+    try:
+        # Realizar petición HTTP
+        response = http_hook.run(
+            endpoint=endpoint,
+            headers=headers,
+            data=params
+        )
+
+        exchange_data = json.loads(response.content)
+
+        # Validar respuesta
+        if 'rates' not in exchange_data:
+            raise ValueError(&quot;API response missing 'rates' field&quot;)
+
+        # Transformar datos para almacenamiento
+        rates_list = []
+        base_currency = exchange_data.get('base', 'USD')
+        timestamp = exchange_data.get('timestamp', context['ts'])
+
+        for currency, rate in exchange_data['rates'].items():
+            rates_list.append({
+                'base_currency': base_currency,
+                'target_currency': currency,
+                'exchange_rate': float(rate),
+                'timestamp': timestamp,
+                'source': 'exchangerates-api',
+                'extraction_date': context['ds']
+            })
+
+        # Guardar en archivo temporal para siguiente tarea
+        df = pd.DataFrame(rates_list)
+        temp_file = f&quot;/tmp/exchange_rates_{context['ds']}.json&quot;
+        df.to_json(temp_file, orient='records', date_format='iso')
+
+        return temp_file
+
+    except Exception as e:
+        print(f&quot;Error extracting exchange rates: {str(e)}&quot;)
+        raise
+
+# Función para procesar y validar datos
+def process_exchange_data(**context):
+    temp_file = context['task_instance'].xcom_pull(task_ids='extract_rates')
+
+    if not temp_file:
+        raise ValueError(&quot;No data file received from extraction task&quot;)
+
+    # Cargar y procesar datos
+    df = pd.read_json(temp_file)
+
+    # Validaciones de calidad de datos
+    df = df.dropna(subset=['exchange_rate'])
+    df = df[df['exchange_rate'] &gt; 0]  # Eliminar tasas negativas o cero
+
+    # Detección de valores anómalos (cambios &gt; 10% desde última lectura)
+    postgres_hook = PostgresHook(postgres_conn_id='postgres_warehouse')
+
+    for currency in df['target_currency'].unique():
+        last_rate_query = f&quot;&quot;&quot;
+            SELECT exchange_rate 
+            FROM exchange_rates 
+            WHERE target_currency = '{currency}' 
+            AND base_currency = 'USD'
+            ORDER BY timestamp DESC 
+            LIMIT 1
+        &quot;&quot;&quot;
+
+        last_rate = postgres_hook.get_first(last_rate_query)
+        if last_rate:
+            current_rate = df[df['target_currency'] == currency]['exchange_rate'].iloc[0]
+            change_pct = abs((current_rate - last_rate[0]) / last_rate[0] * 100)
+
+            if change_pct &gt; 10:
+                print(f&quot;ALERT: {currency} rate changed by {change_pct:.2f}%&quot;)
+
+    # Guardar datos procesados
+    processed_file = f&quot;/tmp/processed_rates_{context['ds']}.csv&quot;
+    df.to_csv(processed_file, index=False)
+
+    return processed_file
+
+# Tareas del DAG
+extract_rates = PythonOperator(
+    task_id='extract_rates',
+    python_callable=extract_exchange_rates,
+    dag=dag
+)
+
+process_rates = PythonOperator(
+    task_id='process_rates',
+    python_callable=process_exchange_data,
+    dag=dag
+)
+
+# Cargar datos a PostgreSQL
+load_to_db = PostgresOperator(
+    task_id='load_to_database',
+    postgres_conn_id='postgres_warehouse',
+    sql=&quot;&quot;&quot;
+        INSERT INTO exchange_rates 
+        (base_currency, target_currency, exchange_rate, timestamp, source, extraction_date)
+        SELECT 
+            base_currency,
+            target_currency,
+            exchange_rate,
+            TO_TIMESTAMP(timestamp),
+            source,
+            TO_DATE(extraction_date, 'YYYY-MM-DD')
+        FROM temp_exchange_staging
+        ON CONFLICT (base_currency, target_currency, DATE(timestamp)) 
+        DO UPDATE SET 
+            exchange_rate = EXCLUDED.exchange_rate,
+            timestamp = EXCLUDED.timestamp;
+    &quot;&quot;&quot;,
+    dag=dag
+)
+
+# Definir dependencias
+extract_rates &gt;&gt; process_rates &gt;&gt; load_to_db
+</code></pre>
+<p><strong>Ingerir datos meteorológicos en tiempo real para análisis predictivo</strong>:</p>
+<pre><code class="language-python">from airflow import DAG
+from airflow.operators.python import PythonOperator
+from airflow.providers.http.hooks.http import HttpHook
+from airflow.providers.spark.operators.spark_submit import SparkSubmitOperator
+from datetime import datetime, timedelta
+import requests
+import json
+import boto3
+
+default_args = {
+    'owner': 'weather-analytics',
+    'depends_on_past': False,
+    'start_date': datetime(2024, 1, 1),
+    'email_on_failure': True,
+    'retries': 2,
+    'retry_delay': timedelta(minutes=3)
+}
+
+dag = DAG(
+    'weather_data_pipeline',
+    default_args=default_args,
+    description='Pipeline de datos meteorológicos en tiempo real',
+    schedule_interval=timedelta(minutes=15),
+    catchup=False
+)
+
+def fetch_weather_data(**context):
+    &quot;&quot;&quot;Extrae datos meteorológicos de múltiples APIs&quot;&quot;&quot;
+
+    # Lista de ciudades para monitorear
+    cities = [
+        {'name': 'New York', 'lat': 40.7128, 'lon': -74.0060},
+        {'name': 'London', 'lat': 51.5074, 'lon': -0.1278},
+        {'name': 'Tokyo', 'lat': 35.6762, 'lon': 139.6503},
+        {'name': 'Sydney', 'lat': -33.8688, 'lon': 151.2093}
+    ]
+
+    weather_data = []
+    api_key = &quot;{{ var.value.openweather_api_key }}&quot;
+
+    for city in cities:
+        try:
+            # Datos meteorológicos actuales
+            current_url = f&quot;https://api.openweathermap.org/data/2.5/weather&quot;
+            current_params = {
+                'lat': city['lat'],
+                'lon': city['lon'],
+                'appid': api_key,
+                'units': 'metric'
+            }
+
+            current_response = requests.get(current_url, params=current_params)
+            current_response.raise_for_status()
+            current_data = current_response.json()
+
+            # Pronóstico extendido
+            forecast_url = f&quot;https://api.openweathermap.org/data/2.5/forecast&quot;
+            forecast_response = requests.get(forecast_url, params=current_params)
+            forecast_response.raise_for_status()
+            forecast_data = forecast_response.json()
+
+            # Estructurar datos actuales
+            current_record = {
+                'city_name': city['name'],
+                'latitude': city['lat'],
+                'longitude': city['lon'],
+                'timestamp': context['ts'],
+                'temperature': current_data['main']['temp'],
+                'feels_like': current_data['main']['feels_like'],
+                'humidity': current_data['main']['humidity'],
+                'pressure': current_data['main']['pressure'],
+                'wind_speed': current_data.get('wind', {}).get('speed', 0),
+                'wind_direction': current_data.get('wind', {}).get('deg', 0),
+                'cloud_coverage': current_data['clouds']['all'],
+                'weather_condition': current_data['weather'][0]['main'],
+                'weather_description': current_data['weather'][0]['description'],
+                'visibility': current_data.get('visibility', 0),
+                'data_type': 'current'
+            }
+
+            weather_data.append(current_record)
+
+            # Procesar datos de pronóstico
+            for forecast_item in forecast_data['list'][:8]:  # Próximas 24 horas
+                forecast_record = {
+                    'city_name': city['name'],
+                    'latitude': city['lat'],
+                    'longitude': city['lon'],
+                    'timestamp': forecast_item['dt_txt'],
+                    'temperature': forecast_item['main']['temp'],
+                    'feels_like': forecast_item['main']['feels_like'],
+                    'humidity': forecast_item['main']['humidity'],
+                    'pressure': forecast_item['main']['pressure'],
+                    'wind_speed': forecast_item.get('wind', {}).get('speed', 0),
+                    'wind_direction': forecast_item.get('wind', {}).get('deg', 0),
+                    'cloud_coverage': forecast_item['clouds']['all'],
+                    'weather_condition': forecast_item['weather'][0]['main'],
+                    'weather_description': forecast_item['weather'][0]['description'],
+                    'visibility': forecast_item.get('visibility', 0),
+                    'data_type': 'forecast',
+                    'precipitation_probability': forecast_item.get('pop', 0) * 100
+                }
+
+                weather_data.append(forecast_record)
+
+        except requests.exceptions.RequestException as e:
+            print(f&quot;Error fetching data for {city['name']}: {str(e)}&quot;)
+            continue
+        except KeyError as e:
+            print(f&quot;Missing data field for {city['name']}: {str(e)}&quot;)
+            continue
+
+    # Guardar datos en S3 para procesamiento con Spark
+    s3_client = boto3.client('s3')
+    file_key = f&quot;weather-data/raw/{context['ds']}/{context['ts']}/weather_data.json&quot;
+
+    s3_client.put_object(
+        Bucket='weather-data-lake',
+        Key=file_key,
+        Body=json.dumps(weather_data, indent=2),
+        ContentType='application/json'
+    )
+
+    return f&quot;s3://weather-data-lake/{file_key}&quot;
+
+# Función para procesar datos con Spark
+def create_spark_weather_analysis():
+    &quot;&quot;&quot;Script de Spark para análisis predictivo de datos meteorológicos&quot;&quot;&quot;
+
+    spark_script = &quot;&quot;&quot;
+from pyspark.sql import SparkSession
+from pyspark.sql.functions import *
+from pyspark.sql.types import *
+from pyspark.ml.feature import VectorAssembler
+from pyspark.ml.regression import RandomForestRegressor
+from pyspark.ml.evaluation import RegressionEvaluator
+from pyspark.ml import Pipeline
+
+# Configuración de Spark
+spark = SparkSession.builder \\
+    .appName(&quot;Weather_Predictive_Analytics&quot;) \\
+    .config(&quot;spark.sql.adaptive.enabled&quot;, &quot;true&quot;) \\
+    .config(&quot;spark.sql.adaptive.coalescePartitions.enabled&quot;, &quot;true&quot;) \\
+    .getOrCreate()
+
+# Schema para datos meteorológicos
+weather_schema = StructType([
+    StructField(&quot;city_name&quot;, StringType(), True),
+    StructField(&quot;latitude&quot;, DoubleType(), True),
+    StructField(&quot;longitude&quot;, DoubleType(), True),
+    StructField(&quot;timestamp&quot;, StringType(), True),
+    StructField(&quot;temperature&quot;, DoubleType(), True),
+    StructField(&quot;feels_like&quot;, DoubleType(), True),
+    StructField(&quot;humidity&quot;, IntegerType(), True),
+    StructField(&quot;pressure&quot;, DoubleType(), True),
+    StructField(&quot;wind_speed&quot;, DoubleType(), True),
+    StructField(&quot;wind_direction&quot;, DoubleType(), True),
+    StructField(&quot;cloud_coverage&quot;, IntegerType(), True),
+    StructField(&quot;weather_condition&quot;, StringType(), True),
+    StructField(&quot;weather_description&quot;, StringType(), True),
+    StructField(&quot;visibility&quot;, DoubleType(), True),
+    StructField(&quot;data_type&quot;, StringType(), True),
+    StructField(&quot;precipitation_probability&quot;, DoubleType(), True)
+])
+
+# Lectura de datos actuales y históricos
+df_current = spark.read \\
+    .schema(weather_schema) \\
+    .json(&quot;s3://weather-data-lake/weather-data/raw/*/*/weather_data.json&quot;)
+
+# Procesamiento temporal y feature engineering
+df_processed = df_current \\
+    .withColumn(&quot;timestamp_parsed&quot;, to_timestamp(col(&quot;timestamp&quot;), &quot;yyyy-MM-dd HH:mm:ss&quot;)) \\
+    .withColumn(&quot;hour&quot;, hour(col(&quot;timestamp_parsed&quot;))) \\
+    .withColumn(&quot;day_of_week&quot;, dayofweek(col(&quot;timestamp_parsed&quot;))) \\
+    .withColumn(&quot;month&quot;, month(col(&quot;timestamp_parsed&quot;))) \\
+    .withColumn(&quot;season&quot;, 
+                when(col(&quot;month&quot;).isin([12, 1, 2]), &quot;winter&quot;)
+                .when(col(&quot;month&quot;).isin([3, 4, 5]), &quot;spring&quot;)
+                .when(col(&quot;month&quot;).isin([6, 7, 8]), &quot;summer&quot;)
+                .otherwise(&quot;autumn&quot;)) \\
+    .withColumn(&quot;temp_humidity_ratio&quot;, col(&quot;temperature&quot;) / col(&quot;humidity&quot;)) \\
+    .withColumn(&quot;pressure_normalized&quot;, (col(&quot;pressure&quot;) - 1013.25) / 50) \\
+    .withColumn(&quot;wind_pressure_interaction&quot;, col(&quot;wind_speed&quot;) * col(&quot;pressure_normalized&quot;))
+
+# Crear características de ventana temporal para tendencias
+window_spec = Window.partitionBy(&quot;city_name&quot;).orderBy(&quot;timestamp_parsed&quot;)
+
+df_with_trends = df_processed \\
+    .withColumn(&quot;temp_lag_1h&quot;, lag(&quot;temperature&quot;, 1).over(window_spec)) \\
+    .withColumn(&quot;temp_lag_3h&quot;, lag(&quot;temperature&quot;, 3).over(window_spec)) \\
+    .withColumn(&quot;pressure_lag_1h&quot;, lag(&quot;pressure&quot;, 1).over(window_spec)) \\
+    .withColumn(&quot;temp_change_1h&quot;, col(&quot;temperature&quot;) - col(&quot;temp_lag_1h&quot;)) \\
+    .withColumn(&quot;temp_change_3h&quot;, col(&quot;temperature&quot;) - col(&quot;temp_lag_3h&quot;)) \\
+    .withColumn(&quot;pressure_change_1h&quot;, col(&quot;pressure&quot;) - col(&quot;pressure_lag_1h&quot;))
+
+# Filtrar datos válidos para el modelo
+df_model_ready = df_with_trends \\
+    .filter(col(&quot;data_type&quot;) == &quot;current&quot;) \\
+    .filter(col(&quot;temp_lag_1h&quot;).isNotNull()) \\
+    .filter(col(&quot;temperature&quot;).between(-50, 60)) \\
+    .filter(col(&quot;humidity&quot;).between(0, 100))
+
+# Preparar features para modelo predictivo
+feature_cols = [
+    &quot;latitude&quot;, &quot;longitude&quot;, &quot;hour&quot;, &quot;day_of_week&quot;, &quot;month&quot;,
+    &quot;humidity&quot;, &quot;pressure&quot;, &quot;wind_speed&quot;, &quot;wind_direction&quot;, 
+    &quot;cloud_coverage&quot;, &quot;visibility&quot;, &quot;temp_lag_1h&quot;, &quot;temp_lag_3h&quot;,
+    &quot;pressure_lag_1h&quot;, &quot;temp_change_1h&quot;, &quot;pressure_change_1h&quot;,
+    &quot;temp_humidity_ratio&quot;, &quot;pressure_normalized&quot;, &quot;wind_pressure_interaction&quot;
+]
+
+assembler = VectorAssembler(inputCols=feature_cols, outputCol=&quot;features&quot;)
+rf = RandomForestRegressor(featuresCol=&quot;features&quot;, labelCol=&quot;temperature&quot;, numTrees=100)
+
+# Pipeline de ML
+pipeline = Pipeline(stages=[assembler, rf])
+
+# División de datos para entrenamiento y validación
+train_data, test_data = df_model_ready.randomSplit([0.8, 0.2], seed=42)
+
+# Entrenar modelo
+model = pipeline.fit(train_data)
+
+# Predicciones y evaluación
+predictions = model.transform(test_data)
+evaluator = RegressionEvaluator(labelCol=&quot;temperature&quot;, predictionCol=&quot;prediction&quot;, metricName=&quot;rmse&quot;)
+rmse = evaluator.evaluate(predictions)
+
+print(f&quot;Root Mean Square Error: {rmse}&quot;)
+
+# Análisis de patrones climáticos
+df_climate_patterns = df_processed \\
+    .groupBy(&quot;city_name&quot;, &quot;season&quot;, &quot;hour&quot;) \\
+    .agg(
+        avg(&quot;temperature&quot;).alias(&quot;avg_temperature&quot;),
+        avg(&quot;humidity&quot;).alias(&quot;avg_humidity&quot;),
+        avg(&quot;pressure&quot;).alias(&quot;avg_pressure&quot;),
+        avg(&quot;wind_speed&quot;).alias(&quot;avg_wind_speed&quot;),
+        max(&quot;temperature&quot;).alias(&quot;max_temperature&quot;),
+        min(&quot;temperature&quot;).alias(&quot;min_temperature&quot;),
+        stddev(&quot;temperature&quot;).alias(&quot;temp_volatility&quot;),
+        count(&quot;*&quot;).alias(&quot;observation_count&quot;)
+    )
+
+# Detección de eventos climáticos extremos
+df_extreme_events = df_processed \\
+    .withColumn(&quot;is_extreme_temp&quot;, 
+                when((col(&quot;temperature&quot;) &gt; 35) | (col(&quot;temperature&quot;) &lt; -10), True)
+                .otherwise(False)) \\
+    .withColumn(&quot;is_high_wind&quot;, when(col(&quot;wind_speed&quot;) &gt; 15, True).otherwise(False)) \\
+    .withColumn(&quot;is_low_pressure&quot;, when(col(&quot;pressure&quot;) &lt; 1000, True).otherwise(False)) \\
+    .filter((col(&quot;is_extreme_temp&quot;) == True) | 
+            (col(&quot;is_high_wind&quot;) == True) | 
+            (col(&quot;is_low_pressure&quot;) == True))
+
+# Predicciones futuras para las próximas 6 horas
+df_for_prediction = df_processed \\
+    .filter(col(&quot;data_type&quot;) == &quot;current&quot;) \\
+    .orderBy(desc(&quot;timestamp_parsed&quot;)) \\
+    .limit(4)  # Una observación por ciudad
+
+future_predictions = model.transform(df_for_prediction.select(*feature_cols + [&quot;city_name&quot;, &quot;timestamp_parsed&quot;]))
+
+# Guardar resultados
+df_climate_patterns.write \\
+    .partitionBy(&quot;city_name&quot;, &quot;season&quot;) \\
+    .mode(&quot;overwrite&quot;) \\
+    .parquet(&quot;s3://weather-data-lake/analytics/climate_patterns/&quot;)
+
+df_extreme_events.write \\
+    .partitionBy(&quot;city_name&quot;) \\
+    .mode(&quot;append&quot;) \\
+    .parquet(&quot;s3://weather-data-lake/analytics/extreme_events/&quot;)
+
+future_predictions.select(&quot;city_name&quot;, &quot;timestamp_parsed&quot;, &quot;prediction&quot;) \\
+    .write \\
+    .mode(&quot;overwrite&quot;) \\
+    .json(&quot;s3://weather-data-lake/predictions/temperature_forecast/&quot;)
+
+# Métricas del modelo para monitoreo
+model_metrics = spark.createDataFrame([
+    (&quot;temperature_prediction_rmse&quot;, rmse, &quot;{{ ds }}&quot;)
+], [&quot;metric_name&quot;, &quot;metric_value&quot;, &quot;date&quot;])
+
+model_metrics.write \\
+    .mode(&quot;append&quot;) \\
+    .parquet(&quot;s3://weather-data-lake/model_metrics/&quot;)
+
+spark.stop()
+&quot;&quot;&quot;
+
+    # Guardar script en S3
+    s3_client = boto3.client('s3')
+    s3_client.put_object(
+        Bucket='weather-data-lake',
+        Key='scripts/weather_analysis.py',
+        Body=spark_script,
+        ContentType='text/plain'
+    )
+
+    return 's3://weather-data-lake/scripts/weather_analysis.py'
+
+# Función para generar alertas basadas en predicciones
+def generate_weather_alerts(**context):
+    &quot;&quot;&quot;Genera alertas basadas en condiciones meteorológicas extremas&quot;&quot;&quot;
+
+    s3_client = boto3.client('s3')
+
+    try:
+        # Leer predicciones más recientes
+        response = s3_client.get_object(
+            Bucket='weather-data-lake',
+            Key='predictions/temperature_forecast/part-00000-*.json'
+        )
+
+        predictions_data = json.loads(response['Body'].read())
+
+        alerts = []
+        for prediction in predictions_data:
+            city = prediction['city_name']
+            predicted_temp = prediction['prediction']
+
+            # Generar alertas por temperatura extrema
+            if predicted_temp &gt; 40:
+                alerts.append({
+                    'city': city,
+                    'alert_type': 'EXTREME_HEAT',
+                    'severity': 'HIGH',
+                    'predicted_temperature': predicted_temp,
+                    'message': f'Temperatura extrema prevista en {city}: {predicted_temp:.1f}°C'
+                })
+            elif predicted_temp &lt; -15:
+                alerts.append({
+                    'city': city,
+                    'alert_type': 'EXTREME_COLD',
+                    'severity': 'HIGH',
+                    'predicted_temperature': predicted_temp,
+                    'message': f'Temperatura extrema fría prevista en {city}: {predicted_temp:.1f}°C'
+                })
+
+        # Enviar alertas si existen
+        if alerts:
+            # Aquí se podría integrar con servicios de notificación
+            # como SNS, Slack, email, etc.
+            print(f&quot;WEATHER ALERTS GENERATED: {len(alerts)} alerts&quot;)
+            for alert in alerts:
+                print(f&quot;ALERT: {alert['message']}&quot;)
+
+        return alerts
+
+    except Exception as e:
+        print(f&quot;Error generating weather alerts: {str(e)}&quot;)
+        return []
+
+# Definición de tareas del DAG
+fetch_weather = PythonOperator(
+    task_id='fetch_weather_data',
+    python_callable=fetch_weather_data,
+    dag=dag
+)
+
+create_spark_script = PythonOperator(
+    task_id='create_spark_script',
+    python_callable=create_spark_weather_analysis,
+    dag=dag
+)
+
+# Tarea de Spark para análisis predictivo
+weather_analysis = SparkSubmitOperator(
+    task_id='weather_predictive_analysis',
+    application='s3://weather-data-lake/scripts/weather_analysis.py',
+    conn_id='spark_cluster',
+    conf={
+        'spark.executor.memory': '4g',
+        'spark.executor.cores': '2',
+        'spark.executor.instances': '4',
+        'spark.sql.adaptive.enabled': 'true',
+        'spark.sql.adaptive.coalescePartitions.enabled': 'true'
+    },
+    dag=dag
+)
+
+generate_alerts = PythonOperator(
+    task_id='generate_weather_alerts',
+    python_callable=generate_weather_alerts,
+    dag=dag
+)
+
+# Definir dependencias del pipeline
+fetch_weather &gt;&gt; create_spark_script &gt;&gt; weather_analysis &gt;&gt; generate_alerts
+</code></pre>
+<p>Este pipeline demuestra:</p>
+<ol>
+<li><strong>Extracción de APIs múltiples</strong>: Obtiene datos actuales y pronósticos de OpenWeatherMap</li>
+<li><strong>Procesamiento distribuido</strong>: Utiliza Spark para análisis a gran escala</li>
+<li><strong>Machine Learning</strong>: Implementa modelos predictivos con MLlib</li>
+<li><strong>Feature Engineering</strong>: Crea características temporales y combinadas</li>
+<li><strong>Detección de anomalías</strong>: Identifica eventos climáticos extremos</li>
+<li><strong>Almacenamiento optimizado</strong>: Usa particionamiento por ciudad y estación</li>
+<li><strong>Sistema de alertas</strong>: Genera notificaciones basadas en predicciones</li>
+<li><strong>Monitoreo de modelos</strong>: Rastrea métricas de rendimiento del ML</li>
+</ol>
+<p>La arquitectura permite escalabilidad horizontal, procesamiento en tiempo real, y análisis predictivo avanzado para aplicaciones meteorológicas críticas.</p>
+<h3 id="322-conectores-spark-jdbc-filesource-delta-etc">3.2.2 Conectores Spark: JDBC, FileSource, Delta, etc.</h3>
+<p>Apache Spark proporciona una amplia gama de conectores nativos y de terceros que permiten la integración fluida con diversas fuentes de datos, desde bases de datos relacionales tradicionales hasta sistemas de almacenamiento distribuido modernos. Estos conectores abstraen la complejidad de acceso a datos y proporcionan APIs unificadas para lectura, escritura y procesamiento de datos a gran escala.</p>
+<h5 id="conectores-jdbc">Conectores JDBC</h5>
+<p>Los conectores JDBC de Spark permiten establecer conexiones directas con bases de datos relacionales utilizando drivers estándar JDBC. Estos conectores soportan paralelización automática de consultas mediante particionado de datos, optimización de predicados (predicate pushdown) y gestión eficiente de conexiones para maximizar el rendimiento en entornos distribuidos.</p>
+<p><strong>Aplicaciones</strong>:</p>
+<ul>
+<li>Migración de datos desde sistemas legacy</li>
+<li>Integración con data warehouses tradicionales</li>
+<li>Sincronización incremental de datos transaccionales</li>
+<li>Ejecución de consultas analíticas distribuidas</li>
+</ul>
+<p><strong>Conectar Spark a una base de datos MySQL para lectura de tablas normalizadas</strong>:</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+from pyspark.sql.functions import *
+
+# Configuración de Spark con driver MySQL
+spark = SparkSession.builder \
+    .appName(&quot;MySQL_JDBC_Connector&quot;) \
+    .config(&quot;spark.jars&quot;, &quot;/path/to/mysql-connector-java-8.0.33.jar&quot;) \
+    .getOrCreate()
+
+# Configuración de conexión JDBC
+jdbc_url = &quot;jdbc:mysql://localhost:3306/ecommerce_db&quot;
+connection_properties = {
+    &quot;user&quot;: &quot;spark_user&quot;,
+    &quot;password&quot;: &quot;secure_password&quot;,
+    &quot;driver&quot;: &quot;com.mysql.cj.jdbc.Driver&quot;,
+    &quot;fetchsize&quot;: &quot;10000&quot;,  # Optimización de fetch
+    &quot;numPartitions&quot;: &quot;8&quot;,   # Paralelización
+    &quot;partitionColumn&quot;: &quot;customer_id&quot;,
+    &quot;lowerBound&quot;: &quot;1&quot;,
+    &quot;upperBound&quot;: &quot;1000000&quot;
+}
+
+# Lectura de tabla completa
+customers_df = spark.read \
+    .jdbc(url=jdbc_url, 
+          table=&quot;customers&quot;, 
+          properties=connection_properties)
+
+# Lectura con particionado personalizado
+orders_df = spark.read \
+    .jdbc(url=jdbc_url,
+          table=&quot;orders&quot;,
+          column=&quot;order_date&quot;,
+          lowerBound=&quot;2023-01-01&quot;,
+          upperBound=&quot;2024-12-31&quot;,
+          numPartitions=12,  # Una partición por mes
+          properties=connection_properties)
+
+# Mostrar esquema y datos
+customers_df.printSchema()
+customers_df.show(20, truncate=False)
+</code></pre>
+<p><strong>Ejecutar una consulta SQL desde Spark para filtrar solo los datos necesarios</strong>:</p>
+<pre><code class="language-python"># Consulta SQL personalizada con predicado pushdown
+custom_query = &quot;&quot;&quot;
+(SELECT c.customer_id, c.customer_name, c.registration_date,
+        o.order_id, o.order_date, o.total_amount,
+        p.product_name, p.category
+ FROM customers c 
+ INNER JOIN orders o ON c.customer_id = o.customer_id
+ INNER JOIN order_items oi ON o.order_id = oi.order_id
+ INNER JOIN products p ON oi.product_id = p.product_id
+ WHERE o.order_date &gt;= '2024-01-01' 
+   AND p.category IN ('Electronics', 'Books')
+   AND o.total_amount &gt; 100) AS filtered_data
+&quot;&quot;&quot;
+
+# Ejecución de consulta optimizada
+filtered_df = spark.read \
+    .jdbc(url=jdbc_url, 
+          table=custom_query, 
+          properties=connection_properties)
+
+# Procesamiento adicional en Spark
+result_df = filtered_df \
+    .groupBy(&quot;customer_id&quot;, &quot;customer_name&quot;, &quot;category&quot;) \
+    .agg(
+        count(&quot;order_id&quot;).alias(&quot;total_orders&quot;),
+        sum(&quot;total_amount&quot;).alias(&quot;total_spent&quot;),
+        max(&quot;order_date&quot;).alias(&quot;last_purchase_date&quot;)
+    ) \
+    .filter(col(&quot;total_orders&quot;) &gt;= 3) \
+    .orderBy(desc(&quot;total_spent&quot;))
+
+result_df.show()
+
+# Escritura de resultados de vuelta a MySQL
+result_df.write \
+    .mode(&quot;overwrite&quot;) \
+    .jdbc(url=jdbc_url, 
+          table=&quot;customer_analytics&quot;, 
+          properties=connection_properties)
+</code></pre>
+<h5 id="filesource-y-formatos-soportados">FileSource y formatos soportados</h5>
+<p>Spark FileSource es un conector unificado que proporciona acceso eficiente a sistemas de archivos distribuidos como HDFS, Amazon S3, Azure Data Lake Storage (ADLS), Google Cloud Storage, y sistemas de archivos locales. Soporta múltiples formatos de archivo optimizados para big data, incluyendo formatos columnares (Parquet, ORC), formatos de texto (CSV, JSON, XML) y formatos binarios personalizados.</p>
+<p><strong>Características</strong>:</p>
+<ul>
+<li>Particionado automático y manual</li>
+<li>Compresión transparente (gzip, snappy, lz4, brotli)</li>
+<li>Schema evolution y schema inference</li>
+<li>Predicate pushdown para formatos columnares</li>
+<li>Vectorización para mejor rendimiento</li>
+</ul>
+<p><strong>Leer archivos Parquet de S3 con particiones por fecha</strong>:</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+from pyspark.sql.functions import *
+from pyspark.sql.types import *
+
+# Configuración optimizada para S3
+spark = SparkSession.builder \
+    .appName(&quot;S3_Parquet_Reader&quot;) \
+    .config(&quot;spark.hadoop.fs.s3a.impl&quot;, &quot;org.apache.hadoop.fs.s3a.S3AFileSystem&quot;) \
+    .config(&quot;spark.hadoop.fs.s3a.aws.credentials.provider&quot;, 
+            &quot;com.amazonaws.auth.DefaultAWSCredentialsProviderChain&quot;) \
+    .config(&quot;spark.sql.adaptive.enabled&quot;, &quot;true&quot;) \
+    .config(&quot;spark.sql.adaptive.coalescePartitions.enabled&quot;, &quot;true&quot;) \
+    .getOrCreate()
+
+# Ruta base con estructura particionada
+s3_base_path = &quot;s3a://data-lake-bucket/sales_data/year=*/month=*/day=*/&quot;
+
+# Lectura con filtros de partición (partition pruning)
+sales_df = spark.read \
+    .option(&quot;basePath&quot;, &quot;s3a://data-lake-bucket/sales_data/&quot;) \
+    .parquet(s3_base_path) \
+    .filter(
+        (col(&quot;year&quot;) == 2024) &amp; 
+        (col(&quot;month&quot;).isin([10, 11, 12])) &amp;
+        (col(&quot;day&quot;) &gt;= 1)
+    )
+
+# Lectura con esquema específico para mejor rendimiento
+schema = StructType([
+    StructField(&quot;transaction_id&quot;, StringType(), True),
+    StructField(&quot;customer_id&quot;, LongType(), True),
+    StructField(&quot;product_id&quot;, StringType(), True),
+    StructField(&quot;quantity&quot;, IntegerType(), True),
+    StructField(&quot;unit_price&quot;, DecimalType(10,2), True),
+    StructField(&quot;timestamp&quot;, TimestampType(), True),
+    StructField(&quot;year&quot;, IntegerType(), True),
+    StructField(&quot;month&quot;, IntegerType(), True),
+    StructField(&quot;day&quot;, IntegerType(), True)
+])
+
+optimized_sales_df = spark.read \
+    .schema(schema) \
+    .parquet(&quot;s3a://data-lake-bucket/sales_data/year=2024/month=12/&quot;)
+
+# Análisis de particiones y estadísticas
+print(f&quot;Número de particiones: {optimized_sales_df.rdd.getNumPartitions()}&quot;)
+print(f&quot;Total de registros: {optimized_sales_df.count()}&quot;)
+
+# Agregaciones optimizadas
+daily_summary = optimized_sales_df \
+    .withColumn(&quot;total_amount&quot;, col(&quot;quantity&quot;) * col(&quot;unit_price&quot;)) \
+    .groupBy(&quot;year&quot;, &quot;month&quot;, &quot;day&quot;) \
+    .agg(
+        count(&quot;transaction_id&quot;).alias(&quot;total_transactions&quot;),
+        sum(&quot;total_amount&quot;).alias(&quot;daily_revenue&quot;),
+        countDistinct(&quot;customer_id&quot;).alias(&quot;unique_customers&quot;),
+        avg(&quot;total_amount&quot;).alias(&quot;avg_transaction_value&quot;)
+    )
+
+daily_summary.show()
+</code></pre>
+<p><strong>Procesar archivos CSV diarios desde un directorio HDFS</strong>:</p>
+<pre><code class="language-python">import os
+from datetime import datetime, timedelta
+from pyspark.sql.functions import *
+from pyspark.sql.types import *
+
+# Esquema explícito para archivos CSV
+csv_schema = StructType([
+    StructField(&quot;log_timestamp&quot;, TimestampType(), True),
+    StructField(&quot;user_id&quot;, StringType(), True),
+    StructField(&quot;session_id&quot;, StringType(), True),
+    StructField(&quot;page_url&quot;, StringType(), True),
+    StructField(&quot;user_agent&quot;, StringType(), True),
+    StructField(&quot;ip_address&quot;, StringType(), True),
+    StructField(&quot;response_code&quot;, IntegerType(), True),
+    StructField(&quot;response_size&quot;, LongType(), True)
+])
+
+# Función para procesar archivos por rango de fechas
+def process_daily_logs(start_date, end_date, hdfs_base_path):
+    current_date = start_date
+    all_files = []
+
+    while current_date &lt;= end_date:
+        date_str = current_date.strftime(&quot;%Y-%m-%d&quot;)
+        daily_path = f&quot;{hdfs_base_path}/date={date_str}/*.csv&quot;
+        all_files.append(daily_path)
+        current_date += timedelta(days=1)
+
+    return all_files
+
+# Configuración para procesamiento de archivos grandes
+spark.conf.set(&quot;spark.sql.files.maxPartitionBytes&quot;, &quot;268435456&quot;)  # 256MB
+spark.conf.set(&quot;spark.sql.files.openCostInBytes&quot;, &quot;8388608&quot;)     # 8MB
+
+# Lectura de múltiples archivos CSV diarios
+hdfs_path = &quot;hdfs://namenode:9000/logs/web_access&quot;
+start_date = datetime(2024, 12, 1)
+end_date = datetime(2024, 12, 7)
+
+file_paths = process_daily_logs(start_date, end_date, hdfs_path)
+
+# Lectura optimizada con múltiples opciones
+web_logs_df = spark.read \
+    .schema(csv_schema) \
+    .option(&quot;header&quot;, &quot;true&quot;) \
+    .option(&quot;multiline&quot;, &quot;false&quot;) \
+    .option(&quot;escape&quot;, '&quot;') \
+    .option(&quot;timestampFormat&quot;, &quot;yyyy-MM-dd HH:mm:ss&quot;) \
+    .option(&quot;mode&quot;, &quot;PERMISSIVE&quot;) \
+    .option(&quot;columnNameOfCorruptRecord&quot;, &quot;_corrupt_record&quot;) \
+    .csv(file_paths)
+
+# Limpieza y enriquecimiento de datos
+cleaned_logs_df = web_logs_df \
+    .filter(col(&quot;_corrupt_record&quot;).isNull()) \
+    .withColumn(&quot;date&quot;, to_date(col(&quot;log_timestamp&quot;))) \
+    .withColumn(&quot;hour&quot;, hour(col(&quot;log_timestamp&quot;))) \
+    .withColumn(&quot;is_bot&quot;, when(col(&quot;user_agent&quot;).rlike(&quot;(?i)bot|crawler|spider&quot;), True).otherwise(False)) \
+    .withColumn(&quot;status_category&quot;, 
+                when(col(&quot;response_code&quot;).between(200, 299), &quot;Success&quot;)
+                .when(col(&quot;response_code&quot;).between(400, 499), &quot;Client_Error&quot;)
+                .when(col(&quot;response_code&quot;).between(500, 599), &quot;Server_Error&quot;)
+                .otherwise(&quot;Other&quot;))
+
+# Análisis de patrones de tráfico
+traffic_analysis = cleaned_logs_df \
+    .filter(~col(&quot;is_bot&quot;)) \
+    .groupBy(&quot;date&quot;, &quot;hour&quot;, &quot;status_category&quot;) \
+    .agg(
+        count(&quot;*&quot;).alias(&quot;request_count&quot;),
+        countDistinct(&quot;user_id&quot;).alias(&quot;unique_users&quot;),
+        countDistinct(&quot;ip_address&quot;).alias(&quot;unique_ips&quot;),
+        sum(&quot;response_size&quot;).alias(&quot;total_bytes&quot;),
+        avg(&quot;response_size&quot;).alias(&quot;avg_response_size&quot;)
+    )
+
+# Escritura de resultados procesados en formato Parquet particionado
+traffic_analysis.write \
+    .mode(&quot;overwrite&quot;) \
+    .partitionBy(&quot;date&quot;) \
+    .parquet(&quot;hdfs://namenode:9000/analytics/web_traffic_summary&quot;)
+
+traffic_analysis.show(50)
+</code></pre>
+<h5 id="conector-delta-lake">Conector Delta Lake</h5>
+<p>Delta Lake es una capa de almacenamiento open-source que proporciona transacciones ACID, manejo de metadatos escalable y unificación de streaming y batch processing sobre data lakes. El conector Delta para Spark permite operaciones avanzadas como merge, time travel, schema evolution y optimizaciones automáticas, siendo ideal para arquitecturas de datos modernas que requieren consistencia y versionado.</p>
+<p><strong>Capacidades</strong>:</p>
+<ul>
+<li>Transacciones ACID completas</li>
+<li>Versionado automático con time travel</li>
+<li>Schema enforcement y evolution</li>
+<li>Optimización automática (Auto Optimize, Z-Ordering)</li>
+<li>Change Data Feed (CDF) para captura de cambios</li>
+<li>Vacuum para limpieza de archivos obsoletos</li>
+</ul>
+<p><strong>Ingerir datos en formato Delta y aplicar <code>MERGE INTO</code> para deduplicación</strong>:</p>
+<pre><code class="language-python">from delta import *
+from pyspark.sql import SparkSession
+from pyspark.sql.functions import *
+
+# Configuración de Spark con Delta Lake
+builder = SparkSession.builder \
+    .appName(&quot;Delta_Lake_Upsert&quot;) \
+    .config(&quot;spark.sql.extensions&quot;, &quot;io.delta.sql.DeltaSparkSessionExtension&quot;) \
+    .config(&quot;spark.sql.catalog.spark_catalog&quot;, &quot;org.apache.spark.sql.delta.catalog.DeltaCatalog&quot;) \
+    .config(&quot;spark.databricks.delta.retentionDurationCheck.enabled&quot;, &quot;false&quot;) \
+    .config(&quot;spark.databricks.delta.autoCompact.enabled&quot;, &quot;true&quot;)
+
+spark = configure_spark_with_delta_pip(builder).getOrCreate()
+
+# Ruta de la tabla Delta
+delta_table_path = &quot;/delta/customer_profiles&quot;
+
+# Datos iniciales (simulando carga inicial)
+initial_data = [
+    (1, &quot;John Doe&quot;, &quot;john.doe@email.com&quot;, &quot;2024-01-15&quot;, &quot;Premium&quot;, 5000.0),
+    (2, &quot;Jane Smith&quot;, &quot;jane.smith@email.com&quot;, &quot;2024-01-20&quot;, &quot;Standard&quot;, 2500.0),
+    (3, &quot;Bob Johnson&quot;, &quot;bob.johnson@email.com&quot;, &quot;2024-02-01&quot;, &quot;Premium&quot;, 7500.0)
+]
+
+columns = [&quot;customer_id&quot;, &quot;name&quot;, &quot;email&quot;, &quot;registration_date&quot;, &quot;tier&quot;, &quot;lifetime_value&quot;]
+initial_df = spark.createDataFrame(initial_data, columns)
+
+# Creación de tabla Delta inicial
+initial_df.write \
+    .format(&quot;delta&quot;) \
+    .mode(&quot;overwrite&quot;) \
+    .option(&quot;overwriteSchema&quot;, &quot;true&quot;) \
+    .save(delta_table_path)
+
+# Creación de DeltaTable para operaciones avanzadas
+delta_table = DeltaTable.forPath(spark, delta_table_path)
+
+# Datos nuevos y actualizados (simulando ingesta incremental)
+new_data = [
+    (2, &quot;Jane Smith-Wilson&quot;, &quot;jane.wilson@email.com&quot;, &quot;2024-01-20&quot;, &quot;Premium&quot;, 3500.0),  # Actualización
+    (4, &quot;Alice Brown&quot;, &quot;alice.brown@email.com&quot;, &quot;2024-03-10&quot;, &quot;Standard&quot;, 1800.0),       # Nuevo
+    (5, &quot;Charlie Davis&quot;, &quot;charlie.davis@email.com&quot;, &quot;2024-03-15&quot;, &quot;Premium&quot;, 9200.0),   # Nuevo
+    (1, &quot;John Doe&quot;, &quot;john.doe@newemail.com&quot;, &quot;2024-01-15&quot;, &quot;Premium&quot;, 5500.0)           # Actualización email
+]
+
+updates_df = spark.createDataFrame(new_data, columns) \
+    .withColumn(&quot;last_updated&quot;, current_timestamp())
+
+# Operación MERGE con lógica de deduplicación
+delta_table.alias(&quot;target&quot;) \
+    .merge(
+        updates_df.alias(&quot;source&quot;),
+        &quot;target.customer_id = source.customer_id&quot;
+    ) \
+    .whenMatchedUpdate(set={
+        &quot;name&quot;: &quot;source.name&quot;,
+        &quot;email&quot;: &quot;source.email&quot;,
+        &quot;tier&quot;: &quot;source.tier&quot;,
+        &quot;lifetime_value&quot;: &quot;source.lifetime_value&quot;,
+        &quot;last_updated&quot;: &quot;source.last_updated&quot;
+    }) \
+    .whenNotMatchedInsert(values={
+        &quot;customer_id&quot;: &quot;source.customer_id&quot;,
+        &quot;name&quot;: &quot;source.name&quot;,
+        &quot;email&quot;: &quot;source.email&quot;,
+        &quot;registration_date&quot;: &quot;source.registration_date&quot;,
+        &quot;tier&quot;: &quot;source.tier&quot;,
+        &quot;lifetime_value&quot;: &quot;source.lifetime_value&quot;,
+        &quot;last_updated&quot;: &quot;source.last_updated&quot;
+    }) \
+    .execute()
+
+# Verificación de resultados
+print(&quot;Estado actual de la tabla:&quot;)
+spark.read.format(&quot;delta&quot;).load(delta_table_path).show()
+
+# MERGE avanzado con condiciones complejas
+complex_updates = [
+    (1, &quot;John Doe Sr.&quot;, &quot;john.doe.sr@email.com&quot;, &quot;2024-01-15&quot;, &quot;Platinum&quot;, 12000.0),
+    (6, &quot;Diana Prince&quot;, &quot;diana.prince@email.com&quot;, &quot;2024-04-01&quot;, &quot;Premium&quot;, 8500.0),
+    (2, &quot;Jane Smith-Wilson&quot;, &quot;jane.wilson@email.com&quot;, &quot;2024-01-20&quot;, &quot;Standard&quot;, 2800.0)  # Downgrade
+]
+
+complex_df = spark.createDataFrame(complex_updates, columns) \
+    .withColumn(&quot;last_updated&quot;, current_timestamp())
+
+# MERGE con condiciones de negocio
+delta_table.alias(&quot;target&quot;) \
+    .merge(
+        complex_df.alias(&quot;source&quot;),
+        &quot;target.customer_id = source.customer_id&quot;
+    ) \
+    .whenMatchedUpdate(
+        condition=&quot;source.lifetime_value &gt; target.lifetime_value OR source.tier != target.tier&quot;,
+        set={
+            &quot;name&quot;: &quot;source.name&quot;,
+            &quot;email&quot;: &quot;source.email&quot;,
+            &quot;tier&quot;: &quot;source.tier&quot;,
+            &quot;lifetime_value&quot;: &quot;greatest(target.lifetime_value, source.lifetime_value)&quot;,
+            &quot;last_updated&quot;: &quot;source.last_updated&quot;
+        }
+    ) \
+    .whenNotMatchedInsert(values={
+        &quot;customer_id&quot;: &quot;source.customer_id&quot;,
+        &quot;name&quot;: &quot;source.name&quot;,
+        &quot;email&quot;: &quot;source.email&quot;,
+        &quot;registration_date&quot;: &quot;source.registration_date&quot;,
+        &quot;tier&quot;: &quot;source.tier&quot;,
+        &quot;lifetime_value&quot;: &quot;source.lifetime_value&quot;,
+        &quot;last_updated&quot;: &quot;source.last_updated&quot;
+    }) \
+    .execute()
+
+print(&quot;Estado después del MERGE condicional:&quot;)
+spark.read.format(&quot;delta&quot;).load(delta_table_path).show()
+</code></pre>
+<p><strong>Mantener versiones de datasets para auditoría</strong>:</p>
+<pre><code class="language-python"># Consulta del historial de versiones
+print(&quot;Historial de versiones de la tabla:&quot;)
+delta_table.history().select(&quot;version&quot;, &quot;timestamp&quot;, &quot;operation&quot;, &quot;operationMetrics&quot;).show(truncate=False)
+
+# Time Travel - consultar versión específica
+version_1_df = spark.read \
+    .format(&quot;delta&quot;) \
+    .option(&quot;versionAsOf&quot;, 1) \
+    .load(delta_table_path)
+
+print(&quot;Estado en versión 1:&quot;)
+version_1_df.show()
+
+# Time Travel por timestamp
+from datetime import datetime, timedelta
+yesterday = datetime.now() - timedelta(days=1)
+timestamp_query = spark.read \
+    .format(&quot;delta&quot;) \
+    .option(&quot;timestampAsOf&quot;, yesterday.strftime(&quot;%Y-%m-%d %H:%M:%S&quot;)) \
+    .load(delta_table_path)
+
+# Auditoría de cambios entre versiones
+current_version = spark.read.format(&quot;delta&quot;).load(delta_table_path)
+previous_version = spark.read.format(&quot;delta&quot;).option(&quot;versionAsOf&quot;, 0).load(delta_table_path)
+
+# Detectar registros modificados
+changes_audit = current_version.alias(&quot;current&quot;) \
+    .join(previous_version.alias(&quot;previous&quot;), 
+          col(&quot;current.customer_id&quot;) == col(&quot;previous.customer_id&quot;), 
+          &quot;full_outer&quot;) \
+    .select(
+        coalesce(col(&quot;current.customer_id&quot;), col(&quot;previous.customer_id&quot;)).alias(&quot;customer_id&quot;),
+        when(col(&quot;previous.customer_id&quot;).isNull(), &quot;INSERTED&quot;)
+        .when(col(&quot;current.customer_id&quot;).isNull(), &quot;DELETED&quot;)
+        .when(col(&quot;current.name&quot;) != col(&quot;previous.name&quot;) |
+              col(&quot;current.email&quot;) != col(&quot;previous.email&quot;) |
+              col(&quot;current.tier&quot;) != col(&quot;previous.tier&quot;) |
+              col(&quot;current.lifetime_value&quot;) != col(&quot;previous.lifetime_value&quot;), &quot;UPDATED&quot;)
+        .otherwise(&quot;UNCHANGED&quot;).alias(&quot;change_type&quot;),
+        col(&quot;current.name&quot;).alias(&quot;current_name&quot;),
+        col(&quot;previous.name&quot;).alias(&quot;previous_name&quot;),
+        col(&quot;current.email&quot;).alias(&quot;current_email&quot;),
+        col(&quot;previous.email&quot;).alias(&quot;previous_email&quot;)
+    ) \
+    .filter(col(&quot;change_type&quot;) != &quot;UNCHANGED&quot;)
+
+print(&quot;Auditoría de cambios:&quot;)
+changes_audit.show(truncate=False)
+
+# Configuración de retención y optimización
+# Vacuum para eliminar archivos antiguos (cuidado en producción)
+delta_table.vacuum(retentionHours=168)  # 7 días
+
+# Optimize con Z-Ordering para mejor rendimiento de consultas
+spark.sql(f&quot;OPTIMIZE delta.`{delta_table_path}` ZORDER BY (customer_id, tier)&quot;)
+
+# Habilitar Change Data Feed para captura de cambios
+spark.sql(f&quot;ALTER TABLE delta.`{delta_table_path}` SET TBLPROPERTIES (delta.enableChangeDataFeed = true)&quot;)
+
+# Consultar cambios usando CDF
+changes_df = spark.read \
+    .format(&quot;delta&quot;) \
+    .option(&quot;readChangeFeed&quot;, &quot;true&quot;) \
+    .option(&quot;startingVersion&quot;, 0) \
+    .load(delta_table_path)
+
+print(&quot;Change Data Feed:&quot;)
+changes_df.select(&quot;customer_id&quot;, &quot;name&quot;, &quot;_change_type&quot;, &quot;_commit_version&quot;, &quot;_commit_timestamp&quot;).show()
+
+# Metadatos y estadísticas de la tabla
+print(&quot;Detalles de la tabla Delta:&quot;)
+spark.sql(f&quot;DESCRIBE DETAIL delta.`{delta_table_path}`&quot;).show(truncate=False)
+
+# Estadísticas de archivos
+print(&quot;Estadísticas de archivos:&quot;)
+print(f&quot;Número de archivos: {len(delta_table.detail().collect()[0]['numFiles'])}&quot;)
+print(f&quot;Tamaño total: {delta_table.detail().collect()[0]['sizeInBytes']} bytes&quot;)
+</code></pre>
+<h3 id="323-airflow-uso-de-hooks-y-connections">3.2.3 Airflow: uso de Hooks y Connections</h3>
+<p>Apache Airflow proporciona mecanismos reutilizables y seguros para conectarse de forma modular a distintas fuentes de datos y servicios externos. Esta arquitectura permite mantener las credenciales separadas del código y facilita la reutilización de conexiones a través de múltiples DAGs y tareas.</p>
+<h5 id="hooks-en-airflow">Hooks en Airflow</h5>
+<p>Los Hooks son interfaces de bajo nivel que proporcionan una capa de abstracción para acceder a sistemas externos como bases de datos, APIs REST, servicios de almacenamiento en la nube (S3, GCS), y otros servicios. Cada operador en Airflow utiliza internamente un Hook específico para realizar sus operaciones, lo que permite encapsular la lógica de conexión y las operaciones específicas del sistema.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Ventajas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Reutilización</strong>: Un mismo Hook puede ser usado por múltiples operadores y tareas</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Abstracción</strong>: Ocultan la complejidad de las conexiones y protocolos específicos</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Consistencia</strong>: Proporcionan una interfaz uniforme para sistemas similares</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Mantenibilidad</strong>: Centralizan la lógica de conexión en un solo lugar</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Usar <code>PostgresHook</code> para ejecutar una consulta y pasar los resultados a otra tarea</strong>:</p>
+<pre><code class="language-python">from datetime import datetime, timedelta
+from airflow import DAG
+from airflow.operators.python import PythonOperator
+from airflow.providers.postgres.hooks.postgres import PostgresHook
+from airflow.operators.email import EmailOperator
+import pandas as pd
+
+default_args = {
+    'owner': 'data-team',
+    'depends_on_past': False,
+    'start_date': datetime(2024, 1, 1),
+    'email_on_failure': True,
+    'email_on_retry': False,
+    'retries': 2,
+    'retry_delay': timedelta(minutes=5)
+}
+
+def extract_sales_data(**context):
+    &quot;&quot;&quot;Extrae datos de ventas desde PostgreSQL y los pasa a la siguiente tarea&quot;&quot;&quot;
+
+    # Inicializar el Hook de PostgreSQL usando la conexión configurada
+    postgres_hook = PostgresHook(postgres_conn_id='postgres_sales_db')
+
+    # Ejecutar consulta SQL
+    sql_query = &quot;&quot;&quot;
+    SELECT 
+        DATE(sale_date) as fecha,
+        SUM(amount) as total_ventas,
+        COUNT(*) as num_transacciones,
+        AVG(amount) as promedio_venta
+    FROM sales 
+    WHERE sale_date &gt;= CURRENT_DATE - INTERVAL '7 days'
+    GROUP BY DATE(sale_date)
+    ORDER BY fecha DESC;
+    &quot;&quot;&quot;
+
+    # Obtener resultados como DataFrame de pandas
+    df = postgres_hook.get_pandas_df(sql_query)
+
+    # Convertir a diccionario para pasar entre tareas
+    sales_data = df.to_dict('records')
+
+    # Guardar en XCom para la siguiente tarea
+    context['task_instance'].xcom_push(key='weekly_sales', value=sales_data)
+
+    print(f&quot;Extraídos {len(sales_data)} registros de ventas&quot;)
+    return sales_data
+
+def process_sales_report(**context):
+    &quot;&quot;&quot;Procesa los datos de ventas y genera un reporte&quot;&quot;&quot;
+
+    # Obtener datos de la tarea anterior
+    sales_data = context['task_instance'].xcom_pull(
+        task_ids='extract_sales_data', 
+        key='weekly_sales'
+    )
+
+    if not sales_data:
+        raise ValueError(&quot;No se recibieron datos de ventas&quot;)
+
+    # Procesar datos
+    total_sales = sum([record['total_ventas'] for record in sales_data])
+    avg_daily_sales = total_sales / len(sales_data)
+
+    # Generar reporte
+    report = f&quot;&quot;&quot;
+    Reporte Semanal de Ventas:
+    - Total de ventas: ${total_sales:,.2f}
+    - Promedio diario: ${avg_daily_sales:,.2f}
+    - Días analizados: {len(sales_data)}
+    &quot;&quot;&quot;
+
+    print(report)
+    context['task_instance'].xcom_push(key='sales_report', value=report)
+
+    return report
+
+# Definir el DAG
+dag = DAG(
+    'sales_reporting_dag',
+    default_args=default_args,
+    description='Pipeline de reporte de ventas usando PostgresHook',
+    schedule_interval='@daily',
+    catchup=False
+)
+
+# Definir tareas
+extract_task = PythonOperator(
+    task_id='extract_sales_data',
+    python_callable=extract_sales_data,
+    dag=dag
+)
+
+process_task = PythonOperator(
+    task_id='process_sales_report',
+    python_callable=process_sales_report,
+    dag=dag
+)
+
+# Definir dependencias
+extract_task &gt;&gt; process_task
+</code></pre>
+<p><strong>Usar <code>HttpHook</code> para llamar a una API y procesar su JSON</strong>:</p>
+<pre><code class="language-python">from datetime import datetime, timedelta
+from airflow import DAG
+from airflow.operators.python import PythonOperator
+from airflow.providers.http.hooks.http import HttpHook
+from airflow.operators.postgres import PostgresOperator
+import json
+
+default_args = {
+    'owner': 'api-team',
+    'depends_on_past': False,
+    'start_date': datetime(2024, 1, 1),
+    'email_on_failure': True,
+    'retries': 3,
+    'retry_delay': timedelta(minutes=2)
+}
+
+def fetch_weather_data(**context):
+    &quot;&quot;&quot;Obtiene datos meteorológicos desde una API externa&quot;&quot;&quot;
+
+    # Inicializar HttpHook con la conexión configurada
+    http_hook = HttpHook(
+        method='GET',
+        http_conn_id='weather_api_conn'  # Conexión configurada en Airflow UI
+    )
+
+    # Parámetros para la API
+    endpoint = '/current'
+    headers = {
+        'Accept': 'application/json',
+        'User-Agent': 'Airflow-Weather-Pipeline/1.0'
+    }
+
+    # Obtener ciudad desde variables de Airflow
+    from airflow.models import Variable
+    city = Variable.get(&quot;weather_city&quot;, default_var=&quot;Cali&quot;)
+
+    data = {
+        'q': city,
+        'units': 'metric',
+        'lang': 'es'
+    }
+
+    try:
+        # Realizar petición HTTP
+        response = http_hook.run(
+            endpoint=endpoint,
+            headers=headers,
+            data=data
+        )
+
+        # Procesar respuesta JSON
+        weather_data = json.loads(response.content)
+
+        # Extraer información relevante
+        processed_data = {
+            'timestamp': datetime.now().isoformat(),
+            'ciudad': weather_data.get('name'),
+            'temperatura': weather_data['main']['temp'],
+            'sensacion_termica': weather_data['main']['feels_like'],
+            'humedad': weather_data['main']['humidity'],
+            'presion': weather_data['main']['pressure'],
+            'descripcion': weather_data['weather'][0]['description'],
+            'visibilidad': weather_data.get('visibility', 0) / 1000,  # km
+            'viento_velocidad': weather_data.get('wind', {}).get('speed', 0)
+        }
+
+        print(f&quot;Datos meteorológicos obtenidos para {processed_data['ciudad']}&quot;)
+        print(f&quot;Temperatura: {processed_data['temperatura']}°C&quot;)
+
+        # Guardar en XCom
+        context['task_instance'].xcom_push(
+            key='weather_data', 
+            value=processed_data
+        )
+
+        return processed_data
+
+    except Exception as e:
+        print(f&quot;Error al obtener datos meteorológicos: {str(e)}&quot;)
+        raise
+
+def validate_and_transform_weather(**context):
+    &quot;&quot;&quot;Valida y transforma los datos meteorológicos&quot;&quot;&quot;
+
+    # Obtener datos de la tarea anterior
+    weather_data = context['task_instance'].xcom_pull(
+        task_ids='fetch_weather_data',
+        key='weather_data'
+    )
+
+    if not weather_data:
+        raise ValueError(&quot;No se recibieron datos meteorológicos&quot;)
+
+    # Validaciones
+    if weather_data['temperatura'] &lt; -50 or weather_data['temperatura'] &gt; 60:
+        raise ValueError(f&quot;Temperatura fuera de rango: {weather_data['temperatura']}°C&quot;)
+
+    if weather_data['humedad'] &lt; 0 or weather_data['humedad'] &gt; 100:
+        raise ValueError(f&quot;Humedad fuera de rango: {weather_data['humedad']}%&quot;)
+
+    # Transformaciones adicionales
+    weather_data['categoria_temperatura'] = (
+        'Muy Frío' if weather_data['temperatura'] &lt; 10 else
+        'Frío' if weather_data['temperatura'] &lt; 18 else
+        'Templado' if weather_data['temperatura'] &lt; 25 else
+        'Cálido' if weather_data['temperatura'] &lt; 30 else
+        'Muy Cálido'
+    )
+
+    weather_data['indice_confort'] = (
+        weather_data['temperatura'] - 
+        (weather_data['humedad'] / 100) * 2 -
+        weather_data['viento_velocidad'] * 0.5
+    )
+
+    print(f&quot;Datos validados y transformados exitosamente&quot;)
+    print(f&quot;Categoría de temperatura: {weather_data['categoria_temperatura']}&quot;)
+    print(f&quot;Índice de confort: {weather_data['indice_confort']:.1f}&quot;)
+
+    return weather_data
+
+def store_weather_data(**context):
+    &quot;&quot;&quot;Almacena los datos procesados en la base de datos&quot;&quot;&quot;
+
+    weather_data = context['task_instance'].xcom_pull(
+        task_ids='validate_and_transform_weather'
+    )
+
+    # Aquí normalmente insertarías en la base de datos
+    # usando otro Hook como PostgresHook
+    print(&quot;Datos meteorológicos almacenados exitosamente&quot;)
+    print(json.dumps(weather_data, indent=2, ensure_ascii=False))
+
+# Definir el DAG
+dag = DAG(
+    'weather_api_pipeline',
+    default_args=default_args,
+    description='Pipeline para consumir API meteorológica usando HttpHook',
+    schedule_interval=timedelta(hours=3),
+    catchup=False,
+    tags=['api', 'weather', 'http']
+)
+
+# Definir tareas
+fetch_task = PythonOperator(
+    task_id='fetch_weather_data',
+    python_callable=fetch_weather_data,
+    dag=dag
+)
+
+validate_task = PythonOperator(
+    task_id='validate_and_transform_weather',
+    python_callable=validate_and_transform_weather,
+    dag=dag
+)
+
+store_task = PythonOperator(
+    task_id='store_weather_data',
+    python_callable=store_weather_data,
+    dag=dag
+)
+
+# Definir dependencias
+fetch_task &gt;&gt; validate_task &gt;&gt; store_task
+</code></pre>
+<h5 id="connections-y-variables">Connections y Variables</h5>
+<p>Las Connections y Variables de Airflow proporcionan un mecanismo seguro y centralizado para gestionar credenciales, configuraciones y parámetros sin exponerlos directamente en el código del DAG. Esto mejora la seguridad, facilita el mantenimiento y permite diferentes configuraciones entre entornos (desarrollo, testing, producción).</p>
+<p><strong>Connections</strong> almacenan información de conexión completa (host, puerto, usuario, contraseña, esquemas) mientras que <strong>Variables</strong> almacenan valores individuales que pueden ser utilizados a través de múltiples DAGs.</p>
+<p><strong>Definir una conexión S3 en Airflow UI y usarla desde un <code>S3Hook</code></strong>:</p>
+<pre><code class="language-python">from datetime import datetime, timedelta
+from airflow import DAG
+from airflow.operators.python import PythonOperator
+from airflow.providers.amazon.aws.hooks.s3 import S3Hook
+from airflow.models import Variable
+import pandas as pd
+import io
+
+default_args = {
+    'owner': 'data-engineering',
+    'depends_on_past': False,
+    'start_date': datetime(2024, 1, 1),
+    'email_on_failure': True,
+    'retries': 2,
+    'retry_delay': timedelta(minutes=3)
+}
+
+def upload_data_to_s3(**context):
+    &quot;&quot;&quot;Sube datos procesados a Amazon S3 usando conexión configurada&quot;&quot;&quot;
+
+    # Inicializar S3Hook usando la conexión 'aws_s3_conn' definida en Airflow UI
+    s3_hook = S3Hook(aws_conn_id='aws_s3_conn')
+
+    # Obtener configuración desde Variables de Airflow
+    bucket_name = Variable.get(&quot;s3_data_bucket&quot;, default_var=&quot;mi-bucket-datos&quot;)
+    s3_prefix = Variable.get(&quot;s3_data_prefix&quot;, default_var=&quot;processed-data&quot;)
+
+    # Generar datos de ejemplo (normalmente vendrían de una tarea anterior)
+    sample_data = {
+        'fecha': pd.date_range('2024-01-01', periods=100, freq='D'),
+        'ventas': pd.Series(range(100)) * 150.5,
+        'region': ['Norte', 'Sur', 'Este', 'Oeste'] * 25,
+        'producto': ['A', 'B', 'C'] * 33 + ['A']
+    }
+    df = pd.DataFrame(sample_data)
+
+    # Convertir DataFrame a CSV en memoria
+    csv_buffer = io.StringIO()
+    df.to_csv(csv_buffer, index=False, encoding='utf-8')
+    csv_content = csv_buffer.getvalue()
+
+    # Generar nombre de archivo con timestamp
+    timestamp = context['execution_date'].strftime('%Y%m%d_%H%M%S')
+    s3_key = f&quot;{s3_prefix}/ventas_diarias_{timestamp}.csv&quot;
+
+    try:
+        # Subir archivo a S3
+        s3_hook.load_string(
+            string_data=csv_content,
+            key=s3_key,
+            bucket_name=bucket_name,
+            replace=True,
+            content_type='text/csv'
+        )
+
+        print(f&quot;Archivo subido exitosamente a S3:&quot;)
+        print(f&quot;Bucket: {bucket_name}&quot;)
+        print(f&quot;Key: {s3_key}&quot;)
+        print(f&quot;Registros: {len(df)}&quot;)
+
+        # Verificar que el archivo existe
+        if s3_hook.check_for_key(key=s3_key, bucket_name=bucket_name):
+            print(&quot;✓ Verificación exitosa: El archivo existe en S3&quot;)
+        else:
+            raise Exception(&quot;Error: El archivo no se encontró en S3 después de la subida&quot;)
+
+        # Guardar información del archivo en XCom
+        file_info = {
+            'bucket': bucket_name,
+            's3_key': s3_key,
+            'size_bytes': len(csv_content.encode('utf-8')),
+            'records_count': len(df),
+            'upload_timestamp': timestamp
+        }
+
+        context['task_instance'].xcom_push(key='s3_file_info', value=file_info)
+
+        return file_info
+
+    except Exception as e:
+        print(f&quot;Error al subir archivo a S3: {str(e)}&quot;)
+        raise
+
+def process_s3_files(**context):
+    &quot;&quot;&quot;Lee y procesa archivos desde S3&quot;&quot;&quot;
+
+    s3_hook = S3Hook(aws_conn_id='aws_s3_conn')
+    bucket_name = Variable.get(&quot;s3_data_bucket&quot;)
+    s3_prefix = Variable.get(&quot;s3_data_prefix&quot;)
+
+    # Listar archivos en el bucket con el prefijo especificado
+    file_keys = s3_hook.list_keys(
+        bucket_name=bucket_name,
+        prefix=s3_prefix
+    )
+
+    print(f&quot;Archivos encontrados en S3: {len(file_keys)}&quot;)
+
+    # Procesar el archivo más reciente
+    if file_keys:
+        latest_file = sorted(file_keys)[-1]
+
+        # Leer archivo desde S3
+        file_content = s3_hook.read_key(
+            key=latest_file,
+            bucket_name=bucket_name
+        )
+
+        # Convertir a DataFrame
+        df = pd.read_csv(io.StringIO(file_content))
+
+        # Realizar análisis básico
+        analysis = {
+            'total_records': len(df),
+            'total_sales': df['ventas'].sum(),
+            'avg_sales': df['ventas'].mean(),
+            'unique_regions': df['region'].nunique(),
+            'date_range': f&quot;{df['fecha'].min()} to {df['fecha'].max()}&quot;
+        }
+
+        print(&quot;Análisis del archivo procesado:&quot;)
+        for key, value in analysis.items():
+            print(f&quot;  {key}: {value}&quot;)
+
+        return analysis
+
+    else:
+        print(&quot;No se encontraron archivos para procesar&quot;)
+        return {}
+
+# Definir el DAG
+dag = DAG(
+    's3_data_pipeline',
+    default_args=default_args,
+    description='Pipeline de datos usando S3Hook y conexiones configuradas',
+    schedule_interval='@daily',
+    catchup=False,
+    tags=['s3', 'aws', 'data-pipeline']
+)
+
+# Definir tareas
+upload_task = PythonOperator(
+    task_id='upload_data_to_s3',
+    python_callable=upload_data_to_s3,
+    dag=dag
+)
+
+process_task = PythonOperator(
+    task_id='process_s3_files',
+    python_callable=process_s3_files,
+    dag=dag
+)
+
+# Definir dependencias
+upload_task &gt;&gt; process_task
+</code></pre>
+<p><strong>Almacenar claves API en variables cifradas para ser usadas desde el DAG</strong>:</p>
+<pre><code class="language-python">from datetime import datetime, timedelta
+from airflow import DAG
+from airflow.operators.python import PythonOperator
+from airflow.providers.http.hooks.http import HttpHook
+from airflow.models import Variable
+from airflow.providers.postgres.hooks.postgres import PostgresHook
+import requests
+import json
+import hashlib
+
+default_args = {
+    'owner': 'api-integration-team',
+    'depends_on_past': False,
+    'start_date': datetime(2024, 1, 1),
+    'email_on_failure': True,
+    'retries': 3,
+    'retry_delay': timedelta(minutes=5)
+}
+
+def fetch_secure_api_data(**context):
+    &quot;&quot;&quot;Consume API externa usando claves cifradas almacenadas en Variables&quot;&quot;&quot;
+
+    # Obtener claves API cifradas desde Variables de Airflow
+    # Estas variables se configuran en Airflow UI marcadas como &quot;encrypt&quot;
+    api_key = Variable.get(&quot;external_api_key&quot;)  # Variable cifrada
+    api_secret = Variable.get(&quot;external_api_secret&quot;)  # Variable cifrada
+
+    # Obtener configuraciones no sensibles
+    api_base_url = Variable.get(&quot;external_api_base_url&quot;, default_var=&quot;https://api.example.com&quot;)
+    max_records = int(Variable.get(&quot;api_max_records&quot;, default_var=&quot;1000&quot;))
+
+    # Generar token de autenticación (ejemplo con HMAC)
+    timestamp = str(int(datetime.now().timestamp()))
+    message = f&quot;{api_key}{timestamp}&quot;
+    signature = hashlib.hmac(
+        api_secret.encode('utf-8'),
+        message.encode('utf-8'),
+        hashlib.sha256
+    ).hexdigest()
+
+    # Configurar headers de autenticación
+    headers = {
+        'Authorization': f'Bearer {api_key}',
+        'X-API-Timestamp': timestamp,
+        'X-API-Signature': signature,
+        'Content-Type': 'application/json',
+        'User-Agent': 'Airflow-Data-Pipeline/2.0'
+    }
+
+    # Parámetros de la consulta
+    params = {
+        'limit': max_records,
+        'format': 'json',
+        'date_from': context['execution_date'].strftime('%Y-%m-%d'),
+        'include_metadata': True
+    }
+
+    try:
+        # Realizar petición usando requests directamente para mayor control
+        response = requests.get(
+            f&quot;{api_base_url}/v1/data&quot;,
+            headers=headers,
+            params=params,
+            timeout=30
+        )
+
+        response.raise_for_status()  # Lanza excepción si status != 2xx
+
+        data = response.json()
+
+        # Validar respuesta
+        if 'error' in data:
+            raise Exception(f&quot;Error en API: {data['error']}&quot;)
+
+        records = data.get('records', [])
+        metadata = data.get('metadata', {})
+
+        print(f&quot;Datos obtenidos exitosamente:&quot;)
+        print(f&quot;  Registros: {len(records)}&quot;)
+        print(f&quot;  Página: {metadata.get('page', 1)}&quot;)
+        print(f&quot;  Total disponible: {metadata.get('total_count', 'N/A')}&quot;)
+
+        # Procesar y limpiar datos
+        processed_records = []
+        for record in records:
+            processed_record = {
+                'id': record.get('id'),
+                'timestamp': record.get('created_at'),
+                'value': float(record.get('value', 0)),
+                'category': record.get('category', 'unknown'),
+                'status': record.get('status', 'active'),
+                'metadata': json.dumps(record.get('additional_data', {}))
+            }
+            processed_records.append(processed_record)
+
+        # Guardar en XCom para tareas posteriores
+        context['task_instance'].xcom_push(
+            key='api_data',
+            value=processed_records
+        )
+
+        context['task_instance'].xcom_push(
+            key='api_metadata',
+            value=metadata
+        )
+
+        return {
+            'records_count': len(processed_records),
+            'api_response_time': response.elapsed.total_seconds(),
+            'status_code': response.status_code
+        }
+
+    except requests.exceptions.RequestException as e:
+        print(f&quot;Error de conexión con la API: {str(e)}&quot;)
+        raise
+    except json.JSONDecodeError as e:
+        print(f&quot;Error al decodificar respuesta JSON: {str(e)}&quot;)
+        raise
+    except Exception as e:
+        print(f&quot;Error general al consumir API: {str(e)}&quot;)
+        raise
+
+def validate_and_enrich_data(**context):
+    &quot;&quot;&quot;Valida y enriquece los datos obtenidos de la API&quot;&quot;&quot;
+
+    # Obtener datos de la tarea anterior
+    api_data = context['task_instance'].xcom_pull(
+        task_ids='fetch_secure_api_data',
+        key='api_data'
+    )
+
+    if not api_data:
+        raise ValueError(&quot;No se recibieron datos de la API&quot;)
+
+    # Obtener configuraciones de validación desde Variables
+    min_value = float(Variable.get(&quot;validation_min_value&quot;, default_var=&quot;0&quot;))
+    max_value = float(Variable.get(&quot;validation_max_value&quot;, default_var=&quot;10000&quot;))
+    valid_categories = Variable.get(&quot;valid_categories&quot;, default_var=&quot;A,B,C&quot;).split(',')
+
+    validated_records = []
+    validation_errors = []
+
+    for i, record in enumerate(api_data):
+        errors = []
+
+        # Validaciones
+        if record['value'] &lt; min_value or record['value'] &gt; max_value:
+            errors.append(f&quot;Valor fuera de rango: {record['value']}&quot;)
+
+        if record['category'] not in valid_categories:
+            errors.append(f&quot;Categoría inválida: {record['category']}&quot;)
+
+        if not record['id']:
+            errors.append(&quot;ID faltante&quot;)
+
+        # Si hay errores, registrar y omitir registro
+        if errors:
+            validation_errors.append({
+                'record_index': i,
+                'record_id': record.get('id', 'N/A'),
+                'errors': errors
+            })
+            continue
+
+        # Enriquecer datos válidos
+        enriched_record = record.copy()
+        enriched_record['validation_timestamp'] = datetime.now().isoformat()
+        enriched_record['value_category'] = (
+            'low' if record['value'] &lt; 100 else
+            'medium' if record['value'] &lt; 1000 else
+            'high'
+        )
+        enriched_record['processing_batch'] = context['run_id']
+
+        validated_records.append(enriched_record)
+
+    print(f&quot;Validación completada:&quot;)
+    print(f&quot;  Registros válidos: {len(validated_records)}&quot;)
+    print(f&quot;  Registros con errores: {len(validation_errors)}&quot;)
+
+    if validation_errors:
+        print(&quot;Errores de validación encontrados:&quot;)
+        for error in validation_errors[:5]:  # Mostrar solo los primeros 5
+            print(f&quot;  Record {error['record_index']}: {', '.join(error['errors'])}&quot;)
+
+    # Guardar resultados
+    context['task_instance'].xcom_push(
+        key='validated_data',
+        value=validated_records
+    )
+
+    context['task_instance'].xcom_push(
+        key='validation_errors',
+        value=validation_errors
+    )
+
+    return {
+        'valid_records': len(validated_records),
+        'invalid_records': len(validation_errors),
+        'validation_success_rate': len(validated_records) / len(api_data) * 100
+    }
+
+def store_processed_data(**context):
+    &quot;&quot;&quot;Almacena los datos procesados en la base de datos usando conexión configurada&quot;&quot;&quot;
+
+    # Obtener datos validados
+    validated_data = context['task_instance'].xcom_pull(
+        task_ids='validate_and_enrich_data',
+        key='validated_data'
+    )
+
+    if not validated_data:
+        print(&quot;No hay datos válidos para almacenar&quot;)
+        return
+
+    # Usar PostgresHook con conexión configurada
+    postgres_hook = PostgresHook(postgres_conn_id='postgres_data_warehouse')
+
+    # Obtener configuración de tabla desde Variables
+    target_table = Variable.get(&quot;target_table_name&quot;, default_var=&quot;api_data&quot;)
+
+    try:
+        # Preparar datos para inserción masiva
+        insert_sql = f&quot;&quot;&quot;
+        INSERT INTO {target_table} 
+        (external_id, timestamp, value, category, status, metadata, 
+         validation_timestamp, value_category, processing_batch)
+        VALUES %s
+        ON CONFLICT (external_id) DO UPDATE SET
+            value = EXCLUDED.value,
+            category = EXCLUDED.category,
+            status = EXCLUDED.status,
+            metadata = EXCLUDED.metadata,
+            validation_timestamp = EXCLUDED.validation_timestamp,
+            value_category = EXCLUDED.value_category,
+            processing_batch = EXCLUDED.processing_batch;
+        &quot;&quot;&quot;
+
+        # Preparar tuplas de datos
+        data_tuples = []
+        for record in validated_data:
+            data_tuple = (
+                record['id'],
+                record['timestamp'],
+                record['value'],
+                record['category'],
+                record['status'],
+                record['metadata'],
+                record['validation_timestamp'],
+                record['value_category'],
+                record['processing_batch']
+            )
+            data_tuples.append(data_tuple)
+
+        # Ejecutar inserción masiva usando extras de psycopg2
+        from psycopg2.extras import execute_values
+
+        with postgres_hook.get_conn() as conn:
+            with conn.cursor() as cursor:
+                execute_values(cursor, insert_sql, data_tuples)
+                conn.commit()
+
+        print(f&quot;Almacenados {len(data_tuples)} registros en {target_table}&quot;)
+
+        # Registrar estadísticas
+        stats_sql = f&quot;&quot;&quot;
+        SELECT 
+            COUNT(*) as total_records,
+            AVG(value) as avg_value,
+            MIN(timestamp) as min_timestamp,
+            MAX(timestamp) as max_timestamp
+        FROM {target_table}
+        WHERE processing_batch = %s;
+        &quot;&quot;&quot;
+
+        stats = postgres_hook.get_first(stats_sql, parameters=[context['run_id']])
+
+        print(&quot;Estadísticas del lote procesado:&quot;)
+        print(f&quot;  Total de registros: {stats[0]}&quot;)
+        print(f&quot;  Valor promedio: {stats[1]:.2f}&quot;)
+        print(f&quot;  Rango temporal: {stats[2]} - {stats[3]}&quot;)
+
+        return {
+            'records_stored': len(data_tuples),
+            'table_name': target_table,
+            'batch_id': context['run_id']
+        }
+
+    except Exception as e:
+        print(f&quot;Error al almacenar datos: {str(e)}&quot;)
+        raise
+
+# Definir el DAG
+dag = DAG(
+    'secure_api_integration',
+    default_args=default_args,
+    description='Pipeline seguro para integración de API externa con variables cifradas',
+    schedule_interval=timedelta(hours=6),
+    catchup=False,
+    tags=['api', 'security', 'encryption', 'variables']
+)
+
+# Definir tareas
+fetch_task = PythonOperator(
+    task_id='fetch_secure_api_data',
+    python_callable=fetch_secure_api_data,
+    dag=dag
+)
+
+validate_task = PythonOperator(
+    task_id='validate_and_enrich_data',
+    python_callable=validate_and_enrich_data,
+    dag=dag
+)
+
+store_task = PythonOperator(
+    task_id='store_processed_data',
+    python_callable=store_processed_data,
+    dag=dag
+)
+
+# Definir dependencias
+fetch_task &gt;&gt; validate_task &gt;&gt; store_task
+</code></pre>
+<p><strong>Configuración de Connections y Variables en Airflow UI</strong>:</p>
+<p>Para que estos ejemplos funcionen correctamente, es necesario configurar las siguientes conexiones y variables en la interfaz de Airflow:</p>
+<p><strong>Connections (Admin → Connections)</strong>:</p>
+<ul>
+<li><code>postgres_sales_db</code>: Conexión PostgreSQL para base de datos de ventas</li>
+<li><code>weather_api_conn</code>: Conexión HTTP para API meteorológica</li>
+<li><code>aws_s3_conn</code>: Conexión AWS para acceso a S3</li>
+<li><code>postgres_data_warehouse</code>: Conexión PostgreSQL para almacén de datos</li>
+</ul>
+<p><strong>Variables (Admin → Variables)</strong>:</p>
+<ul>
+<li><code>weather_city</code>: Ciudad para datos meteorológicos</li>
+<li><code>s3_data_bucket</code>: Nombre del bucket S3</li>
+<li><code>s3_data_prefix</code>: Prefijo para archivos en S3</li>
+<li><code>external_api_key</code>: Clave API (marcada como cifrada)</li>
+<li><code>external_api_secret</code>: Secreto API (marcada como cifrada)</li>
+<li><code>validation_min_value</code>: Valor mínimo para validación</li>
+<li><code>validation_max_value</code>: Valor máximo para validación</li>
+<li><code>valid_categories</code>: Categorías válidas separadas por coma</li>
+<li><code>target_table_name</code>: Nombre de la tabla destino</li>
+</ul>
+<h5 id="mejores-practicas-para-hooks-y-connections">Mejores Prácticas para Hooks y Connections</h5>
+<p><strong>Gestión de Conexiones</strong>:</p>
+<ol>
+<li><strong>Separación por entorno</strong>: Utiliza diferentes conexiones para desarrollo, testing y producción</li>
+<li><strong>Nomenclatura consistente</strong>: Usa un patrón claro como <code>{env}_{service}_{purpose}_conn</code></li>
+<li><strong>Principio de menor privilegio</strong>: Configura conexiones con los permisos mínimos necesarios</li>
+<li><strong>Rotación de credenciales</strong>: Implementa un proceso regular de rotación de passwords y tokens</li>
+<li><strong>Monitoreo</strong>: Registra y monitorea el uso de conexiones para detectar anomalías</li>
+</ol>
+<p><strong>Gestión de Variables</strong>:</p>
+<ol>
+<li><strong>Cifrado de datos sensibles</strong>: Siempre marca como "encrypt" las variables que contienen información sensible</li>
+<li><strong>Versionado</strong>: Mantén un registro de cambios en variables críticas</li>
+<li><strong>Valores por defecto</strong>: Proporciona valores por defecto sensatos para variables opcionales</li>
+<li><strong>Documentación</strong>: Documenta el propósito y formato esperado de cada variable</li>
+<li><strong>Validación</strong>: Implementa validación de formato y rango para variables críticas</li>
+</ol>
+<p><strong>Optimización de Rendimiento</strong>:</p>
+<ol>
+<li><strong>Reutilización de conexiones</strong>: Los Hooks automáticamente reutilizan conexiones dentro de una tarea</li>
+<li><strong>Pool de conexiones</strong>: Configura pools de conexiones para sistemas de alta concurrencia</li>
+<li><strong>Timeouts apropiados</strong>: Establece timeouts adecuados para evitar tareas colgadas</li>
+<li><strong>Batch operations</strong>: Prefiere operaciones por lotes sobre múltiples operaciones individuales</li>
+<li><strong>Limpieza de recursos</strong>: Asegúrate de que las conexiones se cierren adecuadamente</li>
+</ol>
+<p><strong>Manejo de Errores y Reintentos</strong>:</p>
+<ol>
+<li><strong>Excepciones específicas</strong>: Captura y maneja excepciones específicas según el tipo de error</li>
+<li><strong>Logging detallado</strong>: Registra información suficiente para diagnosticar problemas</li>
+<li><strong>Reintentos inteligentes</strong>: Configura diferentes estrategias de reintento según el tipo de falla</li>
+<li><strong>Alertas apropiadas</strong>: Configura alertas para fallos críticos vs. fallos recuperables</li>
+<li><strong>Fallback mechanisms</strong>: Implementa mecanismos de respaldo cuando sea posible</li>
+</ol>
+<p><strong>Seguridad</strong>:</p>
+<ol>
+<li><strong>Validación de entrada</strong>: Siempre valida y sanitiza datos de entrada</li>
+<li><strong>Auditoría</strong>: Mantén logs de auditoría para accesos a sistemas sensibles</li>
+<li><strong>Cifrado en tránsito</strong>: Usa siempre conexiones cifradas (HTTPS, SSL/TLS)</li>
+<li><strong>Segregación de redes</strong>: Utiliza redes privadas para comunicación entre servicios</li>
+<li><strong>Secretos externos</strong>: Considera usar servicios externos de gestión de secretos (AWS Secrets Manager, HashiCorp Vault)</li>
+</ol>
+<h5 id="ejemplo-avanzado-pipeline-completo-con-multiples-hooks">Ejemplo Avanzado: Pipeline Completo con Múltiples Hooks</h5>
+<p>Este ejemplo avanzado demuestra cómo integrar múltiples Hooks y Connections en un pipeline completo de datos, incluyendo manejo de errores, notificaciones, y mejores prácticas de producción.</p>
+<pre><code class="language-python">from datetime import datetime, timedelta
+from airflow import DAG
+from airflow.operators.python import PythonOperator
+from airflow.operators.bash import BashOperator
+from airflow.providers.postgres.hooks.postgres import PostgresHook
+from airflow.providers.amazon.aws.hooks.s3 import S3Hook
+from airflow.providers.http.hooks.http import HttpHook
+from airflow.providers.slack.hooks.slack_webhook import SlackWebhookHook
+from airflow.models import Variable
+from airflow.utils.task_group import TaskGroup
+import pandas as pd
+import json
+import logging
+
+# Configurar logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+default_args = {
+    'owner': 'data-platform-team',
+    'depends_on_past': False,
+    'start_date': datetime(2024, 1, 1),
+    'email_on_failure': False,  # Usaremos Slack en su lugar
+    'email_on_retry': False,
+    'retries': 2,
+    'retry_delay': timedelta(minutes=5),
+    'on_failure_callback': lambda context: send_failure_notification(context)
+}
+
+def send_failure_notification(context):
+    &quot;&quot;&quot;Envía notificación de fallo a Slack&quot;&quot;&quot;
+    try:
+        slack_hook = SlackWebhookHook(
+            http_conn_id='slack_webhook_conn',
+            webhook_token=Variable.get('slack_webhook_token')
+        )
+
+        message = f&quot;&quot;&quot;
+        *Fallo en Pipeline de Datos*
+
+        *DAG:* {context['dag'].dag_id}
+        *Tarea:* {context['task'].task_id}
+        *Fecha de ejecución:* {context['execution_date']}
+        *Error:* {context.get('exception', 'Error desconocido')}
+
+        Por favor revisar los logs para más detalles.
+        &quot;&quot;&quot;
+
+        slack_hook.send_text(message)
+
+    except Exception as e:
+        logger.error(f&quot;Error enviando notificación a Slack: {str(e)}&quot;)
+
+def extract_from_multiple_sources(**context):
+    &quot;&quot;&quot;Extrae datos de múltiples fuentes usando diferentes Hooks&quot;&quot;&quot;
+
+    results = {}
+
+    # 1. Extraer desde PostgreSQL
+    try:
+        postgres_hook = PostgresHook(postgres_conn_id='postgres_source_db')
+
+        sql_query = &quot;&quot;&quot;
+        SELECT 
+            id, 
+            created_date,
+            amount,
+            customer_id,
+            product_category
+        FROM transactions 
+        WHERE DATE(created_date) = CURRENT_DATE - INTERVAL '1 day'
+        &quot;&quot;&quot;
+
+        transactions_df = postgres_hook.get_pandas_df(sql_query)
+        results['transactions'] = {
+            'count': len(transactions_df),
+            'data': transactions_df.to_dict('records')
+        }
+
+        logger.info(f&quot;Extraídas {len(transactions_df)} transacciones de PostgreSQL&quot;)
+
+    except Exception as e:
+        logger.error(f&quot;Error extrayendo de PostgreSQL: {str(e)}&quot;)
+        results['transactions'] = {'count': 0, 'data': [], 'error': str(e)}
+
+    # 2. Extraer desde API externa
+    try:
+        http_hook = HttpHook(
+            method='GET',
+            http_conn_id='external_api_conn'
+        )
+
+        # Obtener datos de referencia (catálogo de productos)
+        response = http_hook.run(
+            endpoint='/api/v1/products',
+            headers={
+                'Authorization': f&quot;Bearer {Variable.get('api_token')}&quot;,
+                'Content-Type': 'application/json'
+            }
+        )
+
+        api_data = json.loads(response.content)
+        results['products'] = {
+            'count': len(api_data.get('products', [])),
+            'data': api_data.get('products', [])
+        }
+
+        logger.info(f&quot;Extraídos {len(api_data.get('products', []))} productos de API&quot;)
+
+    except Exception as e:
+        logger.error(f&quot;Error extrayendo de API: {str(e)}&quot;)
+        results['products'] = {'count': 0, 'data': [], 'error': str(e)}
+
+    # 3. Extraer archivo desde S3
+    try:
+        s3_hook = S3Hook(aws_conn_id='aws_s3_conn')
+        bucket_name = Variable.get('source_data_bucket')
+
+        # Buscar archivo más reciente
+        yesterday = (context['execution_date'] - timedelta(days=1)).strftime('%Y%m%d')
+        s3_key = f&quot;customer-data/customers_{yesterday}.csv&quot;
+
+        if s3_hook.check_for_key(key=s3_key, bucket_name=bucket_name):
+            file_content = s3_hook.read_key(key=s3_key, bucket_name=bucket_name)
+            customers_df = pd.read_csv(pd.io.common.StringIO(file_content))
+
+            results['customers'] = {
+                'count': len(customers_df),
+                'data': customers_df.to_dict('records')
+            }
+
+            logger.info(f&quot;Extraídos {len(customers_df)} clientes de S3&quot;)
+        else:
+            logger.warning(f&quot;Archivo {s3_key} no encontrado en S3&quot;)
+            results['customers'] = {'count': 0, 'data': [], 'error': 'Archivo no encontrado'}
+
+    except Exception as e:
+        logger.error(f&quot;Error extrayendo de S3: {str(e)}&quot;)
+        results['customers'] = {'count': 0, 'data': [], 'error': str(e)}
+
+    # Guardar resultados en XCom
+    context['task_instance'].xcom_push(key='extraction_results', value=results)
+
+    return results
+
+def transform_and_join_data(**context):
+    &quot;&quot;&quot;Transforma y combina datos de múltiples fuentes&quot;&quot;&quot;
+
+    # Obtener datos extraídos
+    extraction_results = context['task_instance'].xcom_pull(
+        task_ids='extract_from_multiple_sources',
+        key='extraction_results'
+    )
+
+    if not extraction_results:
+        raise ValueError(&quot;No se recibieron datos de extracción&quot;)
+
+    # Convertir a DataFrames
+    transactions_df = pd.DataFrame(extraction_results['transactions']['data'])
+    products_df = pd.DataFrame(extraction_results['products']['data'])
+    customers_df = pd.DataFrame(extraction_results['customers']['data'])
+
+    logger.info(f&quot;Procesando {len(transactions_df)} transacciones&quot;)
+
+    if transactions_df.empty:
+        logger.warning(&quot;No hay transacciones para procesar&quot;)
+        return {'processed_records': 0}
+
+    # Realizar joins
+    if not products_df.empty:
+        # Join con productos para obtener información adicional
+        transactions_df = transactions_df.merge(
+            products_df[['id', 'name', 'price', 'margin']],
+            left_on='product_category',
+            right_on='id',
+            how='left',
+            suffixes=('', '_product')
+        )
+        logger.info(&quot;Join con productos completado&quot;)
+
+    if not customers_df.empty:
+        # Join con clientes para segmentación
+        transactions_df = transactions_df.merge(
+            customers_df[['id', 'segment', 'region', 'registration_date']],
+            left_on='customer_id',
+            right_on='id',
+            how='left',
+            suffixes=('', '_customer')
+        )
+        logger.info(&quot;Join con clientes completado&quot;)
+
+    # Transformaciones adicionales
+    transactions_df['profit'] = transactions_df['amount'] * transactions_df.get('margin', 0.2)
+    transactions_df['transaction_date'] = pd.to_datetime(transactions_df['created_date'])
+    transactions_df['month_year'] = transactions_df['transaction_date'].dt.to_period('M')
+
+    # Calcular métricas agregadas
+    summary_stats = {
+        'total_transactions': len(transactions_df),
+        'total_revenue': transactions_df['amount'].sum(),
+        'total_profit': transactions_df['profit'].sum(),
+        'avg_transaction_amount': transactions_df['amount'].mean(),
+        'unique_customers': transactions_df['customer_id'].nunique() if 'customer_id' in transactions_df.columns else 0,
+        'processing_timestamp': datetime.now().isoformat()
+    }
+
+    logger.info(f&quot;Transformación completada: {summary_stats}&quot;)
+
+    # Guardar datos transformados
+    processed_data = transactions_df.to_dict('records')
+
+    context['task_instance'].xcom_push(key='processed_data', value=processed_data)
+    context['task_instance'].xcom_push(key='summary_stats', value=summary_stats)
+
+    return summary_stats
+
+def load_to_data_warehouse(**context):
+    &quot;&quot;&quot;Carga datos transformados al data warehouse&quot;&quot;&quot;
+
+    # Obtener datos procesados
+    processed_data = context['task_instance'].xcom_pull(
+        task_ids='transform_and_join_data',
+        key='processed_data'
+    )
+
+    summary_stats = context['task_instance'].xcom_pull(
+        task_ids='transform_and_join_data',
+        key='summary_stats'
+    )
+
+    if not processed_data:
+        logger.warning(&quot;No hay datos procesados para cargar&quot;)
+        return
+
+    # Conectar al data warehouse
+    dw_hook = PostgresHook(postgres_conn_id='postgres_data_warehouse')
+
+    try:
+        # Crear tabla temporal para la carga
+        temp_table = f&quot;temp_transactions_{context['run_id'].replace('-', '_')}&quot;
+
+        create_temp_table_sql = f&quot;&quot;&quot;
+        CREATE TEMP TABLE {temp_table} (
+            transaction_id BIGINT,
+            transaction_date TIMESTAMP,
+            amount DECIMAL(10,2),
+            profit DECIMAL(10,2),
+            customer_id BIGINT,
+            customer_segment VARCHAR(50),
+            customer_region VARCHAR(50),
+            product_name VARCHAR(200),
+            product_category VARCHAR(100),
+            month_year VARCHAR(10),
+            processing_timestamp TIMESTAMP
+        );
+        &quot;&quot;&quot;
+
+        dw_hook.run(create_temp_table_sql)
+        logger.info(f&quot;Tabla temporal {temp_table} creada&quot;)
+
+        # Insertar datos en tabla temporal
+        insert_count = 0
+        batch_size = 1000
+
+        for i in range(0, len(processed_data), batch_size):
+            batch = processed_data[i:i + batch_size]
+
+            # Preparar valores para inserción
+            values = []
+            for record in batch:
+                values.append((
+                    record.get('id'),
+                    record.get('created_date'),
+                    record.get('amount', 0),
+                    record.get('profit', 0),
+                    record.get('customer_id'),
+                    record.get('segment'),
+                    record.get('region'),
+                    record.get('name'),
+                    record.get('product_category'),
+                    record.get('month_year'),
+                    summary_stats['processing_timestamp']
+                ))
+
+            # Inserción por lotes
+            insert_sql = f&quot;&quot;&quot;
+            INSERT INTO {temp_table} VALUES %s
+            &quot;&quot;&quot;
+
+            dw_hook.run(insert_sql, parameters=[values])
+            insert_count += len(batch)
+
+            logger.info(f&quot;Insertados {insert_count}/{len(processed_data)} registros&quot;)
+
+        # Mover datos de tabla temporal a tabla final
+        merge_sql = f&quot;&quot;&quot;
+        INSERT INTO fact_transactions 
+        SELECT * FROM {temp_table}
+        ON CONFLICT (transaction_id) DO UPDATE SET
+            amount = EXCLUDED.amount,
+            profit = EXCLUDED.profit,
+            processing_timestamp = EXCLUDED.processing_timestamp;
+        &quot;&quot;&quot;
+
+        dw_hook.run(merge_sql)
+
+        # Actualizar tabla de métricas diarias
+        metrics_sql = &quot;&quot;&quot;
+        INSERT INTO daily_metrics (date, total_transactions, total_revenue, total_profit, avg_transaction_amount)
+        VALUES (CURRENT_DATE, %s, %s, %s, %s)
+        ON CONFLICT (date) DO UPDATE SET
+            total_transactions = EXCLUDED.total_transactions,
+            total_revenue = EXCLUDED.total_revenue,
+            total_profit = EXCLUDED.total_profit,
+            avg_transaction_amount = EXCLUDED.avg_transaction_amount;
+        &quot;&quot;&quot;
+
+        dw_hook.run(metrics_sql, parameters=[
+            summary_stats['total_transactions'],
+            summary_stats['total_revenue'],
+            summary_stats['total_profit'],
+            summary_stats['avg_transaction_amount']
+        ])
+
+        logger.info(f&quot;Carga completada: {insert_count} registros procesados&quot;)
+
+        return {
+            'loaded_records': insert_count,
+            'load_timestamp': datetime.now().isoformat()
+        }
+
+    except Exception as e:
+        logger.error(f&quot;Error en carga al data warehouse: {str(e)}&quot;)
+        raise
+
+def send_success_notification(**context):
+    &quot;&quot;&quot;Envía notificación de éxito con resumen del pipeline&quot;&quot;&quot;
+
+    summary_stats = context['task_instance'].xcom_pull(
+        task_ids='transform_and_join_data',
+        key='summary_stats'
+    )
+
+    try:
+        slack_hook = SlackWebhookHook(
+            http_conn_id='slack_webhook_conn',
+            webhook_token=Variable.get('slack_webhook_token')
+        )
+
+        message = f&quot;&quot;&quot;
+        ✅ *Pipeline de Datos Completado Exitosamente*
+
+        *DAG:* {context['dag'].dag_id}
+        *Fecha de ejecución:* {context['execution_date']}
+
+        *Resumen:*
+        • Transacciones procesadas: {summary_stats.get('total_transactions', 0):,}
+        • Ingresos totales: ${summary_stats.get('total_revenue', 0):,.2f}
+        • Ganancia total: ${summary_stats.get('total_profit', 0):,.2f}
+        • Promedio por transacción: ${summary_stats.get('avg_transaction_amount', 0):,.2f}
+        • Clientes únicos: {summary_stats.get('unique_customers', 0):,}
+
+        El pipeline se ejecutó sin errores. ✨
+        &quot;&quot;&quot;
+
+        slack_hook.send_text(message)
+        logger.info(&quot;Notificación de éxito enviada a Slack&quot;)
+
+    except Exception as e:
+        logger.error(f&quot;Error enviando notificación de éxito: {str(e)}&quot;)
+
+# Definir el DAG
+dag = DAG(
+    'comprehensive_data_pipeline',
+    default_args=default_args,
+    description='Pipeline completo de datos usando múltiples Hooks y Connections',
+    schedule_interval='@daily',
+    catchup=False,
+    max_active_runs=1,
+    tags=['etl', 'multi-source', 'production', 'comprehensive']
+)
+
+# Definir tareas principales
+extract_task = PythonOperator(
+    task_id='extract_from_multiple_sources',
+    python_callable=extract_from_multiple_sources,
+    dag=dag
+)
+
+transform_task = PythonOperator(
+    task_id='transform_and_join_data',
+    python_callable=transform_and_join_data,
+    dag=dag
+)
+
+load_task = PythonOperator(
+    task_id='load_to_data_warehouse',
+    python_callable=load_to_data_warehouse,
+    dag=dag
+)
+
+# Tarea de validación de calidad de datos
+quality_check = BashOperator(
+    task_id='data_quality_check',
+    bash_command=&quot;&quot;&quot;
+    python /opt/airflow/scripts/data_quality_check.py \
+        --date {{ ds }} \
+        --threshold 0.95
+    &quot;&quot;&quot;,
+    dag=dag
+)
+
+notify_success = PythonOperator(
+    task_id='send_success_notification',
+    python_callable=send_success_notification,
+    dag=dag,
+    trigger_rule='all_success'
+)
+
+# Definir dependencias
+extract_task &gt;&gt; transform_task &gt;&gt; load_task &gt;&gt; quality_check &gt;&gt; notify_success
+</code></pre>
+<h3 id="324-lectura-incremental-vs-completa">3.2.4 Lectura incremental vs. completa</h3>
+<p>La estrategia de carga de datos es fundamental para optimizar el rendimiento, minimizar el uso de recursos y garantizar la consistencia de los datos. La elección entre lectura completa e incremental depende de factores como el volumen de datos, la frecuencia de cambios, los recursos disponibles y los requisitos de latencia del negocio.</p>
+<h5 id="lectura-completa-full-load">Lectura completa (full load)</h5>
+<p>La lectura completa implica extraer y procesar todo el conjunto de datos desde la fuente en cada ejecución, independientemente de si los datos han cambiado o no. Esta estrategia es apropiada cuando el volumen de datos es manejable, no existe un mecanismo confiable para identificar cambios, o cuando se requiere una reconstrucción completa del dataset por motivos de integridad o corrección de errores.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Ventajas</th>
+<th style="text-align: left;">Desventajas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Simplicidad en la implementación y lógica de procesamiento</td>
+<td style="text-align: left;">Alto consumo de recursos computacionales y de red</td>
+</tr>
+<tr>
+<td style="text-align: left;">Garantiza consistencia completa de los datos</td>
+<td style="text-align: left;">Mayor tiempo de procesamiento</td>
+</tr>
+<tr>
+<td style="text-align: left;">No requiere mecanismos de control de cambios en la fuente</td>
+<td style="text-align: left;">Impacto en sistemas fuente por carga completa repetitiva</td>
+</tr>
+<tr>
+<td style="text-align: left;">Ideal para datasets pequeños a medianos</td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Cargar todo un catálogo de productos cada noche</strong></p>
+<p>Útil cuando el catálogo es relativamente pequeño y se requiere una vista completa y consistente para análisis o sincronización con otros sistemas.</p>
+<pre><code class="language-python"># Ejemplo con PySpark - Carga completa de catálogo de productos
+from pyspark.sql import SparkSession
+from pyspark.sql.functions import current_timestamp
+
+def full_load_product_catalog():
+    spark = SparkSession.builder \
+        .appName(&quot;ProductCatalogFullLoad&quot;) \
+        .getOrCreate()
+
+    # Configuración de conexión a base de datos fuente
+    jdbc_url = &quot;jdbc:postgresql://prod-db:5432/ecommerce&quot;
+    connection_properties = {
+        &quot;user&quot;: &quot;etl_user&quot;,
+        &quot;password&quot;: &quot;secure_password&quot;,
+        &quot;driver&quot;: &quot;org.postgresql.Driver&quot;
+    }
+
+    # Lectura completa del catálogo
+    products_df = spark.read \
+        .jdbc(url=jdbc_url, 
+              table=&quot;products&quot;, 
+              properties=connection_properties)
+
+    # Agregar timestamp de procesamiento
+    products_with_timestamp = products_df.withColumn(
+        &quot;load_timestamp&quot;, 
+        current_timestamp()
+    )
+
+    # Escribir a data lake (sobrescribiendo completamente)
+    products_with_timestamp.write \
+        .mode(&quot;overwrite&quot;) \
+        .option(&quot;path&quot;, &quot;s3a://datalake/bronze/products/&quot;) \
+        .saveAsTable(&quot;bronze.products&quot;)
+
+    print(f&quot;Carga completa finalizada. Registros procesados: {products_df.count()}&quot;)
+    spark.stop()
+
+# Programación en Airflow
+from airflow import DAG
+from airflow.operators.python import PythonOperator
+from datetime import datetime, timedelta
+
+default_args = {
+    'owner': 'data-team',
+    'depends_on_past': False,
+    'start_date': datetime(2024, 1, 1),
+    'retries': 2,
+    'retry_delay': timedelta(minutes=5)
+}
+
+dag = DAG(
+    'product_catalog_full_load',
+    default_args=default_args,
+    description='Carga completa diaria del catálogo de productos',
+    schedule_interval='0 2 * * *',  # Diario a las 2 AM
+    catchup=False
+)
+
+full_load_task = PythonOperator(
+    task_id='load_complete_catalog',
+    python_callable=full_load_product_catalog,
+    dag=dag
+)
+</code></pre>
+<p><strong>Reprocesar un histórico completo de transacciones por corrección</strong></p>
+<p>Necesario cuando se detectan errores en el procesamiento previo o cuando se implementan nuevas reglas de negocio que requieren recalcular todo el histórico.</p>
+<pre><code class="language-python"># Ejemplo con PySpark - Reprocesamiento completo de transacciones
+from pyspark.sql import SparkSession
+from pyspark.sql.functions import *
+from pyspark.sql.types import *
+
+def reprocess_complete_transaction_history():
+    spark = SparkSession.builder \
+        .appName(&quot;TransactionHistoryReprocess&quot;) \
+        .config(&quot;spark.sql.adaptive.enabled&quot;, &quot;true&quot;) \
+        .config(&quot;spark.sql.adaptive.coalescePartitions.enabled&quot;, &quot;true&quot;) \
+        .getOrCreate()
+
+    # Lectura completa del histórico de transacciones
+    transactions_df = spark.read \
+        .option(&quot;multiline&quot;, &quot;true&quot;) \
+        .option(&quot;inferSchema&quot;, &quot;true&quot;) \
+        .parquet(&quot;s3a://datalake/raw/transactions/&quot;)
+
+    # Aplicar nuevas reglas de negocio y correcciones
+    corrected_transactions = transactions_df \
+        .withColumn(&quot;amount_usd&quot;, 
+                   when(col(&quot;currency&quot;) == &quot;EUR&quot;, col(&quot;amount&quot;) * 1.1)
+                   .when(col(&quot;currency&quot;) == &quot;GBP&quot;, col(&quot;amount&quot;) * 1.25)
+                   .otherwise(col(&quot;amount&quot;))) \
+        .withColumn(&quot;transaction_category&quot;,
+                   when(col(&quot;merchant_category&quot;).isin([&quot;grocery&quot;, &quot;supermarket&quot;]), &quot;essential&quot;)
+                   .when(col(&quot;merchant_category&quot;).isin([&quot;entertainment&quot;, &quot;dining&quot;]), &quot;lifestyle&quot;)
+                   .otherwise(&quot;other&quot;)) \
+        .withColumn(&quot;reprocessed_at&quot;, current_timestamp()) \
+        .withColumn(&quot;processing_version&quot;, lit(&quot;v2.1&quot;))
+
+    # Escribir datos corregidos (particionado por año-mes para mejor performance)
+    corrected_transactions \
+        .withColumn(&quot;year_month&quot;, date_format(col(&quot;transaction_date&quot;), &quot;yyyy-MM&quot;)) \
+        .write \
+        .mode(&quot;overwrite&quot;) \
+        .partitionBy(&quot;year_month&quot;) \
+        .option(&quot;path&quot;, &quot;s3a://datalake/silver/transactions_corrected/&quot;) \
+        .saveAsTable(&quot;silver.transactions_corrected&quot;)
+
+    # Generar métricas de reprocesamiento
+    total_records = corrected_transactions.count()
+    date_range = corrected_transactions.agg(
+        min(&quot;transaction_date&quot;).alias(&quot;min_date&quot;),
+        max(&quot;transaction_date&quot;).alias(&quot;max_date&quot;)
+    ).collect()[0]
+
+    print(f&quot;Reprocesamiento completo finalizado:&quot;)
+    print(f&quot;- Registros procesados: {total_records}&quot;)
+    print(f&quot;- Rango de fechas: {date_range['min_date']} a {date_range['max_date']}&quot;)
+
+    spark.stop()
+
+# DAG de Airflow para reprocesamiento manual
+reprocess_dag = DAG(
+    'transaction_history_reprocess',
+    default_args=default_args,
+    description='Reprocesamiento completo del histórico de transacciones',
+    schedule_interval=None,  # Ejecución manual solamente
+    catchup=False
+)
+
+reprocess_task = PythonOperator(
+    task_id='reprocess_transaction_history',
+    python_callable=reprocess_complete_transaction_history,
+    dag=reprocess_dag
+)
+</code></pre>
+<h5 id="lectura-incremental">Lectura incremental</h5>
+<p>La lectura incremental procesa únicamente los datos nuevos o modificados desde la última ejecución, utilizando mecanismos de control como timestamps, IDs auto-incrementales, flags de estado o columnas de versionado. Esta estrategia es esencial para sistemas de alto volumen donde procesar todos los datos en cada ejecución sería ineficiente o impracticable.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Ventajas</th>
+<th style="text-align: left;">Desventajas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Significativa reducción en tiempo de procesamiento y uso de recursos</td>
+<td style="text-align: left;">Mayor complejidad en la implementación</td>
+</tr>
+<tr>
+<td style="text-align: left;">Menor impacto en sistemas fuente</td>
+<td style="text-align: left;">Requiere mecanismos confiables de control de cambios</td>
+</tr>
+<tr>
+<td style="text-align: left;">Permite procesamiento en tiempo real o near-real-time</td>
+<td style="text-align: left;">Necesidad de manejar datos duplicados o fuera de orden</td>
+</tr>
+<tr>
+<td style="text-align: left;">Escalabilidad mejorada para grandes volúmenes de datos</td>
+<td style="text-align: left;">Potencial pérdida de datos si falla el mecanismo de control</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Cargar órdenes nuevas con base en un campo <code>created_at</code></strong></p>
+<p>Estrategia común para sistemas transaccionales donde se procesan solo las órdenes creadas desde la última ejecución.</p>
+<pre><code class="language-python"># Ejemplo con PySpark - Carga incremental de órdenes
+from pyspark.sql import SparkSession
+from pyspark.sql.functions import *
+from datetime import datetime, timedelta
+import boto3
+
+def incremental_orders_load():
+    spark = SparkSession.builder \
+        .appName(&quot;OrdersIncrementalLoad&quot;) \
+        .getOrCreate()
+
+    # Obtener último timestamp procesado desde metastore o archivo de control
+    def get_last_processed_timestamp():
+        try:
+            last_run_df = spark.read.table(&quot;control.incremental_loads&quot;) \
+                .filter(col(&quot;table_name&quot;) == &quot;orders&quot;) \
+                .orderBy(col(&quot;last_processed_timestamp&quot;).desc()) \
+                .limit(1)
+
+            if last_run_df.count() &gt; 0:
+                return last_run_df.collect()[0][&quot;last_processed_timestamp&quot;]
+            else:
+                # Si es la primera ejecución, usar fecha de inicio del proyecto
+                return datetime(2024, 1, 1)
+        except:
+            return datetime(2024, 1, 1)
+
+    last_timestamp = get_last_processed_timestamp()
+    current_timestamp = datetime.now()
+
+    print(f&quot;Procesando órdenes desde: {last_timestamp}&quot;)
+
+    # Configuración de conexión
+    jdbc_url = &quot;jdbc:mysql://orders-db:3306/ecommerce&quot;
+    connection_properties = {
+        &quot;user&quot;: &quot;etl_user&quot;,
+        &quot;password&quot;: &quot;secure_password&quot;,
+        &quot;driver&quot;: &quot;com.mysql.cj.jdbc.Driver&quot;
+    }
+
+    # Query incremental con filtro por timestamp
+    incremental_query = f&quot;&quot;&quot;
+    (SELECT order_id, customer_id, order_date, total_amount, status, created_at, updated_at
+     FROM orders 
+     WHERE created_at &gt; '{last_timestamp}' 
+     AND created_at &lt;= '{current_timestamp}'
+     ORDER BY created_at) as incremental_orders
+    &quot;&quot;&quot;
+
+    # Lectura incremental
+    new_orders_df = spark.read \
+        .jdbc(url=jdbc_url, 
+              table=incremental_query, 
+              properties=connection_properties)
+
+    if new_orders_df.count() &gt; 0:
+        # Procesamiento y enriquecimiento de datos
+        processed_orders = new_orders_df \
+            .withColumn(&quot;load_timestamp&quot;, lit(current_timestamp)) \
+            .withColumn(&quot;order_year_month&quot;, date_format(col(&quot;order_date&quot;), &quot;yyyy-MM&quot;))
+
+        # Escribir nuevos datos (append mode)
+        processed_orders.write \
+            .mode(&quot;append&quot;) \
+            .partitionBy(&quot;order_year_month&quot;) \
+            .option(&quot;path&quot;, &quot;s3a://datalake/bronze/orders/&quot;) \
+            .saveAsTable(&quot;bronze.orders&quot;)
+
+        # Actualizar tabla de control
+        control_record = spark.createDataFrame([{
+            &quot;table_name&quot;: &quot;orders&quot;,
+            &quot;last_processed_timestamp&quot;: current_timestamp,
+            &quot;records_processed&quot;: new_orders_df.count(),
+            &quot;processing_timestamp&quot;: datetime.now()
+        }])
+
+        control_record.write \
+            .mode(&quot;append&quot;) \
+            .saveAsTable(&quot;control.incremental_loads&quot;)
+
+        print(f&quot;Carga incremental completada. Nuevos registros: {new_orders_df.count()}&quot;)
+    else:
+        print(&quot;No hay nuevos registros para procesar&quot;)
+
+    spark.stop()
+
+# DAG de Airflow para carga incremental
+incremental_dag = DAG(
+    'orders_incremental_load',
+    default_args=default_args,
+    description='Carga incremental de órdenes cada 15 minutos',
+    schedule_interval='*/15 * * * *',  # Cada 15 minutos
+    catchup=True  # Permite recuperar ejecuciones perdidas
+)
+
+incremental_task = PythonOperator(
+    task_id='load_incremental_orders',
+    python_callable=incremental_orders_load,
+    dag=incremental_dag
+)
+</code></pre>
+<p><strong>Usar <code>watermark</code> en Spark para carga de eventos recientes desde Kafka</strong></p>
+<p>Técnica avanzada para procesamiento de streaming que maneja eventos tardíos y garantiza procesamiento exactly-once.</p>
+<pre><code class="language-python"># Ejemplo con Spark Structured Streaming - Watermark desde Kafka
+from pyspark.sql import SparkSession
+from pyspark.sql.functions import *
+from pyspark.sql.types import *
+
+def kafka_streaming_with_watermark():
+    spark = SparkSession.builder \
+        .appName(&quot;KafkaStreamingWatermark&quot;) \
+        .config(&quot;spark.sql.streaming.checkpointLocation&quot;, &quot;s3a://checkpoints/kafka-events/&quot;) \
+        .getOrCreate()
+
+    # Schema para eventos de Kafka
+    event_schema = StructType([
+        StructField(&quot;event_id&quot;, StringType(), True),
+        StructField(&quot;user_id&quot;, LongType(), True),
+        StructField(&quot;event_type&quot;, StringType(), True),
+        StructField(&quot;event_timestamp&quot;, TimestampType(), True),
+        StructField(&quot;properties&quot;, MapType(StringType(), StringType()), True)
+    ])
+
+    # Lectura desde Kafka con configuración de consumer
+    kafka_stream = spark \
+        .readStream \
+        .format(&quot;kafka&quot;) \
+        .option(&quot;kafka.bootstrap.servers&quot;, &quot;kafka-cluster:9092&quot;) \
+        .option(&quot;subscribe&quot;, &quot;user-events&quot;) \
+        .option(&quot;startingOffsets&quot;, &quot;latest&quot;) \
+        .option(&quot;maxOffsetsPerTrigger&quot;, 10000) \
+        .option(&quot;kafka.group.id&quot;, &quot;spark-streaming-consumer&quot;) \
+        .load()
+
+    # Parsear JSON y extraer timestamp
+    parsed_events = kafka_stream \
+        .select(
+            from_json(col(&quot;value&quot;).cast(&quot;string&quot;), event_schema).alias(&quot;event&quot;),
+            col(&quot;timestamp&quot;).alias(&quot;kafka_timestamp&quot;),
+            col(&quot;offset&quot;),
+            col(&quot;partition&quot;)
+        ) \
+        .select(&quot;event.*&quot;, &quot;kafka_timestamp&quot;, &quot;offset&quot;, &quot;partition&quot;)
+
+    # Aplicar watermark para manejar eventos tardíos
+    # Permite eventos hasta 5 minutos tarde
+    watermarked_events = parsed_events \
+        .withWatermark(&quot;event_timestamp&quot;, &quot;5 minutes&quot;)
+
+    # Agregaciones por ventana de tiempo con watermark
+    windowed_aggregations = watermarked_events \
+        .groupBy(
+            window(col(&quot;event_timestamp&quot;), &quot;1 minute&quot;, &quot;30 seconds&quot;),  # Ventana deslizante
+            col(&quot;event_type&quot;)
+        ) \
+        .agg(
+            count(&quot;*&quot;).alias(&quot;event_count&quot;),
+            countDistinct(&quot;user_id&quot;).alias(&quot;unique_users&quot;),
+            collect_set(&quot;user_id&quot;).alias(&quot;user_list&quot;)
+        ) \
+        .withColumn(&quot;window_start&quot;, col(&quot;window.start&quot;)) \
+        .withColumn(&quot;window_end&quot;, col(&quot;window.end&quot;)) \
+        .drop(&quot;window&quot;)
+
+    # Configurar sink para escritura incremental
+    query = windowed_aggregations.writeStream \
+        .outputMode(&quot;append&quot;) \
+        .format(&quot;delta&quot;) \
+        .option(&quot;path&quot;, &quot;s3a://datalake/silver/event_aggregations/&quot;) \
+        .option(&quot;checkpointLocation&quot;, &quot;s3a://checkpoints/event-aggregations/&quot;) \
+        .partitionBy(&quot;event_type&quot;) \
+        .trigger(processingTime='30 seconds') \
+        .start()
+
+    # También escribir eventos raw para auditoría
+    raw_events_query = parsed_events.writeStream \
+        .outputMode(&quot;append&quot;) \
+        .format(&quot;delta&quot;) \
+        .option(&quot;path&quot;, &quot;s3a://datalake/bronze/raw_events/&quot;) \
+        .option(&quot;checkpointLocation&quot;, &quot;s3a://checkpoints/raw-events/&quot;) \
+        .partitionBy(date_format(col(&quot;event_timestamp&quot;), &quot;yyyy-MM-dd&quot;)) \
+        .trigger(processingTime='10 seconds') \
+        .start()
+
+    # Monitoreo del stream
+    print(&quot;Streaming iniciado. Estadísticas del stream:&quot;)
+    print(f&quot;- Checkpoint location: {query.lastProgress}&quot;)
+
+    return query, raw_events_query
+
+# Integración con Airflow para monitoreo y control
+from airflow.operators.bash import BashOperator
+from airflow.sensors.filesystem import FileSensor
+
+streaming_dag = DAG(
+    'kafka_streaming_monitor',
+    default_args=default_args,
+    description='Monitoreo y control de streaming desde Kafka',
+    schedule_interval='*/5 * * * *',  # Verificación cada 5 minutos
+    catchup=False
+)
+
+# Sensor para verificar que el checkpoint existe
+checkpoint_sensor = FileSensor(
+    task_id='check_streaming_checkpoint',
+    filepath='s3a://checkpoints/kafka-events/_metadata',
+    fs_conn_id='aws_default',
+    poke_interval=60,
+    timeout=300,
+    dag=streaming_dag
+)
+
+# Tarea para verificar salud del streaming job
+health_check = BashOperator(
+    task_id='streaming_health_check',
+    bash_command='''
+    # Verificar que los archivos de checkpoint se están actualizando
+    latest_checkpoint=$(aws s3 ls s3://checkpoints/kafka-events/commits/ --recursive | tail -1 | awk '{print $1&quot; &quot;$2}')
+    current_time=$(date -u +&quot;%Y-%m-%d %H:%M:%S&quot;)
+
+    # Calcular diferencia en minutos
+    checkpoint_age=$(( ($(date -d &quot;$current_time&quot; +%s) - $(date -d &quot;$latest_checkpoint&quot; +%s)) / 60 ))
+
+    if [ $checkpoint_age -gt 10 ]; then
+        echo &quot;WARNING: Streaming job checkpoint is $checkpoint_age minutes old&quot;
+        exit 1
+    else
+        echo &quot;Streaming job is healthy. Checkpoint age: $checkpoint_age minutes&quot;
+    fi
+    ''',
+    dag=streaming_dag
+)
+
+checkpoint_sensor &gt;&gt; health_check
+</code></pre>
+<p>Esta implementación completa muestra cómo ambas estrategias pueden ser efectivamente utilizadas según los requisitos específicos del caso de uso, considerando factores como volumen de datos, latencia requerida, y recursos disponibles.</p>
+<h3 id="325-gestion-de-autenticacion-y-configuracion-segura">3.2.5 Gestión de autenticación y configuración segura</h3>
+<p>Proteger accesos y configurar credenciales de forma segura es una práctica obligatoria en entornos productivos. La gestión inadecuada de secretos y credenciales representa uno de los principales vectores de ataque en sistemas de datos modernos, por lo que implementar estrategias robustas de autenticación es fundamental para mantener la integridad y confidencialidad de los pipelines de datos.</p>
+<h5 id="uso-de-variables-y-secretos">Uso de variables y secretos</h5>
+<p>La externalización de credenciales mediante sistemas especializados de gestión de secretos permite eliminar completamente las credenciales hardcodeadas del código fuente. Estas herramientas proporcionan cifrado en reposo y en tránsito, control de acceso granular, rotación automática de credenciales y auditoría completa de accesos. Airflow ofrece múltiples backends de secretos que se integran nativamente con servicios como AWS Secrets Manager, Azure Key Vault, Google Secret Manager y HashiCorp Vault.</p>
+<p><strong>Guardar contraseñas de bases de datos en Airflow usando <code>Variable.get("db_password")</code>.</strong></p>
+<pre><code class="language-python">from airflow import DAG
+from airflow.operators.python import PythonOperator
+from airflow.models import Variable
+from airflow.providers.postgres.hooks.postgres import PostgresHook
+from datetime import datetime, timedelta
+import logging
+
+def connect_to_database(**context):
+    &quot;&quot;&quot;
+    Función que establece conexión segura a PostgreSQL usando variables de Airflow
+    &quot;&quot;&quot;
+    try:
+        # Obtener credenciales de forma segura desde Variables de Airflow
+        db_host = Variable.get(&quot;postgres_host&quot;)
+        db_port = Variable.get(&quot;postgres_port&quot;, default_var=&quot;5432&quot;)
+        db_name = Variable.get(&quot;postgres_database&quot;)
+        db_user = Variable.get(&quot;postgres_username&quot;)
+        db_password = Variable.get(&quot;postgres_password&quot;)  # Marcada como sensitive en UI
+
+        # Crear conexión usando PostgresHook
+        postgres_hook = PostgresHook(
+            postgres_conn_id='postgres_default',
+            schema=db_name
+        )
+
+        # Alternativa: conexión manual con credenciales desde variables
+        connection_string = f&quot;postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}&quot;
+
+        # Ejecutar consulta de prueba
+        records = postgres_hook.get_records(&quot;SELECT version();&quot;)
+        logging.info(f&quot;Conexión exitosa. Versión de PostgreSQL: {records[0][0]}&quot;)
+
+        return {&quot;status&quot;: &quot;success&quot;, &quot;connection&quot;: &quot;established&quot;}
+
+    except Exception as e:
+        logging.error(f&quot;Error conectando a la base de datos: {str(e)}&quot;)
+        raise
+
+# Configuración segura usando Airflow Secrets Backend
+default_args = {
+    'owner': 'data_team',
+    'depends_on_past': False,
+    'start_date': datetime(2024, 1, 1),
+    'email_on_failure': True,
+    'email_on_retry': False,
+    'retries': 3,
+    'retry_delay': timedelta(minutes=5)
+}
+
+dag = DAG(
+    'secure_database_connection',
+    default_args=default_args,
+    description='Ejemplo de conexión segura a base de datos',
+    schedule_interval='@daily',
+    catchup=False,
+    tags=['security', 'database']
+)
+
+# Task que utiliza credenciales seguras
+secure_db_task = PythonOperator(
+    task_id='connect_secure_database',
+    python_callable=connect_to_database,
+    dag=dag
+)
+</code></pre>
+<p><strong>Usar Azure Key Vault para proteger secretos de conexión a Blob Storage.</strong></p>
+<pre><code class="language-python">from airflow import DAG
+from airflow.operators.python import PythonOperator
+from airflow.providers.microsoft.azure.hooks.key_vault import AzureKeyVaultHook
+from azure.storage.blob import BlobServiceClient
+from azure.identity import DefaultAzureCredential
+from datetime import datetime, timedelta
+import logging
+
+def process_blob_data_securely(**context):
+    &quot;&quot;&quot;
+    Función que accede a Azure Blob Storage usando secretos desde Key Vault
+    &quot;&quot;&quot;
+    try:
+        # Configurar Azure Key Vault Hook
+        key_vault_hook = AzureKeyVaultHook(
+            key_vault_name=&quot;your-key-vault-name&quot;,
+            key_vault_conn_id=&quot;azure_key_vault_default&quot;
+        )
+
+        # Obtener secretos del Key Vault
+        storage_account_name = key_vault_hook.get_secret(&quot;storage-account-name&quot;)
+        storage_account_key = key_vault_hook.get_secret(&quot;storage-account-key&quot;)
+        container_name = key_vault_hook.get_secret(&quot;blob-container-name&quot;)
+
+        # Crear cliente de Blob Storage con credenciales seguras
+        connection_string = f&quot;DefaultEndpointsProtocol=https;AccountName={storage_account_name};AccountKey={storage_account_key};EndpointSuffix=core.windows.net&quot;
+
+        blob_service_client = BlobServiceClient.from_connection_string(connection_string)
+
+        # Listar blobs en el contenedor
+        container_client = blob_service_client.get_container_client(container_name)
+        blob_list = list(container_client.list_blobs())
+
+        logging.info(f&quot;Encontrados {len(blob_list)} blobs en el contenedor {container_name}&quot;)
+
+        # Procesar cada blob (ejemplo: leer archivos CSV)
+        processed_files = []
+        for blob in blob_list[:5]:  # Procesar solo los primeros 5 archivos
+            if blob.name.endswith('.csv'):
+                blob_client = blob_service_client.get_blob_client(
+                    container=container_name, 
+                    blob=blob.name
+                )
+
+                # Descargar contenido del blob
+                blob_data = blob_client.download_blob()
+                content = blob_data.readall().decode('utf-8')
+
+                logging.info(f&quot;Procesado archivo: {blob.name}, tamaño: {len(content)} caracteres&quot;)
+                processed_files.append({
+                    'filename': blob.name,
+                    'size': blob.size,
+                    'last_modified': blob.last_modified
+                })
+
+        return {
+            &quot;status&quot;: &quot;success&quot;,
+            &quot;processed_files&quot;: processed_files,
+            &quot;total_blobs&quot;: len(blob_list)
+        }
+
+    except Exception as e:
+        logging.error(f&quot;Error accediendo a Azure Blob Storage: {str(e)}&quot;)
+        raise
+
+# Configuración del DAG
+default_args = {
+    'owner': 'data_team',
+    'depends_on_past': False,
+    'start_date': datetime(2024, 1, 1),
+    'email_on_failure': True,
+    'retries': 2,
+    'retry_delay': timedelta(minutes=3)
+}
+
+dag = DAG(
+    'azure_blob_secure_access',
+    default_args=default_args,
+    description='Acceso seguro a Azure Blob Storage con Key Vault',
+    schedule_interval='@hourly',
+    catchup=False,
+    tags=['azure', 'security', 'blob-storage']
+)
+
+# Task principal
+secure_blob_task = PythonOperator(
+    task_id='process_blob_data_secure',
+    python_callable=process_blob_data_securely,
+    dag=dag
+)
+</code></pre>
+<h5 id="autenticacion-en-servicios-y-apis">Autenticación en servicios y APIs</h5>
+<p>La autenticación en servicios externos requiere implementar protocolos estándar como OAuth2, JWT, o sistemas de roles basados en la nube (IAM). Estos mecanismos proporcionan acceso granular y temporal, permitiendo la rotación automática de credenciales y el principio de menor privilegio. La integración con proveedores de identidad corporativos facilita la gestión centralizada de accesos y el cumplimiento de políticas de seguridad organizacionales.</p>
+<p><strong>Conectarse a un API de terceros mediante OAuth2.</strong></p>
+<pre><code class="language-python">from airflow import DAG
+from airflow.operators.python import PythonOperator
+from airflow.models import Variable
+from requests_oauthlib import OAuth2Session
+import requests
+import json
+from datetime import datetime, timedelta
+import logging
+
+def authenticate_and_call_api(**context):
+    &quot;&quot;&quot;
+    Función que implementa flujo OAuth2 para acceder a API externa
+    &quot;&quot;&quot;
+    try:
+        # Obtener credenciales OAuth2 desde Variables de Airflow
+        client_id = Variable.get(&quot;oauth2_client_id&quot;)
+        client_secret = Variable.get(&quot;oauth2_client_secret&quot;)
+        token_url = Variable.get(&quot;oauth2_token_url&quot;)
+        api_base_url = Variable.get(&quot;api_base_url&quot;)
+
+        # Configurar datos para solicitud de token
+        token_data = {
+            'grant_type': 'client_credentials',
+            'client_id': client_id,
+            'client_secret': client_secret,
+            'scope': 'read write'  # Scopes requeridos
+        }
+
+        # Solicitar token de acceso
+        token_response = requests.post(
+            token_url,
+            data=token_data,
+            headers={'Content-Type': 'application/x-www-form-urlencoded'}
+        )
+
+        if token_response.status_code != 200:
+            raise Exception(f&quot;Error obteniendo token: {token_response.text}&quot;)
+
+        token_info = token_response.json()
+        access_token = token_info['access_token']
+
+        logging.info(&quot;Token OAuth2 obtenido exitosamente&quot;)
+
+        # Usar token para llamadas a la API
+        headers = {
+            'Authorization': f'Bearer {access_token}',
+            'Content-Type': 'application/json'
+        }
+
+        # Ejemplo: obtener datos de usuarios
+        users_response = requests.get(
+            f&quot;{api_base_url}/users&quot;,
+            headers=headers
+        )
+
+        if users_response.status_code == 200:
+            users_data = users_response.json()
+            logging.info(f&quot;Obtenidos {len(users_data)} usuarios de la API&quot;)
+
+            # Ejemplo: crear un nuevo recurso
+            new_resource = {
+                'name': 'Data Pipeline Resource',
+                'type': 'automated',
+                'created_by': 'airflow'
+            }
+
+            create_response = requests.post(
+                f&quot;{api_base_url}/resources&quot;,
+                headers=headers,
+                json=new_resource
+            )
+
+            if create_response.status_code == 201:
+                created_resource = create_response.json()
+                logging.info(f&quot;Recurso creado con ID: {created_resource.get('id')}&quot;)
+
+            return {
+                &quot;status&quot;: &quot;success&quot;,
+                &quot;users_count&quot;: len(users_data),
+                &quot;resource_created&quot;: create_response.status_code == 201
+            }
+        else:
+            raise Exception(f&quot;Error en API call: {users_response.text}&quot;)
+
+    except Exception as e:
+        logging.error(f&quot;Error en autenticación OAuth2: {str(e)}&quot;)
+        raise
+
+# Configuración del DAG
+default_args = {
+    'owner': 'api_team',
+    'depends_on_past': False,
+    'start_date': datetime(2024, 1, 1),
+    'email_on_failure': True,
+    'retries': 3,
+    'retry_delay': timedelta(minutes=2)
+}
+
+dag = DAG(
+    'oauth2_api_integration',
+    default_args=default_args,
+    description='Integración con API externa usando OAuth2',
+    schedule_interval='@daily',
+    catchup=False,
+    tags=['api', 'oauth2', 'integration']
+)
+
+oauth2_task = PythonOperator(
+    task_id='authenticate_and_call_external_api',
+    python_callable=authenticate_and_call_api,
+    dag=dag
+)
+</code></pre>
+<p><strong>Usar roles IAM en AWS para acceso a buckets S3 sin credenciales explícitas.</strong></p>
+<pre><code class="language-python">from airflow import DAG
+from airflow.operators.python import PythonOperator
+from airflow.providers.amazon.aws.hooks.s3 import S3Hook
+import boto3
+from botocore.exceptions import ClientError, NoCredentialsError
+import pandas as pd
+from datetime import datetime, timedelta
+import logging
+import io
+
+def process_s3_data_with_iam_role(**context):
+    &quot;&quot;&quot;
+    Función que accede a S3 usando roles IAM sin credenciales explícitas
+    &quot;&quot;&quot;
+    try:
+        # Usar S3Hook de Airflow (utiliza roles IAM automáticamente)
+        s3_hook = S3Hook(aws_conn_id='aws_default')
+
+        # Configuración de bucket y prefijos
+        bucket_name = 'your-data-bucket'
+        input_prefix = 'raw-data/'
+        output_prefix = 'processed-data/'
+
+        # Listar objetos en el bucket
+        objects = s3_hook.list_keys(
+            bucket_name=bucket_name,
+            prefix=input_prefix
+        )
+
+        logging.info(f&quot;Encontrados {len(objects)} objetos en {bucket_name}/{input_prefix}&quot;)
+
+        # Procesar archivos CSV
+        processed_files = []
+
+        for obj_key in objects:
+            if obj_key.endswith('.csv'):
+                try:
+                    # Leer archivo CSV desde S3
+                    csv_content = s3_hook.read_key(
+                        key=obj_key,
+                        bucket_name=bucket_name
+                    )
+
+                    # Procesar con pandas
+                    df = pd.read_csv(io.StringIO(csv_content))
+
+                    # Realizar transformaciones (ejemplo)
+                    df_processed = df.copy()
+                    df_processed['processed_date'] = datetime.now().strftime('%Y-%m-%d')
+                    df_processed['record_count'] = len(df)
+
+                    # Guardar archivo procesado de vuelta a S3
+                    output_key = obj_key.replace(input_prefix, output_prefix).replace('.csv', '_processed.csv')
+
+                    csv_buffer = io.StringIO()
+                    df_processed.to_csv(csv_buffer, index=False)
+
+                    s3_hook.load_string(
+                        string_data=csv_buffer.getvalue(),
+                        key=output_key,
+                        bucket_name=bucket_name,
+                        replace=True
+                    )
+
+                    logging.info(f&quot;Procesado: {obj_key} -&gt; {output_key}&quot;)
+
+                    processed_files.append({
+                        'input_file': obj_key,
+                        'output_file': output_key,
+                        'records_processed': len(df),
+                        'file_size_bytes': len(csv_content)
+                    })
+
+                except Exception as file_error:
+                    logging.error(f&quot;Error procesando {obj_key}: {str(file_error)}&quot;)
+                    continue
+
+        # Crear reporte de procesamiento
+        report_data = {
+            'processing_date': datetime.now().isoformat(),
+            'bucket': bucket_name,
+            'total_files_processed': len(processed_files),
+            'files_detail': processed_files
+        }
+
+        # Guardar reporte en S3
+        report_key = f&quot;reports/processing_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json&quot;
+        s3_hook.load_string(
+            string_data=json.dumps(report_data, indent=2),
+            key=report_key,
+            bucket_name=bucket_name,
+            replace=True
+        )
+
+        return {
+            'status': 'success',
+            'files_processed': len(processed_files),
+            'report_location': f's3://{bucket_name}/{report_key}'
+        }
+
+    except NoCredentialsError:
+        logging.error(&quot;No se encontraron credenciales AWS. Verificar configuración de roles IAM.&quot;)
+        raise
+    except ClientError as e:
+        logging.error(f&quot;Error de cliente AWS: {e.response['Error']['Message']}&quot;)
+        raise
+    except Exception as e:
+        logging.error(f&quot;Error general procesando datos S3: {str(e)}&quot;)
+        raise
+
+def verify_iam_permissions(**context):
+    &quot;&quot;&quot;
+    Función auxiliar para verificar permisos IAM
+    &quot;&quot;&quot;
+    try:
+        # Crear cliente STS para verificar identidad
+        sts_client = boto3.client('sts')
+        identity = sts_client.get_caller_identity()
+
+        logging.info(f&quot;Ejecutando como: {identity.get('Arn')}&quot;)
+        logging.info(f&quot;Account ID: {identity.get('Account')}&quot;)
+
+        # Verificar acceso básico a S3
+        s3_client = boto3.client('s3')
+        response = s3_client.list_buckets()
+
+        logging.info(f&quot;Acceso a S3 verificado. Buckets accesibles: {len(response['Buckets'])}&quot;)
+
+        return {
+            'iam_role': identity.get('Arn'),
+            'account_id': identity.get('Account'),
+            's3_access': True
+        }
+
+    except Exception as e:
+        logging.error(f&quot;Error verificando permisos IAM: {str(e)}&quot;)
+        raise
+
+# Configuración del DAG
+default_args = {
+    'owner': 'data_engineering',
+    'depends_on_past': False,
+    'start_date': datetime(2024, 1, 1),
+    'email_on_failure': True,
+    'retries': 2,
+    'retry_delay': timedelta(minutes=5)
+}
+
+dag = DAG(
+    's3_iam_role_processing',
+    default_args=default_args,
+    description='Procesamiento de datos S3 usando roles IAM',
+    schedule_interval='@daily',
+    catchup=False,
+    tags=['aws', 's3', 'iam', 'data-processing']
+)
+
+# Tasks del pipeline
+verify_permissions_task = PythonOperator(
+    task_id='verify_iam_permissions',
+    python_callable=verify_iam_permissions,
+    dag=dag
+)
+
+process_s3_data_task = PythonOperator(
+    task_id='process_s3_data_with_iam',
+    python_callable=process_s3_data_with_iam_role,
+    dag=dag
+)
+
+# Definir dependencias
+verify_permissions_task &gt;&gt; process_s3_data_task
+</code></pre>
+<h2 id="tarea">Tarea</h2>
+<p><strong>Desarrolla los siguientes ejercicios prácticos relacionados con el tema 3.2</strong>:</p>
+<ol>
+<li>Crea un pipeline en Apache Spark que lea datos de una base de datos PostgreSQL usando JDBC y los almacene como archivos Parquet.</li>
+<li>Implementa un DAG en Airflow que consuma una API REST con <code>HttpHook</code> y almacene los resultados en un archivo JSON en S3.</li>
+<li>Compara el rendimiento entre una lectura completa y una lectura incremental sobre una tabla con campo <code>updated_at</code> en MySQL.</li>
+<li>Configura una conexión segura en Airflow utilizando variables y crea un DAG que lea de MongoDB.</li>
+<li>Diseña un pipeline en Spark que combine datos de una API y archivos CSV, y cargue el resultado en un Delta Lake particionado por fecha.</li>
+</ol>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../tema31/" class="btn btn-neutral float-left" title="Diseño de pipelines ETL"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../tema33/" class="btn btn-neutral float-right" title="Procesos escalables y particionamiento">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../tema31/" class="btn btn-neutral float-left" title="Diseño y Orquestación de Pipelines ETL"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../tema33/" class="btn btn-neutral float-right" title="Procesamiento Escalable y Particionamiento">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
