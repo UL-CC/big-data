@@ -17,11 +17,13 @@ nav:
     - Optimización y Rendimiento: tema24.md
 
   - Arquitectura y Diseño de Flujos ETL:
-    - Diseño de pipelines ETL: tema31.md
-    - Conexión a múltiples fuentes: tema32.md
-    - Procesos escalables y particionamiento: tema33.md
-    - Buenas prácticas para ETL en Spark: tema34.md
-    - Introducción a Apache Airflow: tema35.md
+    - Diseño y Orquestación de Pipelines ETL: tema31.md
+    - Conexión a Múltiples Fuentes de Datos: tema32.md
+    - Procesamiento Escalable y Particionamiento: tema33.md
+    - Manejo de Esquemas y Calidad de Datos: tema34.md
+    - Monitorización y Troubleshooting de Pipelines: tema35.md
+    - Seguridad en ETL y Protección de Datos: tema36.md
+    - Patrones de Diseño y Optimización en la Nube: tema37.md
 
   - Automatización y Orquestación con Apache Airflow:
     - Arquitectura y componentes de Airflow: tema41.md
@@ -32,7 +34,8 @@ nav:
 
   - Proyecto Integrador y Despliegue:
     - Desarrollo del proyecto integrador: tema51.md
-    - Despliegue en nube: tema51.md
+    - Despliegue en nube: tema52.md
 
-theme: readthedocs
+theme:
+  name: readthedocs
 
