@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Procesos escalables y particionamiento - Métodos de Procesamiento y Análisis de Big Data</title>
+    <title>Procesamiento Escalable y Particionamiento - Métodos de Procesamiento y Análisis de Big Data</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Procesos escalables y particionamiento";
+        var mkdocs_page_name = "Procesamiento Escalable y Particionamiento";
         var mkdocs_page_input_path = "tema33.md";
         var mkdocs_page_url = null;
       </script>
@@ -69,19 +69,69 @@
               </ul>
               <p class="caption"><span class="caption-text">Arquitectura y Diseño de Flujos ETL</span></p>
               <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="../tema31/">Diseño de pipelines ETL</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema31/">Diseño y Orquestación de Pipelines ETL</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema32/">Conexión a múltiples fuentes</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema32/">Conexión a Múltiples Fuentes de Datos</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Procesos escalables y particionamiento</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Procesamiento Escalable y Particionamiento</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#tema-33-procesos-escalables-y-particionamiento">Tema 3.3. Procesos escalables y particionamiento</a>
+    <li class="toctree-l2"><a class="reference internal" href="#tema-33-procesamiento-escalable-y-particionamiento">Tema 3.3. Procesamiento Escalable y Particionamiento</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#331-concepto-de-escalabilidad-horizontal-y-vertical">3.3.1 Concepto de escalabilidad horizontal y vertical</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#escalabilidad-vertical-scale-up">Escalabilidad vertical (scale-up)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#escalabilidad-horizontal-scale-out">Escalabilidad horizontal (scale-out)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#332-tecnicas-de-particionamiento-en-spark">3.3.2 Técnicas de particionamiento en Spark</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#tecnicas-clave">Técnicas clave</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#cuando-usar-repartition-vs-coalesce">Cuándo usar Repartition vs. Coalesce</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#333-tuning-de-parametros-en-spark">3.3.3 Tuning de parámetros en Spark</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#parametros-clave">Parámetros clave</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#estrategia-general-de-tuning">Estrategia General de Tuning</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#334-comparacion-de-procesamiento-batch-vs-streaming-ej-spark-structured-streaming">3.3.4 Comparación de procesamiento batch vs. streaming (ej. Spark Structured Streaming)</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#procesamiento-por-lotes-batch">Procesamiento por lotes (batch)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#procesamiento-en-tiempo-real-streaming">Procesamiento en tiempo real (streaming)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#335-ejemplos-de-control-de-volumen-y-distribucion-de-carga">3.3.5 Ejemplos de control de volumen y distribución de carga</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#tecnicas-de-control-de-volumen">Técnicas de control de volumen</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#estrategias-de-distribucion-de-carga">Estrategias de distribución de carga</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#casos-reales">Casos reales</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tarea">Tarea</a>
     </li>
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema34/">Buenas prácticas para ETL en Spark</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema34/">Manejo de Esquemas y Calidad de Datos</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema35/">Introducción a Apache Airflow</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema35/">Monitorización y Troubleshooting de Pipelines</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema36/">Seguridad en ETL y Protección de Datos</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema37/">Patrones de Diseño y Optimización en la Nube</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Automatización y Orquestación con Apache Airflow</span></p>
@@ -90,7 +140,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tema42/">Instalación local usando Docker</a>
                   </li>
-                  <li class="toctree-l1"><a class="" href="../tema43.md">DAGs, operadores y tareas</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema43/">DAGs, operadores y tareas</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tema44/">Uso de `BashOperator`, `PythonOperator` y `SparkSubmitOperator`</a>
                   </li>
@@ -101,7 +151,7 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../tema51/">Desarrollo del proyecto integrador</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema51/">Desarrollo del proyecto integrador</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema52/">Despliegue en nube</a>
                   </li>
               </ul>
       </div>
@@ -119,7 +169,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
           <li class="breadcrumb-item">Arquitectura y Diseño de Flujos ETL</li>
-      <li class="breadcrumb-item active">Procesos escalables y particionamiento</li>
+      <li class="breadcrumb-item active">Procesamiento Escalable y Particionamiento</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -129,14 +179,301 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="3-arquitectura-y-diseno-de-flujos-etl">3. Arquitectura y Diseño de Flujos ETL</h1>
-<h2 id="tema-33-procesos-escalables-y-particionamiento">Tema 3.3. Procesos escalables y particionamiento</h2>
-<p><em>Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.</em></p>
+<h2 id="tema-33-procesamiento-escalable-y-particionamiento">Tema 3.3. Procesamiento Escalable y Particionamiento</h2>
+<p><strong>Objetivo</strong>:</p>
+<p>Asegurar eficiencia y rendimiento en grandes volúmenes de datos mediante el diseño de flujos ETL que aprovechen técnicas de escalabilidad y particionamiento, optimizando recursos de cómputo y distribución de carga.</p>
+<p><strong>Introducción</strong>:</p>
+<p>En contextos de Big Data, la capacidad de procesar grandes volúmenes de información de forma eficiente es crítica. A medida que los conjuntos de datos crecen, también lo hacen los desafíos asociados al rendimiento y al uso óptimo de los recursos. El diseño de procesos escalables, junto con una estrategia adecuada de particionamiento, es esencial para garantizar una ejecución rápida, segura y económica de los pipelines ETL.</p>
+<p><strong>Desarrollo</strong>:</p>
+<p>Este tema aborda los fundamentos y técnicas para construir pipelines ETL escalables. Se analizarán los tipos de escalabilidad, técnicas específicas en Apache Spark como el particionamiento y tuning de parámetros, y se compararán enfoques de procesamiento batch y streaming. Además, se presentarán ejemplos prácticos que ilustran cómo controlar el volumen y balancear la carga computacional en entornos distribuidos.</p>
+<h3 id="331-concepto-de-escalabilidad-horizontal-y-vertical">3.3.1 Concepto de escalabilidad horizontal y vertical</h3>
+<p>La escalabilidad se refiere a la capacidad de un sistema para manejar un aumento de carga o datos sin comprometer el rendimiento.</p>
+<h5 id="escalabilidad-vertical-scale-up">Escalabilidad vertical (scale-up)</h5>
+<p>Consiste en mejorar un solo nodo, aumentando sus capacidades de hardware (más CPU, más RAM, almacenamiento más rápido).</p>
+<ol>
+<li>Incrementar la memoria RAM en un nodo Spark para permitir cargas mayores en memoria.</li>
+<li>Usar máquinas con discos SSD de alta velocidad para mejorar I/O en procesos locales.</li>
+</ol>
+<h5 id="escalabilidad-horizontal-scale-out">Escalabilidad horizontal (scale-out)</h5>
+<p>Consiste en distribuir la carga entre múltiples nodos para procesamiento paralelo.</p>
+<ol>
+<li>Añadir más nodos a un clúster Spark en Databricks para reducir el tiempo total de ejecución de un ETL masivo.</li>
+<li>Usar auto-scaling en Amazon EMR para ajustar dinámicamente los recursos al volumen de datos procesado.</li>
+</ol>
+<h3 id="332-tecnicas-de-particionamiento-en-spark">3.3.2 Técnicas de particionamiento en Spark</h3>
+<p>El particionamiento eficiente permite dividir los datos para procesarlos en paralelo, reduciendo tiempos de ejecución.</p>
+<h5 id="tecnicas-clave">Técnicas clave</h5>
+<ul>
+<li><strong>PartitionBy</strong>: organiza los datos según columnas clave, útil al escribir DataFrames en formatos como Parquet.</li>
+<li><strong>Bucketing</strong>: divide datos en buckets predefinidos; útil para joins.</li>
+<li><strong>Repartition</strong>: redistribuye datos generando más particiones (shuffle costoso).</li>
+<li><strong>Coalesce</strong>: reduce particiones sin movimiento de datos (optimización de salida).</li>
+</ul>
+<p><strong>Guardar datos de ventas particionados por país y mes</strong>, para mejorar la velocidad de consultas agregadas sobre ventas regionales.:</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+from pyspark.sql.functions import col
+
+spark = SparkSession.builder.appName(&quot;Partitioned Sales Data&quot;).getOrCreate()
+
+# Simulación de datos de ventas
+data = [(&quot;USA&quot;, &quot;2025-06&quot;, 5000),
+        (&quot;Canada&quot;, &quot;2025-06&quot;, 3500),
+        (&quot;USA&quot;, &quot;2025-07&quot;, 7000),
+        (&quot;Mexico&quot;, &quot;2025-07&quot;, 4200)]
+
+columns = [&quot;country&quot;, &quot;month&quot;, &quot;sales&quot;]
+
+df = spark.createDataFrame(data, columns)
+
+# Guardar datos particionados por país y mes
+df.write.partitionBy(&quot;country&quot;, &quot;month&quot;).parquet(&quot;sales_partitioned&quot;)
+</code></pre>
+<p><strong>Aplicar bucketing sobre ID de usuario para facilitar joins</strong>, para mejorar la eficiencia de joins entre registros de actividad y detalles de usuario:</p>
+<pre><code class="language-python"># Guardar datos con bucketing sobre ID de usuario
+df.write.bucketBy(10, &quot;user_id&quot;).saveAsTable(&quot;user_logs_bucketed&quot;)
+</code></pre>
+<p>Aquí, los datos de <code>user_logs_bucketed</code> se almacenarán en 10 buckets según <code>user_id</code>, lo que agiliza joins con otras tablas.</p>
+<p><strong>Particionar datos de transacciones bancarias por año y tipo de transacción</strong>, para permitir consultas eficientes sobre historiales de transacciones:</p>
+<pre><code class="language-python">df.write.partitionBy(&quot;year&quot;, &quot;transaction_type&quot;).parquet(&quot;bank_transactions_partitioned&quot;)
+</code></pre>
+<p><strong>Aplicar bucketing sobre ID de producto para mejorar joins</strong>, para optimizar combinaciones entre ventas y detalles de productos en grandes volúmenes de datos:</p>
+<pre><code class="language-python">df.write.bucketBy(20, &quot;product_id&quot;).saveAsTable(&quot;products_bucketed&quot;)
+</code></pre>
+<h5 id="cuando-usar-repartition-vs-coalesce">Cuándo usar Repartition vs. Coalesce</h5>
+<p><strong>Usar <code>repartition(100)</code> antes de un join masivo entre DataFrames</strong>, para distribuir uniformemente los datos antes de un join masivo, evitando particiones desbalanceadas:</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+spark = SparkSession.builder.appName(&quot;Repartition Example&quot;).getOrCreate()
+
+# Simulación de DataFrames
+df1 = spark.range(100000).withColumnRenamed(&quot;id&quot;, &quot;key&quot;)
+df2 = spark.range(100000).withColumnRenamed(&quot;id&quot;, &quot;key&quot;)
+
+# Redistribuir los datos antes del join
+df1 = df1.repartition(100, &quot;key&quot;)
+df2 = df2.repartition(100, &quot;key&quot;)
+
+# Realizar el join
+df_joined = df1.join(df2, &quot;key&quot;)
+</code></pre>
+<p>Esto equilibra el procesamiento en múltiples nodos antes del join, mejorando el rendimiento.</p>
+<p><strong>Usar <code>coalesce(1)</code> para consolidar archivos en un pipeline ETL</strong>, para reducir la cantidad de archivos generados al escribir resultados finales en almacenamiento:</p>
+<pre><code class="language-python">df_final = df_joined.coalesce(1)  # Reduce las particiones al mínimo
+df_final.write.mode(&quot;overwrite&quot;).parquet(&quot;final_results.parquet&quot;)
+</code></pre>
+<p>Aquí, los datos se consolidan en un único archivo antes de la exportación, ideal para resultados de consumo humano o reportes.</p>
+<p><strong>Usar <code>repartition(50)</code> antes de una agregación intensiva</strong>, para garantizar una distribución uniforme de los datos para evitar que una sola partición haga todo el trabajo:</p>
+<pre><code class="language-python">from pyspark.sql.functions import sum
+
+df_large = spark.range(1000000).withColumnRenamed(&quot;id&quot;, &quot;transaction_id&quot;)
+
+# Redistribuir antes de la agregación
+df_large = df_large.repartition(50, &quot;transaction_id&quot;)
+
+# Calcular la suma de valores
+df_aggregated = df_large.groupBy(&quot;transaction_id&quot;).agg(sum(&quot;transaction_id&quot;).alias(&quot;total&quot;))
+</code></pre>
+<p>Repartir los datos equilibra la carga entre los workers de Spark, evitando problemas de desempeño.</p>
+<p><strong>Usar <code>coalesce(5)</code> tras una transformación intensiva</strong>, para optimizar la escritura sin alterar demasiado la distribución de datos:</p>
+<pre><code class="language-python">df_transformed = df_large.withColumn(&quot;transaction_type&quot;, df_large.transaction_id % 3)
+
+# Reducir las particiones antes de escribir
+df_transformed = df_transformed.coalesce(5)
+
+df_transformed.write.mode(&quot;overwrite&quot;).parquet(&quot;optimized_transactions.parquet&quot;)
+</code></pre>
+<p>Esto minimiza la fragmentación en almacenamiento pero mantiene algo de paralelismo en la escritura.</p>
+<p>Cada técnica tiene su aplicación específica, dependiendo de la necesidad de redistribuir o consolidar los datos.</p>
+<h3 id="333-tuning-de-parametros-en-spark">3.3.3 Tuning de parámetros en Spark</h3>
+<p>La optimización de los parámetros de Spark es esencial para mejorar el rendimiento y la eficiencia de los trabajos distribuidos. Aquí te dejo una lista extendida de parámetros clave, junto con estrategias para su ajuste adecuado.</p>
+<h5 id="parametros-clave">Parámetros clave</h5>
+<ul>
+<li>
+<p><code>spark.executor.memory</code>: Define la cantidad de memoria asignada a cada executor en el cluster.</p>
+<ul>
+<li>Si el trabajo involucra operaciones intensivas en memoria, como transformaciones con <code>groupBy</code> y <code>join</code>, aumenta el valor.</li>
+<li>Evita asignar más memoria de la disponible en el nodo, ya que puede provocar <em>Out of Memory (OOM)</em>.</li>
+<li>Usa <code>spark.memory.fraction</code> para controlar cuánto de esta memoria se usa para almacenamiento frente a ejecución.</li>
+</ul>
+</li>
+<li>
+<p><code>spark.sql.shuffle.partitions</code>: Número de particiones creadas en operaciones de shuffle.</p>
+<ul>
+<li>Aumenta si el dataset es grande y quieres reducir la carga en cada partición.</li>
+<li>Para conjuntos de datos pequeños, reducir el número puede evitar sobrecarga de pequeños archivos (<em>tiny partitions</em>).</li>
+<li>Generalmente, valores entre <strong>200-400</strong> funcionan bien para datos medianos.</li>
+</ul>
+</li>
+<li>
+<p><code>spark.executor.instances</code>: Número de ejecutores disponibles.</p>
+<ul>
+<li>Incrementarlo mejora la paralelización pero requiere suficiente recursos en el cluster.</li>
+<li>Un buen punto de partida es asignar <code>(número de núcleos del cluster / núcleos por executor)</code>, asegurando que cada executor tenga al menos <strong>1-2 GB de RAM por núcleo</strong>.</li>
+</ul>
+</li>
+<li>
+<p><code>spark.default.parallelism</code>: Número de tareas paralelas por defecto.</p>
+<ul>
+<li>Ajusta a <code>2 * número de núcleos totales</code> para un paralelismo eficiente.</li>
+<li>Si los datos son pequeños, reducir este valor puede evitar sobreasignación innecesaria de tareas.</li>
+</ul>
+</li>
+<li>
+<p><code>spark.executor.cores</code>: Número de núcleos asignados a cada executor.</p>
+<ul>
+<li>Mayor número de cores aumenta la concurrencia, pero puede sobrecargar la memoria si no se gestiona bien.</li>
+<li>Generalmente <strong>4-8</strong> cores por executor funciona bien en clusters grandes.</li>
+</ul>
+</li>
+<li>
+<p><code>spark.memory.fraction</code>: Fracción de memoria de ejecución disponible para almacenamiento de datos internos.</p>
+<ul>
+<li>Si los trabajos requieren muchas operaciones en memoria, aumentar este valor puede mejorar la eficiencia.</li>
+<li>Mantener un equilibrio con <code>spark.memory.storageFraction</code> para evitar presión sobre la memoria disponible.</li>
+</ul>
+</li>
+<li>
+<p><code>spark.sql.autoBroadcastJoinThreshold</code>: Tamaño máximo de datos para que una tabla se transmita (<em>broadcast</em>) en joins.</p>
+<ul>
+<li>Si se hacen muchos joins en datasets pequeños, aumentar el valor permite optimizar los <em>broadcast joins</em>.</li>
+<li>Si los datasets son grandes, desactivar <em>broadcast</em> puede evitar consumo excesivo de memoria.</li>
+</ul>
+</li>
+<li>
+<p><code>spark.task.cpus</code>: Número de núcleos usados por cada tarea dentro de un executor.</p>
+<ul>
+<li>Para cargas de trabajo CPU-intensivas, asignar más núcleos puede mejorar el rendimiento.</li>
+<li>Para tareas I/O-intensivas, mantener un valor bajo es mejor para paralelismo.</li>
+</ul>
+</li>
+<li>
+<p><code>spark.dynamicAllocation.enabled</code>: Permite que Spark ajuste dinámicamente el número de ejecutores en función de la carga de trabajo.</p>
+<ul>
+<li>Habilitar en entornos con variabilidad en cargas de trabajo mejora la eficiencia.</li>
+<li>Desactivarlo en clusters con recursos fijos evita fluctuaciones inesperadas.</li>
+</ul>
+</li>
+</ul>
+<h5 id="estrategia-general-de-tuning">Estrategia General de Tuning</h5>
+<ol>
+<li><strong>Analizar la carga de trabajo</strong>: Si el trabajo es CPU-intensivo, aumentar núcleos; si es memoria-intensivo, ajustar <code>spark.executor.memory</code>.</li>
+<li><strong>Optimizar particiones</strong>: Reducir el número si hay demasiados archivos pequeños, aumentarlo si las tareas tardan demasiado.</li>
+<li><strong>Monitorear métricas en Spark UI</strong>: Identificar cuellos de botella con <em>storage</em>, <em>execution</em> y <em>shuffle</em>.</li>
+<li><strong>Iterar pruebas</strong>: No hay valores absolutos, cada sistema tiene su configuración óptima según los datos y recursos disponibles.</li>
+</ol>
+<h3 id="334-comparacion-de-procesamiento-batch-vs-streaming-ej-spark-structured-streaming">3.3.4 Comparación de procesamiento batch vs. streaming (ej. Spark Structured Streaming)</h3>
+<h5 id="procesamiento-por-lotes-batch">Procesamiento por lotes (batch)</h5>
+<p>El procesamiento por lotes es un paradigma que maneja grandes volúmenes de datos almacenados de forma estática, ejecutándose en intervalos predefinidos como horarios, diarios, semanales o mensuales. Este enfoque es ideal cuando la latencia no es crítica y se necesita procesar datos históricos completos para obtener insights profundos. Spark excede en este tipo de procesamiento gracias a su capacidad de distribución masiva y optimizaciones como Catalyst Optimizer y Tungsten.</p>
+<p>Las características principales incluyen alta throughput, procesamiento de datasets completos, tolerancia a fallos robusta mediante lineage de RDDs, y la capacidad de manejar transformaciones complejas que requieren múltiples pasadas sobre los datos. El procesamiento batch permite optimizaciones avanzadas como particionado inteligente, caching estratégico y ejecución lazy evaluation.</p>
+<ol>
+<li>
+<p><strong>ETL nocturno que consolida logs de ventas y los carga al DWH</strong> - Transformación y limpieza de millones de registros de transacciones diarias para análisis de negocio.</p>
+</li>
+<li>
+<p><strong>Agrupamiento semanal de datos para generación de KPIs</strong> - Cálculo de métricas de rendimiento empresarial agregando datos de múltiples fuentes.</p>
+</li>
+<li>
+<p><strong>Procesamiento de datos de machine learning para entrenamiento de modelos</strong> - Preparación de datasets masivos con feature engineering, normalización y particionado para algoritmos de ML distribuidos usando MLlib.</p>
+</li>
+<li>
+<p><strong>Análisis forense de logs de seguridad</strong> - Procesamiento retrospectivo de terabytes de logs de red para identificar patrones de ataques, correlacionar eventos sospechosos y generar reportes de amenazas.</p>
+</li>
+<li>
+<p><strong>Migración y reconciliación de bases de datos legacy</strong> - Transformación masiva de esquemas antiguos, validación de integridad referencial y carga incremental hacia arquitecturas modernas de data lakes.</p>
+</li>
+</ol>
+<h5 id="procesamiento-en-tiempo-real-streaming">Procesamiento en tiempo real (streaming)</h5>
+<p>El procesamiento en streaming maneja flujos continuos de datos conforme van llegando, proporcionando capacidades de análisis y respuesta con latencia ultra-baja (milisegundos a segundos). Spark Structured Streaming ofrece un modelo unificado que trata los streams como tablas infinitas, permitiendo usar la misma API de SQL y DataFrame tanto para batch como streaming, garantizando exactly-once processing y manejo automático de late data.</p>
+<p>Este paradigma es fundamental para casos de uso que requieren decisiones inmediatas, monitoreo en tiempo real, alertas proactivas y experiencias interactivas. Spark Structured Streaming proporciona checkpointing automático, recuperación de fallos sin pérdida de datos, y la capacidad de manejar múltiples fuentes de datos simultáneamente (Kafka, Kinesis, TCP sockets, etc.).</p>
+<ol>
+<li>
+<p><strong>Detección en tiempo real de fraudes bancarios con Spark Structured Streaming</strong> - Análisis instantáneo de patrones transaccionales para bloquear operaciones sospechosas antes de su ejecución.</p>
+</li>
+<li>
+<p><strong>Pipeline de logs de sensores IoT para monitoreo ambiental</strong> - Procesamiento continuo de métricas de temperatura, humedad y calidad del aire para alertas automáticas.</p>
+</li>
+<li>
+<p><strong>Análisis de clickstream en plataformas de e-commerce</strong> - Seguimiento en tiempo real del comportamiento de usuarios para personalización dinámica, recomendaciones instantáneas y optimización de conversion rates.</p>
+</li>
+<li>
+<p><strong>Monitoreo de infraestructura y DevOps</strong> - Procesamiento continuo de métricas de servidores, aplicaciones y redes para detección proactiva de anomalías, auto-scaling y resolución automática de incidentes.</p>
+</li>
+<li>
+<p><strong>Trading algorítmico y análisis financiero</strong> - Procesamiento de feeds de mercados financieros en tiempo real para ejecutar estrategias de trading, calcular riesgos dinámicamente y generar alertas de volatilidad extrema.</p>
+</li>
+</ol>
+<h3 id="335-ejemplos-de-control-de-volumen-y-distribucion-de-carga">3.3.5 Ejemplos de control de volumen y distribución de carga</h3>
+<p>El diseño efectivo de pipelines en Spark requiere estrategias sofisticadas para distribuir la carga de trabajo de manera óptima y evitar cuellos de botella que pueden degradar significativamente el rendimiento. La gestión adecuada del volumen de datos y su distribución a través del cluster es fundamental para maximizar el paralelismo, minimizar el shuffle de datos y optimizar el uso de recursos computacionales. Esto incluye técnicas de pre-procesamiento, particionado inteligente, y balanceamiento dinámico de workloads.</p>
+<h5 id="tecnicas-de-control-de-volumen">Técnicas de control de volumen</h5>
+<p>Las técnicas de control de volumen se enfocan en reducir la cantidad de datos que deben procesarse en las etapas más costosas del pipeline, aplicando principios de optimización temprana que pueden resultar en mejoras de rendimiento de órdenes de magnitud.</p>
+<ol>
+<li>
+<p><strong>Filtrado temprano de datos irrelevantes antes de operaciones costosas</strong> - Aplicar <code>filter</code> antes de <code>join</code> para reducir drasticamente el volumen de datos en operaciones de shuffle intensivo, minimizando el tráfico de red y uso de memoria.</p>
+</li>
+<li>
+<p><strong>Muestreo (<code>sample</code>) para pruebas y validaciones antes del procesamiento completo</strong> - Utilizar subconjuntos representativos para validar lógica de negocio, ajustar parámetros de configuración y estimar recursos necesarios.</p>
+</li>
+<li>
+<p><strong>Pushdown de predicados y proyecciones</strong> - Aprovechar optimizaciones de Catalyst Optimizer para ejecutar filtros y selecciones directamente en el storage layer (Parquet, Delta Lake), reduciendo I/O y transferencia de datos.</p>
+</li>
+<li>
+<p><strong>Compresión y codificación adaptativa</strong> - Implementar esquemas de compresión específicos por tipo de dato (dictionary encoding para strings, delta encoding para timestamps) para minimizar footprint de memoria y acelerar serialización.</p>
+</li>
+<li>
+<p><strong>Lazy evaluation estratégica</strong> - Diseñar transformaciones que aprovechan la evaluación perezosa de Spark para combinar múltiples operaciones en stages optimizados, reduciendo materializaciones intermedias innecesarias.</p>
+</li>
+</ol>
+<h5 id="estrategias-de-distribucion-de-carga">Estrategias de distribución de carga</h5>
+<p>La distribución eficiente de carga requiere un entendimiento profundo de los patrones de acceso a datos, características de las claves de particionado, y topología del cluster para evitar data skew y hotspots de procesamiento.</p>
+<ol>
+<li>
+<p><strong>Pre-particionar archivos de entrada en HDFS/Parquet para alinear con claves de join</strong> - Organizar datos físicamente según las claves más frecuentemente utilizadas en joins, eliminando shuffle operations y mejorando locality.</p>
+</li>
+<li>
+<p><strong>Balancear workloads entre particiones usando claves con distribución uniforme</strong> - Evitar data skew seleccionando claves de particionado con cardinalidad alta y distribución equilibrada, implementando técnicas como salting o bucketing.</p>
+</li>
+<li>
+<p><strong>Dynamic partition pruning y predicate pushdown</strong> - Configurar Spark para eliminar dinámicamente particiones irrelevantes durante la ejecución, reduciendo significativamente el conjunto de datos a procesar.</p>
+</li>
+<li>
+<p><strong>Coalescing y repartitioning inteligente</strong> - Aplicar <code>coalesce()</code> para consolidar particiones pequeñas sin shuffle, y <code>repartition()</code> para redistribuir datos cuando se requiere cambiar el esquema de particionado.</p>
+</li>
+<li>
+<p><strong>Broadcasting de datasets pequeños</strong> - Utilizar broadcast joins para tablas de dimensiones pequeñas (&lt;200MB), eliminando shuffle operations y mejorando dramatically el rendimiento de joins.</p>
+</li>
+</ol>
+<h5 id="casos-reales">Casos reales</h5>
+<ol>
+<li>
+<p><strong>Pipeline de ingestión de logs web optimizado</strong> - En un sistema de análisis de logs web procesando 50TB diarios, se aplicó <code>filter</code> temprano para eliminar bots y requests irrelevantes, seguido de <code>repartition</code> por tipo de evento y timestamp, resultando en 70% reducción en tiempo de procesamiento.</p>
+</li>
+<li>
+<p><strong>ETL de transacciones financieras acelerado</strong> - Un ETL procesando millones de registros de transacciones fue optimizado dividiendo los datos por región geográfica y ejecutando pipelines paralelos, implementando particionado por hash de customer_id para evitar skew, logrando 5x mejora en throughput.</p>
+</li>
+<li>
+<p><strong>Análisis de sensores IoT con particionado temporal</strong> - Sistema de procesamiento de datos de sensores industriales implementó particionado por device_id y timestamp, con pre-agregación por ventanas de tiempo, utilizando Delta Lake para optimizar upserts y reducir small files problem.</p>
+</li>
+<li>
+<p><strong>Data warehouse de e-commerce con bucketing estratégico</strong> - Pipeline ETL para plataforma de comercio electrónico implementó bucketing por customer_id en tablas de facts, combinado con Z-ordering en product_id, resultando en 80% reducción en tiempo de queries analíticas y mejora significativa en concurrent user experience.</p>
+</li>
+<li>
+<p><strong>Streaming analytics con watermarking avanzado</strong> - Sistema de análisis en tiempo real de eventos de aplicaciones móviles implementó watermarking dinámico y particionado por session_id con salting, manejando efectivamente late-arriving data y achieving sub-second latency para alertas críticas de negocio.</p>
+</li>
+</ol>
+<h2 id="tarea">Tarea</h2>
+<p>Desarrolla los siguientes ejercicios para aplicar los conocimientos adquiridos:</p>
+<ol>
+<li>Implementa un pipeline en PySpark que lea datos de transacciones, los particione por país y mes, y los escriba en formato Parquet.</li>
+<li>Ajusta parámetros de Spark (<code>executor memory</code>, <code>shuffle partitions</code>) para mejorar el rendimiento de un ETL sobre 1 millón de registros con múltiples joins.</li>
+<li>Compara dos pipelines: uno en batch y otro en streaming usando Spark Structured Streaming, que consuman datos simulados de sensores de temperatura.</li>
+<li>Diseña una estrategia de particionamiento y bucketing para un sistema de recomendaciones que une ratings de usuarios y metadatos de películas.</li>
+<li>Realiza pruebas de escalabilidad horizontal en un entorno local o en la nube (por ejemplo, Databricks Community Edition) incrementando el número de nodos y midiendo el tiempo de ejecución de un pipeline.</li>
+</ol>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../tema32/" class="btn btn-neutral float-left" title="Conexión a múltiples fuentes"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../tema34/" class="btn btn-neutral float-right" title="Buenas prácticas para ETL en Spark">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../tema32/" class="btn btn-neutral float-left" title="Conexión a Múltiples Fuentes de Datos"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../tema34/" class="btn btn-neutral float-right" title="Manejo de Esquemas y Calidad de Datos">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>

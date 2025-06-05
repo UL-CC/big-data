@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>2. PySpark y SparkSQL - Métodos de Procesamiento y Análisis de Big Data</title>
+    <title>Despliegue en nube - Métodos de Procesamiento y Análisis de Big Data</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "2. PySpark y SparkSQL";
+        var mkdocs_page_name = "Despliegue en nube";
         var mkdocs_page_input_path = "tema52.md";
         var mkdocs_page_url = null;
       </script>
@@ -69,15 +69,19 @@
               </ul>
               <p class="caption"><span class="caption-text">Arquitectura y Diseño de Flujos ETL</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema31/">Diseño de pipelines ETL</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema31/">Diseño y Orquestación de Pipelines ETL</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema32/">Conexión a múltiples fuentes</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema32/">Conexión a Múltiples Fuentes de Datos</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema33/">Procesos escalables y particionamiento</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema33/">Procesamiento Escalable y Particionamiento</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema34/">Buenas prácticas para ETL en Spark</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema34/">Manejo de Esquemas y Calidad de Datos</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema35/">Introducción a Apache Airflow</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema35/">Monitorización y Troubleshooting de Pipelines</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema36/">Seguridad en ETL y Protección de Datos</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema37/">Patrones de Diseño y Optimización en la Nube</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Automatización y Orquestación con Apache Airflow</span></p>
@@ -86,7 +90,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tema42/">Instalación local usando Docker</a>
                   </li>
-                  <li class="toctree-l1"><a class="" href="../tema43.md">DAGs, operadores y tareas</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema43/">DAGs, operadores y tareas</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tema44/">Uso de `BashOperator`, `PythonOperator` y `SparkSubmitOperator`</a>
                   </li>
@@ -94,10 +98,14 @@
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Proyecto Integrador y Despliegue</span></p>
-              <ul>
+              <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../tema51/">Desarrollo del proyecto integrador</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema51/">Desarrollo del proyecto integrador</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Despliegue en nube</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#tema-21-operaciones-con-dataframes">Tema 2.1. Operaciones con DataFrames</a>
+    </li>
+    </ul>
                   </li>
               </ul>
       </div>
@@ -114,7 +122,8 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">2. PySpark y SparkSQL</li>
+          <li class="breadcrumb-item">Proyecto Integrador y Despliegue</li>
+      <li class="breadcrumb-item active">Despliegue en nube</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -129,6 +138,9 @@
               
             </div>
           </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../tema51/" class="btn btn-neutral float-left" title="Desarrollo del proyecto integrador"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
 
   <hr/>
 
@@ -149,6 +161,8 @@
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+    
+      <span><a href="../tema51/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
   </span>

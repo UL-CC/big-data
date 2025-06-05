@@ -83,15 +83,19 @@
               </ul>
               <p class="caption"><span class="caption-text">Arquitectura y Diseño de Flujos ETL</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="tema31/">Diseño de pipelines ETL</a>
+                  <li class="toctree-l1"><a class="reference internal" href="tema31/">Diseño y Orquestación de Pipelines ETL</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="tema32/">Conexión a múltiples fuentes</a>
+                  <li class="toctree-l1"><a class="reference internal" href="tema32/">Conexión a Múltiples Fuentes de Datos</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="tema33/">Procesos escalables y particionamiento</a>
+                  <li class="toctree-l1"><a class="reference internal" href="tema33/">Procesamiento Escalable y Particionamiento</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="tema34/">Buenas prácticas para ETL en Spark</a>
+                  <li class="toctree-l1"><a class="reference internal" href="tema34/">Manejo de Esquemas y Calidad de Datos</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="tema35/">Introducción a Apache Airflow</a>
+                  <li class="toctree-l1"><a class="reference internal" href="tema35/">Monitorización y Troubleshooting de Pipelines</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="tema36/">Seguridad en ETL y Protección de Datos</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="tema37/">Patrones de Diseño y Optimización en la Nube</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Automatización y Orquestación con Apache Airflow</span></p>
@@ -100,7 +104,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="tema42/">Instalación local usando Docker</a>
                   </li>
-                  <li class="toctree-l1"><a class="" href="tema43.md">DAGs, operadores y tareas</a>
+                  <li class="toctree-l1"><a class="reference internal" href="tema43/">DAGs, operadores y tareas</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="tema44/">Uso de `BashOperator`, `PythonOperator` y `SparkSubmitOperator`</a>
                   </li>
@@ -111,7 +115,7 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="tema51/">Desarrollo del proyecto integrador</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="tema51/">Desarrollo del proyecto integrador</a>
+                  <li class="toctree-l1"><a class="reference internal" href="tema52/">Despliegue en nube</a>
                   </li>
               </ul>
       </div>
@@ -164,20 +168,22 @@
 <li><a href="tema24/">Optimización y Rendimiento</a></li>
 </ul>
 <h2 id="3-arquitectura-y-diseno-de-flujos-etl">3. Arquitectura y Diseño de Flujos ETL</h2>
-<p><strong>Objetivo</strong>: Al terminar esta unidad, el estudiante será capaz de diseñar, implementar y optimizar pipelines ETL (Extracción, Transformación y Carga) escalables y eficientes utilizando herramientas como Apache Spark y Apache Airflow. Esto incluye la habilidad de conectar diversas fuentes de datos, gestionar el particionamiento para el rendimiento y aplicar las mejores prácticas de la industria para asegurar la integridad y la calidad de los datos.</p>
+<p><strong>Objetivo</strong>: Al finalizar esta unidad, el estudiante será capaz de diseñar, implementar y optimizar flujos ETL (Extracción, Transformación y Carga) escalables, seguros y resilientes, aplicando buenas prácticas y patrones modernos de ingeniería de datos. Utilizando herramientas como Apache Spark y Apache Airflow, podrá conectar múltiples fuentes de datos, gestionar la evolución de esquemas, monitorear el desempeño de los pipelines y aplicar estrategias para asegurar la calidad, eficiencia y sostenibilidad de los procesos tanto en entornos locales como en la nube.</p>
 <ul>
-<li><a href="tema31/">Diseño de pipelines ETL</a></li>
-<li><a href="tema32/">Conexión a múltiples fuentes</a></li>
-<li><a href="tema33/">Procesos escalables y particionamiento</a></li>
-<li><a href="tema34/">Buenas prácticas para ETL en Spark</a></li>
-<li><a href="tema35/">Introducción a Apache Airflow</a></li>
+<li><a href="tema31/">Diseño y Orquestación de Pipelines ETL</a></li>
+<li><a href="tema32/">Conexión a Múltiples Fuentes de Datos</a></li>
+<li><a href="tema33/">Procesamiento Escalable y Particionamiento</a></li>
+<li><a href="tema34/">Manejo de Esquemas y Calidad de Datos</a></li>
+<li><a href="tema35/">Monitorización y Troubleshooting de Pipelines</a></li>
+<li><a href="tema36/">Seguridad en ETL y Protección de Datos</a></li>
+<li><a href="tema37/">Patrones de Diseño y Optimización en la Nube</a></li>
 </ul>
 <h2 id="4-automatizacion-y-orquestacion-con-apache-airflow">4. Automatización y Orquestación con Apache Airflow</h2>
 <p><strong>Objetivo</strong>: Al finalizar esta unidad, el estudiante será capaz de diseñar, implementar y monitorear flujos de trabajo de datos complejos utilizando Apache Airflow, automatizando la ejecución de tareas distribuidas y gestionando sus dependencias para asegurar la eficiencia y fiabilidad de los procesos de Big Data.</p>
 <ul>
 <li><a href="tema41/">Arquitectura y componentes de Airflow</a></li>
 <li><a href="tema42/">Instalación local usando Docker</a></li>
-<li><a href="tema43.md">DAGs, operadores y tareas</a></li>
+<li><a href="tema43/">DAGs, operadores y tareas</a></li>
 <li><a href="tema44/">Uso de <code>BashOperator</code>, <code>PythonOperator</code> y <code>SparkSubmitOperator</code></a></li>
 <li><a href="tema45/">Monitoreo y manejo de dependencias</a></li>
 </ul>
@@ -185,7 +191,7 @@
 <p><strong>Objetivo</strong>: Al finalizar esta unidad, el estudiante será capaz de implementar un proyecto completo de Big Data, aplicando las metodologías y herramientas aprendidas a lo largo del módulo para resolver un problema de negocio real, asegurando la escalabilidad y la eficiencia de la solución.</p>
 <ul>
 <li><a href="tema51/">Desarrollo del proyecto integrador</a></li>
-<li><a href="tema51/">Despliegue en nube</a></li>
+<li><a href="tema52/">Despliegue en nube</a></li>
 </ul>
               
             </div>
@@ -235,5 +241,5 @@
 
 <!--
 MkDocs version : 1.6.1
-Build Date UTC : 2025-06-04 00:34:41.677053+00:00
+Build Date UTC : 2025-06-05 01:04:47.781773+00:00
 -->
