@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Cluster spark - Métodos de Procesamiento y Análisis de Big Data</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Cluster spark";
+        var mkdocs_page_input_path = "cluster_spark.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Métodos de Procesamiento y Análisis de Big Data
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Inicio</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Introducción</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema11/">Fundamentos de Big Data</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema12/">Introducción al ecosistema Spark</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema13/">RDD, DataFrame y Dataset</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema14/">Instalación y configuración de Spark</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema15/">Primeros pasos con PySpark</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">PySpark y SparkSQL</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema21/">Fundamentos de DataFrames en Spark</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema22/">Manipulación y Transformación de Datos</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema23/">Consultas y SQL en Spark</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema24/">Optimización y Rendimiento</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Arquitectura y Diseño de Flujos ETL</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema31/">Diseño y Orquestación de Pipelines ETL</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema32/">Conexión a Múltiples Fuentes de Datos</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema33/">Procesamiento Escalable y Particionamiento</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema34/">Manejo de Esquemas y Calidad de Datos</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema35/">Monitorización y Troubleshooting de Pipelines</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema36/">Seguridad en ETL y Protección de Datos</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema37/">Patrones de Diseño y Optimización en la Nube</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Automatización y Orquestación con Apache Airflow</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema41/">Arquitectura y componentes de Airflow</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema42/">Instalación local usando Docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema43/">DAGs, operadores y tareas</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema44/">Uso de `BashOperator`, `PythonOperator` y `SparkSubmitOperator`</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema45/">Monitoreo y manejo de dependencias</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Proyecto Integrador y Despliegue</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema51/">Desarrollo del proyecto integrador</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema52/">Despliegue en nube</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Métodos de Procesamiento y Análisis de Big Data</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Cluster spark</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <p><a href="../">← Volver al Inicio</a></p>
+<h1 id="spark-en-modo-local">Spark en modo <code>local</code></h1>
+<p>El modo <strong>local</strong> es la configuración más sencilla y se ejecuta en una sola máquina sin distribución de trabajo. Es ideal para desarrollo, pruebas y pequeños conjuntos de datos, ya que no requiere un entorno distribuido. </p>
+<h3 id="caracteristicas">Características</h3>
+<ul>
+<li>No depende de un <strong>gestor de clúster</strong> como <a href="https://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/YARN.html">YARN</a> o <a href="https://kubernetes.io/">Kubernetes</a>.</li>
+<li>Puede usar uno o múltiples núcleos en la máquina local (<code>local[1]</code> para un núcleo, <code>local[*]</code> para todos los núcleos disponibles).</li>
+<li>Se ejecuta sin necesidad de configurar un nodo maestro (<em>driver</em>), ni nodos trabajadores (<em>worker</em>).</li>
+<li>Es útil para depuración y desarrollo rápido.</li>
+</ul>
+<h3 id="ejecucion">Ejecución</h3>
+<ol>
+<li>Descarga la imagen de Docker:</li>
+</ol>
+<pre><code class="language-bash">docker pull quay.io/jupyter/pyspark-notebook
+</code></pre>
+<ol>
+<li>Crea un volumen con el nombre <code>work</code>, para preservar el trabajo realizado con Jupyter:</li>
+</ol>
+<pre><code class="language-bash">docker volume create work
+</code></pre>
+<ol>
+<li>Ejecuta el contenedor en modo interactivo, iniciará Jupyter Notebook y lo expondrá en el puerto 8888:</li>
+</ol>
+<pre><code class="language-bash">docker run -it --rm -p 8888:8888 -v work:/home/jovyan/ quay.io/jupyter/pyspark-notebook
+</code></pre>
+<ol>
+<li>
+<p>Accede a Jupyter Notebook:</p>
+</li>
+<li>
+<p>Abre el link que muestra el LOG de docker al iniciar: <code>http://localhost:8888/...</code></p>
+</li>
+<li>
+<p>Crea un nuevo notebook Python, e inicia una sesión en modo <code>local</code> con todos los núcleos disponibles (<code>local[*]</code>):</p>
+</li>
+</ol>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+spark = SparkSession.builder.master(&quot;local[*]&quot;).appName(&quot;Test&quot;).getOrCreate()
+print(spark)
+</code></pre>
+<hr />
+<h1 id="spark-en-modo-cluster">Spark en modo <code>cluster</code></h1>
+<p>El modo <strong>clúster</strong> permite distribuir el procesamiento de datos entre múltiples máquinas. Es esencial cuando se trabaja con grandes volúmenes de datos que no pueden manejarse eficientemente en una sola máquina.</p>
+<h3 id="caracteristicas_1">Características</h3>
+<ul>
+<li>Requiere un <strong>gestor de clúster</strong> como <a href="https://spark.apache.org/docs/3.5.2/spark-standalone.html">Spark Standalone</a>, <a href="https://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/YARN.html">YARN</a>, <a href="https://mesos.apache.org/">Mesos</a> o <a href="https://kubernetes.io/">Kubernetes</a>.</li>
+<li>Puede escalar horizontalmente agregando más nodos al clúster.</li>
+<li>Requiere un nodo maestro (<em>driver</em>) que coordina el trabajo, y nodos trabajadores (<em>worker</em>) que ejecutan las tareas.</li>
+<li>Ideal para <strong>procesamiento distribuido</strong> de Big Data.</li>
+</ul>
+<h3 id="ejecucion_1">Ejecución</h3>
+<h5 id="opcion-1-usando-docker-compose-recomendada">Opción 1: usando <a href="https://docs.docker.com/compose/">Docker Compose</a> (recomendada)</h5>
+<ol>
+<li>Crea el archivo <code>docker-compose.yml</code>:</li>
+</ol>
+<pre><code class="language-yaml">version: '3'
+
+services:
+  spark-master:
+    image: quay.io/jupyter/pyspark-notebook
+    container_name: spark-master
+    ports:
+      - &quot;7077:7077&quot;  # puerto del nodo maestro
+      - &quot;8080:8080&quot;  # interfaz web del nodo maestro
+      - &quot;8888:8888&quot;  # interfaz web de Jupyter
+    environment:
+      - SPARK_MODE=master
+    volumes:
+      - ./data:/home/jovyan/data
+
+  spark-worker-1:
+    image: quay.io/jupyter/pyspark-notebook
+    container_name: spark-worker-1
+    depends_on:
+      - spark-master
+    environment:
+      - SPARK_MASTER_URL=spark://spark-master:7077
+      - SPARK_MODE=worker
+      - SPARK_WORKER_CORES=1
+      - SPARK_WORKER_MEMORY=1G
+
+  spark-worker-2:
+    image: quay.io/jupyter/pyspark-notebook
+    container_name: spark-worker-2
+    depends_on:
+      - spark-master
+    environment:
+      - SPARK_MASTER_URL=spark://spark-master:7077
+      - SPARK_MODE=worker
+      - SPARK_WORKER_CORES=1
+      - SPARK_WORKER_MEMORY=1G
+</code></pre>
+<ol>
+<li>Ejecutar:</li>
+</ol>
+<pre><code class="language-python">docker-compose up -d
+</code></pre>
+<ol>
+<li>
+<p>Acceder a la interfaz Web del nodo maestro: <code>http://localhost:8080</code></p>
+</li>
+<li>
+<p>Acceder a Jupyter Notebook: <code>http://localhost:8888</code>
+   si solicita una contraseña, <code>jupyter</code></p>
+</li>
+<li>
+<p>Utilizando PySpark en el cuaderno:</p>
+</li>
+</ol>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+
+spark = SparkSession.builder \
+    .master(&quot;spark://spark-master:7077&quot;) \
+    .appName(&quot;test-cluster&quot;) \
+    .getOrCreate()
+</code></pre>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
