@@ -27,10 +27,9 @@ nav:
 
   - Automatización y Orquestación con Apache Airflow:
     - Arquitectura y componentes de Airflow: tema41.md
-    - Instalación local usando Docker: tema42.md
-    - DAGs, operadores y tareas: tema43.md
-    - Uso de `BashOperator`, `PythonOperator` y `SparkSubmitOperator`: tema44.md
-    - Monitoreo y manejo de dependencias: tema45.md
+    - DAGs, operadores y tareas: tema42.md
+    - Integración con ecosistema Big Data: tema43.md
+    - Monitoreo, logging y manejo de dependencias: tema44.md
 
   - Proyecto Integrador y Despliegue:
     - Desarrollo del proyecto integrador: tema51.md

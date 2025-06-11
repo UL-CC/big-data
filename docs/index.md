@@ -45,10 +45,9 @@
 **Objetivo**: Al finalizar esta unidad, el estudiante será capaz de diseñar, implementar y monitorear flujos de trabajo de datos complejos utilizando Apache Airflow, automatizando la ejecución de tareas distribuidas y gestionando sus dependencias para asegurar la eficiencia y fiabilidad de los procesos de Big Data.
 
 - [Arquitectura y componentes de Airflow](tema41.md)
-- [Instalación local usando Docker](tema42.md)
-- [DAGs, operadores y tareas](tema43.md)
-- [Uso de `BashOperator`, `PythonOperator` y `SparkSubmitOperator`](tema44.md)
-- [Monitoreo y manejo de dependencias](tema45.md)
+- [DAGs, operadores y tareas](tema42.md)
+- [Integración con ecosistema Big Data](tema43.md)
+- [Monitoreo y manejo de dependencias](tema44.md)
 
 ## 5. Proyecto Integrador y Despliegue
 
