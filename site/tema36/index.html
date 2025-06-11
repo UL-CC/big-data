@@ -82,6 +82,50 @@
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">Seguridad en ETL y Protección de Datos</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#tema-36-seguridad-en-etl-y-proteccion-de-datos">Tema 3.6. Seguridad en ETL y Protección de Datos</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#361-encriptacion-en-transito-tlsssl-y-en-reposo-aes-kms">3.6.1 Encriptación en Tránsito (TLS/SSL) y en Reposo (AES, KMS)</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#encriptacion-en-transito-tlsssl">Encriptación en Tránsito (TLS/SSL)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#encriptacion-en-reposo-aes-kms">Encriptación en Reposo (AES, KMS)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#362-gestion-de-secretos-y-credenciales">3.6.2 Gestión de secretos y credenciales</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#gestores-de-secretos-y-credenciales">Gestores de secretos y credenciales</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#buenas-practicas-en-el-uso-de-secretos">Buenas prácticas en el uso de secretos</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#363-control-de-acceso-basado-en-roles-rbac-y-politicas">3.6.3 Control de Acceso Basado en Roles (RBAC) y Políticas</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#implementacion-de-rbac-role-based-access-control">Implementación de RBAC (Role-Based Access Control)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#politicas-de-acceso-y-segregacion-de-entornos">Políticas de Acceso y Segregación de Entornos</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#364-practicas-de-auditoria-y-trazabilidad-de-operaciones">3.6.4 Prácticas de auditoría y trazabilidad de operaciones</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#auditoria-de-ejecuciones-y-cambios">Auditoría de ejecuciones y cambios</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#lineage-y-trazabilidad-de-datos">Lineage y trazabilidad de datos</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#365-requerimientos-normativos-comunes-gdpr-hipaa-etc">3.6.5 Requerimientos normativos comunes: GDPR, HIPAA, etc.</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#regulaciones-aplicables-al-tratamiento-de-datos">Regulaciones aplicables al tratamiento de datos</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#diseno-de-pipelines-compliance-ready">Diseño de pipelines "compliance-ready"</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tarea">Tarea</a>
     </li>
     </ul>
                   </li>
@@ -92,13 +136,11 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../tema41/">Arquitectura y componentes de Airflow</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema42/">Instalación local usando Docker</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema42/">DAGs, operadores y tareas</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema43/">DAGs, operadores y tareas</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema43/">Integración con ecosistema Big Data</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema44/">Uso de `BashOperator`, `PythonOperator` y `SparkSubmitOperator`</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema45/">Monitoreo y manejo de dependencias</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema44/">Monitoreo, logging y manejo de dependencias</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Proyecto Integrador y Despliegue</span></p>
@@ -134,7 +176,846 @@
               
                 <h1 id="3-arquitectura-y-diseno-de-flujos-etl">3. Arquitectura y Diseño de Flujos ETL</h1>
 <h2 id="tema-36-seguridad-en-etl-y-proteccion-de-datos">Tema 3.6. Seguridad en ETL y Protección de Datos</h2>
-<p><em>Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.</em></p>
+<p><strong>Objetivo</strong>:</p>
+<p>Asegurar la confidencialidad, integridad y acceso controlado a la información dentro de los pipelines ETL, mediante técnicas de encriptación, gestión segura de credenciales, políticas de control de acceso, auditoría de operaciones y cumplimiento normativo.</p>
+<p><strong>Introducción</strong>:</p>
+<p>Los flujos ETL manejan información sensible en distintos puntos del ciclo de vida de los datos: desde su extracción en fuentes externas hasta su carga en almacenes analíticos o lagos de datos. En este contexto, la seguridad no es opcional. Es imprescindible diseñar procesos ETL que protejan los datos en todo momento, mitigando riesgos de fuga, alteración o uso indebido. La seguridad en pipelines ETL debe considerarse desde el inicio del diseño arquitectónico y mantenerse en cada etapa del proceso.</p>
+<p><strong>Desarrollo</strong>:</p>
+<p>Este tema abarca las prácticas y herramientas clave para garantizar la protección de los datos en los pipelines ETL. Desde la encriptación en tránsito y en reposo, pasando por el uso adecuado de gestores de secretos, hasta la implementación de políticas de control de acceso y auditoría, el objetivo es dotar a los estudiantes de una visión integral de seguridad. Además, se introducen las principales normativas internacionales que regulan el tratamiento de datos, aportando un marco legal y ético al diseño de soluciones de datos.</p>
+<h3 id="361-encriptacion-en-transito-tlsssl-y-en-reposo-aes-kms">3.6.1 Encriptación en Tránsito (TLS/SSL) y en Reposo (AES, KMS)</h3>
+<p>La <strong>encriptación</strong> es una piedra angular en la <strong>seguridad de los datos</strong>, asegurando su <strong>confidencialidad e integridad</strong> tanto durante su <strong>movimiento entre sistemas (en tránsito)</strong> como cuando están <strong>almacenados (en reposo)</strong>. Este subtema explorará los <strong>mecanismos de cifrado modernos</strong> y su <strong>implementación práctica</strong> en el contexto de los <strong>pipelines ETL (Extracción, Transformación y Carga)</strong>, vital para cualquier arquitectura de datos robusta.</p>
+<h5 id="encriptacion-en-transito-tlsssl">Encriptación en Tránsito (TLS/SSL)</h5>
+<p>La <strong>encriptación en tránsito</strong> se enfoca en proteger los datos mientras <strong>viajan a través de una red</strong>. Ya sea que los datos se extraigan de fuentes externas, se consuman a través de APIs, o se escriban en sistemas de almacenamiento en red, el objetivo es evitar que actores maliciosos los intercepten o modifiquen. </p>
+<p>El protocolo <strong>TLS (Transport Layer Security)</strong>, sucesor de SSL, es el estándar de oro para lograr esta protección. TLS establece un <strong>canal de comunicación seguro</strong> entre dos aplicaciones, garantizando la <strong>autenticación de los extremos</strong>, la <strong>confidencialidad de los datos</strong> (mediante cifrado) y la <strong>integridad de los datos</strong> (asegurando que no han sido alterados).</p>
+<p><strong>Configuración de Spark para leer desde una base de datos PostgreSQL usando conexiones TLS</strong>:</p>
+<p>Cuando Spark se conecta a una base de datos externa como PostgreSQL, es crucial que la comunicación esté cifrada. Esto protege credenciales y datos sensibles durante el proceso de extracción.</p>
+<p>Para habilitar TLS/SSL en una conexión JDBC de Spark a PostgreSQL, se deben configurar propiedades específicas en la cadena de conexión. Estas propiedades instruyen al driver JDBC para que establezca una conexión segura, validando el certificado del servidor PostgreSQL.</p>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.appName(&quot;SecurePostgreSQLRead&quot;).getOrCreate()
+
+# Configuración de la conexión JDBC segura a PostgreSQL
+jdbc_url = &quot;jdbc:postgresql://your_db_host:5432/your_database&quot;
+# Es crucial incluir 'ssl=true' y, opcionalmente, 'sslmode=require' o 'sslmode=verify-full'
+# para asegurar que el certificado del servidor sea validado.
+connection_properties = {
+    &quot;user&quot;: &quot;your_username&quot;,
+    &quot;password&quot;: &quot;your_password&quot;,
+    &quot;driver&quot;: &quot;org.postgresql.Driver&quot;,
+    &quot;ssl&quot;: &quot;true&quot;,
+    &quot;sslmode&quot;: &quot;require&quot; # 'require' fuerza SSL, 'verify-full' añade verificación de certificado
+}
+
+# Leer datos de la tabla de PostgreSQL de forma segura
+df = spark.read.jdbc(url=jdbc_url, table=&quot;your_table&quot;, properties=connection_properties)
+
+df.show()
+spark.stop()
+</code></pre>
+<p>Para <code>sslmode=verify-full</code>, necesitarás un TrustStore con el certificado de la CA que emitió el certificado de tu servidor PostgreSQL, o el propio certificado del servidor, y configurar las JVM options de Spark para que lo usen.</p>
+<p><strong>Consumo de APIs REST que exigen HTTPS con certificados válidos</strong>:</p>
+<p>Muchas fuentes de datos externas se exponen a través de APIs REST. Si estas APIs manejan información sensible, es imperativo que requieran HTTPS (HTTP sobre TLS/SSL) para garantizar la comunicación segura.</p>
+<p>Al interactuar con una API HTTPS, el cliente (nuestro pipeline ETL) verifica el certificado SSL/TLS presentado por el servidor para asegurar su autenticidad y la validez de la conexión cifrada. Esto previene ataques "Man-in-the-Middle". Bibliotecas HTTP modernas manejan la validación de certificados de forma predeterminada, pero es importante comprender cómo funcionan y cómo configurar excepciones o certificados personalizados si es necesario (aunque esto último debe hacerse con precaución).</p>
+<pre><code class="language-python">import requests
+import json
+
+api_url = &quot;https://api.example.com/data&quot; # URL que exige HTTPS
+headers = {&quot;Authorization&quot;: &quot;Bearer your_api_token&quot;}
+
+try:
+    # requests verifica certificados SSL/TLS por defecto
+    response = requests.get(api_url, headers=headers, timeout=10)
+    response.raise_for_status() # Lanza una excepción para códigos de estado HTTP erróneos (4xx o 5xx)
+
+    data = response.json()
+    print(&quot;Datos recibidos de la API de forma segura:&quot;)
+    print(json.dumps(data, indent=2))
+
+except requests.exceptions.SSLError as e:
+    print(f&quot;Error SSL: Problema con el certificado TLS/SSL. {e}&quot;)
+except requests.exceptions.ConnectionError as e:
+    print(f&quot;Error de conexión: No se pudo conectar a la API. {e}&quot;)
+except requests.exceptions.Timeout as e:
+    print(f&quot;Error de tiempo de espera: La solicitud a la API tardó demasiado. {e}&quot;)
+except requests.exceptions.RequestException as e:
+    print(f&quot;Error general de la solicitud: {e}&quot;)
+</code></pre>
+<p><strong>Comunicación segura entre tareas de Airflow mediante redes privadas virtuales y TLS</strong>:</p>
+<p>En entornos de orquestación como Apache Airflow, las tareas a menudo se ejecutan en diferentes nodos o incluso en servicios en la nube. Proteger la comunicación entre el programador, los workers y las bases de datos de metadatos es vital.</p>
+<p>Una estrategia común es desplegar Airflow dentro de una <strong>red privada virtual (VPN)</strong> o una <strong>Virtual Private Cloud (VPC)</strong> en la nube, lo que segmenta el tráfico de red y lo aísla de la internet pública. Dentro de esta red privada, la comunicación interna (por ejemplo, entre el scheduler de Airflow y los workers, o entre los workers y la base de datos de metadatos de Airflow) aún puede beneficiarse de TLS para mayor granularidad en la seguridad. Esto asegura que, incluso si un actor malicioso gana acceso a la red privada, los datos en tránsito siguen estando cifrados.</p>
+<ul>
+<li>
+<p><strong>Airflow en AWS</strong>: Desplegar un cluster de Airflow (usando EC2, ECS o EKS) dentro de una VPC. Configurar <strong>Security Groups</strong> y <strong>Network ACLs</strong> para restringir el tráfico solo a puertos y orígenes necesarios. La base de datos de metadatos (RDS PostgreSQL/MySQL) debe configurarse para aceptar solo conexiones SSL/TLS, y el scheduler y los workers de Airflow deben configurarse para usar estas conexiones seguras.</p>
+</li>
+<li>
+<p><strong>Airflow en Azure/GCP</strong>: Similarmente, utilizar <strong>Virtual Networks (Azure)</strong> o <strong>VPCs (GCP)</strong> con configuraciones de firewall y enrutamiento para aislar el entorno de Airflow. Los servicios de bases de datos gestionadas (Azure Database for PostgreSQL/MySQL, Cloud SQL) ofrecen conexiones SSL/TLS obligatorias o recomendadas.</p>
+</li>
+<li>
+<p><strong>Kubernetes con mTLS</strong>: Si Airflow se ejecuta en Kubernetes, se puede implementar <strong>mTLS (mutual TLS)</strong> entre los diferentes pods (scheduler, workers, webserver) usando una <strong>Service Mesh</strong> como Istio, lo que proporciona encriptación de extremo a extremo y autenticación bidireccional.</p>
+</li>
+</ul>
+<h5 id="encriptacion-en-reposo-aes-kms">Encriptación en Reposo (AES, KMS)</h5>
+<p>La <strong>encriptación en reposo</strong> se refiere a la protección de los datos cuando están <strong>almacenados en dispositivos de almacenamiento persistente</strong>, como discos duros, bases de datos o servicios de almacenamiento en la nube. El objetivo es prevenir el acceso no autorizado a los datos si el almacenamiento físico es comprometido. </p>
+<p>El <strong>cifrado simétrico</strong>, particularmente el estándar <strong>AES (Advanced Encryption Standard)</strong> con una longitud de clave de <strong>256 bits (AES-256)</strong>, es ampliamente utilizado por su robustez y eficiencia. En entornos de nube, los <strong>Servicios de Gestión de Claves (KMS - Key Management Service)</strong> son esenciales para gestionar de forma segura las claves de cifrado, rotarlas, auditar su uso y aplicar políticas de acceso.</p>
+<p><strong>Almacenamiento de archivos Parquet cifrados en S3 con claves gestionadas por AWS KMS</strong>:</p>
+<p>Amazon S3 es un almacén de objetos altamente escalable y duradero. Almacenar datos en S3 requiere un cifrado en reposo para cumplir con los requisitos de seguridad y cumplimiento.</p>
+<p>AWS S3 ofrece varias opciones de cifrado en reposo. La más segura y recomendada es el <strong>cifrado del lado del servidor con claves administradas por AWS KMS (SSE-KMS)</strong>. Con SSE-KMS, S3 cifra los objetos usando una clave de datos única para cada objeto, y esa clave de datos se cifra con una <strong>clave maestra de cliente (CMK)</strong> almacenada en KMS. KMS proporciona una gestión centralizada de las CMK, incluyendo la rotación automática, políticas de uso detalladas y registros de auditoría de acceso a las claves.</p>
+<pre><code class="language-python"># PySpark y Boto3 para S3/KMS
+from pyspark.sql import SparkSession
+import boto3
+
+spark = SparkSession.builder \
+    .appName(&quot;EncryptedParquetS3&quot;) \
+    .config(&quot;spark.hadoop.fs.s3a.impl&quot;, &quot;org.apache.hadoop.fs.s3a.S3AFileSystem&quot;) \
+    .config(&quot;spark.hadoop.fs.s3a.aws.credentials.provider&quot;, &quot;com.amazonaws.auth.DefaultAWSCredentialsProviderChain&quot;) \
+    .getOrCreate()
+
+bucket_name = &quot;your-encrypted-data-bucket&quot;
+kms_key_arn = &quot;arn:aws:kms:your-region:your-account-id:key/your-kms-key-id&quot;
+output_path = f&quot;s3a://{bucket_name}/encrypted_data/my_encrypted_data.parquet&quot;
+
+# Crear un DataFrame de ejemplo
+data = [(&quot;Alice&quot;, 1), (&quot;Bob&quot;, 2), (&quot;Charlie&quot;, 3)]
+columns = [&quot;name&quot;, &quot;id&quot;]
+df = spark.createDataFrame(data, columns)
+
+# Escribir el DataFrame a S3, especificando la clave KMS para el cifrado
+# Spark, a través de S3A, puede ser configurado para usar SSE-KMS
+df.write \
+    .mode(&quot;overwrite&quot;) \
+    .option(&quot;sse.kms.keyId&quot;, kms_key_arn) \
+    .parquet(output_path)
+
+print(f&quot;Datos escritos cifrados en S3 en: {output_path}&quot;)
+
+# Para verificar el cifrado en S3 (opcional, usando boto3)
+s3_client = boto3.client('s3')
+try:
+    obj_head = s3_client.head_object(Bucket=bucket_name, Key=&quot;encrypted_data/my_encrypted_data.parquet/_SUCCESS&quot;) # El archivo _SUCCESS indica el éxito de la escritura
+    encryption_header = obj_head.get('ServerSideEncryption')
+    kms_key_used = obj_head.get('SSEKMSKeyId')
+    print(f&quot;Cifrado de objeto en S3: {encryption_header}&quot;)
+    print(f&quot;Clave KMS utilizada: {kms_key_used}&quot;)
+except Exception as e:
+    print(f&quot;Error al verificar el objeto en S3: {e}&quot;)
+
+spark.stop()
+</code></pre>
+<p>El rol de IAM debe tener permisos para S3 (s3:PutObject, s3:GetObject) y KMS (kms:GenerateDataKey, kms:Decrypt).</p>
+<p><strong>Configuración de HDFS para cifrar automáticamente bloques de datos con claves rotativas</strong>:</p>
+<p>Para entornos on-premise o híbridos que utilizan Apache Hadoop HDFS (Hadoop Distributed File System), el cifrado en reposo es igualmente crucial.</p>
+<p>HDFS soporta <strong>zonas de cifrado (Encryption Zones)</strong>, que son directorios en HDFS cuyo contenido se cifra automáticamente al ser escrito y se descifra al ser leído. Cada zona de cifrado está asociada a una <strong>clave de zona (EZ Key)</strong> gestionada por un sistema de gestión de claves centralizado como <strong>Apache Ranger KMS</strong> o <strong>HashiCorp Vault</strong>. Cuando se escribe un archivo en una zona de cifrado, HDFS genera una clave de cifrado de datos (Data Encryption Key - DEK) para el archivo, cifra la DEK con la EZ Key, y almacena la DEK cifrada junto con el archivo. Los bloques de datos del archivo se cifran con la DEK. Esto permite la rotación de claves y la revocación granular.</p>
+<ul>
+<li>
+<p><strong>Configuración (Conceptual en HDFS - No es código ejecutable)</strong>:</p>
+</li>
+<li>
+<p>Configurar un KMS (Key Management Server) para HDFS: Esto implica configurar <code>kms-site.xml</code> en los nodos de HDFS y el KMS, apuntando a una base de datos segura para almacenar las claves.</p>
+</li>
+<li>
+<p>Crear una Clave de Zona (EZ Key) en el KMS:</p>
+<p><code>bash
+hdfs kms createKey my_encryption_zone_key</code></p>
+</li>
+<li>
+<p>Crear una Zona de Cifrado en HDFS:</p>
+<p><code>bash
+hdfs crypto createZone -path /user/encrypted_data -keyName my_encryption_zone_key</code></p>
+<p>Cualquier archivo escrito en <code>/user/encrypted_data</code> (o subdirectorios) se cifrará automáticamente utilizando <code>my_encryption_zone_key</code>. Los usuarios necesitarán permisos para acceder a esta clave en el KMS para poder leer los datos.</p>
+</li>
+</ul>
+<p><strong>Uso de Google Cloud KMS para cifrar datasets en BigQuery</strong>:</p>
+<p>Google BigQuery es un data warehouse sin servidor altamente escalable. Aunque BigQuery cifra los datos en reposo por defecto (cifrado gestionado por Google), los usuarios pueden proporcionar sus propias claves de cifrado gestionadas por el cliente (CMEK) a través de Google Cloud KMS para un control adicional.</p>
+<p>Con <strong>CMEK (Customer-Managed Encryption Keys)</strong> en BigQuery, tú controlas la clave de cifrado que se utiliza para proteger tus datos. BigQuery utiliza esta CMEK de Cloud KMS para cifrar la clave de cifrado de datos (DEK) del dataset, y esta DEK a su vez se usa para cifrar los datos reales. Esto te da control sobre la vida útil de la clave, su rotación y los permisos de acceso a ella. Es útil para cumplir con requisitos de cumplimiento normativo específicos o para añadir una capa extra de seguridad.</p>
+<pre><code class="language-python"># usando Google Cloud Client Libraries
+from google.cloud import bigquery
+from google.cloud import kms_v1
+
+# Configuración de tu proyecto y clave KMS
+project_id = &quot;your-gcp-project-id&quot;
+dataset_id = &quot;your_encrypted_dataset&quot;
+table_id = &quot;your_encrypted_table&quot;
+# La clave KMS debe estar en la misma región que tu dataset de BigQuery
+kms_key_name = &quot;projects/your-gcp-project-id/locations/your-region/keyRings/your-key-ring/cryptoKeys/your-crypto-key&quot;
+
+client = bigquery.Client(project=project_id)
+
+# 1. Crear o actualizar un Dataset con CMEK
+dataset = bigquery.Dataset(f&quot;{project_id}.{dataset_id}&quot;)
+dataset.location = &quot;US&quot;  # Asegúrate de que la región coincida con tu clave KMS
+
+# Asignar la clave KMS al dataset
+dataset.default_kms_key_name = kms_key_name
+
+try:
+    dataset = client.create_dataset(dataset, timeout=30)
+    print(f&quot;Dataset '{dataset_id}' creado/actualizado con CMEK.&quot;)
+except Exception as e:
+    print(f&quot;Error al crear/actualizar dataset (ya existe?): {e}&quot;)
+    dataset = client.get_dataset(dataset) # Si ya existe, obténlo para continuar
+
+
+# 2. Crear una Tabla dentro del Dataset con CMEK (hereda del dataset o se puede especificar)
+# Si el dataset tiene una CMEK, la tabla la heredará automáticamente.
+# También puedes especificarla directamente para la tabla si no quieres heredarla.
+table_ref = dataset.table(table_id)
+schema = [
+    bigquery.SchemaField(&quot;name&quot;, &quot;STRING&quot;, mode=&quot;NULLABLE&quot;),
+    bigquery.SchemaField(&quot;age&quot;, &quot;INTEGER&quot;, mode=&quot;NULLABLE&quot;),
+]
+table = bigquery.Table(table_ref, schema=schema)
+
+# Opcional: especificar CMEK directamente para la tabla si es diferente a la del dataset
+# table.encryption_configuration = bigquery.EncryptionConfiguration(kms_key_name=kms_key_name)
+
+try:
+    table = client.create_table(table)
+    print(f&quot;Tabla '{table_id}' creada con CMEK.&quot;)
+except Exception as e:
+    print(f&quot;Error al crear tabla (ya existe?): {e}&quot;)
+
+# 3. Insertar datos en la tabla (serán cifrados automáticamente por BigQuery con la CMEK)
+rows_to_insert = [
+    {&quot;name&quot;: &quot;Juan&quot;, &quot;age&quot;: 30},
+    {&quot;name&quot;: &quot;Maria&quot;, &quot;age&quot;: 25},
+]
+
+errors = client.insert_rows_json(table, rows_to_insert)
+if errors:
+    print(f&quot;Errores al insertar filas: {errors}&quot;)
+else:
+    print(f&quot;Filas insertadas en '{table_id}' (cifradas con CMEK).&quot;)
+
+</code></pre>
+<p>Asegúrate de que la cuenta de servicio que ejecuta el código tenga los roles <code>roles/bigquery.dataEditor</code> y <code>roles/cloudkms.viewer</code> para BigQuery, y <code>roles/cloudkms.cryptoKeyEncrypterDecrypter</code> para la clave KMS.</p>
+<h3 id="362-gestion-de-secretos-y-credenciales">3.6.2 Gestión de secretos y credenciales</h3>
+<p>La gestión segura de <strong>secretos y credenciales</strong> es un pilar fundamental en la arquitectura de datos, especialmente en entornos de procesamiento masivo. El uso de credenciales en texto plano o incrustadas directamente en el código de scripts y aplicaciones presenta un riesgo de seguridad inaceptable. Este subtema aborda en detalle los mecanismos y las mejores prácticas para almacenar, distribuir y acceder de forma segura a información sensible, como contraseñas de bases de datos, tokens de API, claves de cifrado y certificados. El objetivo es asegurar que solo las entidades autorizadas tengan acceso a estos secretos, en el momento y lugar adecuados, minimizando la superficie de ataque y garantizando la integridad de los sistemas de datos.</p>
+<h5 id="gestores-de-secretos-y-credenciales">Gestores de secretos y credenciales</h5>
+<p>Los <strong>gestores de secretos</strong> son herramientas especializadas que proporcionan una solución centralizada y segura para almacenar, gestionar y distribuir secretos. Estos servicios no solo protegen la información sensible, sino que también ofrecen funcionalidades avanzadas como la rotación automática de credenciales, el control de versiones, la auditoría de accesos y la integración con sistemas de gestión de identidades y accesos (IAM). Esto permite a los equipos de desarrollo y operaciones implementar un enfoque de "confianza cero" para las credenciales, donde el acceso se otorga solo cuando es estrictamente necesario y por un período limitado.</p>
+<p><strong>Integración de Apache Airflow con AWS Secrets Manager para acceder a credenciales de bases de datos.</strong></p>
+<p>Apache Airflow es una plataforma robusta para orquestar flujos de trabajo de datos. En un entorno de producción, los <em>Directed Acyclic Graphs</em> (DAGs) de Airflow a menudo necesitan conectarse a diversas bases de datos, APIs o servicios externos. Almacenar las credenciales directamente en los archivos de configuración de Airflow o en variables de entorno es una práctica insegura. <strong>AWS Secrets Manager</strong> permite almacenar de forma segura estas credenciales y Airflow puede configurarse para recuperarlas dinámicamente en tiempo de ejecución, eliminando la necesidad de codificarlas en el DAG.</p>
+<p>Supongamos que tenemos una base de datos PostgreSQL cuyas credenciales (nombre de usuario y contraseña) están almacenadas en AWS Secrets Manager bajo el nombre <code>my_rds_db_credentials</code>.</p>
+<ul>
+<li>En AWS Secrets Manager: Crear un secreto con un par clave-valor, por ejemplo: </li>
+</ul>
+<pre><code class="language-json">{
+    &quot;username&quot;: &quot;myuser&quot;,
+    &quot;password&quot;: &quot;mYsEcUrEpAsSwOrD&quot;
+}
+</code></pre>
+<ul>
+<li>Configuración de Airflow: Se puede configurar Airflow para usar un <code>SecretsBackend</code> que se integre con AWS Secrets Manager. Esto generalmente se hace ajustando el <code>airflow.cfg</code> o mediante variables de entorno:</li>
+</ul>
+<pre><code class="language-ini">[secrets]
+backend = airflow.providers.amazon.aws.secrets.secrets_manager.SecretsManagerBackend
+backend_kwargs = {&quot;connections_prefix&quot;: &quot;airflow/connections&quot;, &quot;variables_prefix&quot;: &quot;airflow/variables&quot;}
+</code></pre>
+<ul>
+<li>En un DAG de Airflow: Una vez configurado el backend, Airflow puede resolver las conexiones y variables directamente desde Secrets Manager. Por ejemplo, si tu conexión a la base de datos se llama <code>my_rds_conn</code> en Airflow, y has almacenado la conexión en AWS Secrets Manager como <code>airflow/connections/my_rds_conn</code>, Airflow la resolverá automáticamente.</li>
+</ul>
+<pre><code class="language-python">from airflow import DAG
+from airflow.providers.postgres.operators.postgres import PostgresOperator
+from datetime import datetime
+
+with DAG(
+    dag_id='read_from_rds_secrets',
+    start_date=datetime(2023, 1, 1),
+    schedule_interval=None,
+    catchup=False
+) as dag:
+    read_data_task = PostgresOperator(
+        task_id='read_data',
+        postgres_conn_id='my_rds_conn', # Airflow buscará esta conexión en Secrets Manager
+        sql=&quot;SELECT * FROM my_table LIMIT 10;&quot;
+    )
+</code></pre>
+<p>Airflow recuperará las credenciales de <code>my_rds_conn</code> desde Secrets Manager, evitando que las credenciales sensibles sean expuestas en el código del DAG o en la configuración de Airflow.</p>
+<p><strong>Uso de HashiCorp Vault para otorgar accesos temporales a procesos Spark en clusters Kubernetes.</strong></p>
+<p><strong>HashiCorp Vault</strong> es una herramienta de gestión de secretos robusta y altamente segura que permite almacenar, acceder y distribuir secretos de manera programática. En un entorno de microservicios o contenedores orquestados por Kubernetes, los trabajos de Spark a menudo necesitan acceder a recursos externos (como sistemas de almacenamiento, bases de datos o servicios de mensajería). Vault puede generar credenciales temporales y de corta duración para estos procesos, lo que reduce drásticamente el riesgo de exposición de credenciales a largo plazo. Esto es crucial en entornos dinámicos donde los pods de Spark pueden ser efímeros.</p>
+<p>Consideremos un trabajo de Spark que necesita acceder a un bucket de S3. En lugar de usar credenciales de S3 estáticas, podemos configurar Vault para generar credenciales de AWS temporales que el trabajo de Spark pueda usar.</p>
+<ul>
+<li>Configuración de Vault: Vault se configura con un <code>secret engine</code> para AWS que puede generar credenciales IAM temporales.</li>
+</ul>
+<pre><code class="language-bash">vault secrets enable aws
+vault write aws/config/root \
+    access_key=AKIA... \
+    secret_key=...
+
+vault write aws/roles/spark-s3-access \
+    credential_type=iam_user \
+    policy_arns=arn:aws:iam::123456789012:policy/S3ReadOnlyAccess
+</code></pre>
+<ul>
+<li>Pod de Spark en Kubernetes: El pod de Spark se configura para autenticarse con Vault (por ejemplo, usando Kubernetes Service Account Token authentication) y obtener las credenciales de AWS temporales.</li>
+</ul>
+<pre><code class="language-yaml">apiVersion: batch/v1
+kind: Job
+metadata:
+  name: spark-s3-job
+spec:
+  template:
+    spec:
+      serviceAccountName: spark-sa
+      containers:
+      - name: spark-driver
+        image: your-spark-image
+        command: [&quot;/bin/bash&quot;, &quot;-c&quot;]
+        args:
+          - |
+            # Authenticate with Vault and get temporary AWS credentials
+            VAULT_ADDR=&quot;http://vault.example.com:8200&quot;
+            VAULT_TOKEN=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
+
+            RESPONSE=$(curl -s --request POST \
+                --data &quot;{\&quot;jwt\&quot;: \&quot;$VAULT_TOKEN\&quot;, \&quot;role\&quot;: \&quot;spark-s3-access\&quot;}&quot; \
+                &quot;$VAULT_ADDR/v1/auth/kubernetes/login&quot;)
+            VAULT_CLIENT_TOKEN=$(echo $RESPONSE | jq -r .auth.client_token)
+
+            AWS_CREDS_RESPONSE=$(curl -s --header &quot;X-Vault-Token: $VAULT_CLIENT_TOKEN&quot; \
+                &quot;$VAULT_ADDR/v1/aws/creds/spark-s3-access&quot;)
+
+            export AWS_ACCESS_KEY_ID=$(echo $AWS_CREDS_RESPONSE | jq -r .data.access_key)
+            export AWS_SECRET_ACCESS_KEY=$(echo $AWS_CREDS_RESPONSE | jq -r .data.secret_key)
+            export AWS_SESSION_TOKEN=$(echo $AWS_CREDS_RESPONSE | jq -r .data.security_token)
+
+            # Now run your Spark job using these temporary credentials
+            /opt/spark/bin/spark-submit \
+              --conf spark.hadoop.fs.s3a.access.key=$AWS_ACCESS_KEY_ID \
+              --conf spark.hadoop.fs.s3a.secret.key=$AWS_SECRET_ACCESS_KEY \
+              --conf spark.hadoop.fs.s3a.session.token=$AWS_SESSION_TOKEN \
+              your_spark_app.py
+        volumeMounts:
+          - name: vault-token
+            mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      volumes:
+        - name: vault-token
+          projected:
+            sources:
+              - serviceAccountToken:
+                  path: token
+      restartPolicy: OnFailure
+</code></pre>
+<p>Este enfoque asegura que las credenciales solo existen en la memoria del pod de Spark durante su ejecución y son automáticamente revocadas por Vault después de un período de tiempo definido.</p>
+<p><strong>Enmascaramiento dinámico de variables sensibles en Databricks notebooks mediante Azure Key Vault.</strong></p>
+<p><strong>Databricks</strong> es una plataforma unificada de datos y AI que se utiliza ampliamente para el procesamiento de Big Data y el machine learning. Los <em>notebooks</em> de Databricks, escritos en lenguajes como Python, Scala o SQL, a menudo necesitan acceder a bases de datos, APIs o servicios de almacenamiento que requieren credenciales. <strong>Azure Key Vault</strong> es el servicio de gestión de secretos de Azure, que ofrece una forma segura de almacenar y acceder a secretos, claves y certificados. La integración de Databricks con Azure Key Vault permite a los usuarios acceder a secretos de forma segura desde sus notebooks sin exponerlos directamente en el código o en la interfaz del notebook.</p>
+<p>Imaginemos que necesitamos acceder a una base de datos SQL Server desde un notebook de Databricks y las credenciales están en Azure Key Vault.</p>
+<ul>
+<li>
+<p>En Azure Key Vault: Crear un secreto llamado <code>sql-server-password</code> con la contraseña de la base de datos.</p>
+</li>
+<li>
+<p>Configuración de Databricks: En Databricks, se crea un <code>Secret Scope</code> respaldado por Azure Key Vault. Esto vincula un ámbito de secretos de Databricks con un Key Vault específico.</p>
+</li>
+</ul>
+<pre><code class="language-bash"># Usando la CLI de Databricks para crear un secret scope
+databricks secrets create-scope \
+    --scope my-keyvault-scope \
+    --scope-backend-type AZURE_KEYVAULT \
+    --resource-id /subscriptions/&lt;subscription-id&gt;/resourceGroups/&lt;resource-group&gt;/providers/Microsoft.KeyVault/vaults/&lt;key-vault-name&gt; \
+    --dns-name https://&lt;key-vault-name&gt;.vault.azure.net/
+</code></pre>
+<ul>
+<li>En un Notebook de Databricks (Python): Una vez configurado el <code>secret scope</code>, puedes acceder a los secretos de forma segura desde tu notebook utilizando la utilidad <code>dbutils.secrets</code>.</li>
+</ul>
+<pre><code class="language-python"># Acceder a la contraseña de SQL Server desde Azure Key Vault
+db_password = dbutils.secrets.get(scope=&quot;my-keyvault-scope&quot;, key=&quot;sql-server-password&quot;)
+db_user = &quot;your_sql_user&quot; # Este podría venir de otro secreto o ser fijo
+db_host = &quot;your_sql_server.database.windows.net&quot;
+db_name = &quot;your_database_name&quot;
+
+# Construir la cadena de conexión de forma segura
+jdbc_url = f&quot;jdbc:sqlserver://{db_host}:1433;database={db_name};encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;&quot;
+
+# Leer datos de la base de datos usando Spark
+df = spark.read \
+    .format(&quot;jdbc&quot;) \
+    .option(&quot;url&quot;, jdbc_url) \
+    .option(&quot;dbtable&quot;, &quot;your_table&quot;) \
+    .option(&quot;user&quot;, db_user) \
+    .option(&quot;password&quot;, db_password) \
+    .load()
+
+df.display()
+</code></pre>
+<p><code>dbutils.secrets.get()</code> enmascara automáticamente el valor del secreto cuando se muestra en la salida del notebook, garantizando que la contraseña nunca sea visible.</p>
+<h5 id="buenas-practicas-en-el-uso-de-secretos">Buenas prácticas en el uso de secretos</h5>
+<p>La implementación de gestores de secretos es solo la primera parte de una estrategia de seguridad integral. Es igualmente crucial adoptar <strong>buenas prácticas</strong> operativas que refuercen la postura de seguridad y mitiguen los riesgos asociados con el uso de credenciales. Estas prácticas se centran en el principio de "menor privilegio" y en la visibilidad completa sobre el ciclo de vida de los secretos.</p>
+<p><strong>Configuración de políticas para que los secretos tengan vigencia limitada.</strong></p>
+<p>Los secretos no deberían tener una vida útil ilimitada. Al implementar políticas de <strong>rotación periódica</strong> y <strong>vigencia limitada</strong>, se reduce significativamente la ventana de oportunidad para que un secreto comprometido sea explotado. La rotación automática es una característica clave ofrecida por la mayoría de los gestores de secretos, que debería ser aprovechada al máximo.</p>
+<ul>
+<li><strong>AWS Secrets Manager</strong>: Puedes configurar una rotación automática para los secretos. Para una credencial de base de datos RDS, AWS Secrets Manager puede integrarse directamente con RDS para rotar la contraseña cada X días.</li>
+</ul>
+<pre><code class="language-json"># Fragmento de configuración de rotación en AWS Secrets Manager (vía SDK/CLI)
+{
+  &quot;RotationRules&quot;: {
+    &quot;AutomaticallyRotateAfterDays&quot;: 30, # Rotar cada 30 días
+    &quot;Duration&quot;: &quot;30m&quot;, # La rotación debe completarse en 30 minutos
+    &quot;ScheduleExpression&quot;: &quot;cron(0 0 ? * MON *)&quot; # Rotar los lunes a medianoche
+  },
+  &quot;RotationLambdaARN&quot;: &quot;arn:aws:lambda:us-east-1:123456789012:function:SecretsManagerRDSMySQLRotationLambda&quot;
+}
+</code></pre>
+<p>Esto asegura que, incluso si una credencial se ve comprometida, su validez es temporal, limitando el daño potencial.</p>
+<ul>
+<li><strong>HashiCorp Vault</strong>: Define <em>leases</em> o duraciones de vida para las credenciales generadas.</li>
+</ul>
+<pre><code class="language-bash">vault write aws/roles/spark-s3-access \
+    credential_type=iam_user \
+    policy_arns=arn:aws:iam::123456789012:policy/S3ReadOnlyAccess \
+    default_lease_ttl=&quot;1h&quot; \
+    max_lease_ttl=&quot;24h&quot;
+</code></pre>
+<p>Aquí, las credenciales generadas por este rol expirarán después de 1 hora por defecto, y no podrán ser usadas por más de 24 horas, forzando su re-obtención.</p>
+<p><strong>Restricción de acceso a claves solo a servicios autenticados.</strong></p>
+<p>El principio de <strong>menor privilegio</strong> es fundamental. El acceso a los secretos debe ser granular, basado en roles y solo otorgado a las entidades (usuarios, servicios, aplicaciones) que lo necesitan explícitamente para realizar sus funciones. Esto implica el uso de mecanismos de autenticación robustos y políticas de autorización detalladas en el gestor de secretos.</p>
+<ul>
+<li><strong>Azure Key Vault</strong>: Uso de políticas de acceso o Azure Role-Based Access Control (RBAC).</li>
+</ul>
+<pre><code class="language-json"># Política de acceso en Azure Key Vault para una aplicación/Service Principal
+{
+  &quot;id&quot;: &quot;/subscriptions/&lt;subscription-id&gt;/resourceGroups/&lt;resource-group&gt;/providers/Microsoft.KeyVault/vaults/&lt;key-vault-name&gt;/accessPolicies/&lt;policy-id&gt;&quot;,
+  &quot;properties&quot;: {
+    &quot;objectId&quot;: &quot;xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx&quot;, # Object ID de un Service Principal de Azure AD
+    &quot;tenantId&quot;: &quot;yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy&quot;, # Tenant ID de Azure AD
+    &quot;permissions&quot;: {
+      &quot;secrets&quot;: [&quot;get&quot;, &quot;list&quot;] # Solo permisos para obtener y listar secretos
+    }
+  }
+}
+</code></pre>
+<p>Esta política asegura que solo un <code>Service Principal</code> específico (que representa una aplicación o servicio) puede recuperar y listar los secretos del Key Vault, y no tiene permisos para modificarlos o eliminarlos.</p>
+<ul>
+<li><strong>AWS Secrets Manager</strong>: Integración con AWS IAM.</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;Version&quot;: &quot;2012-10-17&quot;,
+    &quot;Statement&quot;: [
+        {
+            &quot;Effect&quot;: &quot;Allow&quot;,
+            &quot;Action&quot;: &quot;secretsmanager:GetSecretValue&quot;,
+            &quot;Resource&quot;: &quot;arn:aws:secretsmanager:us-east-1:123456789012:secret:my_rds_db_credentials-*&quot;
+        }
+    ]
+}
+</code></pre>
+<p>Esta política IAM puede ser adjuntada a un rol que asuma una instancia EC2 o un pod de EKS, permitiendo que solo esa entidad específica acceda a un secreto particular en Secrets Manager.</p>
+<p><strong>Log de accesos a secretos y alertas ante uso no autorizado.</strong></p>
+<p>La <strong>auditoría</strong> es vital para la seguridad. Cada acceso a un secreto, ya sea exitoso o fallido, debe ser registrado. Estos registros, o logs de auditoría, son esenciales para el monitoreo de seguridad, la detección de anomalías y la respuesta a incidentes. La integración con sistemas de monitoreo y alerta permite una reacción rápida ante cualquier intento de acceso no autorizado o un patrón de uso sospechoso.</p>
+<ul>
+<li><strong>AWS Secrets Manager con CloudTrail y CloudWatch</strong>: AWS CloudTrail registra todas las llamadas a la API de Secrets Manager. Estos eventos se pueden enviar a CloudWatch Logs, donde se pueden crear métricas y alarmas.</li>
+</ul>
+<pre><code class="language-json"># Ejemplo de filtro de métrica en CloudWatch Logs para intentos fallidos de acceso a secretos
+{
+  &quot;filterPattern&quot;: &quot;{ ($.eventName = GetSecretValue || $.eventName = DescribeSecret) &amp;&amp; $.errorCode = AccessDenied }&quot;,
+  &quot;metricTransformations&quot;: [
+    {
+      &quot;metricName&quot;: &quot;SecretAccessDeniedCount&quot;,
+      &quot;metricNamespace&quot;: &quot;SecretsManagerMetrics&quot;,
+      &quot;metricValue&quot;: &quot;1&quot;
+    }
+  ]
+}
+</code></pre>
+<p>Se puede configurar una alarma de CloudWatch que se active cuando la métrica <code>SecretAccessDeniedCount</code> supere un umbral determinado, notificando al equipo de seguridad.</p>
+<ul>
+<li><strong>HashiCorp Vault con Audit Devices</strong>: Vault tiene "audit devices" que registran todas las solicitudes y respuestas.</li>
+</ul>
+<pre><code class="language-bash">vault audit enable file file_path=/var/log/vault_audit.log
+vault audit enable syslog
+</code></pre>
+<p>Estos logs se pueden enviar a un sistema de gestión de eventos e información de seguridad (SIEM) como Splunk o ELK Stack para su análisis y correlación con otros eventos de seguridad.</p>
+<h3 id="363-control-de-acceso-basado-en-roles-rbac-y-politicas">3.6.3 Control de Acceso Basado en Roles (RBAC) y Políticas</h3>
+<p>El control de acceso es fundamental para garantizar que solo las <strong>entidades autorizadas</strong> (usuarios o servicios) puedan interactuar con los <em>pipelines</em> ETL y sus datos subyacentes. Esto es crucial para la <strong>seguridad, la integridad y la confidencialidad</strong> de la información en entornos de Big Data.</p>
+<h5 id="implementacion-de-rbac-role-based-access-control">Implementación de RBAC (Role-Based Access Control)</h5>
+<p>El <strong>RBAC (Control de Acceso Basado en Roles)</strong> es un método eficiente para gestionar permisos al agruparlos y asignarlos a <strong>roles específicos</strong> (por ejemplo, Analista de Datos, Ingeniero de Datos, Administrador de Infraestructura). Esto simplifica la administración de la seguridad y reduce el riesgo de errores.</p>
+<p><strong>Definición de roles en Apache Airflow para limitar la ejecución de DAGs</strong>:</p>
+<p>En Airflow, los roles se utilizan para controlar qué usuarios pueden ver, modificar o ejecutar ciertos DAGs (Directed Acyclic Graphs). Esto es vital para asegurar que solo el personal calificado pueda desplegar y operar <em>pipelines</em> de producción.</p>
+<p>Airflow proporciona una interfaz de usuario y una API para definir roles y asignar permisos a los usuarios. Los permisos pueden ser muy granulares, permitiendo controlar el acceso a DAGs específicos, a vistas de la interfaz de usuario, o a acciones como pausar, reanudar o activar <em>runs</em> de DAGs. Al definir un rol, se especifican las acciones que los usuarios con ese rol pueden realizar sobre los recursos de Airflow.</p>
+<ul>
+<li>
+<p>Rol <strong>Ingeniero de Datos</strong>: Tiene permisos para crear, modificar y ejecutar DAGs en entornos de desarrollo y pruebas. Puede ver el estado de todos los DAGs de producción, pero no puede modificarlos ni activarlos manualmente en producción.</p>
+</li>
+<li>
+<p>Rol <strong>Operaciones de Datos</strong>: Tiene permisos para monitorear y activar <em>runs</em> de DAGs en producción, así como para gestionar el estado de los <em>tasks</em>. No puede modificar la definición de los DAGs.</p>
+</li>
+<li>
+<p>Rol <strong>Analista de Datos</strong>: Solo tiene permisos de visualización sobre el estado de los DAGs de producción relevantes para sus informes, sin capacidad de ejecución o modificación.</p>
+</li>
+</ul>
+<p>Para configurar esto en Airflow, se usa la interfaz de administración o, programáticamente, se pueden usar las APIs de Airflow. Por ejemplo, para un DAG llamado <code>data_ingestion_prod</code>, se puede configurar que solo el rol "Operaciones de Datos" tenga permiso de <code>can_dag_run</code> sobre él.</p>
+<p><strong>Aplicación de RBAC en sistemas de archivos distribuidos (como HDFS) para restringir lectura/escritura</strong>:</p>
+<p>En sistemas de almacenamiento distribuido como HDFS (Hadoop Distributed File System), la gestión de permisos es crucial para proteger los datos en reposo. El RBAC permite controlar quién puede leer, escribir o ejecutar archivos y directorios.</p>
+<p>HDFS utiliza un modelo de permisos similar al de sistemas de archivos POSIX, que incluye permisos de propietario, grupo y otros. Sin embargo, para entornos de Big Data, se suelen usar <strong>ACLs (Access Control Lists)</strong> para una gestión más granular. Las ACLs permiten asignar permisos específicos a usuarios y grupos individuales más allá de los permisos básicos de propietario y grupo.</p>
+<p>Supongamos un directorio en HDFS donde se almacenan datos de clientes sensibles: <code>/user/raw_data/customer_info</code>.</p>
+<ul>
+<li>Asignación de permisos básicos:</li>
+</ul>
+<pre><code class="language-bash">hdfs dfs -chown data_engineer:data_team /user/raw_data/customer_info
+hdfs dfs -chmod 750 /user/raw_data/customer_info
+</code></pre>
+<p>Esto da al usuario <code>data_engineer</code> (propietario) permisos de lectura, escritura y ejecución (7), al grupo <code>data_team</code> permisos de lectura y ejecución (5), y a otros ningún permiso (0).</p>
+<ul>
+<li>Uso de ACLs para RBAC más granular:</li>
+</ul>
+<p>Si queremos que un usuario específico, <code>audit_user</code>, tenga solo permisos de lectura en ese directorio, sin ser parte del grupo <code>data_team</code>, podemos usar ACLs:</p>
+<pre><code class="language-bash">hdfs dfs -setfacl -m user:audit_user:r-x /user/raw_data/customer_info
+</code></pre>
+<p>Esto permite al <code>audit_user</code> leer y listar el contenido del directorio, pero no modificarlo. Por otro lado, si un rol "Científico de Datos" solo necesita leer datos agregados en <code>/user/processed_data/agg_metrics</code>, se le otorgaría acceso de lectura solo a ese directorio.</p>
+<h5 id="politicas-de-acceso-y-segregacion-de-entornos">Políticas de Acceso y Segregación de Entornos</h5>
+<p>La seguridad se robustece significativamente al <strong>segregar los entornos</strong> (desarrollo, pruebas, producción) y establecer <strong>políticas de acceso claras y estrictas</strong> para cada uno, controlando cómo los datos y los <em>pipelines</em> fluyen entre ellos. Esto previene que cambios accidentales o maliciosos en desarrollo afecten la producción.</p>
+<p><strong>Airflow con DAGs de producción ejecutables solo por usuarios con rol "operaciones"</strong>:</p>
+<p>Esta política garantiza que el despliegue y la ejecución de <em>pipelines</em> críticos en producción estén altamente controlados, reduciendo el riesgo de interrupciones o errores.</p>
+<p>En un entorno de CI/CD para Airflow, los DAGs de producción suelen ser desplegados automáticamente desde un repositorio de código fuente (como Git) a un ambiente de producción de Airflow. Sin embargo, la activación manual o la modificación de estos DAGs en producción debe ser un privilegio restringido. Esto se logra configurando Airflow con roles específicos que tienen permisos explícitos para interactuar con DAGs de producción.</p>
+<p>Se define un rol <code>produccion_airflow_operator</code> que tiene permisos para <code>can_dag_run</code>, <code>can_dag_edit</code>, y <code>can_dag_pause_unpause</code> <em>solo</em> para DAGs que residen en el <em>folder</em> de producción de Airflow (por ejemplo, <code>/opt/airflow/dags/prod_dags</code>). Los ingenieros de datos solo tienen un rol <code>desarrollo_airflow_engineer</code> que les permite operar en <code>/opt/airflow/dags/dev_dags</code> y <code>/opt/airflow/dags/test_dags</code>.</p>
+<p>Cuando se despliega un nuevo DAG a producción, solo los usuarios con el rol <code>produccion_airflow_operator</code> pueden activar sus <em>runs</em> iniciales o reiniciar <em>runs</em> fallidos, siguiendo un protocolo estricto de <strong>cambios controlados</strong>.</p>
+<p><strong>Configuración de entornos de Spark aislados por cluster o namespace</strong>:</p>
+<p>El aislamiento de entornos en Spark previene la interferencia entre cargas de trabajo de desarrollo, pruebas y producción, y asegura que los recursos computacionales y los datos se utilicen de manera segura y eficiente.</p>
+<p>En plataformas en la nube o en clústeres locales, es una buena práctica configurar clústeres Spark o <em>namespaces</em> separados para cada entorno. Esto significa que un trabajo de desarrollo no puede acceder accidentalmente a los datos de producción o consumir sus recursos computacionales. Los permisos de acceso a los datos subyacentes (en S3, ADLS Gen2, GCS, HDFS, Snowflake, etc.) también se configuran para cada entorno.</p>
+<ul>
+<li>
+<p><strong>Databricks Workspaces</strong>: Se crean <em>workspaces</em> separados para desarrollo, <em>staging</em> y producción. Cada <em>workspace</em> tiene sus propios clústeres Spark, cuadernos, tablas y configuraciones de seguridad. Los usuarios solo tienen acceso a su <em>workspace</em> asignado. Un ingeniero de datos que desarrolla en el <em>workspace</em> de "Desarrollo" no puede ver ni acceder a los datos o <em>jobs</em> en el <em>workspace</em> de "Producción".</p>
+</li>
+<li>
+<p><strong>AWS EMR</strong>: Se lanzan clústeres EMR dedicados para cada entorno. Por ejemplo, un clúster EMR "dev-spark-cluster" y un clúster "prod-spark-cluster". Los roles de IAM de AWS se utilizan para controlar qué clústeres pueden lanzar los usuarios y qué buckets de S3 pueden leer o escribir cada clúster.</p>
+</li>
+</ul>
+<pre><code class="language-yaml"># Política IAM para el rol de producción de EMR
+{
+    &quot;Version&quot;: &quot;2012-10-17&quot;,
+    &quot;Statement&quot;: [
+        {
+            &quot;Effect&quot;: &quot;Allow&quot;,
+            &quot;Action&quot;: [
+                &quot;s3:GetObject&quot;,
+                &quot;s3:PutObject&quot;,
+                &quot;s3:DeleteObject&quot;
+            ],
+            &quot;Resource&quot;: [
+                &quot;arn:aws:s3:::prod-data-lake/*&quot;,
+                &quot;arn:aws:s3:::prod-spark-logs/*&quot;
+            ]
+        },
+        {
+            &quot;Effect&quot;: &quot;Allow&quot;,
+            &quot;Action&quot;: [
+                &quot;glue:GetTable&quot;,
+                &quot;glue:GetTables&quot;,
+                &quot;glue:GetDatabase&quot;,
+                &quot;glue:GetDatabases&quot;
+            ],
+            &quot;Resource&quot;: &quot;*&quot; # Limitar esto a bases de datos de producción si es posible
+        }
+    ]
+}
+</code></pre>
+<p>Esta política permitiría a un clúster Spark de producción acceder solo a los <em>buckets</em> S3 designados para producción y al catálogo de Glue Data Catalog relevante para producción.</p>
+<h3 id="364-practicas-de-auditoria-y-trazabilidad-de-operaciones">3.6.4 Prácticas de auditoría y trazabilidad de operaciones</h3>
+<p>Una arquitectura de datos robusta y segura no solo se enfoca en la protección perimetral o el control de acceso; también requiere <strong>mecanismos sofisticados para rastrear qué sucedió, quién lo hizo, cuándo y cómo los datos se transformaron a lo largo de su ciclo de vida</strong>. Estas prácticas son cruciales no solo para la <strong>seguridad y la detección de incidentes</strong>, sino también para el <strong>cumplimiento normativo, la depuración de errores y la gobernanza de datos</strong>.</p>
+<h5 id="auditoria-de-ejecuciones-y-cambios">Auditoría de ejecuciones y cambios</h5>
+<p>La auditoría de ejecuciones y cambios implica el registro sistemático y centralizado de todas las <strong>actividades operacionales, modificaciones de configuración y accesos a datos dentro de la plataforma Big Data</strong>. Este registro detallado es fundamental para la <strong>identificación temprana de comportamientos anómalos, la investigación forense de posibles brechas de seguridad, y la demostración de cumplimiento frente a regulaciones como GDPR, HIPAA o SOX</strong>.</p>
+<p><strong>Uso de Airflow Logs centralizados con integración a herramientas como ELK o CloudWatch.</strong></p>
+<p>Apache Airflow es una herramienta ampliamente utilizada para orquestar flujos de trabajo de datos. Cada ejecución de una tarea (DAG Run) genera logs detallados que contienen información sobre el inicio, finalización, errores, salidas de los scripts y recursos utilizados. Para una auditoría efectiva, estos logs deben ser <strong>centralizados y persistidos fuera del entorno efímero de Airflow workers</strong>. </p>
+<p>Herramientas como <strong>Elastic Stack (ELK: Elasticsearch, Logstash, Kibana)</strong> o <strong>Amazon CloudWatch (en AWS)</strong> permiten recolectar, indexar, buscar y visualizar estos logs de manera eficiente. Esto facilita la creación de <strong>dashboards de monitoreo</strong>, la <strong>configuración de alertas</strong> para fallos o accesos inusuales, y la <strong>generación de reportes de auditoría</strong>.</p>
+<p>Imagina que tienes un DAG de Airflow (<code>data_ingestion_dag</code>) que ingesta datos sensibles. Si un usuario no autorizado intenta modificar este DAG o si una ejecución falla repetidamente, necesitas ser notificado y tener un registro de estos eventos.</p>
+<ul>
+<li><strong>Configuración en Airflow</strong>: Asegúrate de que Airflow esté configurado para enviar sus logs a un sistema de log centralizado. Para AWS, esto podría ser S3 y CloudWatch:</li>
+</ul>
+<pre><code class="language-python"># airflow.cfg o variables de entorno para Airflow
+# [logging]
+# remote_logging = True
+# remote_base_log_folder = s3://your-airflow-logs-bucket/
+# remote_log_conn_id = aws_default_conn
+# S3_REMOTE_HANDLES = s3
+</code></pre>
+<p>Luego, puedes configurar CloudWatch Logs para ingerir logs desde S3 o directamente desde tus instancias EC2 donde corre Airflow.</p>
+<ul>
+<li><strong>Consulta en Kibana (ejemplo para ELK)</strong>: Una vez que los logs estén en Elasticsearch, puedes buscar eventos específicos, por ejemplo, todas las ejecuciones fallidas de un DAG en particular o intentos de acceso a la interfaz de Airflow por usuarios específicos.</li>
+</ul>
+<pre><code># Ejemplo de consulta en Kibana
+&quot;dag_id&quot;: &quot;data_ingestion_dag&quot; AND &quot;status&quot;: &quot;failed&quot; AND &quot;@timestamp&quot;: [now-24h TO now]
+</code></pre>
+<ul>
+<li><strong>Alerta en CloudWatch (ejemplo para AWS)</strong>: Puedes crear una métrica de log en CloudWatch que cuente los errores de Airflow y configure una alarma para notificarte.</li>
+</ul>
+<pre><code class="language-json">{
+  &quot;logGroupNames&quot;: [&quot;/aws/containerinsights/your-cluster-name/application&quot;],
+  &quot;metricFilterPatterns&quot;: [
+    &quot;{ $.logStreamName = \&quot;/ecs/airflow-worker*\&quot; &amp;&amp; $.message like \&quot;ERROR\&quot; }&quot;
+  ],
+  &quot;metricTransformations&quot;: [
+    {
+      &quot;metricName&quot;: &quot;AirflowErrors&quot;,
+      &quot;metricNamespace&quot;: &quot;AirflowCustomMetrics&quot;,
+      &quot;metricValue&quot;: &quot;1&quot;
+    }
+  ]
+}
+</code></pre>
+<p>Esta configuración te permitiría ver un aumento en los errores de Airflow y actuar proactivamente.</p>
+<p><strong>Activación de audit logs en Snowflake para rastrear consultas, cambios de roles o ingestas.</strong></p>
+<p>Snowflake, como un Data Warehouse en la nube, ofrece capacidades de auditoría robustas a través de sus <strong>vistas de Account Usage</strong> y la <strong>función <code>QUERY_HISTORY</code></strong>. Estas herramientas permiten a los administradores <strong>rastrear cada consulta ejecutada, los usuarios que las realizaron, el tiempo de ejecución, la cantidad de datos procesados, los roles utilizados</strong>, y también <strong>cambios en la configuración de seguridad (como la creación o modificación de usuarios y roles) o actividades de ingesta de datos (uso de COPY INTO)</strong>. La auditoría en Snowflake es fundamental para <strong>garantizar la seguridad de los datos, identificar patrones de uso inusuales, optimizar el rendimiento y cumplir con las políticas de gobernanza de datos</strong>.</p>
+<p>Supongamos que necesitas saber quién accedió a una tabla crítica de clientes en los últimos 7 días o si alguien intentó modificar los permisos de un usuario específico.</p>
+<ul>
+<li><strong>Rastreo de consultas a una tabla específica</strong>:</li>
+</ul>
+<pre><code class="language-sql">SELECT
+    query_id,
+    query_text,
+    user_name,
+    role_name,
+    start_time,
+    end_time,
+    error_message
+FROM
+    SNOWFLAKE.ACCOUNT_USAGE.QUERY_HISTORY
+WHERE
+    query_text ILIKE '%SELECT%FROM%customer_data%' -- Busca consultas que accedan a 'customer_data'
+    AND start_time &gt;= DATEADD(day, -7, CURRENT_TIMESTAMP())
+ORDER BY
+    start_time DESC;
+</code></pre>
+<ul>
+<li><strong>Auditoría de cambios de rol o usuario</strong>:</li>
+</ul>
+<p>Snowflake registra eventos de seguridad en la vista <code>LOGIN_HISTORY</code> y <code>USERS</code> para logins fallidos. Para cambios en roles y permisos, aunque no hay una vista <code>ROLE_HISTORY</code> directa, estos eventos se registran en <code>QUERY_HISTORY</code> si se ejecutan comandos DDL.</p>
+<pre><code class="language-sql">SELECT
+    query_id,
+    query_text,
+    user_name,
+    start_time
+FROM
+    SNOWFLAKE.ACCOUNT_USAGE.QUERY_HISTORY
+WHERE
+    query_type IN ('CREATE_ROLE', 'ALTER_ROLE', 'GRANT_ROLE', 'REVOKE_ROLE', 'CREATE_USER', 'ALTER_USER', 'DROP_USER')
+    AND start_time &gt;= DATEADD(day, -30, CURRENT_TIMESTAMP())
+ORDER BY
+    start_time DESC;
+</code></pre>
+<ul>
+<li><strong>Monitoreo de ingestas de datos (COPY INTO)</strong>:</li>
+</ul>
+<pre><code class="language-sql">SELECT
+    query_id,
+    query_text,
+    user_name,
+    start_time,
+    rows_inserted,
+    files_scanned
+FROM
+    SNOWFLAKE.ACCOUNT_USAGE.COPY_HISTORY
+WHERE
+    table_name = 'YOUR_TARGET_TABLE' -- Reemplaza con tu tabla
+    AND start_time &gt;= DATEADD(day, -1, CURRENT_TIMESTAMP())
+ORDER BY
+    start_time DESC;
+</code></pre>
+<p>Estas consultas permiten a los equipos de seguridad y operaciones mantener un registro inmutable de las actividades cruciales en Snowflake.</p>
+<h5 id="lineage-y-trazabilidad-de-datos">Lineage y trazabilidad de datos</h5>
+<p>El <strong>linaje de datos (data lineage)</strong> es la capacidad de <strong>mapear y comprender el recorrido de los datos desde su origen inicial hasta su destino final</strong>, incluyendo todas las transformaciones y movimientos intermedios. Es fundamental para la <strong>gobernanza de datos, la calidad de los datos, la depuración, el análisis de impacto de cambios y el cumplimiento normativo</strong>. Saber de dónde provienen los datos y cómo se transformaron es clave para <strong>confiar en los resultados analíticos y asegurar la integridad de la información</strong>.</p>
+<p><strong>Integración de Apache Atlas con Spark para visualizar el lineage completo de columnas.</strong></p>
+<p>Apache Atlas es una plataforma de gobernanza de datos y metadatos que proporciona un <strong>catálogo de datos centralizado y capacidades de linaje</strong>. Cuando se integra con motores de procesamiento de datos como Apache Spark, Atlas puede <strong>interceptar y registrar las transformaciones de datos a nivel de columna</strong>. Esto significa que puedes visualizar no solo cómo un conjunto de datos se deriva de otro, sino también cómo cada columna individual en un conjunto de datos de salida se construye a partir de columnas específicas en los conjuntos de datos de entrada. Esta granularidad es invaluable para rastrear el origen de un valor, entender el impacto de un cambio en una columna fuente, o identificar la causa raíz de un problema de calidad de datos.</p>
+<p>Imagina un proceso Spark que lee datos de ventas de una tabla, los limpia, agrega información de clientes de otra tabla y luego los escribe en una tabla de reportes.</p>
+<ul>
+<li><strong>Proceso Spark (pseudocódigo)</strong>:</li>
+</ul>
+<pre><code class="language-python">from pyspark.sql import SparkSession
+from pyspark.sql.functions import col, concat_ws
+
+spark = SparkSession.builder \
+    .appName(&quot;SalesDataProcessing&quot;) \
+    .enableHiveSupport() \
+    .getOrCreate()
+
+# Lectura de datos de ventas (origen 1)
+sales_df = spark.read.table(&quot;raw_data.sales&quot;)
+
+# Lectura de datos de clientes (origen 2)
+customers_df = spark.read.table(&quot;raw_data.customers&quot;)
+
+# Limpieza y transformación de datos de ventas
+cleaned_sales_df = sales_df.filter(col(&quot;quantity&quot;) &gt; 0) \
+                           .withColumn(&quot;total_price&quot;, col(&quot;quantity&quot;) * col(&quot;unit_price&quot;))
+
+# Unir con datos de clientes
+enriched_sales_df = cleaned_sales_df.join(customers_df, &quot;customer_id&quot;, &quot;inner&quot;) \
+                                    .select(
+                                        col(&quot;sale_id&quot;),
+                                        col(&quot;product_id&quot;),
+                                        col(&quot;total_price&quot;),
+                                        concat_ws(&quot; &quot;, col(&quot;first_name&quot;), col(&quot;last_name&quot;)).alias(&quot;customer_full_name&quot;),
+                                        col(&quot;region&quot;)
+                                    )
+
+# Escribir el resultado en una tabla de reportes
+enriched_sales_df.write.mode(&quot;overwrite&quot;).saveAsTable(&quot;reporting.daily_sales_summary&quot;)
+
+spark.stop()
+</code></pre>
+<ul>
+<li><strong>Visualización en Apache Atlas</strong>: Una vez que este trabajo Spark se ejecuta y Apache Atlas está configurado para escuchar eventos de Spark (a través de hooks de Spark o un plugin), Atlas registrará automáticamente el linaje. En la interfaz de usuario de Atlas, podrías ver un gráfico de linaje como este:</li>
+</ul>
+<p><code>raw_data.sales (tabla)</code> --&gt; <code>cleaned_sales_df (dataframe Spark)</code> --(Transformación: <code>total_price</code> de <code>quantity</code> y <code>unit_price</code>)--&gt; <code>enriched_sales_df (dataframe Spark)</code> --(Unión con <code>raw_data.customers</code>)--&gt; <code>reporting.daily_sales_summary (tabla)</code></p>
+<p>Y al profundizar, podrías ver el linaje a nivel de columna, por ejemplo:</p>
+<ul>
+<li><code>reporting.daily_sales_summary.total_price</code> se deriva de <code>raw_data.sales.quantity</code> y <code>raw_data.sales.unit_price</code>.</li>
+<li><code>reporting.daily_sales_summary.customer_full_name</code> se deriva de <code>raw_data.customers.first_name</code> y <code>raw_data.customers.last_name</code>.</li>
+</ul>
+<p><strong>Aplicación de etiquetas (tags) a datasets sensibles en Data Catalogs para trazabilidad y control.</strong></p>
+<p>Un <strong>Catálogo de Datos (Data Catalog)</strong> es una herramienta esencial para la gobernanza de datos que actúa como un <strong>inventario centralizado de todos los activos de datos de una organización</strong>. Permite descubrir, comprender y gestionar los datos. Una funcionalidad clave es la capacidad de aplicar etiquetas (tags) o clasificaciones a los datasets, tablas, o incluso columnas, especialmente aquellos que contienen información sensible (PII, datos financieros, etc.) o que son críticos para el negocio. Estas etiquetas no solo mejoran la <strong>trazabilidad al indicar la naturaleza y sensibilidad de los datos</strong>, sino que también pueden <strong>automatizar la aplicación de políticas de seguridad y cumplimiento</strong>. Por ejemplo, una etiqueta "PII" podría desencadenar automáticamente reglas de enmascaramiento o acceso restringido.</p>
+<p>Supongamos que tienes un conjunto de datos en Google BigQuery que contiene información personal identificable de clientes.</p>
+<ul>
+<li>
+<p><strong>Identificación y Etiquetado</strong>: Usarías tu Data Catalog (por ejemplo, Google Data Catalog, Collibra, Amundsen, etc.) para buscar la tabla <code>project.dataset.customers</code>. Una vez localizada, podrías aplicar etiquetas (tags) a la tabla completa o a columnas específicas.</p>
+<p><strong>Ejemplo de tags a nivel de tabla</strong>:</p>
+<ul>
+<li><code>Sensibilidad: Alto</code></li>
+<li><code>Clasificación: PII</code></li>
+<li><code>Regulación: GDPR</code></li>
+<li><code>Propietario: Equipo de Datos de Clientes</code></li>
+</ul>
+<p><strong>Ejemplo de tags a nivel de columna</strong>:</p>
+<ul>
+<li>Columna <code>email</code>: <code>Tipo: Contacto</code>, <code>Sensibilidad: PII-Directo</code></li>
+<li>Columna <code>credit_card_number</code>: <code>Tipo: Financiero</code>, <code>Sensibilidad: Muy Alto</code>, <code>Regulación: PCI-DSS</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Beneficios de la Trazabilidad con Tags</strong>:</p>
+<ul>
+<li><strong>Descubrimiento</strong>: Cualquier analista que busque datos de clientes verá inmediatamente las etiquetas de sensibilidad, lo que le ayudará a decidir si puede usar esos datos y bajo qué condiciones.</li>
+<li><strong>Cumplimiento</strong>: Las herramientas de gobernanza pueden usar estas etiquetas para generar reportes sobre la ubicación de datos PII y demostrar el cumplimiento de GDPR.</li>
+<li><strong>Automatización de Políticas</strong>: En algunos catálogos, estas etiquetas pueden integrarse con sistemas de seguridad para que, por ejemplo, el acceso a datos etiquetados como "PII" requiera una aprobación adicional o se apliquen automáticamente funciones de enmascaramiento para usuarios no autorizados.</li>
+<li><strong>Análisis de Impacto</strong>: Si una columna etiquetada como "PII" se modifica o se elimina, el catálogo puede mostrar qué otros conjuntos de datos o reportes dependen de ella, ayudando a predecir el impacto antes de realizar el cambio.</li>
+</ul>
+</li>
+</ul>
+<p>Estas prácticas de auditoría y trazabilidad son los pilares para construir una arquitectura de datos no solo eficiente y escalable, sino también <strong>segura, transparente y conforme a las regulaciones</strong>.</p>
+<h3 id="365-requerimientos-normativos-comunes-gdpr-hipaa-etc">3.6.5 Requerimientos normativos comunes: GDPR, HIPAA, etc.</h3>
+<p>Los <strong>pipelines ETL (Extract, Transform, Load)</strong> no son solo herramientas técnicas; también deben diseñarse y operarse en estricto cumplimiento con una serie de <strong>regulaciones que protegen la privacidad y los derechos de los usuarios sobre sus datos personales</strong>. </p>
+<p>La omisión o el manejo inadecuado de estas normativas puede acarrear multas significativas, daño reputacional y la pérdida de confianza de los clientes. Es crucial que los arquitectos de datos y desarrolladores de pipelines entiendan la importancia de la privacidad desde el diseño (<code>Privacy by Design</code>) y la seguridad desde el diseño (<code>Security by Design</code>).</p>
+<h5 id="regulaciones-aplicables-al-tratamiento-de-datos">Regulaciones aplicables al tratamiento de datos</h5>
+<p>La naturaleza global del Big Data significa que las organizaciones a menudo deben cumplir con un mosaico de regulaciones dependiendo de la ubicación de los datos, la residencia de los usuarios y el sector industrial. Algunas de las normativas más prominentes incluyen:</p>
+<p><strong>Aplicación de anonimización en pipelines que tratan datos personales de ciudadanos europeos (GDPR).</strong></p>
+<p>El <strong>Reglamento General de Protección de Datos (GDPR)</strong> de la Unión Europea es una de las normativas de privacidad de datos más estrictas a nivel mundial. Exige que los datos personales de los ciudadanos de la UE sean procesados de forma lícita, leal y transparente. Esto a menudo implica la <strong>anonimización o seudonimización</strong> de los datos para reducir el riesgo de identificación directa de los individuos.</p>
+<ul>
+<li>Un pipeline que procesa datos de compras en línea de clientes europeos debe anonimizar campos como <code>nombre</code>, <code>dirección</code> y <code>email</code> antes de almacenarlos en un data lake analítico. Esto podría implicar el uso de técnicas como el <strong>hashing irreversible</strong> para <code>email</code> o la <strong>generalización</strong> para <code>código_postal</code>.</li>
+</ul>
+<pre><code class="language-python"># Ejemplo de seudonimización con hashing (Python + PySpark)
+from pyspark.sql.functions import sha2, concat_ws, lit
+
+# Suponiendo un DataFrame 'df_clientes_europeos'
+# con columnas 'nombre', 'apellido', 'email', 'direccion'
+
+df_anonimizado = df_clientes_europeos.withColumn(
+    &quot;email_hash&quot;, sha2(df_clientes_europeos[&quot;email&quot;], 256) # Hashing SHA-256 del email
+).withColumn(
+    &quot;nombre_seudonimo&quot;, concat_ws(&quot;_&quot;, lit(&quot;cliente&quot;), sha2(df_clientes_europeos[&quot;nombre&quot;], 256))
+).drop(&quot;email&quot;, &quot;nombre&quot;, &quot;apellido&quot;, &quot;direccion&quot;) # Eliminar columnas de identificación directa
+
+df_anonimizado.show()
+</code></pre>
+<p><strong>Encriptación obligatoria de historiales clínicos en pipelines hospitalarios (HIPAA).</strong></p>
+<p>La <strong>Ley de Portabilidad y Responsabilidad del Seguro Médico (HIPAA)</strong> en Estados Unidos establece estándares nacionales para proteger la información de salud protegida (<code>PHI</code>). Cualquier pipeline que maneje datos de salud, como historiales médicos, resultados de laboratorio o información de seguros, debe asegurar que esta información esté <strong>encriptada tanto en tránsito como en reposo</strong>.</p>
+<p>Un pipeline ETL que ingiere datos de sistemas EHR (Electronic Health Records) a un almacén de datos para análisis de investigación debe garantizar que los archivos de datos se encripten antes de ser subidos a un bucket de S3 o a Azure Blob Storage, y que la comunicación con la base de datos de origen utilice SSL/TLS.</p>
+<pre><code class="language-bash"># Ejemplo de encriptación de archivos en reposo (AWS S3)
+# Al subir un archivo a S3, especificar encriptación del lado del servidor
+aws s3 cp /ruta/a/historial_clinico.csv s3://mi-bucket-salud/data/ --sse AES256
+
+# O si se usa un cliente de Python (boto3)
+import boto3
+s3 = boto3.client('s3')
+bucket_name = 'mi-bucket-salud'
+file_path = '/ruta/a/historial_clinico.csv'
+object_name = 'data/historial_clinico.csv'
+
+s3.upload_file(
+    file_path,
+    bucket_name,
+    object_name,
+    ExtraArgs={
+        'ServerSideEncryption': 'AES256' # Encriptación del lado del servidor con AES-256
+    }
+)
+</code></pre>
+<p><strong>Inclusión de consentimiento informado como metadato procesado en flujos de datos personales.</strong></p>
+<p>Muchas regulaciones, como GDPR y LGPD (Brasil), requieren que el <strong>consentimiento del usuario</strong> para el procesamiento de sus datos personales sea explícito, informado y revocable. Esto significa que los pipelines no solo deben procesar los datos, sino también la <strong>información sobre el consentimiento</strong> asociada a esos datos, lo que a menudo implica almacenar metadatos relacionados con la fecha de consentimiento, el tipo de consentimiento y la versión de la política de privacidad aceptada.</p>
+<p>Un pipeline que recopila datos de comportamiento de usuario de una aplicación móvil debe adjuntar un <code>ID_consentimiento</code> y <code>fecha_consentimiento</code> a cada evento de datos, permitiendo así filtrar y borrar datos en caso de que un usuario revoque su consentimiento.</p>
+<pre><code class="language-json"># Ejemplo de un registro de evento de datos con metadatos de consentimiento
+{
+  &quot;user_id&quot;: &quot;usuario_abc123&quot;,
+  &quot;event_type&quot;: &quot;pagina_vista&quot;,
+  &quot;page_url&quot;: &quot;/productos/item123&quot;,
+  &quot;timestamp&quot;: &quot;2025-06-10T10:30:00Z&quot;,
+  &quot;consent_metadata&quot;: {
+    &quot;consent_id&quot;: &quot;cons_xyz789&quot;,
+    &quot;consent_date&quot;: &quot;2025-01-15T09:00:00Z&quot;,
+    &quot;policy_version&quot;: &quot;2.1&quot;,
+    &quot;data_processing_purposes&quot;: [&quot;analitica&quot;, &quot;marketing_personalizado&quot;]
+  }
+}
+</code></pre>
+<h5 id="diseno-de-pipelines-compliance-ready">Diseño de pipelines "compliance-ready"</h5>
+<p>Para cumplir con las normativas de forma proactiva y evitar problemas, es fundamental adoptar un enfoque de <strong>diseño de pipelines "compliance-ready"</strong> o "privacy-by-design". Esto implica integrar consideraciones de cumplimiento normativo en cada etapa del ciclo de vida del desarrollo del pipeline, minimizando así los riesgos legales y operativos.</p>
+<p><strong>Creación de módulos reutilizables para anonimizar, enmascarar o eliminar datos bajo demanda.</strong></p>
+<p>La estandarización es clave para la consistencia y la eficiencia en el cumplimiento. Desarrollar un <strong>conjunto de funciones o microservicios reusables</strong> para las operaciones comunes de protección de datos (anonimización, seudonimización, enmascaramiento, tokenización y borrado seguro) permite aplicarlas de manera uniforme en diferentes pipelines y fuentes de datos.</p>
+<p>Un equipo de datos podría construir una librería interna en Spark para ofuscar PII (Información de Identificación Personal).</p>
+<pre><code class="language-python"># spark_data_masking_lib.py
+from pyspark.sql.functions import udf
+from pyspark.sql.types import StringType
+import hashlib
+
+@udf(returnType=StringType())
+def hash_email(email):
+    if email:
+        return hashlib.sha256(email.lower().encode('utf-8')).hexdigest()
+    return None
+
+@udf(returnType=StringType())
+def mask_phone_number(phone):
+    if phone and len(phone) &gt; 4:
+        return '*' * (len(phone) - 4) + phone[-4:]
+    return phone
+
+# En un pipeline de Spark:
+# from spark_data_masking_lib import hash_email, mask_phone_number
+# df_raw.withColumn(&quot;hashed_email&quot;, hash_email(&quot;email&quot;)) \
+#       .withColumn(&quot;masked_phone&quot;, mask_phone_number(&quot;telefono&quot;))
+</code></pre>
+<p><strong>Implementación de políticas de retención y borrado automatizado de datos personales.</strong></p>
+<p>Las regulaciones suelen establecer límites sobre cuánto tiempo se pueden retener los datos personales. Los pipelines deben ser capaces de aplicar <strong>políticas de retención de datos</strong> que automaticen el borrado o la anonimización de datos que ya no son necesarios o para los que el consentimiento ha sido revocado. Esto podría implicar el uso de funcionalidades de <strong>gestión del ciclo de vida (lifecycle management)</strong> en sistemas de almacenamiento en la nube o tareas programadas.</p>
+<p>Configurar reglas de ciclo de vida en un bucket de AWS S3 para que los objetos de más de 7 años sean eliminados automáticamente, o un trabajo de Airflow que ejecute un script de borrado lógico en una tabla de Snowflake para registros con antigüedad superior a la política de retención.</p>
+<pre><code class="language-python"># Ejemplo de tarea de Airflow para borrado de datos antiguos (pseudocódigo)
+from airflow import DAG
+from airflow.operators.bash import BashOperator
+from datetime import datetime, timedelta
+
+with DAG(
+    dag_id='data_retention_policy_cleaner',
+    start_date=datetime(2023, 1, 1),
+    schedule_interval=timedelta(days=7), # Ejecutar semanalmente
+    catchup=False
+) as dag:
+    clean_old_customer_data = BashOperator(
+        task_id='clean_customer_data_in_snowflake',
+        bash_command=&quot;&quot;&quot;
+            snowflake_conn_string=&quot;user={{ var.value.snowflake_user }} password={{ var.value.snowflake_password }} account={{ var.value.snowflake_account }}&quot;
+            SNOWFLAKE_QUERY=&quot;DELETE FROM analytics_db.public.customer_data WHERE created_at &lt; DATEADD(year, -7, CURRENT_DATE());&quot;
+            snowsql -c &quot;$snowflake_conn_string&quot; -q &quot;$SNOWFLAKE_QUERY&quot;
+        &quot;&quot;&quot;
+    )
+</code></pre>
+<p><strong>Inclusión de revisiones legales en el ciclo de vida del pipeline (Data Governance Boards).</strong></p>
+<p>El cumplimiento normativo no es solo una preocupación técnica, sino también legal y de gobernanza. Es fundamental establecer un <strong>marco de gobernanza de datos</strong> que incluya <strong>revisiones legales y de cumplimiento</strong> en las etapas clave del diseño, desarrollo y despliegue de los pipelines. Un <code>Data Governance Board</code> (Junta de Gobernanza de Datos) o un <code>Privacy Officer</code> debe aprobar cómo se procesan los datos personales, asegurando que las decisiones técnicas estén alineadas con las políticas corporativas y los requisitos legales.</p>
+<p>Antes de lanzar un nuevo pipeline de ingesta de datos de clientes para un nuevo servicio, el diseño arquitectónico y el plan de procesamiento de datos son revisados por el equipo legal y el oficial de privacidad de datos para asegurar el cumplimiento con GDPR, CCPA y cualquier otra regulación relevante. Esto podría implicar una reunión formal donde los ingenieros de datos presenten el flujo de datos, las medidas de seguridad y anonimización implementadas, y las políticas de retención, recibiendo la aprobación formal del comité.</p>
+<h2 id="tarea">Tarea</h2>
+<p>Desarrolla los siguientes ejercicios prácticos en tu entorno de laboratorio:</p>
+<ol>
+<li>Configura una conexión segura TLS entre Apache Spark y una base de datos PostgreSQL y documenta los pasos seguidos.</li>
+<li>Implementa el acceso a secretos mediante AWS Secrets Manager desde un DAG de Apache Airflow que conecta con un bucket de S3.</li>
+<li>Diseña una política de control de acceso por roles (RBAC) para un pipeline ETL en Databricks, diferenciando roles de analista, ingeniero y auditor.</li>
+<li>Audita un pipeline ejecutado en Airflow e identifica los registros clave de su trazabilidad y posibles fallas.</li>
+<li>Rediseña un pipeline para que cumpla con GDPR incorporando enmascaramiento de datos personales y lógica de eliminación bajo solicitud del usuario.</li>
+</ol>
               
             </div>
           </div><footer>

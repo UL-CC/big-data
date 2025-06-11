@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Instalación local usando Docker - Métodos de Procesamiento y Análisis de Big Data</title>
+    <title>DAGs, operadores y tareas - Métodos de Procesamiento y Análisis de Big Data</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Instalaci\u00f3n local usando Docker";
+        var mkdocs_page_name = "DAGs, operadores y tareas";
         var mkdocs_page_input_path = "tema42.md";
         var mkdocs_page_url = null;
       </script>
@@ -88,17 +88,65 @@
               <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../tema41/">Arquitectura y componentes de Airflow</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Instalación local usando Docker</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">DAGs, operadores y tareas</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#tema-21-operaciones-con-dataframes">Tema 2.1. Operaciones con DataFrames</a>
+    <li class="toctree-l2"><a class="reference internal" href="#42-dags-operadores-y-tareas">4.2. DAGs, operadores y tareas</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#421-definicion-y-estructura-de-dags">4.2.1 Definición y estructura de DAGs</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#parametros-esenciales">Parámetros Esenciales</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#estructura-basica-de-un-dag">Estructura básica de un DAG</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#dag-completo-y-detallado">DAG Completo y Detallado</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#422-operadores-built-in-y-custom-operators">4.2.2 Operadores built-in y custom operators</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#operadores-de-ejecucion-basica">Operadores de Ejecución Básica</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#operadores-de-bases-de-datos">Operadores de Bases de Datos</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#operadores-de-transferencia">Operadores de Transferencia</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#operadores-de-control-de-flujo">Operadores de Control de Flujo</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#operadores-para-spark-y-hadoop">Operadores para Spark y Hadoop</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#operadores-para-streaming-y-hdfs">Operadores para Streaming y HDFS</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#operadores-para-validacion-de-datos">Operadores para Validación de Datos</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#operadores-para-mlops">Operadores para MLOps</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#423-taskgroups">4.2.3 TaskGroups</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#uso-de-taskgroups">Uso de TaskGroups</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#424-templating-con-jinja2">4.2.4 Templating con Jinja2</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#uso-de-variables-y-contextos">Uso de variables y contextos</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#acceso-a-macros-y-funciones-de-utilidad">Acceso a macros y funciones de utilidad</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#templating-avanzado-en-operadores-python">Templating avanzado en operadores Python</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tarea">Tarea</a>
     </li>
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema43/">DAGs, operadores y tareas</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema43/">Integración con ecosistema Big Data</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema44/">Uso de `BashOperator`, `PythonOperator` y `SparkSubmitOperator`</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema45/">Monitoreo y manejo de dependencias</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema44/">Monitoreo, logging y manejo de dependencias</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Proyecto Integrador y Despliegue</span></p>
@@ -123,7 +171,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
           <li class="breadcrumb-item">Automatización y Orquestación con Apache Airflow</li>
-      <li class="breadcrumb-item active">Instalación local usando Docker</li>
+      <li class="breadcrumb-item active">DAGs, operadores y tareas</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -133,14 +181,756 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="4-automatizacion-y-orquestacion-con-apache-airflow">4. Automatización y Orquestación con Apache Airflow</h1>
-<h2 id="tema-21-operaciones-con-dataframes">Tema 2.1. Operaciones con DataFrames</h2>
-<p><em>Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.</em></p>
+<h2 id="42-dags-operadores-y-tareas">4.2. DAGs, operadores y tareas</h2>
+<p><strong>Objetivo</strong>:</p>
+<p>Comprender, diseñar y construir flujos de trabajo programables en Apache Airflow utilizando DAGs, operadores y tareas, incluyendo su agrupación, parametrización y personalización para gestionar eficientemente flujos de datos complejos en entornos Big Data.</p>
+<p><strong>Introducción</strong>:</p>
+<p>Apache Airflow permite definir y gestionar flujos de trabajo como código, a través de DAGs (Directed Acyclic Graphs), que representan secuencias de tareas con dependencias explícitas. Este enfoque permite un control detallado del orden de ejecución, la lógica condicional, la integración con diversas herramientas y servicios, y la reutilización de código para tareas repetitivas. En este tema se profundiza en cómo construir DAGs robustos, emplear operadores integrados y personalizados, utilizar estructuras avanzadas como TaskGroups y SubDAGs, y aplicar templating dinámico con Jinja2.</p>
+<p><strong>Desarrollo</strong>:</p>
+<p>La definición de flujos de trabajo (pipelines) en Apache Airflow se basa en DAGs que agrupan tareas individuales y definen la lógica de ejecución. Cada tarea puede realizar operaciones diversas como ejecutar comandos del sistema, procesar datos con Spark, mover datos entre servicios cloud, o enviar notificaciones. Airflow proporciona una gran variedad de operadores listos para usar y permite crear operadores personalizados. También ofrece herramientas para organizar tareas y aplicar plantillas dinámicas, lo cual facilita el mantenimiento y escalabilidad de flujos complejos.</p>
+<h3 id="421-definicion-y-estructura-de-dags">4.2.1 Definición y estructura de DAGs</h3>
+<p>Un <strong>DAG</strong> (Directed Acyclic Graph) es la pieza fundamental de Apache Airflow que representa un flujo de trabajo completo como un grafo dirigido sin ciclos.</p>
+<p>Cada DAG puede ser:</p>
+<ul>
+<li><strong>Dirigido</strong>: Las tareas tienen un orden específico de ejecución (flujo direccional)</li>
+<li><strong>Acíclico</strong>: No puede haber bucles infinitos o dependencias circulares</li>
+<li><strong>Grafo</strong>: Conjunto de nodos (tareas) conectados por aristas (dependencias)</li>
+</ul>
+<h5 id="parametros-esenciales">Parámetros Esenciales</h5>
+<p>Son los parámetros fundamentales que definen el comportamiento básico de un DAG en Apache Airflow.</p>
+<pre><code class="language-python"># Parámetros obligatorios
+dag_id='nombre_unico_del_dag'     # identificador único en todo Airflow
+start_date=datetime(2024, 1, 1)   # fecha desde cuando puede ejecutarse
+schedule_interval='@daily'        # frecuencia de ejecución
+
+# Parámetros importantes
+catchup=False                     # si ejecutar ejecuciones pasadas
+max_active_runs=1                 # número máximo de ejecuciones simultáneas
+default_retries=1                 # reintentos por defecto para todas las tareas
+retry_delay=timedelta(minutes=5)  # tiempo entre reintentos
+default_args = {                  # parámetros que heredan todas las tareas del DAG
+    'owner': 'team_data',
+    'retries': 2,
+    'retry_delay': timedelta(minutes=5),
+    'email_on_failure': True,
+    'email': ['alerts@empresa.com']
+}
+</code></pre>
+<p><strong>Planificación de la Ejecución (Scheduling)</strong></p>
+<p>Hay varias formas de configurar la frecuencias de ejecución:</p>
+<pre><code class="language-python"># Opciones de schedule_interval
+'@once'        # Ejecutar solo una vez
+'@hourly'      # Cada hora (0 * * * *)
+'@daily'       # Diariamente a medianoche (0 0 * * *)
+'@weekly'      # Semanalmente los domingos (0 0 * * 0)
+'@monthly'     # Primer día de cada mes (0 0 1 * *)
+'@yearly'      # 1 de enero cada año (0 0 1 1 *)
+
+# Cron personalizado
+'30 6 * * 1-5' # 6:30 AM, lunes a viernes
+'0 */4 * * *'  # Cada 4 horas
+
+# Programático
+timedelta(hours=2)              # Cada 2 horas
+timedelta(days=1, hours=12)     # Cada día y medio
+</code></pre>
+<h5 id="estructura-basica-de-un-dag">Estructura básica de un DAG</h5>
+<pre><code class="language-python">from airflow import DAG
+from airflow.operators.bash import BashOperator
+from datetime import datetime
+
+with DAG(
+    dag_id='mi_primer_dag',
+    start_date=datetime(2024, 1, 1),
+    schedule_interval='@daily',
+    catchup=False,
+    tags=['ejemplo']
+) as dag:
+
+    tarea_1 = BashOperator(
+        task_id='imprimir_fecha',
+        bash_command='date'
+    )
+
+    tarea_2 = BashOperator(
+        task_id='mostrar_hola_mundo',
+        bash_command='echo &quot;Hola mundo desde Airflow!&quot;'
+    )
+
+    tarea_1 &gt;&gt; tarea_2  # Define la dependencia
+</code></pre>
+<h5 id="dag-completo-y-detallado">DAG Completo y Detallado</h5>
+<p><strong>Diagrama</strong>:</p>
+<pre><code class="language-mermaid">flowchart TD
+    %% Estilos para diferentes tipos de tareas
+    classDef verificacion fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef extraccion fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    classDef procesamiento fill:#e8f5e8,stroke:#1b5e20,stroke-width:2px
+    classDef validacion fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    classDef reporte fill:#fce4ec,stroke:#880e4f,stroke-width:2px
+    classDef carga fill:#e0f2f1,stroke:#004d40,stroke-width:2px
+    classDef notificacion fill:#f1f8e9,stroke:#33691e,stroke-width:2px
+    classDef limpieza fill:#fafafa,stroke:#424242,stroke-width:2px
+
+    %% Definición de nodos
+    A[verificar_sistema&lt;br/&gt;🔍 Verificar recursos del sistema]:::verificacion
+    B[extraer_datos&lt;br/&gt;📥 Extraer datos de PostgreSQL]:::extraccion
+    C[procesar_datos&lt;br/&gt;⚙️ Transformar y limpiar datos]:::procesamiento
+    D[validar_calidad&lt;br/&gt;✅ Validar calidad de datos]:::validacion
+    E[generar_reporte_task&lt;br/&gt;📊 Generar reporte de métricas]:::reporte
+    F[cargar_datos_warehouse&lt;br/&gt;🏗️ Cargar al data warehouse]:::carga
+    G[enviar_notificacion&lt;br/&gt;📧 Enviar email de confirmación]:::notificacion
+    H[limpiar_archivos_temporales&lt;br/&gt;🧹 Limpiar archivos temp]:::limpieza
+
+    %% Flujo de dependencias
+    A --&gt; B
+    B --&gt; C
+
+    %% Ramificación paralela después del procesamiento
+    C --&gt; D
+    C --&gt; E
+
+    %% Convergencia para la carga (requiere procesamiento Y validación)
+    C --&gt; F
+    D --&gt; F
+
+    %% Reporte va a notificación
+    E --&gt; G
+
+    %% Limpieza al final (después de carga Y notificación)
+    F --&gt; H
+    G --&gt; H
+
+    %% Anotaciones explicativas
+    subgraph &quot;Fase 1: Preparación&quot;
+        A
+        B
+    end
+
+    subgraph &quot;Fase 2: Procesamiento&quot;
+        C
+    end
+
+    subgraph &quot;Fase 3: Validación y Reportes (Paralelo)&quot;
+        D
+        E
+    end
+
+    subgraph &quot;Fase 4: Finalización&quot;
+        F
+        G
+        H
+    end
+</code></pre>
+<p><strong>Implementación</strong>:</p>
+<pre><code class="language-python">from airflow import DAG
+from airflow.operators.bash import BashOperator
+from airflow.operators.python import PythonOperator
+from airflow.operators.email import EmailOperator
+from datetime import datetime, timedelta
+import pandas as pd
+import logging
+
+# Estos argumentos se aplicarán a todas las tareas del DAG
+# a menos que se sobrescriban específicamente
+default_args = {
+    'owner': 'equipo_data_engineering',          # Responsable del DAG
+    'depends_on_past': False,                    # No depende de ejecuciones anteriores
+    'start_date': datetime(2024, 1, 1),          # Fecha de inicio del DAG
+    'email_on_failure': True,                    # Enviar email si falla
+    'email_on_retry': False,                     # No enviar email en reintento
+    'email': ['team@empresa.com'],               # Lista de emails para notificaciones
+    'retries': 2,                                # Número de reintentos por tarea
+    'retry_delay': timedelta(minutes=5),         # Tiempo entre reintentos
+    'execution_timeout': timedelta(hours=2),     # Timeout máximo por tarea
+}
+
+# DEFINICIÓN DEL DAG
+with DAG(
+    # Identificador único del DAG en toda la instancia de Airflow
+    dag_id='pipeline_procesamiento_ventas_v2',
+
+    # Hereda la configuración por defecto definida arriba
+    default_args=default_args,
+
+    # Descripción que aparece en la UI de Airflow
+    description='Pipeline completo para procesar datos de ventas diarias',
+
+    # Frecuencia de ejecución - se ejecuta diariamente a las 2:00 AM
+    schedule_interval='0 2 * * *',
+
+    # No ejecutar DAGs para fechas pasadas (evita backfill automático)
+    catchup=False,
+
+    # Solo una instancia del DAG puede ejecutarse simultáneamente
+    max_active_runs=1,
+
+    # Tags para organizar DAGs en la UI
+    tags=['ventas', 'etl', 'produccion', 'diario'],
+
+    # Documentación en formato Markdown
+    doc_md=&quot;&quot;&quot;
+    ## Pipeline de Procesamiento de Ventas
+
+    Este DAG procesa los datos de ventas diarias:
+    1. Extrae datos de la base de datos transaccional
+    2. Aplica transformaciones y limpieza
+    3. Carga los datos al data warehouse
+    4. Envía reporte de resumen por email
+
+    **Dependencias externas**: Base de datos PostgreSQL, S3 bucket
+    **Tiempo estimado**: 45 minutos
+    **Criticidad**: Alta - bloquea reportes ejecutivos
+    &quot;&quot;&quot;,
+
+) as dag:
+
+    # FUNCIÓN PYTHON PERSONALIZADA
+    def procesar_datos_ventas(**context):
+        &quot;&quot;&quot;
+        Función que procesa los datos de ventas.
+        **context contiene información del contexto de ejecución de Airflow
+        &quot;&quot;&quot;
+        # Obtener la fecha de ejecución del contexto
+        execution_date = context['execution_date']
+
+        # Simular procesamiento de datos
+        logging.info(f&quot;Procesando datos de ventas para {execution_date}&quot;)
+
+        # En un caso real, aquí harías:
+        # - Conexión a base de datos
+        # - Extracción de datos
+        # - Transformaciones con pandas/spark
+        # - Validaciones de calidad
+
+        # Retornar métricas para usar en tareas posteriores
+        return {
+            'registros_procesados': 15420,
+            'ventas_totales': 89750.50,
+            'fecha_proceso': execution_date.strftime('%Y-%m-%d')
+        }
+
+    def generar_reporte(**context):
+        &quot;&quot;&quot;Genera un reporte basado en los datos procesados&quot;&quot;&quot;
+        # Obtener datos de la tarea anterior usando XCom
+        datos_ventas = context['task_instance'].xcom_pull(task_ids='procesar_datos')
+
+        reporte = f&quot;&quot;&quot;
+        Reporte de Ventas - {datos_ventas['fecha_proceso']}
+        ================================================
+        Registros procesados: {datos_ventas['registros_procesados']:,}
+        Ventas totales: ${datos_ventas['ventas_totales']:,.2f}
+        &quot;&quot;&quot;
+
+        logging.info(reporte)
+        return reporte
+
+    # DEFINICIÓN DE TAREAS
+
+    # TAREA 1: Verificación del sistema
+    verificar_sistema = BashOperator(
+        task_id='verificar_sistema',
+        # Comando bash que verifica conectividad y recursos
+        bash_command=&quot;&quot;&quot;
+        echo &quot;Verificando sistema...&quot;
+        df -h | grep -v tmpfs  # Verificar espacio en disco
+        echo &quot;Sistema verificado correctamente&quot;
+        &quot;&quot;&quot;,
+        # Documentación específica de la tarea
+        doc_md=&quot;&quot;&quot;
+        ### Verificación del Sistema
+        Valida que el sistema tenga los recursos necesarios:
+        - Espacio en disco suficiente
+        - Conectividad de red
+        - Servicios requeridos activos
+        &quot;&quot;&quot;
+    )
+
+    # TAREA 2: Extracción de datos
+    extraer_datos = BashOperator(
+        task_id='extraer_datos',
+        bash_command=&quot;&quot;&quot;
+        echo &quot;Iniciando extracción de datos...&quot;
+        # En producción, esto sería algo como:
+        # psql -h $DB_HOST -d ventas -c &quot;COPY (...) TO STDOUT&quot; &gt; /tmp/ventas_{{ ds }}.csv
+        echo &quot;Simulando extracción de 15,420 registros&quot;
+        echo &quot;Datos extraídos exitosamente&quot;
+        &quot;&quot;&quot;,
+        # Esta tarea puede fallar ocasionalmente, aumentamos reintentos
+        retries=3,
+        retry_delay=timedelta(minutes=2)
+    )
+
+    # TAREA 3: Procesamiento con Python
+    procesar_datos = PythonOperator(
+        task_id='procesar_datos',
+        python_callable=procesar_datos_ventas,
+        # Proporcionar el contexto de Airflow a la función
+        provide_context=True
+    )
+
+    # TAREA 4: Validación de calidad
+    validar_calidad = BashOperator(
+        task_id='validar_calidad',
+        bash_command=&quot;&quot;&quot;
+        echo &quot;Ejecutando validaciones de calidad de datos...&quot;
+        # Simular validaciones
+        echo &quot;✓ Sin valores nulos en campos críticos&quot;
+        echo &quot;✓ Rangos de fechas válidos&quot;
+        echo &quot;✓ Integridad referencial correcta&quot;
+        echo &quot;Validación completada exitosamente&quot;
+        &quot;&quot;&quot;
+    )
+
+    # TAREA 5: Carga al data warehouse
+    cargar_datos = BashOperator(
+        task_id='cargar_datos_warehouse',
+        bash_command=&quot;&quot;&quot;
+        echo &quot;Cargando datos al data warehouse...&quot;
+        # En producción sería algo como:
+        # aws s3 cp /tmp/ventas_processed_{{ ds }}.parquet s3://warehouse/ventas/
+        echo &quot;Datos cargados exitosamente al data warehouse&quot;
+        &quot;&quot;&quot;
+    )
+
+    # TAREA 6: Generación de reporte
+    generar_reporte_task = PythonOperator(
+        task_id='generar_reporte',
+        python_callable=generar_reporte,
+        provide_context=True
+    )
+
+    # TAREA 7: Envío de notificación por email
+    enviar_notificacion = EmailOperator(
+        task_id='enviar_notificacion',
+        to=['gerencia@empresa.com', 'ventas@empresa.com'],
+        subject='Pipeline de Ventas Completado - {{ ds }}',
+        html_content=&quot;&quot;&quot;
+        &lt;h3&gt;Pipeline de Procesamiento de Ventas&lt;/h3&gt;
+        &lt;p&gt;&lt;strong&gt;Fecha:&lt;/strong&gt; {{ ds }}&lt;/p&gt;
+        &lt;p&gt;&lt;strong&gt;Estado:&lt;/strong&gt; Completado exitosamente ✅&lt;/p&gt;
+        &lt;p&gt;&lt;strong&gt;Tiempo de ejecución:&lt;/strong&gt; {{ macros.datetime.now() }}&lt;/p&gt;
+
+        &lt;p&gt;Los datos de ventas han sido procesados y están disponibles en el data warehouse.&lt;/p&gt;
+
+        &lt;hr&gt;
+        &lt;small&gt;Este es un mensaje automático del sistema de orquestación de datos.&lt;/small&gt;
+        &quot;&quot;&quot;
+    )
+
+    # TAREA 8: Limpieza de archivos temporales
+    limpiar_archivos = BashOperator(
+        task_id='limpiar_archivos_temporales',
+        bash_command=&quot;&quot;&quot;
+        echo &quot;Limpiando archivos temporales...&quot;
+        # rm -f /tmp/ventas_{{ ds }}.*
+        echo &quot;Limpieza completada&quot;
+        &quot;&quot;&quot;,
+        # Esta tarea no es crítica, si falla no debe afectar el pipeline
+        trigger_rule='all_done'  # Se ejecuta sin importar si las anteriores fallan
+    )
+
+    # DEFINICIÓN DE DEPENDENCIAS
+
+    # Secuencia lineal básica
+    verificar_sistema &gt;&gt; extraer_datos &gt;&gt; procesar_datos
+
+    # Después del procesamiento, dos ramas paralelas
+    procesar_datos &gt;&gt; [validar_calidad, generar_reporte_task]
+
+    # La carga depende de que tanto el procesamiento como la validación sean exitosos
+    [procesar_datos, validar_calidad] &gt;&gt; cargar_datos
+
+    # El reporte se puede generar en paralelo con la carga
+    generar_reporte_task &gt;&gt; enviar_notificacion
+
+    # La limpieza se ejecuta al final, después de todo
+    [cargar_datos, enviar_notificacion] &gt;&gt; limpiar_archivos
+
+</code></pre>
+<h3 id="422-operadores-built-in-y-custom-operators">4.2.2 Operadores built-in y custom operators</h3>
+<p>Los <strong>operadores</strong> son las unidades de ejecución en Airflow. Representan tareas concretas que se ejecutan en el DAG. Airflow incluye múltiples operadores built-in y permite crear operadores personalizados para extender su funcionalidad.</p>
+<h5 id="operadores-de-ejecucion-basica">Operadores de Ejecución Básica</h5>
+<p>Estos operadores permiten ejecutar comandos del sistema, scripts, o funciones personalizadas.</p>
+<ul>
+<li><code>BashOperator</code>: Fundamental para ejecutar comandos del sistema, scripts shell y herramientas CLI de big data como Hadoop, Spark-submit, etc.</li>
+<li><code>PythonOperator</code>: Crítico para ejecutar funciones Python personalizadas, transformaciones de datos y lógica de negocio</li>
+<li><code>EmailOperator</code>: Esencial para notificaciones y alertas en pipelines de producción</li>
+</ul>
+<pre><code class="language-python">from airflow.operators.bash import BashOperator
+from airflow.operators.python import PythonOperator
+
+def saludar():
+    print(&quot;Hola desde PythonOperator&quot;)
+
+tarea_bash = BashOperator(
+    task_id='tarea_bash',
+    bash_command='echo &quot;Ejecutando comando Bash&quot;',
+    dag=dag
+)
+
+tarea_python = PythonOperator(
+    task_id='tarea_python',
+    python_callable=saludar,
+    dag=dag
+)
+</code></pre>
+<h5 id="operadores-de-bases-de-datos">Operadores de Bases de Datos</h5>
+<p>Estos operadores permiten ejecutar consultas SQL directamente desde Airflow hacia motores relacionales o embebidos.</p>
+<ul>
+<li><code>PostgresOperator</code>/<code>MySqlOperator</code>: Para ejecutar consultas SQL en bases de datos relacionales</li>
+<li><code>SqliteOperator</code>: Útil para pruebas y desarrollo local</li>
+</ul>
+<pre><code class="language-python">from airflow.providers.postgres.operators.postgres import PostgresOperator
+
+tarea_sql = PostgresOperator(
+    task_id='crear_tabla',
+    postgres_conn_id='mi_conexion_postgres',
+    sql='CREATE TABLE IF NOT EXISTS tabla_ejemplo (id SERIAL PRIMARY KEY);',
+    dag=dag
+)
+</code></pre>
+<h5 id="operadores-de-transferencia">Operadores de Transferencia</h5>
+<p>Son usados para mover datos entre servicios, especialmente en la nube.</p>
+<ul>
+<li><code>S3ToRedshiftOperator</code>: Transferir datos desde S3 a Redshift (muy común en AWS)</li>
+<li><code>BigQueryOperator</code>: Para operaciones en Google BigQuery</li>
+<li><code>RedshiftToS3Operator</code>: Exportar datos desde Redshift</li>
+</ul>
+<pre><code class="language-python">from airflow.providers.amazon.aws.transfers.s3_to_redshift import S3ToRedshiftOperator
+
+tarea_transferencia = S3ToRedshiftOperator(
+    task_id='s3_a_redshift',
+    s3_bucket='mi-bucket',
+    s3_key='datos.csv',
+    schema='public',
+    table='mi_tabla',
+    copy_options=['csv'],
+    aws_conn_id='aws_default',
+    redshift_conn_id='redshift_default',
+    dag=dag
+)
+</code></pre>
+<h5 id="operadores-de-control-de-flujo">Operadores de Control de Flujo</h5>
+<p>Controlan la lógica de ejecución dentro de un DAG.</p>
+<ul>
+<li><code>BranchPythonOperator</code>: Para lógica condicional en el pipeline</li>
+<li><code>EmptyOperator</code> (antes <code>DummyOperator</code>): Para puntos de sincronización</li>
+<li><code>TriggerDagRunOperator</code>: Para activar otros DAGs</li>
+</ul>
+<pre><code class="language-python">from airflow.operators.empty import EmptyOperator
+from airflow.operators.branch import BranchPythonOperator
+
+def decidir():
+    return 'tarea_a' if datetime.now().hour &lt; 12 else 'tarea_b'
+
+rama = BranchPythonOperator(
+    task_id='evaluar_ruta',
+    python_callable=decidir,
+    dag=dag
+)
+
+tarea_a = EmptyOperator(task_id='tarea_a', dag=dag)
+tarea_b = EmptyOperator(task_id='tarea_b', dag=dag)
+
+rama &gt;&gt; [tarea_a, tarea_b]
+</code></pre>
+<h5 id="operadores-para-spark-y-hadoop">Operadores para Spark y Hadoop</h5>
+<p>Permiten ejecutar aplicaciones en motores de procesamiento distribuido.</p>
+<ul>
+<li><code>SparkSubmitOperator</code>: Ejecutar aplicaciones Spark (batch processing)</li>
+<li><code>DataprocSubmitJobOperator</code>: Para trabajos en Google Cloud Dataproc</li>
+<li><code>EMRStepOperator</code>: Para clusters Amazon EMR</li>
+</ul>
+<pre><code class="language-python">from airflow.providers.apache.spark.operators.spark_submit import SparkSubmitOperator
+
+spark_job = SparkSubmitOperator(
+    task_id='ejecutar_spark',
+    application='/ruta/a/mi_app_spark.py',
+    conn_id='spark_default',
+    dag=dag
+)
+</code></pre>
+<h5 id="operadores-para-streaming-y-hdfs">Operadores para Streaming y HDFS</h5>
+<p>Permiten flujos en tiempo real y acceso a HDFS</p>
+<ul>
+<li><code>KafkaOperator</code>: Interactuar con Apache Kafka para datos en tiempo real</li>
+<li><code>HDFSOperator</code>: Operaciones en Hadoop Distributed File System</li>
+</ul>
+<pre><code class="language-python">from airflow.providers.apache.hdfs.sensors.hdfs import HdfsSensor
+
+esperar_archivo = HdfsSensor(
+    task_id='esperar_archivo_hdfs',
+    filepath='/data/input/archivo.csv',
+    hdfs_conn_id='hdfs_default',
+    dag=dag
+)
+</code></pre>
+<h5 id="operadores-para-validacion-de-datos">Operadores para Validación de Datos</h5>
+<p>Permiten realizar validaciones sobre los datos</p>
+<ul>
+<li><code>GreatExpectationsOperator</code>: Validación de calidad de datos</li>
+<li><code>Custom Data Validation Operators</code>: Para reglas específicas del negocio</li>
+</ul>
+<pre><code class="language-python">from airflow.providers.great_expectations.operators.great_expectations import GreatExpectationsOperator
+
+validacion = GreatExpectationsOperator(
+    task_id='validar_datos',
+    data_context_root_dir='/opt/ge/',
+    checkpoint_name='check_ventas',
+    dag=dag
+)
+</code></pre>
+<h5 id="operadores-para-mlops">Operadores para MLOps</h5>
+<p>Flujos relacionados con procesos de Machine Learning</p>
+<ul>
+<li><code>MLflowOperator</code>: Para experimentos y modelos de machine learning</li>
+<li><code>KubernetesOperator</code>: Para ejecutar contenedores en Kubernetes</li>
+</ul>
+<pre><code class="language-python">from airflow.providers.cncf.kubernetes.operators.kubernetes_pod import KubernetesPodOperator
+
+ml_entrenamiento = KubernetesPodOperator(
+    task_id='entrenar_modelo',
+    name='ml-train',
+    image='ml/entrenamiento:latest',
+    dag=dag
+)
+</code></pre>
+<h3 id="423-taskgroups">4.2.3 TaskGroups</h3>
+<p>Cuando los DAGs crecen en complejidad (más de 10-15 tareas), surgen varios problemas:</p>
+<ul>
+<li>Legibilidad: Difícil entender el flujo en la UI de Airflow</li>
+<li>Mantenimiento: Código desordenado y difícil de modificar</li>
+<li>Reutilización: Patrones repetitivos sin forma de encapsular</li>
+<li>Colaboración: Equipos diferentes trabajando en el mismo DAG</li>
+<li>Debugging: Difícil identificar grupos de tareas relacionadas</li>
+</ul>
+<p>La solución es agrupar tareas lógicamente relacionadas usando TaskGroups.</p>
+<p>Nota: Existe un mecanismo adicional llamado SubDAGs, pero ya es considerado obsoleto.</p>
+<h5 id="uso-de-taskgroups">Uso de TaskGroups</h5>
+<p>Los TaskGroups son una forma de organizar tareas visualmente en la UI de Airflow sin crear DAGs separados.</p>
+<p>Introducidos en Airflow 2.0, son la mejor práctica actual para estructurar DAGs complejos.</p>
+<p>Ventajas de <strong>TaskGroups</strong></p>
+<ul>
+<li>Organización visual: Agrupa tareas en la UI de Airflow</li>
+<li>Reutilización de código: Encapsula lógica repetitiva</li>
+<li>Mejor rendimiento: No crean procesos separados como SubDAGs</li>
+<li>Simplicidad: Fácil de usar y entender</li>
+<li>Debugging mejorado: Logs y estados agrupados</li>
+<li>Escalabilidad: Maneja DAGs con cientos de tareas</li>
+</ul>
+<p>Los <code>TaskGroup</code> permiten agrupar visual y lógicamente tareas relacionadas dentro de un DAG.</p>
+<p><strong>Ejemplo de un TaskGroup</strong>:</p>
+<pre><code class="language-python">from airflow import DAG
+from airflow.operators.bash import BashOperator
+from airflow.operators.python import PythonOperator
+from airflow.utils.task_group import TaskGroup
+from datetime import datetime, timedelta
+
+# Configuración del DAG
+with DAG(
+    dag_id='pipeline_con_taskgroups_v1',
+    start_date=datetime(2024, 1, 1),
+    schedule_interval='@daily',
+    catchup=False,
+    tags=['taskgroups', 'ejemplo']
+) as dag:
+
+    # TASKGROUP 1: PREPARACIÓN DE DATOS
+    with TaskGroup(
+        group_id='preparacion_datos',
+        tooltip='Descarga, validación y limpieza de datos raw'
+    ) as grupo_preparacion:
+
+        # Tarea 1: Descargar datos de múltiples fuentes
+        descargar_datos = BashOperator(
+            task_id='descargar_datos',
+            bash_command='''
+            echo &quot;Descargando datos de APIs y bases de datos...&quot;
+            # Simular descarga de múltiples fuentes
+            echo &quot;✓ API de ventas: 15,420 registros&quot;
+            echo &quot;✓ API de clientes: 8,932 registros&quot;
+            echo &quot;✓ DB transaccional: 45,123 registros&quot;
+            '''
+        )
+
+        # Tarea 2: Validar integridad de los datos
+        validar_integridad = BashOperator(
+            task_id='validar_integridad',
+            bash_command='''
+            echo &quot;Validando integridad de datos descargados...&quot;
+            echo &quot;✓ Verificando checksums&quot;
+            echo &quot;✓ Validando esquemas JSON/CSV&quot;
+            echo &quot;✓ Contando registros esperados&quot;
+            '''
+        )
+
+        # Tarea 3: Limpiar y estandarizar datos
+        limpiar_datos = PythonOperator(
+            task_id='limpiar_datos',
+            python_callable=lambda: print(&quot;&quot;&quot;
+            Limpiando datos:
+            ✓ Removiendo duplicados
+            ✓ Estandarizando formatos de fecha
+            ✓ Normalizando nombres y direcciones
+            ✓ Aplicando reglas de negocio
+            &quot;&quot;&quot;)
+        )
+
+        # Dependencias dentro del TaskGroup
+        descargar_datos &gt;&gt; validar_integridad &gt;&gt; limpiar_datos
+
+    # TASKGROUP 2: TRANSFORMACIONES DE NEGOCIO
+    with TaskGroup(
+        group_id='transformaciones_negocio',
+        tooltip='Aplicar reglas de negocio y cálculos complejos'
+    ) as grupo_transformaciones:
+
+        def calcular_metricas_ventas():
+            print(&quot;Calculando métricas de ventas:&quot;)
+            print(&quot;✓ Revenue por región&quot;)
+            print(&quot;✓ Customer Lifetime Value&quot;)
+            print(&quot;✓ Churn rate&quot;)
+            print(&quot;✓ Forecasting próximo trimestre&quot;)
+            return &quot;Métricas calculadas exitosamente&quot;
+
+        def aplicar_segmentacion():
+            print(&quot;Aplicando segmentación de clientes:&quot;)
+            print(&quot;✓ RFM Analysis (Recency, Frequency, Monetary)&quot;)
+            print(&quot;✓ Clustering de comportamiento&quot;)
+            print(&quot;✓ Propensión de compra&quot;)
+            return &quot;Segmentación completada&quot;
+
+        calcular_metricas = PythonOperator(
+            task_id='calcular_metricas_ventas',
+            python_callable=calcular_metricas_ventas
+        )
+
+        segmentar_clientes = PythonOperator(
+            task_id='segmentar_clientes',
+            python_callable=aplicar_segmentacion
+        )
+
+        # Estas tareas pueden ejecutarse en paralelo
+        # No hay dependencia entre calcular métricas y segmentar clientes
+        pass  # Sin dependencias internas = ejecución paralela
+
+    # TASKGROUP 3: CARGA DE DATOS
+    with TaskGroup(
+        group_id='carga_datos',
+        tooltip='Carga a diferentes sistemas de destino'
+    ) as grupo_carga:
+
+        cargar_datawarehouse = BashOperator(
+            task_id='cargar_datawarehouse',
+            bash_command='''
+            echo &quot;Cargando datos al data warehouse...&quot;
+            echo &quot;✓ Upserting tabla dimensiones&quot;
+            echo &quot;✓ Insertando hechos de ventas&quot;
+            echo &quot;✓ Actualizando índices&quot;
+            '''
+        )
+
+        cargar_data_lake = BashOperator(
+            task_id='cargar_data_lake',
+            bash_command='''
+            echo &quot;Cargando datos al data lake...&quot;
+            echo &quot;✓ Particionando por fecha&quot;
+            echo &quot;✓ Comprimiendo en formato Parquet&quot;
+            echo &quot;✓ Actualizando catálogo de metadatos&quot;
+            '''
+        )
+
+        actualizar_cache = BashOperator(
+            task_id='actualizar_cache',
+            bash_command='''
+            echo &quot;Actualizando sistemas de cache...&quot;
+            echo &quot;✓ Redis para métricas en tiempo real&quot;
+            echo &quot;✓ Elasticsearch para búsquedas&quot;
+            echo &quot;✓ CDN para reportes estáticos&quot;
+            '''
+        )
+
+        # Todas las cargas pueden ejecutarse en paralelo
+        pass  # Sin dependencias = máximo paralelismo
+
+    # TAREA INDIVIDUAL: NOTIFICACIONES
+    enviar_notificaciones = BashOperator(
+        task_id='enviar_notificaciones',
+        bash_command='''
+        echo &quot;Enviando notificaciones finales...&quot;
+        echo &quot;✓ Email a stakeholders&quot;
+        echo &quot;✓ Slack al equipo de datos&quot;
+        echo &quot;✓ Dashboard actualizado&quot;
+        '''
+    )
+
+    # DEPENDENCIAS ENTRE TASKGROUPS
+
+    # Flujo secuencial entre grupos principales
+    grupo_preparacion &gt;&gt; grupo_transformaciones &gt;&gt; grupo_carga
+
+    # La notificación final depende de que toda la carga esté completa
+    grupo_carga &gt;&gt; enviar_notificaciones
+</code></pre>
+<h3 id="424-templating-con-jinja2">4.2.4 Templating con Jinja2</h3>
+<p><strong>Apache Airflow</strong> aprovecha la potencia de <strong>Jinja2</strong>, un motor de plantillas moderno y de alto rendimiento para Python, para permitir la generación dinámica de comandos, configuraciones y otros valores dentro de tus <strong>DAGs</strong> (Directed Acyclic Graphs) y operadores. Esta capacidad de templating es fundamental para crear flujos de trabajo flexibles y reutilizables, ya que te permite adaptar el comportamiento de tus tareas en función de variables de tiempo de ejecución, configuraciones del entorno o datos específicos.</p>
+<h5 id="uso-de-variables-y-contextos">Uso de variables y contextos</h5>
+<p>El templating con Jinja2 te permite incrustar variables y acceder al contexto de ejecución de Airflow directamente dentro de las propiedades de tus operadores que soportan plantillas (identificadas por tener un sufijo <code>_template</code> o ser parte de una lista definida por <code>template_fields</code> en el operador).</p>
+<p>Considera el siguiente ejemplo con un <code>BashOperator</code>:</p>
+<pre><code class="language-python">tarea_con_template = BashOperator(
+    task_id='mostrar_fecha',
+    bash_command='echo &quot;La fecha de ejecución es {{ ds }}&quot;',
+    dag=dag
+)
+</code></pre>
+<p>En este caso, la cadena <code>bash_command</code> es una plantilla Jinja2. Durante la ejecución de la tarea <code>{{ ds }}</code> será reemplazado automáticamente por la fecha de ejecución actual del DAG en formato <code>YYYY-MM-DD</code>. Esto es útil para tareas que dependen de la fecha, como el procesamiento de datos diarios o la generación de informes con nombres de archivo basados en la fecha.</p>
+<h5 id="acceso-a-macros-y-funciones-de-utilidad">Acceso a macros y funciones de utilidad</h5>
+<p>Airflow expone un conjunto de <strong>macros</strong> y funciones de utilidad a las plantillas Jinja2, lo que te permite realizar operaciones comunes sin necesidad de escribir lógica Python adicional. Estas macros proporcionan acceso conveniente a información clave del contexto de ejecución y a funciones de manipulación de fechas, entre otras cosas. Algunas de las macros más utilizadas incluyen:</p>
+<ul>
+<li><strong><code>{{ ds }}</code></strong>: Representa la <strong>fecha de ejecución del DAG</strong> en formato de cadena <code>YYYY-MM-DD</code>. Es ideal para operaciones de carga de datos diarias.</li>
+<li><strong><code>{{ ds_nodash }}</code></strong>: Similar a <code>ds</code>, pero la fecha se presenta sin guiones, por ejemplo, <code>YYYYMMDD</code>. Útil para nombres de archivos o rutas sin caracteres especiales.</li>
+<li><strong><code>{{ execution_date }}</code></strong>: Es un <strong>objeto <code>datetime</code> completo</strong> que representa el momento exacto en que la instancia del DAG fue programada para ejecutarse. Este objeto te permite realizar manipulaciones de tiempo más complejas.</li>
+<li><strong><code>{{ prev_ds }}</code></strong>: La fecha de ejecución anterior, si existe, en formato <code>YYYY-MM-DD</code>.</li>
+<li><strong><code>{{ next_ds }}</code></strong>: La siguiente fecha de ejecución programada, si existe, en formato <code>YYYY-MM-DD</code>.</li>
+<li><strong><code>{{ macros.ds_add(ds, 7) }}</code></strong>: Esta es una función de macro que te permite <strong>sumar o restar días</strong> a una fecha dada. En este ejemplo, suma 7 días a la fecha de ejecución (<code>ds</code>). Puedes usarla para definir ventanas de tiempo relativas o para procesar datos con un desfase. Por ejemplo, <code>macros.ds_format(ds, "%Y-%m-%d", "%Y/%m/%d")</code> para cambiar el formato.</li>
+<li><strong><code>{{ dag_run }}</code></strong>: Acceso al objeto <code>DagRun</code> completo, lo que te permite obtener información más detallada sobre la ejecución actual del DAG.</li>
+<li><strong><code>{{ ti }}</code></strong>: Acceso al objeto <code>TaskInstance</code> actual, útil para obtener información específica de la instancia de la tarea.</li>
+</ul>
+<h5 id="templating-avanzado-en-operadores-python">Templating avanzado en operadores Python</h5>
+<p>El <em>templating</em> no se limita solo a operadores de Bash. Muchos operadores de Airflow, incluido el <code>PythonOperator</code>, permiten que los valores sean puestos en un <em>template</em>. Para los <code>PythonOperator</code> que necesitan acceder al contexto de Airflow, puedes usar el argumento <code>provide_context=True</code>. Cuando esta opción está activada, Airflow inyecta un diccionario con el contexto de ejecución (incluyendo las variables y macros Jinja2 disponibles) como argumentos <code>kwargs</code> al <code>python_callable</code> definido.</p>
+<pre><code class="language-python">from airflow.operators.python import PythonOperator
+
+def mostrar_contexto(**kwargs):
+    # 'ds' está disponible en kwargs cuando provide_context=True
+    print(f&quot;La tarea se ejecuta para la fecha: {kwargs['ds']}&quot;)
+    print(f&quot;Fecha de ejecución completa: {kwargs['execution_date']}&quot;)
+    # También puedes acceder a otras variables del contexto
+    print(f&quot;ID de la tarea: {kwargs['task_instance'].task_id}&quot;)
+
+tarea_contexto = PythonOperator(
+    task_id='ver_contexto',
+    python_callable=mostrar_contexto,
+    provide_context=True,  # Esto inyecta el contexto como kwargs
+    dag=dag
+)
+</code></pre>
+<p>En este <code>PythonOperator</code>, la función <code>mostrar_contexto</code> recibe <code>**kwargs</code>, que contendrá el diccionario de contexto de Airflow. Dentro de esta función, puedes acceder a <code>kwargs['ds']</code>, <code>kwargs['execution_date']</code>, <code>kwargs['task_instance']</code>, y cualquier otra variable o macro que normalmente estaría disponible en las plantillas Jinja2. Esto te brinda un control programático completo sobre cómo tus funciones Python interactúan con el entorno de ejecución de Airflow.</p>
+<h2 id="tarea">Tarea</h2>
+<p>Realiza los siguientes ejercicios para afianzar tu dominio sobre DAGs, operadores y tareas en Airflow:</p>
+<ol>
+<li><strong>Define un DAG diario</strong> que ejecute dos tareas: una que imprima la fecha del sistema y otra que salude al usuario.</li>
+<li><strong>Usa un <code>BranchPythonOperator</code></strong> para decidir entre dos caminos: ejecutar un script Python o un comando Bash, según el día de la semana.</li>
+<li><strong>Agrupa tres tareas de transformación</strong> (descargar, limpiar y cargar datos) usando <code>TaskGroup</code>.</li>
+<li><strong>Crea un operador personalizado</strong> que verifique si existe un archivo en un bucket de S3 y registre el resultado.</li>
+<li><strong>Implementa templating</strong> en un <code>BashOperator</code> para imprimir dinámicamente la fecha de ejecución y el nombre del DAG.</li>
+</ol>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
         <a href="../tema41/" class="btn btn-neutral float-left" title="Arquitectura y componentes de Airflow"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../tema43/" class="btn btn-neutral float-right" title="DAGs, operadores y tareas">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../tema43/" class="btn btn-neutral float-right" title="Integración con ecosistema Big Data">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
