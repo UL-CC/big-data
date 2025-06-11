@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Uso de `BashOperator`, `PythonOperator` y `SparkSubmitOperator` - Métodos de Procesamiento y Análisis de Big Data</title>
+    <title>Monitoreo, logging y manejo de dependencias - Métodos de Procesamiento y Análisis de Big Data</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Uso de `BashOperator`, `PythonOperator` y `SparkSubmitOperator`";
+        var mkdocs_page_name = "Monitoreo, logging y manejo de dependencias";
         var mkdocs_page_input_path = "tema44.md";
         var mkdocs_page_url = null;
       </script>
@@ -88,17 +88,43 @@
               <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../tema41/">Arquitectura y componentes de Airflow</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema42/">Instalación local usando Docker</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema42/">DAGs, operadores y tareas</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema43/">DAGs, operadores y tareas</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema43/">Integración con ecosistema Big Data</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Uso de `BashOperator`, `PythonOperator` y `SparkSubmitOperator`</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Monitoreo, logging y manejo de dependencias</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#tema-21-operaciones-con-dataframes">Tema 2.1. Operaciones con DataFrames</a>
+    <li class="toctree-l2"><a class="reference internal" href="#44-monitoreo-logging-y-manejo-de-dependencias">4.4. Monitoreo, logging y manejo de dependencias</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#441-gestion-de-dependencias-entre-tareas-y-dags">4.4.1 Gestión de dependencias entre tareas y DAGs</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#definicion-de-dependencias-entre-tareas-en-un-dag">Definición de dependencias entre tareas en un DAG</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#dependencias-entre-dags-triggerdagrunoperator-y-externaltasksensor">Dependencias entre DAGs (TriggerDagRunOperator y ExternalTaskSensor)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#442-sistema-de-alertas-y-notificaciones">4.4.2 Sistema de alertas y notificaciones</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#configuracion-basica-de-notificaciones-por-correo-electronico">Configuración básica de notificaciones por correo electrónico</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#integracion-con-herramientas-de-monitoreo-y-mensajeria">Integración con herramientas de monitoreo y mensajería</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#443-logging-y-debugging">4.4.3 Logging y debugging</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#visualizacion-de-logs-por-tarea-en-la-ui">Visualización de logs por tarea en la UI</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#niveles-de-logging-y-debugging-en-desarrollo">Niveles de logging y debugging en desarrollo</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tarea">Tarea</a>
     </li>
     </ul>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema45/">Monitoreo y manejo de dependencias</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Proyecto Integrador y Despliegue</span></p>
@@ -123,7 +149,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
           <li class="breadcrumb-item">Automatización y Orquestación con Apache Airflow</li>
-      <li class="breadcrumb-item active">Uso de `BashOperator`, `PythonOperator` y `SparkSubmitOperator`</li>
+      <li class="breadcrumb-item active">Monitoreo, logging y manejo de dependencias</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -133,14 +159,116 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="4-automatizacion-y-orquestacion-con-apache-airflow">4. Automatización y Orquestación con Apache Airflow</h1>
-<h2 id="tema-21-operaciones-con-dataframes">Tema 2.1. Operaciones con DataFrames</h2>
-<p><em>Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.</em></p>
+<h2 id="44-monitoreo-logging-y-manejo-de-dependencias">4.4. Monitoreo, logging y manejo de dependencias</h2>
+<p><strong>Objetivo</strong>:</p>
+<p>Comprender y aplicar técnicas de monitoreo, logging y gestión de dependencias en Apache Airflow para asegurar la trazabilidad, confiabilidad y eficiencia en la ejecución de flujos de trabajo de datos distribuidos.</p>
+<p><strong>Introducción</strong>:</p>
+<p>En entornos de Big Data, donde los pipelines pueden involucrar decenas o cientos de tareas interdependientes, es fundamental contar con mecanismos robustos para gestionar dependencias, detectar errores rápidamente y recibir notificaciones oportunas. Apache Airflow proporciona una infraestructura poderosa para monitorear y depurar flujos de trabajo, manejar relaciones entre tareas, establecer alertas ante fallas, y generar registros detallados para su análisis.</p>
+<p><strong>Desarrollo</strong>:</p>
+<p>Este tema se enfoca en tres aspectos clave de la operación de DAGs en producción: cómo definir y controlar las dependencias entre tareas y DAGs, cómo configurar sistemas de notificaciones que alerten sobre estados críticos, y cómo aprovechar las capacidades de logging de Airflow para identificar y solucionar errores. Dominar estos elementos es esencial para mantener la confiabilidad y visibilidad de los pipelines en ecosistemas Big Data complejos, tanto on-premise como en la nube.</p>
+<h3 id="441-gestion-de-dependencias-entre-tareas-y-dags">4.4.1 Gestión de dependencias entre tareas y DAGs</h3>
+<p>La gestión de dependencias en Airflow es crucial para asegurar que las tareas se ejecuten en el orden correcto, respetando los flujos lógicos del proceso. Las dependencias pueden definirse tanto dentro de un DAG como entre diferentes DAGs, y su correcta implementación mejora la modularidad, reutilización y control de los flujos.</p>
+<h5 id="definicion-de-dependencias-entre-tareas-en-un-dag">Definición de dependencias entre tareas en un DAG</h5>
+<p>Airflow utiliza un modelo basado en grafos dirigidos acíclicos (DAGs), donde las tareas están conectadas entre sí por medio de relaciones de dependencia. Estas se definen de forma declarativa usando los operadores <code>&gt;&gt;</code> (downstream) y <code>&lt;&lt;</code> (upstream).</p>
+<pre><code class="language-python">from airflow import DAG
+from airflow.operators.dummy import DummyOperator
+from datetime import datetime
+
+with DAG(dag_id=&quot;ejemplo_dependencias&quot;, start_date=datetime(2024, 1, 1), schedule_interval='@daily') as dag:
+    inicio = DummyOperator(task_id=&quot;inicio&quot;)
+    proceso_1 = DummyOperator(task_id=&quot;proceso_1&quot;)
+    proceso_2 = DummyOperator(task_id=&quot;proceso_2&quot;)
+    fin = DummyOperator(task_id=&quot;fin&quot;)
+
+    inicio &gt;&gt; [proceso_1, proceso_2] &gt;&gt; fin
+</code></pre>
+<p>Este patrón garantiza que <code>proceso_1</code> y <code>proceso_2</code> solo inicien después de <code>inicio</code>, y que <code>fin</code> espere la finalización de ambos.</p>
+<h5 id="dependencias-entre-dags-triggerdagrunoperator-y-externaltasksensor">Dependencias entre DAGs (TriggerDagRunOperator y ExternalTaskSensor)</h5>
+<p>Airflow permite establecer dependencias entre DAGs distintos. Esto es útil para dividir procesos complejos en módulos independientes.</p>
+<ul>
+<li><code>TriggerDagRunOperator</code>: inicia otro DAG desde una tarea.</li>
+<li><code>ExternalTaskSensor</code>: espera la finalización de una tarea en otro DAG.</li>
+</ul>
+<pre><code class="language-python">from airflow.operators.dagrun_operator import TriggerDagRunOperator
+
+trigger = TriggerDagRunOperator(
+    task_id=&quot;trigger_otros_dag&quot;,
+    trigger_dag_id=&quot;subdag_etl&quot;,
+    dag=dag
+)
+</code></pre>
+<h3 id="442-sistema-de-alertas-y-notificaciones">4.4.2 Sistema de alertas y notificaciones</h3>
+<p>Airflow permite configurar alertas automáticas que se disparan cuando las tareas fallan, se retrasan o se comportan de forma inesperada. Estas alertas pueden enviarse por correo electrónico, Slack, Microsoft Teams u otros canales, facilitando la respuesta rápida a incidentes.</p>
+<h5 id="configuracion-basica-de-notificaciones-por-correo-electronico">Configuración básica de notificaciones por correo electrónico</h5>
+<p>Se pueden configurar notificaciones usando los parámetros <code>email</code>, <code>email_on_failure</code>, <code>email_on_retry</code> en la definición de tareas.</p>
+<pre><code class="language-python">from airflow.operators.dummy import DummyOperator
+
+DummyOperator(
+    task_id=&quot;tarea_con_alerta&quot;,
+    email=[&quot;alertas@empresa.com&quot;],
+    email_on_failure=True,
+    retries=1,
+    retry_delay=timedelta(minutes=5),
+    dag=dag
+)
+</code></pre>
+<p>A nivel global, se configuran en <code>airflow.cfg</code> o variables de entorno (<code>SMTP_HOST</code>, <code>SMTP_USER</code>, etc.).</p>
+<h5 id="integracion-con-herramientas-de-monitoreo-y-mensajeria">Integración con herramientas de monitoreo y mensajería</h5>
+<p>Airflow puede integrarse con servicios como Slack o Microsoft Teams usando hooks o callbacks personalizados.</p>
+<p><strong>Callback para Slack:</strong></p>
+<pre><code class="language-python">def enviar_mensaje_slack(context):
+    mensaje = f&quot;Tarea {context['task_instance_key_str']} falló.&quot;
+    # Aquí se llamaría un webhook Slack
+
+from airflow.operators.python import PythonOperator
+
+tarea = PythonOperator(
+    task_id=&quot;tarea_notificada&quot;,
+    python_callable=mi_funcion,
+    on_failure_callback=enviar_mensaje_slack,
+    dag=dag
+)
+</code></pre>
+<p>También existen integraciones listas como [SlackWebhookOperator].</p>
+<h3 id="443-logging-y-debugging">4.4.3 Logging y debugging</h3>
+<p>El sistema de logging de Airflow permite capturar, visualizar y analizar los eventos que ocurren durante la ejecución de tareas. Estos logs son fundamentales para depurar errores, evaluar el comportamiento de los DAGs y hacer troubleshooting en producción.</p>
+<h5 id="visualizacion-de-logs-por-tarea-en-la-ui">Visualización de logs por tarea en la UI</h5>
+<p>Cada tarea ejecutada genera un log accesible desde la interfaz web. Estos logs pueden ser configurados para almacenarse localmente o en la nube (S3, GCS, Azure Blob).</p>
+<p>Configuración en <code>airflow.cfg</code>:</p>
+<pre><code class="language-ini">[logging]
+base_log_folder = /opt/airflow/logs
+remote_logging = True
+remote_log_conn_id = MyS3Connection
+remote_base_log_folder = s3://airflow-logs
+</code></pre>
+<p>Esto asegura que los logs estén centralizados y disponibles para auditoría.</p>
+<h5 id="niveles-de-logging-y-debugging-en-desarrollo">Niveles de logging y debugging en desarrollo</h5>
+<p>Durante la fase de desarrollo, es común usar niveles de logging como <code>DEBUG</code>, <code>INFO</code>, <code>WARNING</code>, <code>ERROR</code>.</p>
+<pre><code class="language-python">import logging
+
+def mi_funcion(**kwargs):
+    logging.info(&quot;Inicio de la función&quot;)
+    try:
+        resultado = 1 / 0
+    except ZeroDivisionError:
+        logging.error(&quot;División por cero detectada&quot;, exc_info=True)
+</code></pre>
+<p>También es posible ejecutar DAGs en modo manual (<code>airflow dags test</code>) para obtener retroalimentación inmediata sin esperar al scheduler.</p>
+<h2 id="tarea">Tarea</h2>
+<p>Desarrolla los siguientes ejercicios prácticos:</p>
+<ol>
+<li>Diseña un DAG con 5 tareas, donde se evidencie la gestión correcta de dependencias usando <code>&gt;&gt;</code> y <code>&lt;&lt;</code>.</li>
+<li>Implementa un DAG maestro que dispare otro DAG secundario mediante <code>TriggerDagRunOperator</code> y asegúrate de que este último se ejecute correctamente.</li>
+<li>Configura una tarea que envíe una notificación por correo electrónico en caso de fallo. Prueba intencionalmente el fallo para verificar el envío.</li>
+<li>Integra una alerta personalizada usando una función Python que simule el envío de un mensaje a Slack o Teams en caso de fallo.</li>
+<li>Revisa los logs de ejecución de un DAG que falle, identifica el error, corrígelo y vuelve a ejecutar. Adjunta capturas o fragmentos del log que justifiquen tu análisis.</li>
+</ol>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../tema43/" class="btn btn-neutral float-left" title="DAGs, operadores y tareas"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../tema45/" class="btn btn-neutral float-right" title="Monitoreo y manejo de dependencias">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../tema43/" class="btn btn-neutral float-left" title="Integración con ecosistema Big Data"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../tema51/" class="btn btn-neutral float-right" title="Desarrollo del proyecto integrador">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -166,7 +294,7 @@
       <span><a href="../tema43/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../tema45/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../tema51/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

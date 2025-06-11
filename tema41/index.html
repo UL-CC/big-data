@@ -88,17 +88,53 @@
               <ul class="current">
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">Arquitectura y componentes de Airflow</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#tema-21-operaciones-con-dataframes">Tema 2.1. Operaciones con DataFrames</a>
+    <li class="toctree-l2"><a class="reference internal" href="#tema-41-arquitectura-y-componentes-de-airflow">Tema 4.1. Arquitectura y componentes de Airflow</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#411-webserver-scheduler-executor-metadata-database">4.1.1 Webserver, Scheduler, Executor, Metadata Database</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#webserver">Webserver</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#scheduler">Scheduler</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#executor">Executor</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#metadata-database">Metadata Database</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#412-workers-y-tipos-de-executors-local-celery-kubernetes-celerykubernetes">4.1.2 Workers y tipos de executors (Local, Celery, Kubernetes, CeleryKubernetes)</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#localexecutor">LocalExecutor</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#celeryexecutor">CeleryExecutor</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kubernetesexecutor">KubernetesExecutor</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#celerykubernetesexecutor">CeleryKubernetesExecutor</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#413-configuracion-y-variables-de-entorno">4.1.3 Configuración y variables de entorno</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#archivo-airflowcfg">Archivo airflow.cfg</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#variables-de-entorno">Variables de entorno</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#variables-y-conexiones-en-la-interfaz">Variables y conexiones en la interfaz</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tarea">Tarea</a>
     </li>
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema42/">Instalación local usando Docker</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema42/">DAGs, operadores y tareas</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema43/">DAGs, operadores y tareas</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema43/">Integración con ecosistema Big Data</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema44/">Uso de `BashOperator`, `PythonOperator` y `SparkSubmitOperator`</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema45/">Monitoreo y manejo de dependencias</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema44/">Monitoreo, logging y manejo de dependencias</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Proyecto Integrador y Despliegue</span></p>
@@ -133,14 +169,185 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="4-automatizacion-y-orquestacion-con-apache-airflow">4. Automatización y Orquestación con Apache Airflow</h1>
-<h2 id="tema-21-operaciones-con-dataframes">Tema 2.1. Operaciones con DataFrames</h2>
-<p><em>Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.</em></p>
+<h2 id="tema-41-arquitectura-y-componentes-de-airflow">Tema 4.1. Arquitectura y componentes de Airflow</h2>
+<p><strong>Objetivo</strong>:</p>
+<p>Comprender y analizar los componentes fundamentales de Apache Airflow, su arquitectura interna y las configuraciones necesarias para su implementación, con el fin de diseñar flujos de trabajo robustos, escalables y mantenibles en entornos de Big Data.</p>
+<p><strong>Introducción</strong>:</p>
+<p>Apache Airflow es una plataforma open-source para la orquestación de flujos de trabajo basada en programación. Su arquitectura modular y escalable permite coordinar tareas distribuidas, administrar dependencias entre procesos y monitorear su ejecución en tiempo real. Para aprovechar todo su potencial, es necesario conocer a fondo sus componentes principales y cómo se interrelacionan, así como las opciones de configuración y despliegue disponibles.</p>
+<p><strong>Desarrollo</strong>:</p>
+<p>El núcleo de Apache Airflow se basa en una arquitectura distribuida compuesta por múltiples servicios que trabajan de manera coordinada: un Webserver para la interfaz de usuario, un Scheduler para planificar y lanzar tareas, un Executor para ejecutar las tareas, una base de datos de metadatos que registra el estado de las ejecuciones y, en algunos casos, Workers que procesan las tareas. Esta arquitectura flexible permite escalar desde una instalación local simple hasta implementaciones en clústeres de Kubernetes o en la nube. La comprensión profunda de estos componentes, junto con el manejo adecuado de configuraciones y variables de entorno, permite adaptar Airflow a una amplia variedad de contextos y necesidades.</p>
+<h3 id="411-webserver-scheduler-executor-metadata-database">4.1.1 Webserver, Scheduler, Executor, Metadata Database</h3>
+<p>Apache Airflow está compuesto por varios servicios fundamentales que interactúan para programar, ejecutar y monitorear flujos de trabajo (DAGs). Cada componente cumple un rol específico y puede escalarse de manera independiente.</p>
+<h5 id="webserver">Webserver</h5>
+<p>El Webserver es el componente que proporciona la interfaz gráfica de usuario (GUI) de Airflow. A través de esta interfaz, los usuarios pueden visualizar, ejecutar manualmente y monitorear DAGs, revisar logs, configurar conexiones y más. Corre típicamente en un proceso separado y puede desplegarse detrás de un balanceador de carga para escalar horizontalmente.</p>
+<ul>
+<li>Ofrece paneles para: DAGs, tareas, logs, variables, pools, conexiones y más.</li>
+<li>Admite autenticación (LDAP, OAuth, Kerberos, etc.)</li>
+<li>Corre como un servicio Flask, basado en Gunicorn para producción.</li>
+</ul>
+<h5 id="scheduler">Scheduler</h5>
+<p>El Scheduler es el componente responsable de analizar los DAGs y programar las tareas según su configuración (<code>schedule_interval</code>, dependencias, etc.). Se encarga de colocar las tareas listas en la cola de ejecución correspondiente según el Executor en uso.</p>
+<ul>
+<li>Revisa constantemente la base de metadatos para detectar DAGs nuevos o actualizados.</li>
+<li>Evalúa dependencias y lanza tareas según su planificación y estado.</li>
+<li>Requiere alta disponibilidad en entornos de producción (puede ejecutarse en múltiples instancias).</li>
+</ul>
+<h5 id="executor">Executor</h5>
+<p>El Executor es el componente que decide cómo y dónde se ejecutan las tareas. Define el modelo de ejecución, ya sea en el mismo proceso (LocalExecutor), en Workers (CeleryExecutor), o en pods (KubernetesExecutor).</p>
+<ul>
+<li>Es una de las piezas clave para definir la escalabilidad del sistema.</li>
+<li>Determina si las tareas se ejecutan de forma secuencial, paralela o distribuida.</li>
+</ul>
+<h5 id="metadata-database">Metadata Database</h5>
+<p>Airflow utiliza una base de datos relacional (PostgreSQL o MySQL) para almacenar metadatos de la ejecución: estado de DAGs y tareas, logs, registros de ejecución, variables, conexiones, etc.</p>
+<ul>
+<li>Es el <strong>estado centralizado</strong> del sistema.</li>
+<li>Debe estar siempre disponible y respaldada.</li>
+<li>Permite trazabilidad y auditoría completa de los flujos de trabajo.</li>
+</ul>
+<h3 id="412-workers-y-tipos-de-executors-local-celery-kubernetes-celerykubernetes">4.1.2 Workers y tipos de executors (Local, Celery, Kubernetes, CeleryKubernetes)</h3>
+<p>El tipo de <strong>Executor</strong> elegido determina si es necesario usar Workers y define cómo se distribuyen y ejecutan las tareas de los DAGs. Airflow soporta varios modelos de ejecución, cada uno adecuado para diferentes escenarios.</p>
+<h5 id="localexecutor">LocalExecutor</h5>
+<ul>
+<li>Ejecuta las tareas en procesos paralelos dentro del mismo nodo donde se ejecuta el Scheduler.</li>
+<li>Útil para entornos de desarrollo o producción ligera.</li>
+<li>No requiere Workers externos.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Ventajas</th>
+<th style="text-align: left;">Limitaciones</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Simple de configurar</td>
+<td style="text-align: left;">No se distribuye entre nodos</td>
+</tr>
+<tr>
+<td style="text-align: left;">Sin dependencias adicionales (como colas o clústeres)</td>
+<td style="text-align: left;">Escalabilidad limitada a los recursos del host</td>
+</tr>
+</tbody>
+</table>
+<h5 id="celeryexecutor">CeleryExecutor</h5>
+<ul>
+<li>Usa <strong>Celery</strong> como backend de procesamiento distribuido y <strong>RabbitMQ</strong> o <strong>Redis</strong> como broker de mensajes.</li>
+<li>Permite escalar horizontalmente mediante Workers externos que procesan tareas desde una cola.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Ventajas</th>
+<th style="text-align: left;">Limitaciones</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Altamente escalable</td>
+<td style="text-align: left;">Mayor complejidad operativa</td>
+</tr>
+<tr>
+<td style="text-align: left;">Separación clara entre Scheduler y ejecución de tareas</td>
+<td style="text-align: left;">Necesita configuración de broker y backend de resultados</td>
+</tr>
+</tbody>
+</table>
+<h5 id="kubernetesexecutor">KubernetesExecutor</h5>
+<ul>
+<li>Cada tarea se ejecuta como un <strong>pod independiente</strong> en un clúster de Kubernetes.</li>
+<li>Ideal para entornos cloud-native y escalabilidad extrema.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Ventajas</th>
+<th style="text-align: left;">Limitaciones</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Escalabilidad automática</td>
+<td style="text-align: left;">Requiere experiencia en Kubernetes</td>
+</tr>
+<tr>
+<td style="text-align: left;">Aislamiento total de tareas</td>
+<td style="text-align: left;">Inicialización de pods puede añadir latencia</td>
+</tr>
+<tr>
+<td style="text-align: left;">Integración nativa con servicios de nube</td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<h5 id="celerykubernetesexecutor">CeleryKubernetesExecutor</h5>
+<ul>
+<li>Híbrido entre Celery y Kubernetes.</li>
+<li>Algunas tareas se ejecutan en Workers Celery, y otras en pods Kubernetes.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Ventajas</th>
+<th style="text-align: left;">Limitaciones</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Permite flexibilidad en entornos híbridos</td>
+<td style="text-align: left;">Complejidad elevada de configuración y monitoreo</td>
+</tr>
+<tr>
+<td style="text-align: left;">Equilibrio entre tareas persistentes y dinámicas</td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="413-configuracion-y-variables-de-entorno">4.1.3 Configuración y variables de entorno</h3>
+<p>Airflow permite configurar su comportamiento mediante archivos, variables de entorno y parámetros internos. Esto otorga flexibilidad para adaptarse a múltiples entornos: local, CI/CD, nube, clústeres distribuidos, etc.</p>
+<h5 id="archivo-airflowcfg">Archivo <code>airflow.cfg</code></h5>
+<p>Es el archivo principal de configuración de Airflow. Contiene más de 70 parámetros organizados por secciones: <code>core</code>, <code>scheduler</code>, <code>webserver</code>, <code>logging</code>, <code>executor</code>, entre otros.</p>
+<ul>
+<li>Define la conexión a la base de datos (<code>sql_alchemy_conn</code>).</li>
+<li>Determina el tipo de executor.</li>
+<li>Configura el path de los DAGs.</li>
+<li>Controla la frecuencia de chequeo del scheduler, la política de retries, etc.</li>
+</ul>
+<p>Este archivo puede ser sobrescrito o templado en entornos Dockerizados o de nube.</p>
+<h5 id="variables-de-entorno">Variables de entorno</h5>
+<p>Airflow permite sobrescribir cualquier configuración de <code>airflow.cfg</code> mediante variables de entorno, utilizando el prefijo <code>AIRFLOW__</code>. Por ejemplo:</p>
+<ul>
+<li><code>AIRFLOW__CORE__SQL_ALCHEMY_CONN</code>: define la URL de la base de datos.</li>
+<li><code>AIRFLOW__CORE__EXECUTOR</code>: define el tipo de executor.</li>
+</ul>
+<p>Esto es especialmente útil en entornos de contenedores, pipelines de CI/CD o despliegues cloud.</p>
+<h5 id="variables-y-conexiones-en-la-interfaz">Variables y conexiones en la interfaz</h5>
+<p>Además de variables de entorno del sistema, Airflow permite definir <strong>variables internas</strong> (<code>Variables</code>) y <strong>conexiones</strong> (<code>Connections</code>) desde la UI o CLI:</p>
+<ul>
+<li><code>Variables</code>: parámetros reutilizables dentro de los DAGs.</li>
+<li><code>Connections</code>: credenciales y URIs de servicios externos (bases de datos, APIs, buckets, etc.)</li>
+</ul>
+<p>Estas son accesibles desde los DAGs mediante la API interna de Airflow (<code>Variable.get()</code>, <code>BaseHook.get_connection()</code>).</p>
+<h2 id="tarea">Tarea</h2>
+<ol>
+<li>¿Qué componente de Airflow proporciona la interfaz gráfica de usuario?</li>
+<li>¿Cuál es el rol principal del Scheduler en la arquitectura de Airflow?</li>
+<li>¿Qué tipo de executor se recomienda para ambientes con Kubernetes?</li>
+<li>¿Cuál es la función del archivo <code>airflow.cfg</code>?</li>
+<li>¿Qué base de datos se utiliza para almacenar metadatos en Airflow?</li>
+<li>Menciona dos ventajas del CeleryExecutor frente al LocalExecutor.</li>
+<li>¿Qué significa <code>AIRFLOW__CORE__EXECUTOR</code>?</li>
+<li>¿Qué componente almacena el historial de ejecuciones y tareas?</li>
+<li>¿Cuál es la diferencia entre una Variable y una Connection en Airflow?</li>
+<li>¿Para qué sirve la configuración <code>sql_alchemy_conn</code>?</li>
+</ol>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
         <a href="../tema37/" class="btn btn-neutral float-left" title="Patrones de Diseño y Optimización en la Nube"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../tema42/" class="btn btn-neutral float-right" title="Instalación local usando Docker">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../tema42/" class="btn btn-neutral float-right" title="DAGs, operadores y tareas">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>

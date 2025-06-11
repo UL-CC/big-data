@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>DAGs, operadores y tareas - Métodos de Procesamiento y Análisis de Big Data</title>
+    <title>Integración con ecosistema Big Data - Métodos de Procesamiento y Análisis de Big Data</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "DAGs, operadores y tareas";
+        var mkdocs_page_name = "Integraci\u00f3n con ecosistema Big Data";
         var mkdocs_page_input_path = "tema43.md";
         var mkdocs_page_url = null;
       </script>
@@ -88,17 +88,53 @@
               <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../tema41/">Arquitectura y componentes de Airflow</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema42/">Instalación local usando Docker</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema42/">DAGs, operadores y tareas</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">DAGs, operadores y tareas</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Integración con ecosistema Big Data</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#tema-21-operaciones-con-dataframes">Tema 2.1. Operaciones con DataFrames</a>
+    <li class="toctree-l2"><a class="reference internal" href="#43-integracion-con-ecosistema-big-data">4.3. Integración con ecosistema Big Data</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#431-sparksubmitoperator-y-configuracion-con-spark">4.3.1 SparkSubmitOperator y configuración con Spark</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#configuracion-del-sparksubmitoperator">Configuración del SparkSubmitOperator</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#orquestacion-de-un-flujo-de-limpieza-de-datos-con-pyspark">Orquestación de un flujo de limpieza de datos con PySpark</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#432-integracion-con-hadoop-hive-hdfs">4.3.2 Integración con Hadoop, Hive, HDFS</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#hadoop-y-hdfs">Hadoop y HDFS</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#hive">Hive</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#433-conectores-cloud">4.3.3 Conectores cloud</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#aws">AWS</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#gcp">GCP</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#azure">Azure</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#434-operadores-de-bases-de-datos-y-apis">4.3.4 Operadores de bases de datos y APIs</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#operadores-de-bases-de-datos">Operadores de bases de datos</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#apis-con-httpoperator">APIs con HttpOperator</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tarea">Tarea</a>
     </li>
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema44/">Uso de `BashOperator`, `PythonOperator` y `SparkSubmitOperator`</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tema45/">Monitoreo y manejo de dependencias</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tema44/">Monitoreo, logging y manejo de dependencias</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Proyecto Integrador y Despliegue</span></p>
@@ -123,7 +159,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
           <li class="breadcrumb-item">Automatización y Orquestación con Apache Airflow</li>
-      <li class="breadcrumb-item active">DAGs, operadores y tareas</li>
+      <li class="breadcrumb-item active">Integración con ecosistema Big Data</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -133,14 +169,156 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="4-automatizacion-y-orquestacion-con-apache-airflow">4. Automatización y Orquestación con Apache Airflow</h1>
-<h2 id="tema-21-operaciones-con-dataframes">Tema 2.1. Operaciones con DataFrames</h2>
-<p><em>Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.</em></p>
+<h2 id="43-integracion-con-ecosistema-big-data">4.3. Integración con ecosistema Big Data</h2>
+<p><strong>Objetivo:</strong></p>
+<p>Comprender y aplicar la integración de Apache Airflow con herramientas y servicios del ecosistema Big Data, incluyendo motores de procesamiento como Spark, sistemas distribuidos como Hadoop y Hive, almacenamiento como HDFS, conectores en la nube (AWS, GCP, Azure) y operadores para bases de datos y APIs, permitiendo la orquestación automatizada de flujos de datos complejos en arquitecturas modernas.</p>
+<p><strong>Introducción:</strong></p>
+<p>En los entornos de Big Data, los flujos de trabajo rara vez están aislados. Normalmente interactúan con múltiples plataformas, motores de procesamiento y servicios en la nube. Apache Airflow, como herramienta de orquestación, proporciona operadores, hooks y mecanismos de conexión para facilitar esta integración, permitiendo ejecutar tareas en Spark, consultar datos en Hive, mover archivos en HDFS y conectar con servicios en AWS, GCP o Azure.</p>
+<p><strong>Desarrollo:</strong></p>
+<p>La integración de Airflow con el ecosistema Big Data permite automatizar procesos complejos distribuidos, reduciendo errores manuales y mejorando la eficiencia. Usando operadores específicos, Airflow se convierte en un controlador central capaz de invocar jobs de Spark, consultar tablas Hive, interactuar con buckets de almacenamiento en la nube o consumir APIs externas. Esta capacidad de integración lo convierte en una herramienta esencial para arquitecturas de datos modernas orientadas a pipelines escalables y mantenibles.</p>
+<h3 id="431-sparksubmitoperator-y-configuracion-con-spark">4.3.1 SparkSubmitOperator y configuración con Spark</h3>
+<p><strong>Apache Spark</strong> es un motor unificado de análisis de datos de código abierto, diseñado para el procesamiento de datos a gran escala. Es ampliamente utilizado en diversas aplicaciones, incluyendo la <strong>extracción, transformación y carga (ETL)</strong> de datos, el procesamiento de <em>streaming</em> en tiempo real, el aprendizaje automático (<strong>Machine Learning</strong>) y los gráficos. Su capacidad para manejar grandes volúmenes de datos de manera distribuida y eficiente lo convierte en una herramienta fundamental en los ecosistemas de <em>big data</em>.</p>
+<p><strong>Apache Airflow</strong>, como orquestador de flujos de trabajo, ofrece una integración nativa y robusta con Spark, permitiendo que tus <strong>DAGs</strong> (Directed Acyclic Graphs) lancen y gestionen <strong>trabajos Spark</strong> directamente. Esta sinergia es crucial para construir <em>pipelines</em> de datos complejos donde el procesamiento distribuido es un requisito. Airflow proporciona el <strong><code>SparkSubmitOperator</code></strong>, una herramienta especializada para esta tarea.</p>
+<h5 id="configuracion-del-sparksubmitoperator">Configuración del SparkSubmitOperator</h5>
+<p>El <code>SparkSubmitOperator</code> en Airflow está diseñado para emular la funcionalidad del comando de línea de comandos <code>spark-submit</code>. Este comando es el principal <em>script</em> utilizado para enviar aplicaciones (escritas en Scala, Java, Python o R) a un clúster Spark.</p>
+<pre><code class="language-python">from airflow.providers.apache.spark.operators.spark_submit import SparkSubmitOperator
+
+spark_task = SparkSubmitOperator(
+    task_id='run_spark_job',
+    application='/path/to/app.py',
+    conn_id='spark_default',
+    executor_memory='2g',
+    total_executor_cores=4,
+    name='example_spark_job',
+    dag=dag
+)
+</code></pre>
+<h5 id="orquestacion-de-un-flujo-de-limpieza-de-datos-con-pyspark">Orquestación de un flujo de limpieza de datos con PySpark</h5>
+<p>Imagina que tienes un flujo de trabajo de datos que requiere una fase crucial de <strong>limpieza y preparación de datos</strong> a gran escala. Para manejar el volumen y la complejidad de estos datos, has desarrollado un <em>script</em> de Python llamado <code>data_cleaning.py</code> que utiliza las capacidades de procesamiento distribuido de <strong>Apache Spark</strong>. Este <em>script</em> está diseñado para ejecutarse en un <strong>clúster Spark</strong>, ya sea local o remoto (como en un entorno de producción).</p>
+<p>Tu objetivo es integrar la ejecución de este <em>script</em> Spark en tu <strong>DAG de Airflow</strong>, de modo que se ejecute como una tarea más dentro de tu <em>pipeline</em> general de datos. Aquí es donde el <strong><code>SparkSubmitOperator</code></strong> de Airflow se vuelve invaluable.</p>
+<pre><code class="language-python">spark_cleaning = SparkSubmitOperator(
+    task_id='clean_data',
+    application='/opt/airflow/scripts/data_cleaning.py',
+    conn_id='spark_local',
+    application_args=['--input', 'hdfs://data/raw', '--output', 'hdfs://data/clean'],
+    dag=dag
+)
+</code></pre>
+<p>Este enfoque permite que el <strong>procesamiento distribuido de Spark</strong> se convierta en una <strong>parte integral y orquestada</strong> de una cadena de tareas más amplia dentro de un DAG de Airflow. Los beneficios clave incluyen:</p>
+<ul>
+<li><strong>Orquestación Centralizada</strong>: Airflow gestiona cuándo y cómo se ejecuta el trabajo Spark, asegurando que ocurra en el momento adecuado, después de que las dependencias previas (por ejemplo, la ingesta de datos) se hayan completado y antes de que las tareas posteriores (por ejemplo, la carga a un <em>data warehouse</em> o la ejecución de un modelo de ML) comiencen.</li>
+<li><strong>Reintentos Automáticos y Manejo de Errores</strong>: Si el trabajo Spark falla, Airflow puede configurarse para reintentar la tarea automáticamente, y su robusto sistema de registro facilita la depuración de cualquier problema.</li>
+<li><strong>Visibilidad y Monitoreo</strong>: Puedes monitorear el estado de tu trabajo Spark directamente desde la interfaz de usuario de Airflow, viendo si está en ejecución, ha tenido éxito o ha fallado, e incluso acceder a los registros del <em>driver</em> de Spark.</li>
+<li><strong>Parametrización Dinámica</strong>: Utilizando el templating de Jinja2 o pasando argumentos dinámicamente, puedes hacer que tus trabajos Spark sean aún más flexibles, por ejemplo, procesando datos para una fecha específica (<code>{{ ds }}</code>) o para un entorno particular.</li>
+</ul>
+<h3 id="432-integracion-con-hadoop-hive-hdfs">4.3.2 Integración con Hadoop, Hive, HDFS</h3>
+<p>Apache Airflow puede interactuar con el ecosistema Hadoop gracias a sus hooks y operadores especializados, facilitando tareas como mover archivos en HDFS o ejecutar queries en Hive.</p>
+<h5 id="hadoop-y-hdfs">Hadoop y HDFS</h5>
+<p>Airflow puede conectarse con HDFS usando el <code>HdfsHook</code> y <code>HdfsSensor</code> para detectar archivos o mover datos entre sistemas.</p>
+<pre><code class="language-python">from airflow.providers.apache.hdfs.sensors.hdfs import HdfsSensor
+
+hdfs_check = HdfsSensor(
+    task_id='check_file_in_hdfs',
+    filepath='/data/input/file.csv',
+    hdfs_conn_id='hdfs_default',
+    dag=dag
+)
+</code></pre>
+<p>Este sensor espera hasta que el archivo esté disponible para iniciar tareas posteriores.</p>
+<h5 id="hive">Hive</h5>
+<p>Para consultas SQL en Hive, Airflow ofrece el <code>HiveOperator</code>. También se puede usar <code>HivePartitionSensor</code> para esperar hasta que se cree una partición.</p>
+<pre><code class="language-python">from airflow.providers.apache.hive.operators.hive import HiveOperator
+
+hive_query = HiveOperator(
+    task_id='run_hive_query',
+    hql='SELECT COUNT(*) FROM transactions WHERE amount &gt; 1000;',
+    hive_cli_conn_id='hive_conn',
+    dag=dag
+)
+</code></pre>
+<h3 id="433-conectores-cloud">4.3.3 Conectores cloud</h3>
+<p>Airflow incluye conectores y operadores especializados para interactuar con servicios cloud como AWS, GCP y Azure.</p>
+<h5 id="aws">AWS</h5>
+<p>Airflow proporciona operadores para S3, Redshift, Athena, EMR, entre otros.</p>
+<pre><code class="language-python">from airflow.providers.amazon.aws.operators.s3 import S3CreateObjectOperator
+
+upload_to_s3 = S3CreateObjectOperator(
+    task_id='upload_file',
+    s3_bucket='my-bucket',
+    s3_key='data/output.json',
+    data='{&quot;status&quot;: &quot;ok&quot;}',
+    aws_conn_id='aws_default',
+    dag=dag
+)
+</code></pre>
+<h5 id="gcp">GCP</h5>
+<p>Airflow permite orquestar servicios como BigQuery, GCS, Cloud Functions, Dataproc.</p>
+<pre><code class="language-python">from airflow.providers.google.cloud.operators.bigquery import BigQueryInsertJobOperator
+
+bq_query = BigQueryInsertJobOperator(
+    task_id=&quot;run_bq_query&quot;,
+    configuration={
+        &quot;query&quot;: {
+            &quot;query&quot;: &quot;SELECT * FROM my_dataset.table WHERE active = TRUE&quot;,
+            &quot;useLegacySql&quot;: False,
+        }
+    },
+    gcp_conn_id=&quot;google_cloud_default&quot;,
+    dag=dag
+)
+</code></pre>
+<h5 id="azure">Azure</h5>
+<p>Airflow también soporta Blob Storage, Data Lake y Synapse Analytics.</p>
+<pre><code class="language-python">from airflow.providers.microsoft.azure.operators.wasb_delete_blob import WasbDeleteBlobOperator
+
+delete_blob = WasbDeleteBlobOperator(
+    task_id='delete_blob',
+    container_name='datalake',
+    blob_name='old/file.csv',
+    wasb_conn_id='azure_blob_conn',
+    dag=dag
+)
+</code></pre>
+<h3 id="434-operadores-de-bases-de-datos-y-apis">4.3.4 Operadores de bases de datos y APIs</h3>
+<p>Airflow facilita el acceso a bases de datos relacionales y APIs mediante operadores y hooks genéricos y específicos.</p>
+<h5 id="operadores-de-bases-de-datos">Operadores de bases de datos</h5>
+<p>Operadores como <code>PostgresOperator</code>, <code>MySqlOperator</code>, <code>SqliteOperator</code>, entre otros, permiten ejecutar sentencias SQL como parte de un flujo.</p>
+<pre><code class="language-python">from airflow.providers.postgres.operators.postgres import PostgresOperator
+
+run_sql = PostgresOperator(
+    task_id='insert_data',
+    sql='INSERT INTO logs (message) VALUES (\'Pipeline success\');',
+    postgres_conn_id='postgres_default',
+    dag=dag
+)
+</code></pre>
+<h5 id="apis-con-httpoperator">APIs con HttpOperator</h5>
+<p>Airflow también permite interactuar con APIs REST.</p>
+<pre><code class="language-python">from airflow.providers.http.operators.http import SimpleHttpOperator
+
+call_api = SimpleHttpOperator(
+    task_id='call_rest_api',
+    http_conn_id='api_service',
+    endpoint='/status',
+    method='GET',
+    dag=dag
+)
+</code></pre>
+<h2 id="tarea">Tarea</h2>
+<p>Realiza los siguientes ejercicios prácticos para afianzar los conocimientos del tema 4.3:</p>
+<ol>
+<li><strong>Construye un DAG que lance un trabajo PySpark usando <code>SparkSubmitOperator</code></strong> con parámetros dinámicos enviados desde <code>Variable</code> o <code>Jinja2</code>.</li>
+<li><strong>Diseña un DAG que espere un archivo en HDFS</strong> con <code>HdfsSensor</code> y luego ejecute una consulta sobre una tabla Hive.</li>
+<li><strong>Crea un DAG con dos tareas:</strong> la primera debe cargar un archivo JSON a un bucket de S3, y la segunda debe notificar por API cuando el archivo haya sido subido correctamente.</li>
+<li><strong>Integra Airflow con BigQuery y diseña una consulta parametrizada</strong> que se ejecute todos los días y almacene los resultados en una tabla destino.</li>
+<li><strong>Crea un DAG que consuma una API pública</strong>, almacene la respuesta en una base de datos Postgres y registre el evento en una tabla de auditoría.</li>
+</ol>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../tema42/" class="btn btn-neutral float-left" title="Instalación local usando Docker"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../tema44/" class="btn btn-neutral float-right" title="Uso de `BashOperator`, `PythonOperator` y `SparkSubmitOperator`">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../tema42/" class="btn btn-neutral float-left" title="DAGs, operadores y tareas"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../tema44/" class="btn btn-neutral float-right" title="Monitoreo, logging y manejo de dependencias">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
